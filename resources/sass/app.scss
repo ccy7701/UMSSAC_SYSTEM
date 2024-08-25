@@ -1,9 +1,10 @@
-// Import Bootstrap SCSS
+$btn-primary-bg: #1064D6;
+
 @import "node_modules/bootstrap/scss/bootstrap";
-// Import Google Fonts
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;300;400;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@100;300;400;700;900&display=swap');
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Roboto+Slab:wght@100;300;400;700;900&family=Roboto+Serif:wght@100;300;400;700;900&display=swap');
+@import 'pages/features';
+@import 'pages/welcome';
 
 html {
     font-size: 16px;
@@ -21,39 +22,8 @@ html {
     font-family: 'Roboto Slab', serif;
 }
 
-.welcome-body {
-    background-color: #EAF2FD;
-    height: 100%;
-    overflow: hidden;
-}
-
-.welcome-nav {
-    text-align: end;
-}
-
-.welcome-title {
-    font-size: 5rem;
-}
-
-.welcome-subtitle {
-    font-size: 2.5rem;
-}
-
-.image-carousel {
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.carousel-track {
-    display: flex;
-    width: calc(100% * 2);
-    animation: welcome-scroll 90s linear infinite;
-}
-
-.carousel-track img {
-    width: 16.66%;
-    flex-shrink: 0;
-    object-fit: cover;
+.btn-primary {
+    background-color: $btn-primary-bg;
 }
 
 @media (max-width: 1400px) {
@@ -61,58 +31,17 @@ html {
 }
 
 @media (max-width: 1200px) {
-    .welcome-title {
-        font-size: 4.0rem;
-    }
-    .welcome-subtitle {
-        font-size: 2.25rem;
-    }
-    .carousel-track img {
-        width: 50.00%
-    }
+
 }
 
 @media (max-width: 992px) {
-    .welcome-title {
-        font-size: 3.0rem;
-    }
-    .welcome-subtitle {
-        font-size: 2.0rem;
-    }
-    .carousel-track img {
-        width: 50.00%
-    }
+
 }
 
 @media (max-width: 768px) {
-    .welcome-title {
-        font-size: 2.5rem;
-    }
-    .welcome-subtitle {
-        font-size: 1.5rem;
-    }
-    .carousel-track img {
-        width: 50.00%;
-    }
+
 }
 
 @media (max-width: 576px) {
-    .welcome-website-logo {
-        width: 50.00%;
-    }
-    .welcome-nav {
-        text-align: center;
-    }
-    .carousel-track img {
-        width: 75.00%;
-    }
-}
 
-@keyframes welcome-scroll {
-    from {
-        tranform: translateX(0);
-    }
-    to {
-        transform: translateX(-100%);
-    }
 }

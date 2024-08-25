@@ -14,11 +14,13 @@
         <div class="row align-items-center">
             <!-- Logo section -->
             <div class="col-md-3 col-sm-4 col-xs-12 py-2 text-center">
-                <img src="{{ asset('images/UMSSACS_LOGO_FINAL.png') }}" alt="UMSSACS logo" class="welcome-website-logo img-fluid">
+                <a href="{{ url('/welcome') }}">
+                    <img src="{{ asset('images/UMSSACS_LOGO_FINAL.png') }}" alt="UMSSACS logo" class="welcome-website-logo img-fluid">
+                </a>
             </div>
             <!-- Links and buttons section -->
             <div class="welcome-nav col-md-9 col-sm-8 col-xs-12 py-2">
-                <a href="#" class="rsans text-decoration-none text-dark fw-bold px-3">Features</a>
+                <a href="{{ url('/features') }}" class="rsans text-decoration-none text-dark fw-bold px-3">Features</a>
                 <a href="#" class="rsans text-decoration-none text-dark fw-bold px-3">Login</a>
                 <a href="#" class="rsans btn btn-primary fw-bold px-3 mx-2">Get started</a>
             </div>
