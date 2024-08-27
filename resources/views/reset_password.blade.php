@@ -29,7 +29,7 @@
                                 <div class="mb-3">
                                     <label for="email" class="rsans form-label fw-semibold">E-mail address</label>
                                     <div class="input-group">
-                                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                        <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
                                         <input type="email" id="email" name="email" class="form-control" required autofocus">
                                     </div>
                                     <br>

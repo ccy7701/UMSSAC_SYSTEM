@@ -9,7 +9,7 @@
     @vite('resources/sass/app.scss')
 </head>
 
-<body style="height: 100%; overflow: hidden;">
+<body>
     <div class="container-fluid vh-100">
         <div class="row h-100">
             <!-- Left section (login form) -->
@@ -27,31 +27,37 @@
                             <!-- LOGIN FORM -->
                             <form method="POST" action="#" class="py-3">
                                 @csrf
+                                <!-- Role selection -->
                                 <div class="mb-3">
-                                    <!-- Role selection -->
                                     <div class="mb-3 align-items-center">
                                         <label for="accountRole" class="rsans form-label fw-semibold">Select user role</label>
                                         <div>
-                                            <input type="radio" id="accountRoleStudent" name="role" value="1" checked>
+                                            <input type="radio" id="accountRoleStudent" name="accountRole" value="1" checked>
                                             <label for="accountRoleStudent" class="px-2 form-label">Student</label>
-                                            <input type="radio" id="accountRoleFacultyMember" name="role" value="2">
+                                            <input type="radio" id="accountRoleFacultyMember" name="accountRole" value="2">
                                             <label for="accountRoleFacultyMember" class="px-2 form-label">Faculty Member</label>
-                                            <input type="radio" id="accountRoleAdmin" name="role" value="3">
+                                            <input type="radio" id="accountRoleAdmin" name="accountRole" value="3">
                                             <label for="accountRoleAdmin" class="px-2 form-label">Admin</label>
                                         </div>
                                     </div>
-                                    <!-- End role selection -->
-                                    <label for="email" class="rsans form-label fw-semibold">E-mail address</label>
+                                </div>
+                                <!-- End role selection -->
+                                <!-- Login credentials -->
+                                <!-- Email/Matric Number Input -->
+                                <div id="identifierField" class="mb-3">
+                                    <!-- Default to student -->
+                                    <label for="accountMatricNumber" class="rsans form-label fw-semibold">Matric number</label>
                                     <div class="input-group">
-                                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                                        <input type="email" id="email" name="email" class="form-control" required autofocus">
+                                        <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
+                                        <input type="text" id="matricNumber" name="accountMatricNumber" class="form-control" required autofocus>
                                     </div>
                                 </div>
+                                <!-- Password Input -->
                                 <div class="mb-3">
-                                    <label for="password" class="rsans form-label fw-semibold">Password</label>
+                                    <label for="accountPassword" class="rsans form-label fw-semibold">Password</label>
                                     <div class="input-group">
-                                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                                        <input type="password" id="password" name="password" class="form-control" required>
+                                        <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-lock"></i></span>
+                                        <input type="password" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="my-4 text-end">
@@ -60,8 +66,52 @@
                                 <div class="d-flex justify-content-center">
                                     <button type="submit" class="btn btn-primary" style="width: 50%;">Log in</button>
                                 </div>
+                                <!-- End login credentials -->
                             </form>
                             <!-- END LOGIN FORM -->
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    const identifierField = document.getElementById('identifierField');
+                                    const roleRadios = document.querySelectorAll('input[name="accountRole"]');
+
+                                    function updateLoginForm() {
+                                        const selectedRole = document.querySelector('input[name="accountRole"]:checked').value;
+
+                                        if (selectedRole === "1") {
+                                            identifierField.innerHTML = `
+                                                <label for="accountMatricNumber" class="rsans form-label fw-semibold">Matric number</label>
+                                                <div class="input-group">
+                                                    <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
+                                                    <input type="text" id="matricNumber" name="accountMatricNumber" class="form-control" required autofocus>
+                                                </div>
+                                            `;
+                                        } else if (selectedRole === "2") {
+                                            identifierField.innerHTML = `
+                                                <label for="accountEmailAddress" class="rsans form-label fw-semibold">Faculty member e-mail address</label>
+                                                <div class="input-group">
+                                                    <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
+                                                    <input type="text" id="emailAddress" name="accountEmailAddress" class="form-control" required autofocus>
+                                                </div>
+                                            `;
+                                        } else {
+                                            identifierField.innerHTML = `
+                                                <label for="accountEmailAddress" class="rsans form-label fw-semibold">Admin e-mail address</label>
+                                                <div class="input-group">
+                                                    <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
+                                                    <input type="text" id="emailAddress" name="accountEmailAddress" class="form-control" required autofocus>
+                                                </div>
+                                            `;
+                                        }
+                                    }
+
+                                    roleRadios.forEach(radio => {
+                                        radio.addEventListener('change', updateLoginForm);
+                                    });
+
+                                    // Initialise form based on default selected role
+                                    updateLoginForm();
+                                });
+                            </script>
                             <div class="my-2">
                                 <p class="rsans">New user? <a href="{{ route('register') }}" class="rsans fw-semibold link-dark"><u>Register here</u></a></p>
                             </div>
