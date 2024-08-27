@@ -24,60 +24,92 @@
                             <h1 class="rslab fw-bold">Register an account</h1>
                             <p class="rslab fs-4">One step away from your academic companion</p>
                             <!-- REGISTRATION FORM -->
-                            <form method="POST" action="#" class="py-3">
+                            <form method="POST" action="{{ route('account.register') }}" class="py-3">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="accountFullName" class="rsans form-label fw-semibold">Full name</label>
+                                    <label for="fullName" class="rsans form-label fw-semibold">Full name</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-user"></i></span>
-                                        <input type="text" name="accountFullName" class="form-control" required autofocus>
+                                        <input type="text" id="fullName" name="accountFullName" class="form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="accountEmailAddress" class="rsans form-label fw-semibold">E-mail address</label>
+                                    <label for="emailAddress" class="rsans form-label fw-semibold">E-mail address</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                        <input type="email" name="accountEmailAddress" class="form-control" required autofocus>
+                                        <input type="email" id="emailAddress" name="accountEmailAddress" class="form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="accountPassword" class="rsans form-label fw-semibold">Password</label>
+                                    <label for="password" class="rsans form-label fw-semibold">Password</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-lock d-flex"></i></span>
-                                        <input type="password" name="accountPassword" class="form-control" required autofocus>
+                                        <input type="password" id="password" name="accountPassword" class="form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="accountPassword_confirmation" class="rsans form-label fw-semibold">Confirm password</label>
+                                    <label for="password_confirmation" class="rsans form-label fw-semibold">Confirm password</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-check-circle"></i></span>
-                                        <input type="password" name="accountPassword_confirmation" class="form-control" required autofocus>
+                                        <input type="password" id="password_confirmation" name="accountPassword_confirmation" class="form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="accountRole" class="rsans form-label fw-semibold">I am registering as a</label>
-                                    <select class="form-select" id="accountRole">
+                                    <label for="role-select" class="rsans form-label fw-semibold">I am registering as a</label>
+                                    <select class="form-select" id="role-select" name="accountRole">
                                         <option selected disabled value="">Choose...</option>
-                                        <option>Student</option>
-                                        <option>Faculty member</option>
-                                        <option>Admin</option>
+                                        <option value="1">Student</option>
+                                        <option value="2">Faculty member</option>
+                                        <option value="3">Admin</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         Please select a user role.
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="accountMatricNumber" class="rsans form-label fw-semibold">Matric number</label>
+                                    <label for="matricNumber" class="rsans form-label fw-semibold">Matric number</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
-                                        <input type="text" name="accountMatricNumber" class="form-control" required autofocus>
+                                        <input type="text" id="matricNumber" name="accountMatricNumber" class="form-control" autofocus>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center py-3">
                                     <button type="submit" class="btn btn-primary" style="width: 50%;">Register account</button>
                                 </div>
                             </form>
+                            @if ($errors->any())
+                                <br>
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        {{$error}}
+                                    @endforeach
+                                </div>
+                            @endif
                             <!-- END REGISTRATION FORM -->
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const roleSelect = document.getElementById('role-select');
+                                const matricNumberField = document.querySelector('input[name="accountMatricNumber"]');
+                                const matricNumberFormGroup = matricNumberField.closest('.mb-3');
+
+                                function toggleMatricNumberField() {
+                                    if (roleSelect.value === '1') {
+                                        matricNumberFormGroup.style.display = 'block';
+                                        matricNumberField.required = true;
+                                    } else {
+                                        matricNumberFormGroup.style.display = 'none';
+                                        matricNumberField.required = false;
+                                        matricNumberField.value = '';
+                                    }
+                                }
+
+                                // Hide the matric number field initially
+                                matricNumberFormGroup.style.display = 'none';
+
+                                // Add event listener to role select
+                                roleSelect.addEventListener('change', toggleMatricNumberField);
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>

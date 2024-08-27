@@ -25,12 +25,12 @@
                             <p class="rslab fs-4">Login to continue and use UMSSACS tools</p>
 
                             <!-- LOGIN FORM -->
-                            <form method="POST" action="#" class="py-3">
+                            <form method="POST" action="{{ route('account.login') }}" class="py-3">
                                 @csrf
                                 <!-- Role selection -->
                                 <div class="mb-3">
                                     <div class="mb-3 align-items-center">
-                                        <label for="accountRole" class="rsans form-label fw-semibold">Select user role</label>
+                                        <label class="rsans form-label fw-semibold">Select user role</label>
                                         <div>
                                             <input type="radio" id="accountRoleStudent" name="accountRole" value="1" checked>
                                             <label for="accountRoleStudent" class="px-2 form-label">Student</label>
@@ -46,7 +46,7 @@
                                 <!-- Email/Matric Number Input -->
                                 <div id="identifierField" class="mb-3">
                                     <!-- Default to student -->
-                                    <label for="accountMatricNumber" class="rsans form-label fw-semibold">Matric number</label>
+                                    <label for="matricNumber" class="rsans form-label fw-semibold">Matric number</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
                                         <input type="text" id="matricNumber" name="accountMatricNumber" class="form-control" required autofocus>
@@ -54,10 +54,10 @@
                                 </div>
                                 <!-- Password Input -->
                                 <div class="mb-3">
-                                    <label for="accountPassword" class="rsans form-label fw-semibold">Password</label>
+                                    <label for="password" class="rsans form-label fw-semibold">Password</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-lock"></i></span>
-                                        <input type="password" class="form-control" required>
+                                        <input type="password" id="password" name="accountPassword" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="my-4 text-end">
@@ -66,6 +66,14 @@
                                 <div class="d-flex justify-content-center">
                                     <button type="submit" class="btn btn-primary" style="width: 50%;">Log in</button>
                                 </div>
+                                @if ($errors->any())
+                                    <br>
+                                    <div class="alert alert-danger">
+                                        @foreach ($errors->all() as $error)
+                                            {{$error}}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <!-- End login credentials -->
                             </form>
                             <!-- END LOGIN FORM -->
@@ -79,7 +87,7 @@
 
                                         if (selectedRole === "1") {
                                             identifierField.innerHTML = `
-                                                <label for="accountMatricNumber" class="rsans form-label fw-semibold">Matric number</label>
+                                                <label for="matricNumber" class="rsans form-label fw-semibold">Matric number</label>
                                                 <div class="input-group">
                                                     <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
                                                     <input type="text" id="matricNumber" name="accountMatricNumber" class="form-control" required autofocus>
@@ -87,18 +95,18 @@
                                             `;
                                         } else if (selectedRole === "2") {
                                             identifierField.innerHTML = `
-                                                <label for="accountEmailAddress" class="rsans form-label fw-semibold">Faculty member e-mail address</label>
+                                                <label for="fm_emailAddress" class="rsans form-label fw-semibold">Faculty member e-mail address</label>
                                                 <div class="input-group">
                                                     <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                                    <input type="text" id="emailAddress" name="accountEmailAddress" class="form-control" required autofocus>
+                                                    <input type="text" id="fm_emailAddress" name="accountEmailAddress" class="form-control" required autofocus>
                                                 </div>
                                             `;
                                         } else {
                                             identifierField.innerHTML = `
-                                                <label for="accountEmailAddress" class="rsans form-label fw-semibold">Admin e-mail address</label>
+                                                <label for="ad_emailAddress" class="rsans form-label fw-semibold">Admin e-mail address</label>
                                                 <div class="input-group">
                                                     <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                                    <input type="text" id="emailAddress" name="accountEmailAddress" class="form-control" required autofocus>
+                                                    <input type="text" id="ad_emailAddress" name="accountEmailAddress" class="form-control" required autofocus>
                                                 </div>
                                             `;
                                         }
