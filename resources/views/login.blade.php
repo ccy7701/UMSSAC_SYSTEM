@@ -70,7 +70,7 @@
                                     <br>
                                     <div class="alert alert-danger">
                                         @foreach ($errors->all() as $error)
-                                            {{$error}}
+                                            {!! $error !!}
                                         @endforeach
                                     </div>
                                 @endif

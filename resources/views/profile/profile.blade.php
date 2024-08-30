@@ -41,3 +41,7 @@
 </body>
 
 </html>
+
+<!-- TOMORROW WE CONTINUE HERE! 
+    This shall be the profile page.
+-->

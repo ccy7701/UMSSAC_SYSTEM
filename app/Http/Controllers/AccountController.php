@@ -67,16 +67,24 @@ class AccountController extends Controller
             ->where('accountRole', $request->accountRole)
             ->first();
 
-        // Check if the account exists and the password matches
-        if ($account && Hash::check($request->accountPassword, $account->accountPassword)) {
-            Auth::login($account);
-            $request->session()->regenerate();
-            return redirect()->intended('profile');
+        // CASE 1: If the account exists
+        if (!$account) {
+            return back()->withErrors([
+                $field => 'We could not find an account for the login credentials you entered. Please re-enter your credentials and try again or <a href="' . route('register') . '">register an account</a>.',
+            ]);
         }
 
-        return back()->withErrors([
-            $field => 'Login error: Your credentials do not match any account. Please try again.', // KIV
-        ]);
+        // CASE 2: Password does not match
+        if (!Hash::check($request->accountPassword, $account->accountPassword)) {
+            return back()->withErrors([
+                'accountPassword' => 'Incorrect password. Please try again.',
+            ])->withInput();
+        }
+
+        // CASE 3: If everything is correct, log the user in
+        Auth::login($account);
+        $request->session()->regenerate();
+        return redirect()->intended('profile');
     }
 
     public function logout(Request $request) {

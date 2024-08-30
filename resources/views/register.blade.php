@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="password" class="rsans form-label fw-semibold">Password</label>
+                                    <label for="password" class="rsans form-label fw-semibold">Password (minimum 8 characters)</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-lock d-flex"></i></span>
                                         <input type="password" id="password" name="accountPassword" class="form-control" required autofocus>
@@ -110,6 +110,9 @@
                                 roleSelect.addEventListener('change', toggleMatricNumberField);
                                 });
                             </script>
+                            <div class="my-1">
+                                <p class="rsans">Already have an account? <a href="{{ route('login') }}" class="rsans fw-semibold link-dark">Log in</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>
