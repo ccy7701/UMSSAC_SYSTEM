@@ -1,11 +1,4 @@
-<footer class="" style="background-color: #EAF2FD">
-    <!-- 
-    <p>&copy; {{ date('Y') }} Your Company Name. All rights reserved.</p>
-    <p>
-        <a href="#" class="text-white me-3">Privacy Policy</a>
-        <a href="#" class="text-white">Terms of Service</a>
-    </p>
-    -->
+<footer class="w-100" style="background-color: #EAF2FD">
     <div class="container px-5 py-4">
         <div class="row">
             <div class="col-6 text-start align-self-center">

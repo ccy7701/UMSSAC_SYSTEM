@@ -31,6 +31,26 @@ html {
     background-color: #EAF2FD;
 }
 
+.nav-link {
+    border-radius: 10px;
+}
+
+.nav-link:hover {
+    background-color: #DDDDDD;
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.nav-item .dropdown-menu {
+    display: none;
+}
+
+.profile-section-header {
+    border-bottom: 1px solid #E0E0E0;
+}
+
 @media (max-width: 1400px) {
 
 }
@@ -48,5 +68,7 @@ html {
 }
 
 @media (max-width: 576px) {
-
+    .topnav-website-logo {
+        width: 50.00%;
+    }
 }

@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                                 <div class="my-4 text-end">
-                                    <a href="{{ route('reset_password') }}" class="rsans fw-semibold link-dark"><u>Forgot password?</u></a>
+                                    <a href="{{ route('reset-password') }}" class="rsans fw-semibold link-dark"><u>Forgot password?</u></a>
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <button type="submit" class="btn btn-primary" style="width: 50%;">Log in</button>

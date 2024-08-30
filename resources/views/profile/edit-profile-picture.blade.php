@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Edit Profile Picture</title>
     @vite('resources/sass/app.scss')
 </head>
 
@@ -13,36 +13,45 @@
     @include('components.topnav')
     <br>
     <div class="container p-3">
-        <!-- PROFILE PICTURE -->
-        <div class="d-flex align-items-center">
-            <div class="profile-section-header row w-100">
-                <div class="col-md-6 text-start">
-                    <h3 class="rserif fw-bold w-100 py-2">Profile picture</h3>
+        <!-- EDIT PROFILE PICTURE FORM -->
+        <form action="{{ route('profile.edit-profile-picture-action') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="d-flex align-items-center">
+                <div class="profile-section-header row w-100">
+                    <div class="col-md-6 text-start">
+                        <h3 class="rserif fw-bold w-100 py-2">Profile picture</h3>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <a href="javascript:history.back()" class="rsans text-decoration-none text-dark fw-bold px-3">Cancel</a>
+                        <button type="submit" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Save</button>
+                    </div>
                 </div>
-                <div class="col-md-6 text-end">
-                    <a href="{{ route('profile.edit-profile-picture') }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
+            </div>
+            <div class="row align-items-center py-3">
+                <div class="col-md-2 text-center">
+                    <img id="profile-picture-preview" src="{{ Auth::user()->profile && Auth::user()->profile->profilePictureFilePath ? Storage::url(Auth::user()->profile->profilePictureFilePath) : asset('images/no-pic-default.png') }}" class="rounded-circle border" alt="Profile picture" style="width: 200px; height: 200px; object-fit: cover">
+                </div>
+                <div class="col-md-10">
+                    <input id="profile-picture-input" type="file" name="newProfilePicture" class="form-control-file">
                 </div>
             </div>
-        </div>
-        <div class="row align-items-center py-3">
-            <div class="col-md-2 text-center">
-                <img src="{{ Auth::user()->profile && Auth::user()->profile->profilePictureFilePath ? Storage::url(Auth::user()->profile->profilePictureFilePath) : asset('images/no-pic-default.png') }}" class="rounded-circle border" alt="Profile picture" style="width: 200px; height: 200px; object-fit: cover">
-            </div>
-            <div class="col-md-10">
-                <h2 class="rserif fw-bold">Ruan Mei</h2>
-                <p class="rserif text-muted fs-5">Student</p>
-            </div>
-        </div>
-        <br>
+            <br>
+        </form>
+        <script>
+            document.getElementById('profile-picture-input').addEventListener('change', function(event) {
+                const[file] = event.target.files;
+                if (file) {
+                    document.getElementById('profile-picture-preview').src = URL.createObjectURL(file);
+                }
+            });
+        </script>
         <!-- GENERAL -->
         <div class="d-flex align-items-center">
             <div class="profile-section-header row w-100">
                 <div class="col-md-6 text-start">
                     <h3 class="rserif fw-bold w-100 py-2">General</h3>
                 </div>
-                <div class="col-md-6 text-end">
-                    <a href="#" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
-                </div>
+                <div class="col-md-6 text-end"></div>
             </div>
         </div>
         <div class="d-flex justify-content-center align-items-center py-3 w-100 align-self-center">
@@ -80,9 +89,7 @@
                 <div class="col-md-6 text-start">
                     <h3 class="rserif fw-bold w-100 py-2">Account</h3>
                 </div>
-                <div class="col-md-6 text-end">
-                    <a href="#" class="rsans btn btn-primary fw-bold px-2 mx-2 w-25">Change password</a>
-                </div>
+                <div class="col-md-6 text-end"></div>
             </div>
         </div>
         <div class="d-flex justify-content-center align-items-center py-3 w-100 align-self-center">
