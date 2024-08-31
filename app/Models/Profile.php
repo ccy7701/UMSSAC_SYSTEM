@@ -38,21 +38,26 @@ class Profile extends Model
 
     // ACCESSOR: Profile nickname
     public function getProfileNicknameAttribute() {
-        return !empty($this->attributes['profile_nickname']) ? $this->attributes['profile_nickname'] : 'Not filled yet';
+        return !empty($this->attributes['profile_nickname']) ? $this->attributes['profile_nickname'] : '';
     }
 
     // ACCESSOR: Profile enrolment session
     public function getProfileEnrolmentSessionAttribute() {
-        return !empty($this->attributes['profile_enrolment_session']) ? $this->attributes['profile_enrolment_session'] : 'Not filled yet';
+        return !empty($this->attributes['profile_enrolment_session']) ? $this->attributes['profile_enrolment_session'] : '';
     }
 
     // ACCESSOR: Profile faculty
     public function getProfileFacultyAttribute() {
-        return !empty($this->attributes['profile_faculty']) ? $this->attributes['profile_faculty'] : 'Not filled yet';
+        return !empty($this->attributes['profile_faculty']) ? $this->attributes['profile_faculty'] : '';
     }
 
     // ACCESSOR: Profile course
     public function getProfileCourseAttribute() {
-        return !empty($this->attributes['profile_course']) ? $this->attributes['profile_course'] : 'Not filled yet';
+        return !empty($this->attributes['profile_course']) ? $this->attributes['profile_course'] : '';
+    }
+
+    // ACCESSOR: Profile personal description
+    public function getProfilePersonalDescAttribute() {
+        return !empty($this->attributes['profile_personal_desc']) ? $this->attributes['profile_personal_desc'] : '';
     }
 }

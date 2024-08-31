@@ -1,10 +1,100 @@
 {
     "ASTIF": [
-        {"course_code": "1ABC123", "course_name": "Course 1"},
-        {"course_code": "2ABC123", "course_name": "Course 2"}
+        {"course_code": "UH6210001", "course_name": "Visual Arts Technology"},
+        {"course_code": "UH6212001", "course_name": "Music Studies"},
+        {"course_code": "UH6212002", "course_name": "Creative Arts"}
     ],
     "FIS": [
-        {"course_code": "1DEF456", "course_name": "Course 1"},
-        {"course_code": "2DEF456", "course_name": "Course 2"}
+        {"course_code": "UH6221001", "course_name": "Islamic Studies"}
+    ],
+    "FKAL": [
+        {"course_code": "UH6342002", "course_name": "International Marketing"},
+        {"course_code": "UH6343002", "course_name": "International Finance"},
+        {"course_code": "UH6343003", "course_name": "International and Offshore Banking"},
+        {"course_code": "UH6343004", "course_name": "Financial Economics"},
+        {"course_code": "UH6343005", "course_name": "Islamic Finance"}
+    ],
+    "FKIKK": [
+        {"course_code": "UH6481001", "course_name": "Software Engineering"},
+        {"course_code": "UH6481002", "course_name": "Network Engineering"},
+        {"course_code": "UH6481005", "course_name": "Data Science"}
+    ],
+    "FKIKAL": [
+        {"course_code": "UH6481003", "course_name": "Multimedia Technology"},
+        {"course_code": "UH6481004", "course_name": "Business Computing"}
+    ],
+    "FKJ": [
+        {"course_code": "UH4520001", "course_name": "Diploma in Process Engineering (Oil and Gas Operation)"},
+        {"course_code": "UH6521001", "course_name": "Mechanical Engineering"},
+        {"course_code": "UH6523001", "course_name": "Electrical and Electronic Engineering"},
+        {"course_code": "UH6523002", "course_name": "Electronic Engineering (Computer)"},
+        {"course_code": "UH6524001", "course_name": "Chemical Engineering"},
+        {"course_code": "UH6524002", "course_name": "Oil and Gas Engineering"},
+        {"course_code": "UH6526001", "course_name": "Civil Engineering"}
+    ],
+    "FPEP": [
+        {"course_code": "UH6314001", "course_name": "Planning and Development Economics"},
+        {"course_code": "UH6314002", "course_name": "Financial Economics"},
+        {"course_code": "UH6314003", "course_name": "Human Resource Economics"},
+        {"course_code": "UH6342001", "course_name": "Marketing"},
+        {"course_code": "UH6343001", "course_name": "Financial Management and Banking"},
+        {"course_code": "UH6344001", "course_name": "Accounting"},
+        {"course_code": "UH6345001", "course_name": "Entrepreneurship"},
+        {"course_code": "UH6345002", "course_name": "International Business"},
+        {"course_code": "UH6811001", "course_name": "Hotel Management"},
+        {"course_code": "UH6812001", "course_name": "Tourism Management"}
+    ],
+    "FPL": [
+        {"course_code": "UH6621001", "course_name": "Crop Production"},
+        {"course_code": "UH6622001", "course_name": "Horticulture and Landscaping"},
+        {"course_code": "UH6621002", "course_name": "Livestock Production"}
+    ],
+    "FPP": [
+        {"course_code": "UH6145001", "course_name": "Teaching English as a Second Language"},
+        {"course_code": "UH6145002", "course_name": "Early Childhood Education"},
+        {"course_code": "UH6145003", "course_name": "Education with Science"},
+        {"course_code": "UH6145006", "course_name": "Education with Honors (History)"},
+        {"course_code": "UH6311001", "course_name": "Industrial and Organizational Psychology"},
+        {"course_code": "UH6311002", "course_name": "Youth and Community Development"},
+        {"course_code": "UH6311003", "course_name": "Counselling Psychology"},
+        {"course_code": "UH6311004", "course_name": "Child and Family Psychology"},
+        {"course_code": "UH6762001", "course_name": "Social Work"},
+        {"course_code": "UH6813001", "course_name": "Sports Science"}
+    ],
+    "FPSK": [
+        {"course_code": "UH6721001", "course_name": "Doctor of Medicine"},
+        {"course_code": "UH6723001", "course_name": "Nursing Science"}
+    ],
+    "FPT": [
+        {"course_code": "UH6421001", "course_name": "Conservation Biology"},
+        {"course_code": "UH6543001", "course_name": "Wood Technology and Industry"},
+        {"course_code": "UH6623001", "course_name": "International Tropical Forestry"},
+        {"course_code": "UH6623002", "course_name": "Forest Plantation and Agroforestry"},
+        {"course_code": "UH6852001", "course_name": "Nature Parks and Recreation"}
+    ],
+    "FSMP": [
+        {"course_code": "UH6541001", "course_name": "Food Service"},
+        {"course_code": "UH6541002", "course_name": "Food Science and Nutrition"},
+        {"course_code": "UH6541003", "course_name": "Nutrition"},
+        {"course_code": "UH6541004", "course_name": "Food Technology and Bioprocessing"}
+    ],
+    "FSSA": [
+        {"course_code": "UH6422001", "course_name": "Environmental Science"},
+        {"course_code": "UH6441001", "course_name": "Industrial Physics"},
+        {"course_code": "UH6443002", "course_name": "Geology"},
+        {"course_code": "UH6443003", "course_name": "Marine Science"},
+        {"course_code": "UH6461001", "course_name": "Mathematics with Economics"},
+        {"course_code": "UH6461002", "course_name": "Mathematics Computer Graphics"},
+        {"course_code": "UH6545001", "course_name": "Biotechnology"},
+        {"course_code": "UH6545002", "course_name": "Industrial Chemistry"},
+        {"course_code": "UH6624001", "course_name": "Aquaculture"}
+    ],
+    "FSSK": [
+        {"course_code": "UH6225001", "course_name": "History"},
+        {"course_code": "UH6312001", "course_name": "Sociology and Social Anthropology"},
+        {"course_code": "UH6313001", "course_name": "International Relations"},
+        {"course_code": "UH6321001", "course_name": "Communication"},
+        {"course_code": "UH6347001", "course_name": "Industrial Relations"},
+        {"course_code": "UH6443001", "course_name": "Geography"}
     ]
 }

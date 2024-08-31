@@ -103,7 +103,7 @@
                             <option value="ASTIF">ASTIF</option>
                             <option value="FIS">FIS</option>
                             <option value="FKAL">FKAL</option>
-                            <option value="FKI">FKI</option>
+                            <option value="FKIKK">FKIKK</option>
                             <option value="FKIKAL">FKIKAL</option>
                             <option value="FKJ">FKJ</option>
                             <option value="FPEP">FPEP</option>
@@ -148,6 +148,9 @@
                             });
 
                             function populateCourses(faculty, selectedCourse = null) {
+                                // Clear the course select to avoid duplication
+                                $('#course').empty().append('<option selected disabled value="">Choose...</option>');
+
                                 if (facultyCourses[faculty]) {
                                     facultyCourses[faculty].forEach(function(course) {
                                         let isSelected = (course.course_code === selectedCourse) ? 'selected' : '';
@@ -157,9 +160,36 @@
                             }
                         });
                     </script>
+                    <div class="form-group mb-3">
+                        <label for="personal-desc" class="rsans fw-bold form-label">Personal description</label>
+                        <textarea id="personal-desc" name="profile_personal_desc" class="form-control" rows="5" style="resize: none;">{{ profile()->profile_personal_desc }}</textarea>
+                        <small id="personal-desc-note" class="rsans form-text text-muted">max. 512 characters</small>
+                    </div>
                 </div>
             </div>
+            <br>
         </form>
+        <!-- ACCOUNT -->
+        <div class="d-flex align-items-center">
+            <div class="profile-section-header row w-100">
+                <div class="col-md-6 text-start">
+                    <h3 class="rserif fw-bold w-100 py-2">Account</h3>
+                </div>
+                <div class="col-md-6 text-end"></div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center py-3 w-100 align-self-center">
+            <form class="px-3 w-75">
+                <div class="form-group mb-3">
+                    <label for="email-address" class="rsans fw-bold form-label">E-mail address</label>
+                    <input type="email" id="email-address" name="account_email_address" class="form-control" value="{{ currentAccount()->account_email_address }}" readonly>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="password" class="rsans fw-bold form-label">Password</label>
+                    <input type="password" id="password" name="account_password" class="form-control" value="xxxxxxxxxx" readonly>
+                </div>
+            </form>
+        </div>
     </div>
     @include('components.footer')
     @vite('resources/js/app.js')

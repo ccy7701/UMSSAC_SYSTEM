@@ -75,9 +75,28 @@
                     <label for="faculty" class="rsans fw-bold form-label">Faculty</label>
                     <input type="text" id="faculty" name="profile_faculty" class="form-control w-50" value="{{ profile()->profile_faculty }}" readonly>
                 </div>
+                @php
+                    $facultyCourses = json_decode(file_get_contents(public_path('resources/data/faculties_and_courses.json')), true);
+                    $selectedFaculty = profile()->profile_faculty;
+                    $selectedCourseCode = profile()->profile_course;
+                    $courseName = '';
+
+                    if (isset($facultyCourses[$selectedFaculty])) {
+                        foreach ($facultyCourses[$selectedFaculty] as $course) {
+                            if ($course['course_code'] === $selectedCourseCode) {
+                                $courseName = $course['course_name'];
+                                break;
+                            }
+                        }
+                    }
+                @endphp
                 <div class="form-group mb-3">
                     <label for="course" class="rsans fw-bold form-label">Course</label>
-                    <input type="text" id="course" name="profile_course" class="form-control" value="{{ profile()->profile_course }}" readonly>
+                    <input type="text" id="course" name="profile_course" class="form-control" value="{{ profile()->profile_course }} {{ $courseName }}" readonly>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="personal-desc" class="rsans fw-bold form-label">Personal description</label>
+                    <textarea id="personal-desc" name="profile_personal_desc" class="form-control" rows="5" style="resize: none;" readonly>{{ profile()->profile_personal_desc }}</textarea>
                 </div>
             </form>
         </div>
