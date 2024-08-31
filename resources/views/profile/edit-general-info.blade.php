@@ -117,41 +117,41 @@
                         </select>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="programme" class="rsans fw-bold form-label">Programme</label>
-                        <select id="programme" class="form-select" name="profile_programme">
+                        <label for="course" class="rsans fw-bold form-label">Course</label>
+                        <select id="course" class="form-select" name="profile_course">
                             <option select disabled value="">Choose...</option>
                         </select>
                     </div>
                     <script>
                         $(document).ready(function() {
-                            let facultyProgrammes = {};
+                            let facultyCourses = {};
 
                             // Load the JSON file
-                            $.getJSON('{{ asset("resources/data/faculties_and_programmes.json") }}', function(data) {
-                                facultyProgrammes = data;
+                            $.getJSON('{{ asset("resources/data/faculties_and_courses.json") }}', function(data) {
+                                facultyCourses = data;
 
-                                // Pre-select the faculty and populate programmes if they already exist
+                                // Pre-select the faculty and populate courses if they already exist
                                 let selectedFaculty = "{{ profile()->profile_faculty }}";
-                                let selectedProgramme = "{{ profile()->profile_programme }}";
+                                let selectedCourse = "{{ profile()->profile_course }}";
 
                                 if (selectedFaculty) {
                                     $('#faculty').val(selectedFaculty).change();
-                                    populateProgrammes(selectedFaculty, selectedProgramme);
+                                    populateCourses(selectedFaculty, selectedCourse);
                                 }
                             });
 
                             // Handle change event for faculty dropdown
                             $('#faculty').change(function() {
                                 var selectedFaculty = $(this).val();
-                                $('#programme').empty().append('<option selected disabled value="">Choose...</option>');
-                                populateProgrammes(selectedFaculty);
+                                $('#course').empty().append('<option selected disabled value="">Choose...</option>');
+                                populateCourses(selectedFaculty);
                             });
 
-                            function populateProgrammes(faculty, selectedProgramme = null) {
-                                if (facultyProgrammes[faculty]) {
-                                    facultyProgrammes[faculty].forEach(function(programme) {
-                                        let isSelected = (programme.course_code === selectedProgramme) ? 'selected' : '';
-                                        $('#programme').append('<option value="' + programme.course_code + '" ' + isSelected + '>' + programme.course_code + ' ' + programme.course_name + '</option>');
+                            function populateCourses(faculty, selectedCourse = null) {
+                                if (facultyCourses[faculty]) {
+                                    facultyCourses[faculty].forEach(function(course) {
+                                        let isSelected = (course.course_code === selectedCourse) ? 'selected' : '';
+                                        $('#course').append('<option value="' + course.course_code + '" ' + isSelected + '>' + course.course_code + ' ' + course.course_name + '</option>');
                                     });
                                 }
                             }

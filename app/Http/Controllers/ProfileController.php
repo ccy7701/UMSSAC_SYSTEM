@@ -50,7 +50,7 @@ class ProfileController extends Controller
         // Validate the incoming request data
         $validatedData = $request->validate([
             'profile_faculty' => 'required|string|max:255',
-            'profile_programme' => 'required|string|max:255',
+            'profile_course' => 'required|string|max:255',
             'profile_nickname' => 'required|string|max:255',
             'profile_enrolment_session' => 'required_if:account_role,1|nullable|string',
         ], $messages);

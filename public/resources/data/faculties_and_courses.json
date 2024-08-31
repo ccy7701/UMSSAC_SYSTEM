@@ -4,7 +4,7 @@
         {"course_code": "2ABC123", "course_name": "Course 2"}
     ],
     "FIS": [
-        {"course_code": "1DEF456", "course_name": "Programme 1"},
-        {"course_code": "2DEF456", "course_name": "Programme 2"}
+        {"course_code": "1DEF456", "course_name": "Course 1"},
+        {"course_code": "2DEF456", "course_name": "Course 2"}
     ]
 }

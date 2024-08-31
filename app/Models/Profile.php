@@ -21,7 +21,7 @@ class Profile extends Model
         'profile_personal_desc',
         'profile_enrolment_session',
         'profile_faculty',
-        'profile_programme',
+        'profile_course',
         'profile_picture_filepath',
         'profile_colour_theme',
     ];
@@ -38,28 +38,21 @@ class Profile extends Model
 
     // ACCESSOR: Profile nickname
     public function getProfileNicknameAttribute() {
-        // return $this->profile_nickname ?? 'Not filled yet';
         return !empty($this->attributes['profile_nickname']) ? $this->attributes['profile_nickname'] : 'Not filled yet';
     }
 
     // ACCESSOR: Profile enrolment session
     public function getProfileEnrolmentSessionAttribute() {
-        // return $this->profile_enrolment_session ?? 'Not filled yet';
         return !empty($this->attributes['profile_enrolment_session']) ? $this->attributes['profile_enrolment_session'] : 'Not filled yet';
     }
 
     // ACCESSOR: Profile faculty
     public function getProfileFacultyAttribute() {
-        // return $this->profile_faculty ?? 'Not filled yet';
         return !empty($this->attributes['profile_faculty']) ? $this->attributes['profile_faculty'] : 'Not filled yet';
     }
 
-    // ACCESSOR: Profile programme
-    public function getProfileProgrammeAttribute() {
-        // return $this->profile_programme ?? 'Not filled yet';
-        return !empty($this->attributes['profile_programme']) ? $this->attributes['profile_programme'] : 'Not filled yet';
+    // ACCESSOR: Profile course
+    public function getProfileCourseAttribute() {
+        return !empty($this->attributes['profile_course']) ? $this->attributes['profile_course'] : 'Not filled yet';
     }
 }
-
-// CONTINUE HERE!
-// This is the first real headache of the project.

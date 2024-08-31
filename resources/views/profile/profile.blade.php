@@ -76,8 +76,8 @@
                     <input type="text" id="faculty" name="profile_faculty" class="form-control w-50" value="{{ profile()->profile_faculty }}" readonly>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="programme" class="rsans fw-bold form-label">Programme</label>
-                    <input type="text" id="programme" name="profile_programme" class="form-control" value="{{ profile()->profile_programme }}" readonly>
+                    <label for="course" class="rsans fw-bold form-label">Course</label>
+                    <input type="text" id="course" name="profile_course" class="form-control" value="{{ profile()->profile_course }}" readonly>
                 </div>
             </form>
         </div>

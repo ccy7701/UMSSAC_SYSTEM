@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('profile_personal_desc', 500)->nullable();
             $table->string('profile_enrolment_session', 10)->nullable()->comment('NULL - not_student');
             $table->string('profile_faculty', 8);
-            $table->string('profile_programme', 128);
+            $table->string('profile_course', 128);
             $table->string('profile_picture_filepath', 512)->nullable();
             $table->string('profile_colour_theme', 16)->nullable();
             // $table->timestamps(); <-- not needed

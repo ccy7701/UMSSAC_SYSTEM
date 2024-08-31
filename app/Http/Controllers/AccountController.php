@@ -41,7 +41,7 @@ class AccountController extends Controller
             'profile_personal_desc' => '',
             'profile_enrolment_session' => $request->account_role == 1 ? '' : null,
             'profile_faculty' => '',
-            'profile_programme' => '',
+            'profile_course' => '',
             'profile_picture_filepath' => '',
             'profile_colour_theme' => '',
         ]);
