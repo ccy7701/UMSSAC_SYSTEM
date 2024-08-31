@@ -29,7 +29,7 @@
             </div>
             <div class="row align-items-center py-3">
                 <div class="col-md-2 text-center">
-                    <img id="profile-picture-preview" src="{{ Auth::user()->profile && Auth::user()->profile->profilePictureFilePath ? Storage::url(Auth::user()->profile->profilePictureFilePath) : asset('images/no-pic-default.png') }}" class="rounded-circle border" alt="Profile picture" style="width: 200px; height: 200px; object-fit: cover">
+                    <img id="profile-picture-preview" src="{{ profile()->profile_picture }}" class="rounded-circle border" alt="Profile picture" style="width: 200px; height: 200px; object-fit: cover">
                 </div>
                 <div class="col-md-10">
                     <input id="profile-picture-input" type="file" name="newProfilePicture" class="form-control-file">
@@ -58,11 +58,11 @@
             <form class="px-3 w-75">
                 <div class="form-group mb-3">
                     <label for="fullName" class="rsans fw-bold form-label">Full name</label>
-                    <input type="text" id="fullName" name="accountFullName" class="form-control" value="Ruan Mei" readonly>
+                    <input type="text" id="fullName" name="accountFullName" class="form-control" value="{{ currentAccount()->accountFullName }}" readonly>
                 </div>
                 <div class="form-group mb-3">
                     <label for="nickname" class="rsans fw-bold form-label">Nickname</label>
-                    <input type="text" id="nickname" name="profileNickname" class="form-control" value="ruan_mei" readonly>
+                    <input type="text" id="nickname" name="profileNickname" class="form-control" value="{{ profile()->profile_nickname }}" readonly>
                 </div>
                 <div class="form-group mb-3">
                     <label for="matricNumber" class="rsans fw-bold form-label">Matric number</label>

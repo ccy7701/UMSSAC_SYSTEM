@@ -36,4 +36,10 @@ class Account extends Authenticatable
     public function profile() {
         return $this->hasOne(Profile::class, 'accountID', 'accountID');
     }
+
+    // ACCESSOR: Get the user's full profile information
+    public function getFullProfileAttribute() {
+        return $this->profile;
+    }
+
 }

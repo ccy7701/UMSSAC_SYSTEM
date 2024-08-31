@@ -47,6 +47,10 @@ Route::middleware('auth')->group(function () {
         return view('profile.edit-profile-picture');
     })->name('profile.edit-profile-picture');
 
+    Route::get('/profile/edit-general', function() {
+        return view('profile.edit-general');
+    })->name('profile.edit-general');
+
     Route::post('/profile/edit-profile-picture-action', [ProfileController::class, 'updateProfilePicture'])->name('profile.edit-profile-picture-action');
 
     Route::post('/logout', [AccountController::class, 'logout'])->name('account.logout');

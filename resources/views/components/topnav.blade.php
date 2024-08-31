@@ -43,26 +43,26 @@
                     <ul class="navbar-nav">
                         <li class="nav-item-dropdown">
                             <a class="nav-link dropdown" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="{{ Auth::user()->profile && Auth::user()->profile->profilePictureFilePath ? Storage::url(Auth::user()->profile->profilePictureFilePath) : asset('images/no-pic-default.png') }}" alt="User avatar" class="rounded-circle" width="50" height="50">
+                                <img src="{{ profile()->profile_picture }}" alt="Profile picture" class="rounded-circle" width="50" height="50">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li class="px-3">
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ Auth::user()->profile && Auth::user()->profile->profilePictureFilePath ? Storage::url(Auth::user()->profile->profilePictureFilePath) : asset('images/no-pic-default.png') }}" alt="User avatar" class="rounded-circle" width="60" height="60">
+                                        <img src="{{ profile()->profile_picture }}" alt="User avatar" class="rounded-circle" width="60" height="60">
                                         <div class="ms-2">
-                                            <strong>{{ Auth::user()->accountFullName }}</strong><br>
-                                            @switch(Auth::user()->accountRole)
+                                            <strong>{{ currentAccount()->accountFullName }}</strong><br>
+                                            @switch(currentAccount()->accountRole)
                                                 @case(1)
                                                     <small>Student</small><br>
-                                                    <small>{{ Auth::user()->accountMatricNumber }}</small>
+                                                    <small>{{ currentAccount()->accountMatricNumber }}</small>
                                                     @break
                                                 @case(2)
                                                     <small>Faculty Member</small><br>
-                                                    <small>{{ Auth::user()->accountEmailAddress }}</small>
+                                                    <small>{{ currentAccount()->accountEmailAddress }}</small>
                                                     @break
                                                 @case(3)
                                                     <small>Admin</small><br>
-                                                    <small>{{ Auth::user()->accountEmailAddress }}</small>
+                                                    <small>{{ currentAccount()->accountEmailAddress }}</small>
                                                     @break
                                             @endswitch
                                         </div>
