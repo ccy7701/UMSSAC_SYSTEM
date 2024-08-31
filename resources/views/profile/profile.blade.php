@@ -47,7 +47,7 @@
                     <h3 class="rserif fw-bold w-100 py-2">General</h3>
                 </div>
                 <div class="col-md-6 text-end">
-                    <a href="{{ route('profile.edit-general') }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
+                    <a href="{{ route('profile.edit-general-info') }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
                 </div>
             </div>
         </div>
@@ -66,11 +66,11 @@
                         <label for="matric-number" class="rsans fw-bold form-label">Matric number</label>
                         <input type="text" id="matric-number" name="account_matric_number" class="form-control" value="{{ currentAccount()->account_matric_number }}" readonly>
                     </div>
+                    <div class="form-group mb-3">
+                        <label for="enrolment-session" class="rsans fw-bold form-label">Enrolment session</label>
+                        <input type="text" id="enrolment-session" name="profile_enrolment_session" class="form-control w-50" value="{{ profile()->profile_enrolment_session }}" readonly> 
+                    </div>
                 @endif
-                <div class="form-group mb-3">
-                    <label for="enrolment-session" class="rsans fw-bold form-label">Enrolment session</label>
-                    <input type="text" id="enrolment-session" name="profile_enrolment_session" class="form-control w-50" value="{{ profile()->profile_enrolment_session }}" readonly> 
-                </div>
                 <div class="form-group mb-3">
                     <label for="faculty" class="rsans fw-bold form-label">Faculty</label>
                     <input type="text" id="faculty" name="profile_faculty" class="form-control w-50" value="{{ profile()->profile_faculty }}" readonly>
