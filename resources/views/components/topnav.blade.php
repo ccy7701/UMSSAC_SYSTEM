@@ -50,19 +50,19 @@
                                     <div class="d-flex align-items-center">
                                         <img src="{{ profile()->profile_picture }}" alt="User avatar" class="rounded-circle" width="60" height="60">
                                         <div class="ms-2">
-                                            <strong>{{ currentAccount()->accountFullName }}</strong><br>
-                                            @switch(currentAccount()->accountRole)
+                                            <strong>{{ currentAccount()->account_full_name }}</strong><br>
+                                            @switch(currentAccount()->account_role)
                                                 @case(1)
                                                     <small>Student</small><br>
-                                                    <small>{{ currentAccount()->accountMatricNumber }}</small>
+                                                    <small>{{ currentAccount()->account_matric_number }}</small>
                                                     @break
                                                 @case(2)
                                                     <small>Faculty Member</small><br>
-                                                    <small>{{ currentAccount()->accountEmailAddress }}</small>
+                                                    <small>{{ currentAccount()->account_email_address }}</small>
                                                     @break
                                                 @case(3)
                                                     <small>Admin</small><br>
-                                                    <small>{{ currentAccount()->accountEmailAddress }}</small>
+                                                    <small>{{ currentAccount()->account_email_address }}</small>
                                                     @break
                                             @endswitch
                                         </div>

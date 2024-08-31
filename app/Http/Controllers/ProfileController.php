@@ -11,24 +11,24 @@ class ProfileController extends Controller
 {
     public function updateProfilePicture(Request $request) {
         $request->validate([
-            'newProfilePicture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'new_profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Assuming you have the authenticated user's profile
-        $profile = Profile::where('accountID', Auth::user()->accountID)->firstOrFail();
+        $profile = Profile::where('account_id', Auth::user()->account_id)->firstOrFail();
 
         // Store the new profile picture
-        if ($request->hasFile('newProfilePicture')) {
+        if ($request->hasFile('new_profile_picture')) {
             // Delete the old picture if it exists
-            if ($profile->profilePictureFilePath) {
-                Storage::delete('public/'.$profile->profilePictureFilePath);
+            if ($profile->profile_picture_filepath) {
+                Storage::delete('public/'.$profile->profile_picture_filepath);
             }
 
             // Store the new picture in public/profile-pictures
-            $path = $request->file('newProfilePicture')->store('profile-pictures', 'public');
+            $path = $request->file('new_profile_picture')->store('profile-pictures', 'public');
 
             // Update profile with new file path
-            $profile->profilePictureFilePath = $path;
+            $profile->profile_picture_filepath = $path;
             $profile->save();
         }
 

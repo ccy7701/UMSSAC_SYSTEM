@@ -27,36 +27,36 @@
                             <form method="POST" action="{{ route('account.register') }}" class="py-3">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="fullName" class="rsans form-label fw-semibold">Full name</label>
+                                    <label for="full-name" class="rsans form-label fw-semibold">Full name</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-user"></i></span>
-                                        <input type="text" id="fullName" name="accountFullName" class="form-control" required autofocus>
+                                        <input type="text" id="full-name" name="account_full_name" class="form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="emailAddress" class="rsans form-label fw-semibold">E-mail address</label>
+                                    <label for="email-address" class="rsans form-label fw-semibold">E-mail address</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                        <input type="email" id="emailAddress" name="accountEmailAddress" class="form-control" required autofocus>
+                                        <input type="email" id="email-address" name="account_email_address" class="form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="rsans form-label fw-semibold">Password (minimum 8 characters)</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-lock d-flex"></i></span>
-                                        <input type="password" id="password" name="accountPassword" class="form-control" required autofocus>
+                                        <input type="password" id="password" name="account_password" class="form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="password_confirmation" class="rsans form-label fw-semibold">Confirm password</label>
+                                    <label for="password-confirmation" class="rsans form-label fw-semibold">Confirm password</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-check-circle"></i></span>
-                                        <input type="password" id="password_confirmation" name="accountPassword_confirmation" class="form-control" required autofocus>
+                                        <input type="password" id="password-confirmation" name="account_password_confirmation" class="form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="role-select" class="rsans form-label fw-semibold">I am registering as a</label>
-                                    <select class="form-select" id="role-select" name="accountRole">
+                                    <select class="form-select" id="role-select" name="account_role">
                                         <option selected disabled value="">Choose...</option>
                                         <option value="1">Student</option>
                                         <option value="2">Faculty member</option>
@@ -67,10 +67,10 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="matricNumber" class="rsans form-label fw-semibold">Matric number</label>
+                                    <label for="matric-number" class="rsans form-label fw-semibold">Matric number</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
-                                        <input type="text" id="matricNumber" name="accountMatricNumber" class="form-control" autofocus>
+                                        <input type="text" id="matric-number" name="account_matric_number" class="form-control" autofocus>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center py-3">
@@ -89,7 +89,7 @@
                             <script>
                                 document.addEventListener('DOMContentLoaded', function() {
                                     const roleSelect = document.getElementById('role-select');
-                                const matricNumberField = document.querySelector('input[name="accountMatricNumber"]');
+                                const matricNumberField = document.querySelector('input[name="account_matric_number"]');
                                 const matricNumberFormGroup = matricNumberField.closest('.mb-3');
 
                                 function toggleMatricNumberField() {

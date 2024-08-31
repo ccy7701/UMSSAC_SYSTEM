@@ -11,30 +11,30 @@ class Account extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $table = 'account';
-    protected $primaryKey = 'accountID';
+    protected $primaryKey = 'account_id';
     public $timestamps = false;  // KIV, will you need this in the future?
 
     protected $fillable = [
-        'accountFullName',
-        'accountEmailAddress',
-        'accountPassword',
-        'accountRole',
-        'accountMatricNumber',
+        'account_full_name',
+        'account_email_address',
+        'account_password',
+        'account_role',
+        'account_matric_number',
     ];
 
     protected $hidden = [
-        'accountPassword',
+        'account_password',
         'remember_token',
     ];
 
     protected function casts(): array {
         return [
-            'accountPassword' => 'hashed',
+            'account_password' => 'hashed',
         ];
     }
 
     public function profile() {
-        return $this->hasOne(Profile::class, 'accountID', 'accountID');
+        return $this->hasOne(Profile::class, 'account_id', 'account_id');
     }
 
     // ACCESSOR: Get the user's full profile information

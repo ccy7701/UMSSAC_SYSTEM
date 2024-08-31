@@ -11,47 +11,47 @@ class Profile extends Model
     use HasFactory;
 
     protected $table = 'profile';
-    protected $primaryKey = 'profileID';
+    protected $primaryKey = 'profile_id';
     public $timestamps = false;  // KIV, will you need this in the future?
 
     protected $fillable = [
-        'accountID',
-        'profileNickname',
-        'profilePersonalDesc',
-        'profileEnrolmentSession',
-        'profileFaculty',
-        'profileProgramme',
-        'profilePictureFilePath',
-        'profileColourTheme',
+        'account_id',
+        'profile_nickname',
+        'profile_personal_desc',
+        'profile_enrolment_session',
+        'profile_faculty',
+        'profile_programme',
+        'profile_picture_filepath',
+        'profile_colour_theme',
     ];
 
     // Define inverse relationship with Account model
     public function account() {
-        return $this->belongsTo(Account::class, 'accountID', 'accountID');
+        return $this->belongsTo(Account::class, 'account_id', 'account_id');
     }
 
     // ACCESSOR: Profile picture filepath
     public function getProfilePictureAttribute() {
-        return $this->profilePictureFilePath ? Storage::url($this->profilePictureFilePath) : asset('images/no-pic-default.png');
+        return $this->profile_picture_filepath ? Storage::url($this->profile_picture_filepath) : asset('images/no_profile_pic_default.png');
     }
 
     // ACCESSOR: Profile nickname
     public function getProfileNicknameAttribute() {
-        return $this->profileNickname ?? 'Not filled yet';
+        return $this->profile_nickname ?? 'Not filled yet';
     }
 
     // ACCESSOR: Profile enrolment session
     public function getProfileEnrolmentSessionAttribute() {
-        return $this->profileEnrolmentSession ?? 'Not filled yet';
+        return $this->profile_enrolment_session ?? 'Not filled yet';
     }
 
     // ACCESSOR: Profile faculty
     public function getProfileFacultyAttribute() {
-        return $this->profileFaculty ?? 'Not filled yet';
+        return $this->profile_faculty ?? 'Not filled yet';
     }
 
     // ACCESSOR: Profile programme
     public function getProfileProgrammeAttribute() {
-        return $this->profileProgramme ?? 'Not filled yet';
+        return $this->profile_programme ?? 'Not filled yet';
     }
 }

@@ -38,18 +38,18 @@
 
     <div class="image-carousel px-sm-5">
         <div class="carousel-track">
-            <img src="{{ asset('placeholder_images/welcome_img_1.png') }}" alt="Welcome image 1" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder_images/welcome_img_2.png') }}" alt="Welcome image 2" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder_images/welcome_img_3.png') }}" alt="Welcome image 3" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder_images/welcome_img_4.png') }}" alt="Welcome image 4" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder_images/welcome_img_5.png') }}" alt="Welcome image 5" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder_images/welcome_img_6.png') }}" alt="Welcome image 6" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder_images/welcome_img_1.png') }}" alt="Welcome image 1" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder_images/welcome_img_2.png') }}" alt="Welcome image 2" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder_images/welcome_img_3.png') }}" alt="Welcome image 3" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder_images/welcome_img_4.png') }}" alt="Welcome image 4" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder_images/welcome_img_5.png') }}" alt="Welcome image 5" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder_images/welcome_img_6.png') }}" alt="Welcome image 6" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/welcome_img_1.png') }}" alt="Welcome image 1" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/welcome_img_2.png') }}" alt="Welcome image 2" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/welcome_img_3.png') }}" alt="Welcome image 3" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/welcome_img_4.png') }}" alt="Welcome image 4" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/welcome_img_5.png') }}" alt="Welcome image 5" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/welcome_img_6.png') }}" alt="Welcome image 6" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/welcome_img_1.png') }}" alt="Welcome image 1" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/welcome_img_2.png') }}" alt="Welcome image 2" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/welcome_img_3.png') }}" alt="Welcome image 3" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/welcome_img_4.png') }}" alt="Welcome image 4" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/welcome_img_5.png') }}" alt="Welcome image 5" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/welcome_img_6.png') }}" alt="Welcome image 6" class="img-fluid mx-3">
         </div>
     </div>
 

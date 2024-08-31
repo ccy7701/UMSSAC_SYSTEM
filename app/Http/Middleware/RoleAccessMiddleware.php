@@ -19,7 +19,7 @@ class RoleAccessMiddleware
     {
         $user = $request->user();
 
-        if ($user && $user->accountRole == $role) {
+        if ($user && $user->account_role == $role) {
             return $next($request);
         }
 

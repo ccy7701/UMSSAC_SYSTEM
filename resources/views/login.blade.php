@@ -32,24 +32,24 @@
                                     <div class="mb-3 align-items-center">
                                         <label class="rsans form-label fw-semibold">Select user role</label>
                                         <div>
-                                            <input type="radio" id="accountRoleStudent" name="accountRole" value="1" checked>
-                                            <label for="accountRoleStudent" class="px-2 form-label">Student</label>
-                                            <input type="radio" id="accountRoleFacultyMember" name="accountRole" value="2">
-                                            <label for="accountRoleFacultyMember" class="px-2 form-label">Faculty Member</label>
-                                            <input type="radio" id="accountRoleAdmin" name="accountRole" value="3">
-                                            <label for="accountRoleAdmin" class="px-2 form-label">Admin</label>
+                                            <input type="radio" id="account-role-student" name="account_role" value="1" checked>
+                                            <label for="account-role-student" class="px-2 form-label">Student</label>
+                                            <input type="radio" id="account-role-facultymember" name="account_role" value="2">
+                                            <label for="account-role-facultymember" class="px-2 form-label">Faculty Member</label>
+                                            <input type="radio" id="account-role-admin" name="account_role" value="3">
+                                            <label for="account-role-admin" class="px-2 form-label">Admin</label>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- End role selection -->
                                 <!-- Login credentials -->
                                 <!-- Email/Matric Number Input -->
-                                <div id="identifierField" class="mb-3">
+                                <div id="identifier-field" class="mb-3">
                                     <!-- Default to student -->
-                                    <label for="matricNumber" class="rsans form-label fw-semibold">Matric number</label>
+                                    <label for="matric-number" class="rsans form-label fw-semibold">Matric number</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
-                                        <input type="text" id="matricNumber" name="accountMatricNumber" class="form-control" required autofocus>
+                                        <input type="text" id="matric-number" name="account_matric_number" class="form-control" required autofocus>
                                     </div>
                                 </div>
                                 <!-- Password Input -->
@@ -57,7 +57,7 @@
                                     <label for="password" class="rsans form-label fw-semibold">Password</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-lock"></i></span>
-                                        <input type="password" id="password" name="accountPassword" class="form-control" required>
+                                        <input type="password" id="password" name="account_password" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="my-4 text-end">
@@ -79,34 +79,34 @@
                             <!-- END LOGIN FORM -->
                             <script>
                                 document.addEventListener('DOMContentLoaded', function () {
-                                    const identifierField = document.getElementById('identifierField');
-                                    const roleRadios = document.querySelectorAll('input[name="accountRole"]');
+                                    const identifierField = document.getElementById('identifier-field');
+                                    const roleRadios = document.querySelectorAll('input[name="account_role"]');
 
                                     function updateLoginForm() {
-                                        const selectedRole = document.querySelector('input[name="accountRole"]:checked').value;
+                                        const selectedRole = document.querySelector('input[name="account_role"]:checked').value;
 
                                         if (selectedRole === "1") {
                                             identifierField.innerHTML = `
-                                                <label for="matricNumber" class="rsans form-label fw-semibold">Matric number</label>
+                                                <label for="matric-number" class="rsans form-label fw-semibold">Matric number</label>
                                                 <div class="input-group">
                                                     <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
-                                                    <input type="text" id="matricNumber" name="accountMatricNumber" class="form-control" required autofocus>
+                                                    <input type="text" id="matric-number" name="account_matric_number" class="form-control" required autofocus>
                                                 </div>
                                             `;
                                         } else if (selectedRole === "2") {
                                             identifierField.innerHTML = `
-                                                <label for="fm_emailAddress" class="rsans form-label fw-semibold">Faculty member e-mail address</label>
+                                                <label for="fm-email-address" class="rsans form-label fw-semibold">Faculty member e-mail address</label>
                                                 <div class="input-group">
                                                     <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                                    <input type="text" id="fm_emailAddress" name="accountEmailAddress" class="form-control" required autofocus>
+                                                    <input type="text" id="fm_email-address" name="account_email_address" class="form-control" required autofocus>
                                                 </div>
                                             `;
                                         } else {
                                             identifierField.innerHTML = `
-                                                <label for="ad_emailAddress" class="rsans form-label fw-semibold">Admin e-mail address</label>
+                                                <label for="ad-email-address" class="rsans form-label fw-semibold">Admin e-mail address</label>
                                                 <div class="input-group">
                                                     <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                                    <input type="text" id="ad_emailAddress" name="accountEmailAddress" class="form-control" required autofocus>
+                                                    <input type="text" id="ad-email-address" name="account_email_address" class="form-control" required autofocus>
                                                 </div>
                                             `;
                                         }

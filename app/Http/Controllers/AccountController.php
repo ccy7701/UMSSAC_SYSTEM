@@ -14,11 +14,11 @@ class AccountController extends Controller
     public function register(Request $request) {
         // KEEP IN VIEW -> USE YOUR PARAMETERS!
         $validator = Validator::make($request->all(), [
-            'accountFullName' => 'required|string|max:255',
-            'accountEmailAddress' => 'required|string|email|max:255|unique:account,accountEmailAddress',
-            'accountPassword' => 'required|string|min:8|confirmed',
-            'accountRole' => 'required|in:1,2,3',
-            'accountMatricNumber' => 'required_if:accountRole,1|nullable|string|max:10|unique:account,accountMatricNumber',
+            'account_full_name' => 'required|string|max:255',
+            'account_email_address' => 'required|string|email|max:255|unique:account,account_email_address',
+            'account_password' => 'required|string|min:8|confirmed',
+            'account_role' => 'required|in:1,2,3',
+            'account_matric_number' => 'required_if:account_role,1|nullable|string|max:10|unique:account,account_matric_number',
         ]);
 
         if ($validator->fails()) {
@@ -27,23 +27,23 @@ class AccountController extends Controller
 
         // Create the account
         $account = Account::create([
-            'accountFullName' => $request->accountFullName,
-            'accountEmailAddress' => $request->accountEmailAddress,
-            'accountPassword' => Hash::make($request->accountPassword),
-            'accountRole' => $request->accountRole,
-            'accountMatricNumber' => $request->accountRole == 1 ? $request->accountMatricNumber : null,
+            'account_full_name' => $request->account_full_name,
+            'account_email_address' => $request->account_email_address,
+            'account_password' => Hash::make($request->account_password),
+            'account_role' => $request->account_role,
+            'account_matric_number' => $request->account_role == 1 ? $request->account_matric_number : null,
         ]);
 
         // Also create the corresponding empty profile
         Profile::create([
-            'accountID' => $account->accountID,
-            'profileNickname' => '',
-            'profilePersonalDesc' => '',
-            'profileEnrolmentSession' => $request->accountRole == 1 ? '' : null,
-            'profileFaculty' => '',
-            'profileProgramme' => '',
-            'profilePictureFilePath' => '',
-            'profileColourTheme' => '',
+            'account_id' => $account->account_id,
+            'profile_nickname' => '',
+            'profile_personal_desc' => '',
+            'profile_enrolment_session' => $request->account_role == 1 ? '' : null,
+            'profile_faculty' => '',
+            'profile_programme' => '',
+            'profile_picture_filepath' => '',
+            'profile_colour_theme' => '',
         ]);
 
         Auth::login($account);
@@ -53,18 +53,18 @@ class AccountController extends Controller
 
     public function login(Request $request) {
         $credentials = $request->validate([
-            'accountRole' => 'required',
-            'accountMatricNumber' => 'required_if:accountRole,1',
-            'accountEmailAddress' => 'required_if:accountRole,2,3',
-            'accountPassword' => 'required',
+            'account_role' => 'required',
+            'account_matric_number' => 'required_if:account_role,1',
+            'account_email_address' => 'required_if:account_role,2,3',
+            'account_password' => 'required',
         ]);
 
         // Determine the field to authenticate with
-        $field = $request->accountRole == "1" ? 'accountMatricNumber' : 'accountEmailAddress';
+        $field = $request->account_role == "1" ? 'account_matric_number' : 'account_email_address';
 
         // Find the account using the provided identifier (matric number or email)
         $account = Account::where($field, $request->$field)
-            ->where('accountRole', $request->accountRole)
+            ->where('account_role', $request->account_role)
             ->first();
 
         // CASE 1: If the account exists
@@ -75,9 +75,9 @@ class AccountController extends Controller
         }
 
         // CASE 2: Password does not match
-        if (!Hash::check($request->accountPassword, $account->accountPassword)) {
+        if (!Hash::check($request->account_password, $account->account_password)) {
             return back()->withErrors([
-                'accountPassword' => 'Incorrect password. Please try again.',
+                'account_password' => 'The password you entered was incorrect. Please try again.',
             ])->withInput();
         }
 
