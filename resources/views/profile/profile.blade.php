@@ -108,7 +108,7 @@
                     <h3 class="rserif fw-bold w-100 py-2">Account</h3>
                 </div>
                 <div class="col-md-6 text-end">
-                    <a href="#" class="rsans btn btn-primary fw-bold px-2 mx-2 w-25">Change password</a>
+                    <a href="{{ route('reset-password') }}" class="rsans btn btn-primary fw-bold px-2 mx-2 w-25">Reset password</a>
                 </div>
             </div>
         </div>

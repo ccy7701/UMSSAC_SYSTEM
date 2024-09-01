@@ -5,14 +5,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X_UA_Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password</title>
+    <title>Forgot Password</title>
     @vite('resources/sass/app.scss')
 </head>
 
 <body style="height: 100%; overflow: hidden">
     <div class="container-fluid vh-100">
         <div class="row h-100">
-            <!-- Left section (login form) -->
+            <!-- Left section (Form) -->
             <div class="col-md-6 p-3 d-flex">
                 <div class="row px-5 py-4 text-start">
                     <div class="col-12">
@@ -21,10 +21,12 @@
                         </a>
                         <br><br>
                         <div class="row text-start">
-                            <h1 class="rslab fw-bold">Forgot password?</h1>
+                            <h1 class="rslab fw-bold">
+                                Forgot password?
+                            </h1>
                             <p class="rslab fs-4">Enter the email address you used to register your account. We'll send you instructions to reset your password.</p>
                             <!-- RESET PASSWORD FORM -->
-                            <form method="POST" action="#" class="py-3">
+                            <form method="POST" action="{{ route('password.email') }}" class="py-3">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="email-address" class="rsans form-label fw-semibold">E-mail address</label>
