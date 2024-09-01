@@ -162,8 +162,7 @@
                     </script>
                     <div class="form-group mb-3">
                         <label for="personal-desc" class="rsans fw-bold form-label">Personal description</label>
-                        <textarea id="personal-desc" name="profile_personal_desc" class="form-control" rows="5" style="resize: none;">{{ profile()->profile_personal_desc }}</textarea>
-                        <small id="personal-desc-note" class="rsans form-text text-muted">max. 512 characters</small>
+                        <textarea id="personal-desc" name="profile_personal_desc" class="form-control" rows="5" style="resize: none;" maxlength="512" oninput="updateCharacterCount()">{{ profile()->profile_personal_desc }}</textarea>
                     </div>
                 </div>
             </div>

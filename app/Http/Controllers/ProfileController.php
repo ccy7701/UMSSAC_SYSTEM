@@ -39,9 +39,6 @@ class ProfileController extends Controller
 
     // Update general info
     public function updateGeneralInfo(Request $request) {
-        // Log the incoming request data for debugging purposes
-        // Log::info('Received update request:', $request->all());
-
         // Custom validation messages
         $messages = [
             'profile_enrolment_session.required_if' => 'The profile enrolment session field is required.',
@@ -49,7 +46,7 @@ class ProfileController extends Controller
 
         // Validate the incoming request data
         $validatedData = $request->validate([
-            'profile_personal_desc' => 'max:512',
+            'profile_personal_desc' => 'max:1024',
             'profile_enrolment_session' => 'required_if:account_role,1|nullable|string',
             'profile_faculty' => 'required|string|max:255',
             'profile_course' => 'required|string|max:255',
