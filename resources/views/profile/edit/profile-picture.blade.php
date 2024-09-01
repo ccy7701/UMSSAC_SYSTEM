@@ -14,7 +14,7 @@
     <br>
     <div class="container p-3">
         <!-- EDIT PROFILE PICTURE FORM -->
-        <form action="{{ route('profile.edit-profile-picture-action') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('profile.edit.profile-picture.action') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="d-flex align-items-center">
                 <div class="profile-section-header row w-100">
@@ -108,7 +108,7 @@
         </div>
         <br>
     </div>
-    @include('components.footer')
+    <x-footer/>
     @vite('resources/js/app.js')
 </body>
 

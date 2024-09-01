@@ -22,20 +22,20 @@ Route::middleware([PreventAuthenticatedAccess::class])->group(function () {
     })->name('features');
 
     Route::get('/register', function () {
-        return view('register');
+        return view('auth.register');
     })->name('register');
 
     Route::post('/register', [AccountController::class, 'register'])->name('account.register');
 
     Route::get('/login', function () {
-        return view('login');
+        return view('auth.login');
     })->name('login');
 
     Route::post('/login', [AccountController::class, 'login'])->name('account.login');
 
     // The forgot password form
     Route::get('/forgot-password', function () {
-        return view('forgot-password');
+        return view('auth.passwords.forgot-password');
     })->name('forgot-password');
 
     // Send the password reset link to the user's email address
@@ -55,20 +55,31 @@ Route::middleware('auth')->group(function () {
     })->name('profile');
 
     Route::get('/profile/edit-profile-picture', function() {
-        return view('profile.edit-profile-picture');
-    })->name('profile.edit-profile-picture');
+        return view('profile.edit.profile-picture');
+    })->name('profile.edit.profile-picture');
+
+    Route::post('/profile/edit-profile-picture/action', [ProfileController::class, 'updateProfilePicture'])->name('profile.edit.profile-picture.action');
 
     Route::get('/profile/edit-general-info', function() {
-        return view('profile.edit-general-info');
-    })->name('profile.edit-general-info');
+        return view('profile.edit.general-info');
+    })->name('profile.edit.general-info');
 
-    Route::get('/reset-password', function () {
-        return view('profile.reset-password');
-    })->name('reset-password');
+    Route::post('/profile/edit-general-info/action', [ProfileController::class, 'updateGeneralInfo'])->name('profile.edit.general-info.action');
 
-    Route::post('/profile/edit-profile-picture-action', [ProfileController::class, 'updateProfilePicture'])->name('profile.edit-profile-picture-action');
 
-    Route::post('/profile/edit-general-info-action', [ProfileController::class, 'updateGeneralInfo'])->name('profile.edit-general-info-action');
+
+
+
+    // The change password form
+    Route::get('/change-password', function () {
+        return view('auth.passwords.change-password');
+    })->name('change-password');
+
+    // Handle the change password submission
+    Route::post('/change-password/action', [PasswordResetController::class, 'changePassword'])->name('change-password.action');
+
+
+
 
     Route::post('/logout', [AccountController::class, 'logout'])->name('account.logout');
 });

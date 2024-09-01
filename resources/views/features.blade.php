@@ -220,7 +220,7 @@
             </div>
         </div>
     </div>
-    @include('components.footer')
+    <x-footer/>
     @vite('resources/js/app.js')
 </body>
 

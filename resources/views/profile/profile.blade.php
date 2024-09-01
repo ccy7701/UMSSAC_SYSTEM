@@ -20,7 +20,7 @@
                     <h3 class="rserif fw-bold w-100 py-2">Profile picture</h3>
                 </div>
                 <div class="col-md-6 text-end">
-                    <a href="{{ route('profile.edit-profile-picture') }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
+                    <a href="{{ route('profile.edit.profile-picture') }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                     <h3 class="rserif fw-bold w-100 py-2">General</h3>
                 </div>
                 <div class="col-md-6 text-end">
-                    <a href="{{ route('profile.edit-general-info') }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
+                    <a href="{{ route('profile.edit.general-info') }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
                     <h3 class="rserif fw-bold w-100 py-2">Account</h3>
                 </div>
                 <div class="col-md-6 text-end">
-                    <a href="{{ route('reset-password') }}" class="rsans btn btn-primary fw-bold px-2 mx-2 w-25">Reset password</a>
+                    <a href="{{ route('change-password') }}" class="rsans btn btn-primary fw-bold px-2 mx-2 w-25">Change password</a>
                 </div>
             </div>
         </div>
@@ -126,14 +126,8 @@
         </div>
         <br>
     </div>
-    @include('components.footer')
+    <x-footer/>
     @vite('resources/js/app.js')
 </body>
 
 </html>
-
-<!-- WORK FOR TODAY
-    REORGANISE THE NAMING CONVENTIONS FOR ACCESSOR FUNCTIONS, HELPER FUNCTIONS AND ATTRIBUTE CALLS.
-    CONTINUE BACKEND FOR GENERAL INFO EDIT
-    THEN CONTINUE BACKEND FOR RESET PASSWORD
--->

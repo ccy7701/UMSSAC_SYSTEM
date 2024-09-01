@@ -40,21 +40,28 @@ class PasswordResetController extends Controller
         );
     }
 
-    // Step 2further: Handle the password reset
+    // Step 3: Handle the password reset
     public function reset(Request $request) {
+        // Custom validation messages
+        $messages = [
+            'new_account_password.confirmed' => 'The password and confirm password fields do not match. Please try again.',
+        ];
+
         $request->validate([
             'token' => 'required',
             'account_email_address' => 'required|string|email',
-            'account_password' => 'required|string|min:8|confirmed',
-        ]);
+            'new_account_password' => 'required|string|min:8|confirmed',
+        ], $messages);
 
         // Map the validated data to the format expected by the PasswordBroker
         $credentials = [
             'account_email_address' => $request->account_email_address,
-            'password' => $request->account_password,
-            'password_confirmation' => $request->account_password_confirmation,
+            'password' => $request->new_account_password,
+            'password_confirmation' => $request->new_account_password_confirmation,
             'token' => $request->token,
         ];
+
+        // dd($credentials);
 
         $status = Password::broker('accounts')->reset(
             $credentials,
@@ -68,7 +75,12 @@ class PasswordResetController extends Controller
         );
 
         return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('status', __($status))
+            ? redirect()->route('login')->with('success', 'Account password reset successfully!')
             : back()->withErrors(['account_email_address' => [__($status)]]);
+    }
+
+    // Different case of changing password, for user already logged in
+    public function changePassword(Request $request) {
+        dd($request->current_password, $request->new_account_password, $request->new_account_password_confirmation);
     }
 }

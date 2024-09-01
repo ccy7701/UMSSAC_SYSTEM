@@ -41,7 +41,7 @@
         </div>
         <br>
         <!-- EDIT GENERAL INFO FORM -->
-        <form action="{{ route('profile.edit-general-info-action') }}" method="POST">
+        <form action="{{ route('profile.edit.general-info.action') }}" method="POST">
             @csrf
             <input type="hidden" name="account_role" value="{{ currentAccount()->account_role }}">
 
@@ -190,7 +190,7 @@
             </form>
         </div>
     </div>
-    @include('components.footer')
+    <x-footer/>
     @vite('resources/js/app.js')
 </body>
 

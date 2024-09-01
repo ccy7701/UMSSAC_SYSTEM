@@ -43,14 +43,14 @@
                                 <div class="mb-3">
                                     <label for="password" class="rsans form-label fw-semibold">Password (minimum 8 characters)</label>
                                     <div class="input-group">
-                                        <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-lock d-flex"></i></span>
+                                        <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-user-lock d-flex"></i></span>
                                         <input type="password" id="password" name="account_password" class="form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="password-confirmation" class="rsans form-label fw-semibold">Confirm password</label>
                                     <div class="input-group">
-                                        <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-check-circle"></i></span>
+                                        <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-unlock-keyhole"></i></span>
                                         <input type="password" id="password-confirmation" name="account_password_confirmation" class="form-control" required autofocus>
                                     </div>
                                 </div>

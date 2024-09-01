@@ -10,6 +10,9 @@
 </head>
 
 <body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Flash message component -->
+    <x-success-message/>
     <div class="container-fluid vh-100">
         <div class="row h-100">
             <!-- Left section (login form) -->
@@ -56,7 +59,7 @@
                                 <div class="mb-3">
                                     <label for="password" class="rsans form-label fw-semibold">Password</label>
                                     <div class="input-group">
-                                        <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-lock"></i></span>
+                                        <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-user-lock"></i></span>
                                         <input type="password" id="password" name="account_password" class="form-control" required>
                                     </div>
                                 </div>
