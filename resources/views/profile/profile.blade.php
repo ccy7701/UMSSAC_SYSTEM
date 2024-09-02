@@ -10,7 +10,10 @@
 </head>
 
 <body>
-    @include('components.topnav')
+    <x-topnav/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Flash message component -->
+    <x-success-message/>
     <br>
     <div class="container p-3">
         <!-- PROFILE PICTURE -->

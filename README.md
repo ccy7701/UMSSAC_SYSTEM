@@ -1,4 +1,4 @@
-<p align="center"><a href="#" target="_blank"><img src="https://github.com/ccy7701/UMSSAC_SYSTEM/blob/main/public/images/UMSSACS_LOGO_FINAL.png" width="200" alt="UMSSACS Logo"></a></p>
+<p align="center"><a href="#" target="_blank"><img src="https://github.com/ccy7701/UMSSAC_SYSTEM/blob/main/public/images/UMSSACS_LOGO_FINAL.png" width="300" alt="UMSSACS Logo"></a></p>
 
 ## About UMSSACS
 

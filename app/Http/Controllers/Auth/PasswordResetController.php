@@ -81,6 +81,33 @@ class PasswordResetController extends Controller
 
     // Different case of changing password, for user already logged in
     public function changePassword(Request $request) {
-        dd($request->current_password, $request->new_account_password, $request->new_account_password_confirmation);
+        // Custom validation messages
+        $messages = [
+            'new_account_password.confirmed' => 'The password and confirm password fields do not match. Please try again.',
+        ];
+
+        $request->validate([
+            'current_password' => 'required|string',
+            'new_account_password' => 'required|string|min:8|confirmed',
+        ], $messages);
+
+        // $user = currentAccount();
+
+        $account = Account::where('account_id', currentAccount()->account_id)->firstOrFail();
+
+        if (!Hash::check($request->current_password, $account->account_password)) {
+            return redirect()->back()->withErrors(['current_password' => 'The current password is incorrect. Please try again.'])->withInput();
+        }
+
+        // Update the user's password
+        $account->account_password = Hash::make($request->new_account_password);
+        $status = $account->save();
+
+        // Redirect back with a success message
+        return $status
+            ? redirect()->route('profile')->with('success', 'Account password changed successfully!')
+            : back()->withErrors(['account_email_address' => [__($status)]]);
     }
 }
+
+// NOTE YOUR CURRENT PASSWORD IS 12121212

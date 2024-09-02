@@ -25,7 +25,15 @@
                                 Change password
                             </h1>
                             <p class="rslab fs-4">Fill in the details below to change your password.</p>
-                            <!-- RESET PASSWORD FORM -->
+                            <!-- CHANGE PASSWORD FORM -->
+                            @if ($errors->any())
+                                <br>
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        {{$error}}
+                                    @endforeach
+                                </div>
+                            @endif
                             <form method="POST" action="{{ route('change-password.action') }}" class="py-3">
                                 @csrf
                                 <div class="mb-3">
@@ -53,7 +61,7 @@
                                     <button type="submit" class="btn btn-primary" style="width: 50%;">Change password</button>
                                 </div>
                             </form>
-                            <!-- END RESET PASSWORD FORM -->
+                            <!-- END CHANGE PASSWORD FORM -->
                         </div>
                     </div>
                 </div>
