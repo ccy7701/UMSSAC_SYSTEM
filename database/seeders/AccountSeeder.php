@@ -17,7 +17,7 @@ class AccountSeeder extends Seeder
             [
                 'account_id' => 1,
                 'account_full_name' => 'Chiew Cheng Yi',
-                'account_email_address' => 'test@email.com',
+                'account_email_address' => 'chiewccy2@gmail.com',
                 'account_password' => '$2y$12$UdMUCW1k18O525T2CpFc8O8hJKZKdKwOLfxmAzkpx2MR2SODYb9Ka',
                 'account_role' => 1,
                 'account_matric_number' => 'BI21110236',

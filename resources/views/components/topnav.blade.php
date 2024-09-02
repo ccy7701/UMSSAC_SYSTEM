@@ -14,7 +14,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <!-- Navbar items -->
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <div class="rsans collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav me-auto">
                         <!-- TAB 1 with dropdown -->
                         <li class="nav-item dropdown px-2">
@@ -28,19 +28,21 @@
                         </li>
                         <!-- TAB 2 with no dropdown -->
                         <li class="nav-item-dropdown px-2">
-                            <a class="nav-link dropdown px-3" href="#" id="tab2Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="rsans nav-link dropdown px-3" href="#" id="tab2Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 TAB_2
                             </a>
                         </li>
                         <!-- TAB 3 with no dropdown -->
+                        @if (currentAccount()->account_role == 1)
                         <li class="nav-item-dropdown px-2">
-                            <a class="nav-link px-3" href="#" id="tab3Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                TAB_3
+                            <a class="nav-link px-3" href="{{ route('progress-tracker') }}" id="tab3Dropdown" role="button">
+                                PROGRESS TRACKER
                             </a>
                         </li>
+                        @endif
                     </ul>
                     <!-- User profile dropdown -->
-                    <ul class="navbar-nav">
+                    <ul class="rsans navbar-nav">
                         <li class="nav-item-dropdown">
                             <a class="nav-link dropdown" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="{{ profile()->profile_picture }}" alt="Profile picture" class="rounded-circle" width="50" height="50">

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('account_id');
             $table->foreign('account_id')->references('account_id')->on('account')->onDelete('cascade');
             $table->string('profile_nickname')->nullable();
-            $table->string('profile_personal_desc', 500)->nullable();
+            $table->string('profile_personal_desc', 1024)->nullable();
             $table->string('profile_enrolment_session', 10)->nullable()->comment('NULL - not_student');
             $table->string('profile_faculty', 8);
             $table->string('profile_course', 128);

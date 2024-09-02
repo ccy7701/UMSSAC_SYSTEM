@@ -66,10 +66,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/profile/edit-general-info/action', [ProfileController::class, 'updateGeneralInfo'])->name('profile.edit.general-info.action');
 
-
-
-
-
     // The change password form
     Route::get('/change-password', function () {
         return view('auth.passwords.change-password');
@@ -77,9 +73,6 @@ Route::middleware('auth')->group(function () {
 
     // Handle the change password submission
     Route::post('/change-password/action', [PasswordResetController::class, 'changePassword'])->name('change-password.action');
-
-
-
 
     Route::post('/logout', [AccountController::class, 'logout'])->name('account.logout');
 });
@@ -89,6 +82,10 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::get('/test', function () {
         return view('test');
     })->name('test');
+
+    Route::get('/progress-tracker', function () {
+        return view('acad-progress.progress-tracker');
+    })->name('progress-tracker');
 });
 
 // Routes accessible to accountRole -> FacultyMember only
