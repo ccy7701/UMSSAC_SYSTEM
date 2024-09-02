@@ -32,11 +32,11 @@
                                     <label for="email-address" class="rsans form-label fw-semibold">E-mail address</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                        <input type="email" id="email-address" name="account_email_address" class="form-control" required autofocus">
+                                        <input type="email" id="email-address" name="account_email_address" class="rsans form-control" required autofocus">
                                     </div>
                                     <br>
                                     <div class="d-flex justify-content-center my-3">
-                                        <button type="submit" class="btn btn-primary" style="width: 50%;">Send recovery email</button>
+                                        <button type="submit" class="rsans btn btn-primary fw-bold" style="width: 50%;">Send recovery email</button>
                                     </div>
                                 </div>
                             </form>

@@ -28,6 +28,15 @@
                             <p class="rslab fs-4">Login to continue and use UMSSACS tools</p>
 
                             <!-- LOGIN FORM -->
+                            @if ($errors->any())
+                                <br>
+                                <div class="rsans alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        {!! $error !!}
+                                        <br>
+                                    @endforeach
+                                </div>
+                            @endif
                             <form method="POST" action="{{ route('account.login') }}" class="py-3">
                                 @csrf
                                 <!-- Role selection -->
@@ -36,11 +45,11 @@
                                         <label class="rsans form-label fw-semibold">Select user role</label>
                                         <div>
                                             <input type="radio" id="account-role-student" name="account_role" value="1" checked>
-                                            <label for="account-role-student" class="px-2 form-label">Student</label>
+                                            <label for="account-role-student" class="rsans px-2 form-label">Student</label>
                                             <input type="radio" id="account-role-facultymember" name="account_role" value="2">
-                                            <label for="account-role-facultymember" class="px-2 form-label">Faculty Member</label>
+                                            <label for="account-role-facultymember" class="rsans px-2 form-label">Faculty Member</label>
                                             <input type="radio" id="account-role-admin" name="account_role" value="3">
-                                            <label for="account-role-admin" class="px-2 form-label">Admin</label>
+                                            <label for="account-role-admin" class="rsans px-2 form-label">Admin</label>
                                         </div>
                                     </div>
                                 </div>
@@ -52,7 +61,7 @@
                                     <label for="matric-number" class="rsans form-label fw-semibold">Matric number</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
-                                        <input type="text" id="matric-number" name="account_matric_number" class="form-control" required autofocus>
+                                        <input type="text" id="matric-number" name="account_matric_number" class="rsans form-control" required autofocus>
                                     </div>
                                 </div>
                                 <!-- Password Input -->
@@ -60,23 +69,15 @@
                                     <label for="password" class="rsans form-label fw-semibold">Password</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-user-lock"></i></span>
-                                        <input type="password" id="password" name="account_password" class="form-control" required>
+                                        <input type="password" id="password" name="account_password" class="rsans form-control" required>
                                     </div>
                                 </div>
                                 <div class="my-4 text-end">
                                     <a href="{{ route('forgot-password') }}" class="rsans fw-semibold link-dark"><u>Forgot password?</u></a>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary" style="width: 50%;">Log in</button>
+                                    <button type="submit" class="rsans btn btn-primary fw-bold" style="width: 50%;">Log in</button>
                                 </div>
-                                @if ($errors->any())
-                                    <br>
-                                    <div class="alert alert-danger">
-                                        @foreach ($errors->all() as $error)
-                                            {!! $error !!}
-                                        @endforeach
-                                    </div>
-                                @endif
                                 <!-- End login credentials -->
                             </form>
                             <!-- END LOGIN FORM -->
@@ -93,7 +94,7 @@
                                                 <label for="matric-number" class="rsans form-label fw-semibold">Matric number</label>
                                                 <div class="input-group">
                                                     <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
-                                                    <input type="text" id="matric-number" name="account_matric_number" class="form-control" required autofocus>
+                                                    <input type="text" id="matric-number" name="account_matric_number" class="rsans form-control" required autofocus>
                                                 </div>
                                             `;
                                         } else if (selectedRole === "2") {
@@ -101,7 +102,7 @@
                                                 <label for="fm-email-address" class="rsans form-label fw-semibold">Faculty member e-mail address</label>
                                                 <div class="input-group">
                                                     <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                                    <input type="text" id="fm_email-address" name="account_email_address" class="form-control" required autofocus>
+                                                    <input type="text" id="fm_email-address" name="account_email_address" class="rsans form-control" required autofocus>
                                                 </div>
                                             `;
                                         } else {
@@ -109,7 +110,7 @@
                                                 <label for="ad-email-address" class="rsans form-label fw-semibold">Admin e-mail address</label>
                                                 <div class="input-group">
                                                     <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                                    <input type="text" id="ad-email-address" name="account_email_address" class="form-control" required autofocus>
+                                                    <input type="text" id="ad-email-address" name="account_email_address" class="rsans form-control" required autofocus>
                                                 </div>
                                             `;
                                         }

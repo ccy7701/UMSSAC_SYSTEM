@@ -40,25 +40,25 @@
                                     <label for="current-password" class="rsans form-label fw-semibold">Current password</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-user-lock d-flex"></i></span>
-                                        <input type="password" id="current-password" name="current_password" class="form-control" required autofocus>
+                                        <input type="password" id="current-password" name="current_password" class="rsans form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="new-password" class="rsans form-label fw-semibold">New password (minimum 8 characters)</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-lock d-flex"></i></span>
-                                        <input type="password" id="new-password" name="new_account_password" class="form-control" required autofocus>
+                                        <input type="password" id="new-password" name="new_account_password" class="rsans form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="new-password-confirmation" class="rsans form-label fw-semibold">Confirm new password</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-unlock-keyhole d-flex"></i></span>
-                                        <input type="password" id="new-password-confirmation" name="new_account_password_confirmation" class="form-control" required autofocus>
+                                        <input type="password" id="new-password-confirmation" name="new_account_password_confirmation" class="rsans form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center py-3">
-                                    <button type="submit" class="btn btn-primary" style="width: 50%;">Change password</button>
+                                    <button type="submit" class="rsans btn btn-primary" style="width: 50%;">Change password</button>
                                 </div>
                             </form>
                             <!-- END CHANGE PASSWORD FORM -->

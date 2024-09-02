@@ -10,7 +10,7 @@
                         </div>
                         <div class="row text-center p-0">
                             <h4 class="rsans">Success!</h4>
-                            <p class=rsans">{{ session('success') ?? 'Process successful.' }}
+                            <p class="rsans">{{ session('success') ?? 'Process successful.' }}</p>
                         </div>
                     @elseif (session()->has('error'))
                         <div class="row text-center p-3">
@@ -18,7 +18,7 @@
                         </div>
                         <div class="row text-center p-0">
                             <h4 class="rsans">Error</h4>
-                            <p class="rsans">{{ session('error') ?? 'Error encountered.' }}
+                            <p class="rsans">{{ session('error') ?? 'Error encountered.' }}</p>
                         </div>
                         {{ session('error') }}
                     @endif

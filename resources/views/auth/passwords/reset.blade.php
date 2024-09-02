@@ -33,25 +33,25 @@
                                     <label for="email-address" class="rsans form-label fw-semibold">E-mail address</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                        <input type="email" id="email-address" name="account_email_address" class="form-control" value="{{ old('account_email_address', $account_email_address) }}" required autofocus>
+                                        <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ old('account_email_address', $account_email_address) }}" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="new-password" class="rsans form-label fw-semibold">New password (minimum 8 characters)</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-user-lock d-flex"></i></span>
-                                        <input type="password" id="new-password" name="new_account_password" class="form-control" required autofocus>
+                                        <input type="password" id="new-password" name="new_account_password" class="rsans form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="new-password-confirmation" class="rsans form-label fw-semibold">Confirm new password</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-unlock-keyhole"></i></span>
-                                        <input type="password" id="new-password-confirmation" name="new_account_password_confirmation" class="form-control" required autofocus>
+                                        <input type="password" id="new-password-confirmation" name="new_account_password_confirmation" class="rsans form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center py-3">
-                                    <button type="submit" class="btn btn-primary" style="width: 50%;">Reset password</button>
+                                    <button type="submit" class="rsans btn btn-primary" style="width: 50%;">Reset password</button>
                                 </div>
                             </form>
                             @if ($errors->any())

@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    @include('components.topnav')
+    <x-topnav/>
     <br>
     <div class="container p-3">
         <!-- EDIT PROFILE PICTURE FORM -->
@@ -27,12 +27,21 @@
                     </div>
                 </div>
             </div>
+            @if ($errors->any())
+                <br>
+                <div class="rsans alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        {!! $error !!}
+                        <br>
+                    @endforeach
+                </div>
+            @endif
             <div class="row align-items-center py-3">
                 <div class="col-md-2 text-center">
                     <img id="profile-picture-preview" src="{{ profile()->profile_picture }}" class="rounded-circle border" alt="Profile picture" style="width: 200px; height: 200px; object-fit: cover">
                 </div>
                 <div class="col-md-10">
-                    <input id="profile-picture-input" type="file" name="new_profile_picture" class="form-control-file">
+                    <input id="profile-picture-input" type="file" name="new_profile_picture" class="rsans form-control-file">
                 </div>
             </div>
             <br>
@@ -58,29 +67,33 @@
             <form class="px-3 w-75">
                 <div class="form-group mb-3">
                     <label for="full-name" class="rsans fw-bold form-label">Full name</label>
-                    <input type="text" id="full-name" name="account_full_name" class="form-control" value="{{ currentAccount()->account_full_name }}" readonly>
+                    <input type="text" id="full-name" name="account_full_name" class="rsans form-control" value="{{ currentAccount()->account_full_name }}" readonly disabled>
                 </div>
                 <div class="form-group mb-3">
                     <label for="nickname" class="rsans fw-bold form-label">Nickname</label>
-                    <input type="text" id="nickname" name="profile_nickname" class="form-control" value="{{ profile()->profile_nickname }}" readonly>
+                    <input type="text" id="nickname" name="profile_nickname" class="rsans form-control" value="{{ profile()->profile_nickname }}" readonly disabled>
                 </div>
                 @if(currentAccount()->account_role == 1)
                     <div class="form-group mb-3">
                         <label for="matric-number" class="rsans fw-bold form-label">Matric number</label>
-                        <input type="text" id="matric-number" name="account_matric_number" class="form-control" value="{{ currentAccount()->account_matric_number }}" readonly>
+                        <input type="text" id="matric-number" name="account_matric_number" class="rsans form-control" value="{{ currentAccount()->account_matric_number }}" readonly disabled>
                     </div>
                     <div class="form-group mb-3">
                         <label for="enrolment-session" class="rsans fw-bold form-label">Enrolment session</label>
-                        <input type="text" id="enrolment-session" name="profile_enrolment_session" class="form-control w-50" value="{{ profile()->profile_enrolment_session }}" readonly> 
+                        <input type="text" id="enrolment-session" name="profile_enrolment_session" class="rsans form-control w-50" value="{{ profile()->profile_enrolment_session }}" readonly disabled> 
                     </div>
                 @endif
                 <div class="form-group mb-3">
                     <label for="faculty" class="rsans fw-bold form-label">Faculty</label>
-                    <input type="text" id="faculty" name="profile_faculty" class="form-control w-50" value="{{ profile()->profile_faculty }}" readonly>
+                    <input type="text" id="faculty" name="profile_faculty" class="rsans form-control w-50" value="{{ profile()->profile_faculty }}" readonly disabled>
                 </div>
                 <div class="form-group mb-3">
                     <label for="course" class="rsans fw-bold form-label">Course</label>
-                    <input type="text" id="course" name="profile_course" class="form-control" value="{{ profile()->profile_course }}" readonly>
+                    <input type="text" id="course" name="profile_course" class="rsans form-control" value="{{ profile()->profile_course }}" readonly disabled>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="personal-desc" class="rsans fw-bold form-label">Personal description</label>
+                    <textarea id="personal-desc" name="profile_personal_desc" class="rsans form-control" rows="5" style="resize: none;" readonly disabled>{{ profile()->profile_personal_desc }}</textarea>
                 </div>
             </form>
         </div>
@@ -98,11 +111,11 @@
             <form class="px-3 w-75">
                 <div class="form-group mb-3">
                     <label for="email-address" class="rsans fw-bold form-label">E-mail address</label>
-                    <input type="email" id="email-address" name="account_email_address" class="form-control" value="{{ currentAccount()->account_email_address }}" readonly>
+                    <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ currentAccount()->account_email_address }}" readonly disabled>
                 </div>
                 <div class="form-group mb-3">
                     <label for="password" class="rsans fw-bold form-label">Password</label>
-                    <input type="password" id="password" name="account_password" class="form-control" value="xxxxxxxxxx" readonly>
+                    <input type="password" id="password" name="account_password" class="rsans form-control" value="xxxxxxxxxx" readonly disabled>
                 </div>
             </form>
         </div>

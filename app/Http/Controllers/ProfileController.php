@@ -31,10 +31,12 @@ class ProfileController extends Controller
 
             // Update profile with new file path
             $profile->profile_picture_filepath = $path;
-            $profile->save();
-        }
+            $status = $profile->save();
 
-        return redirect()->route('profile')->with('success', 'Profile picture updated successfully!');
+            return $status
+                ? redirect()->route('profile')->with('success', 'Profile picture updated successfully!')
+                : back()->withErrors(['profile' => 'Failed to update profile picture. Please try again.']);
+        }
     }
 
     // Update general info
@@ -62,12 +64,11 @@ class ProfileController extends Controller
         }
 
         // Update the profile with the validated data
-        $profile->update($validatedData);
+        $status = $profile->update($validatedData);
 
-        // Optionally, flash a success message to the session
-        // session()->flash('success', 'Profile information updated successfulyl!');
-
-        // Redirect back to the form or another page
-        return redirect()->route('profile')->with('success', 'General info updated succesfully!');
+        // Redirect back with a success message
+        return $status
+            ? redirect()->route('profile')->with('success', 'General info updated successfully!')
+            : back()->withErrors(['profile' => 'Failed to update the general info. Please try again.']);
     }
 }

@@ -24,39 +24,48 @@
                             <h1 class="rslab fw-bold">Register an account</h1>
                             <p class="rslab fs-4">One step away from your academic companion</p>
                             <!-- REGISTRATION FORM -->
+                            @if ($errors->any())
+                                <br>
+                                <div class="rsans alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        {{ $error }}
+                                        <br>
+                                    @endforeach
+                                </div>
+                            @endif
                             <form method="POST" action="{{ route('account.register') }}" class="py-3">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="full-name" class="rsans form-label fw-semibold">Full name</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-user"></i></span>
-                                        <input type="text" id="full-name" name="account_full_name" class="form-control" required autofocus>
+                                        <input type="text" id="full-name" name="account_full_name" class="rsans form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="email-address" class="rsans form-label fw-semibold">E-mail address</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                        <input type="email" id="email-address" name="account_email_address" class="form-control" required autofocus>
+                                        <input type="email" id="email-address" name="account_email_address" class="rsans form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="rsans form-label fw-semibold">Password (minimum 8 characters)</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-user-lock d-flex"></i></span>
-                                        <input type="password" id="password" name="account_password" class="form-control" required autofocus>
+                                        <input type="password" id="password" name="account_password" class="rsans form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="password-confirmation" class="rsans form-label fw-semibold">Confirm password</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-unlock-keyhole"></i></span>
-                                        <input type="password" id="password-confirmation" name="account_password_confirmation" class="form-control" required autofocus>
+                                        <input type="password" id="password-confirmation" name="account_password_confirmation" class="rsans form-control" required autofocus>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="role-select" class="rsans form-label fw-semibold">I am registering as a</label>
-                                    <select class="form-select" id="role-select" name="account_role">
+                                    <select class="rsans form-select" id="role-select" name="account_role">
                                         <option selected disabled value="">Choose...</option>
                                         <option value="1">Student</option>
                                         <option value="2">Faculty member</option>
@@ -70,21 +79,13 @@
                                     <label for="matric-number" class="rsans form-label fw-semibold">Matric number</label>
                                     <div class="input-group">
                                         <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
-                                        <input type="text" id="matric-number" name="account_matric_number" class="form-control" autofocus>
+                                        <input type="text" id="matric-number" name="account_matric_number" class="rsans form-control" autofocus>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center py-3">
-                                    <button type="submit" class="btn btn-primary" style="width: 50%;">Register account</button>
+                                    <button type="submit" class="rsans btn btn-primary fw-bold" style="width: 50%;">Register account</button>
                                 </div>
                             </form>
-                            @if ($errors->any())
-                                <br>
-                                <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $error)
-                                        {{$error}}
-                                    @endforeach
-                                </div>
-                            @endif
                             <!-- END REGISTRATION FORM -->
                             <script>
                                 document.addEventListener('DOMContentLoaded', function() {
