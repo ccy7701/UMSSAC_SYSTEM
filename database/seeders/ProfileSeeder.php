@@ -17,12 +17,12 @@ class ProfileSeeder extends Seeder
             [
                 'profile_id' => 1,
                 'account_id' => 1,
-                'profile_nickname' => '',
-                'profile_personal_desc' => '',
+                'profile_nickname' => 'ccy7701',
+                'profile_personal_desc' => 'TEST',
                 'profile_enrolment_session' => '2021/2022',
-                'profile_faculty' => '',
-                'profile_course' => '',
-                'profile_picture_filepath' => '',
+                'profile_faculty' => 'FKIKK',
+                'profile_course' => 'UH6481001',
+                'profile_picture_filepath' => 'profile-pictures/k3FiGAVKLvPMMNdSuApI1sO3vGxTVU9n7sy80KX2.png',
                 'profile_colour_theme' => '',
             ],
             [

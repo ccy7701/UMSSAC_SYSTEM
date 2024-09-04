@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AccountSeeder::class,
             ProfileSeeder::class,
+            SemesterProgressLogSeeder::class,
+            SubjectStatsLogSeeder::class,
         ]);
     }
 }

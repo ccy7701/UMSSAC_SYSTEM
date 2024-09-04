@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\SemesterProgressLogController;
 use App\Http\Middleware\PreventAuthenticatedAccess;
 use App\Http\Middleware\RoleAccessMiddleware;
 
@@ -83,9 +84,19 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
         return view('test');
     })->name('test');
 
-    Route::get('/progress-tracker', function () {
-        return view('acad-progress.progress-tracker');
-    })->name('progress-tracker');
+    // Route::get('/progress-tracker', function () {
+    //     return view('acad-progress.progress-tracker');
+    // })->name('progress-tracker');
+
+    // CURRENT ROUTE OF FOCUS
+    // CURRENT ROUTE OF FOCUS
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/progress-tracker/{profile_id?}', [SemesterProgressLogController::class, 'showProgressTracker'])->name('progress-tracker');
+
+    // CURRENT ROUTE OF FOCUS
+    // CURRENT ROUTE OF FOCUS
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/fetch-subject-stats/{sem_prog_log_id?}', [SemesterProgressLogController::class, 'fetchSubjectStatsLogs'])->name('fetch-subject-stats');
 });
 
 // Routes accessible to accountRole -> FacultyMember only

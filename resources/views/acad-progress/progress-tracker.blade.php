@@ -33,23 +33,109 @@
                 <label for="select-semester" class="rsans form-label me-2">Select semester:</label>
                 <select id="select-semester" class="rsans form-select w-50" name="#">
                     <option selected disabled value="">Choose...</option>
-                    <option value="S1-2021/2022">S1-2021/2022</option>
-                    <option value="S2-2021/2022">S2-2021/2022</option>
-                    <option value="S1-2022/2023">S1-2022/2023</option>
-                    <option value="S2-2022/2023">S2-2022/2023</option>
-                    <option value="S1-2023/2024">S1-2023/2024</option>
-                    <option value="S2-2023/2024">S2-2023/2024</option>
-                    <option value="S1-2024/2025">S1-2024/2025</option>
-                    <option value="S2-2024/2025">S2-2024/2025</option>
+                    @foreach($all_semesters as $semester)
+                        <option value="{{ $semester->sem_prog_log_id }}">
+                            S{{ $semester->semester }}-{{ $semester->academic_session }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
+
+            <!-- Handle the dropdown change and fetch via AJAX -->
+            <script>
+                document.getElementById('select-semester').addEventListener('change', function() {
+                    const semesterId = this.value;
+                    console.log('semesterId = ', semesterId);
+                    if (semesterId) {
+                        const url = `{{ route('fetch-subject-stats', ['sem_prog_log_id' => '']) }}/${semesterId}`;
+                        console.log('Fetching data from:', url);  // Debugging line
+
+                        fetch(url)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! Status: ${response.status}`);  // Catch non-200 responses
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Fetched data:', data);
+
+                                // Update CGPA value in the view
+                                const cgpa = data.cgpa ? data.cgpa.toFixed(2) : '0.00';
+                                document.querySelector('#cgpa-value').textContent = cgpa;
+                                // Update CGPA and SGPA values in the view
+                                const sgpa = data.sgpa ? data.sgpa.toFixed(2) : '0.00';
+                                document.querySelector('#sgpa-value').textContent = sgpa;
+
+                                // Update CGPA message and color based on the value
+                                const cgpaMessageElement = document.querySelector('#cgpa-message');
+                                if (cgpa >= 3.67) {
+                                    cgpaMessageElement.textContent = 'On track to first class';
+                                    cgpaMessageElement.style.color = '#15AA07';
+                                } else if (cgpa < 3.67 && cgpa > 0) {
+                                    cgpaMessageElement.textContent = 'You\'re on the right path!';
+                                    cgpaMessageElement.style.color = '#FF0000';
+                                } else {
+                                    cgpaMessageElement.textContent = 'No data available';
+                                    cgpaMessageElement.style.color = '#BBBBBB';
+                                }
+                                
+                                // Update SGPA message and color based on the value
+                                const sgpaMessageElement = document.querySelector('#sgpa-message');
+                                if (sgpa >= 3.50) {
+                                    sgpaMessageElement.textContent = 'On track to dean\'s list';
+                                    sgpaMessageElement.style.color = '#15AA07';
+                                } else if (sgpa < 3.50 && sgpa > 0) {
+                                    sgpaMessageElement.textContent = 'Good effort, keep pushing!';
+                                    sgpaMessageElement.style.color = '#B4C75C';
+                                } else {
+                                    sgpaMessageElement.textContent = 'No data available';
+                                    sgpaMessageElement.style.color = '#BBBBBB';
+                                }
+
+                                // Ensure we access the subjects array
+                                const subjects = data.subjects || [];
+                                const tableBody = document.getElementById('subjects-taken-table-body');
+                                tableBody.innerHTML = ''; // Clear previous data
+
+                                subjects.forEach(subject => {
+                                    const row = document.createElement('tr');
+                                    row.className = 'text-left align-middle';
+
+                                    row.innerHTML = `
+                                        <td>${subject.subject_code}</td>
+                                        <td>${subject.subject_name}</td>
+                                        <td>${subject.subject_credit_hours}</td>
+                                        <td>${subject.subject_grade}</td>
+                                        <td>${subject.subject_grade_point.toFixed(2)}</td>
+                                        <td style="width: 1%;">
+                                            <div class="dropdown">
+                                                <button class="subject-row btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton${subject.subject_code}" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-ellipsis-vertical"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton${subject.subject_code}">
+                                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                                    <li><a class="text-danger dropdown-item" href="#">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    `;
+                                    tableBody.appendChild(row);
+                                });
+                            })
+                            .catch(error => console.error('Error fetching subject stats:', error));
+                    }
+                });
+            </script>
 
             <!-- RESULTS OVERVIEW -->
             <div class="row py-3">
                 <div class="d-flex justify-content-center align-items-center py-3 w-100 align-self-center">
                     <div class="card shadow-sm w-80 p-3">
                         <div class="card-body">
+                            <!-- WORK IN PROGRESS HERE -->
                             <h4 class="rserif card-title fw-bold pb-0">S1-2021/2022 results at a glance</h4>
+                            <!-- WORK IN PROGRESS HERE -->
                             <p class="rslab card-text fs-5">How are my results so far?</p>
                             <br>
                             <div class="row">
@@ -60,8 +146,8 @@
                                             <h2 class="rslab fs-5">CGPA up to this sem</h2>
                                             <span><i class="align-self-center fa-regular fa-circle-question px-2" data-bs-toggle="tooltip" data-bs-placement="right" title="Cumulative Grade Point Average calculated up to this semester."></i></span>
                                         </div>
-                                        <h1 class="rserif fw-bold fs-1 py-0">3.89</h1>
-                                        <h2 class="rslab fs-5 py-0" style="color: #15AA07;">On track to first class</h2>
+                                        <h1 class="rserif fw-bold fs-1 py-0" id="cgpa-value">0.00</h1>
+                                        <h2 class="rslab fs-5 py-0" style="color: #BBBBBB;" id="cgpa-message">Select a sem first</h2>
                                     </div>
                                 </div>
                                 <div class="col-md-4 d-flex align-items-center">
@@ -70,8 +156,8 @@
                                             <h2 class="rslab fs-5">SGPA</h2>
                                             <span><i class="fa-regular fa-circle-question px-2" data-bs-toggle="tooltip" data-bs-placement="right" title="Semester Grade Point Average for this semester only."></i></span>
                                         </div>
-                                        <h1 class="rserif fw-bold fs-1 py-0">3.69</h1>
-                                        <h2 class="rslab fs-5 py-0" style="color:#15AA07;">On track to dean's list</h2>
+                                        <h1 class="rserif fw-bold fs-1 py-0" id="sgpa-value">0.00</h1>
+                                        <h2 class="rslab fs-5 py-0" style="color: #BBBBBB;" id="sgpa-message">Select a sem first</h2>
                                     </div>
                                 </div>
                                 <div class="col-md-4"></div>
@@ -117,51 +203,8 @@
                                             <th></th>   <!-- Edit tools column -->
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <!-- LOOPING COMPONENT -->
-                                        <x-acad-progress-subject-row
-                                            :code="'KK34703'"
-                                            :subject_name="'Web Engineering'"
-                                            :credit="3"
-                                            :grade="'A'"
-                                            :grade_point="12.00"/>
-                                        <x-acad-progress-subject-row
-                                            :code="'KK34302'"
-                                            :subject_name="'Parallel Programming and Distributed System'"
-                                            :credit="2"
-                                            :grade="'A-'"
-                                            :grade_point="7.34"/>
-                                        <x-acad-progress-subject-row
-                                            :code="'KK34102'"
-                                            :subject_name="'Software Engineering Project'"
-                                            :credit="2"
-                                            :grade="'A-'"
-                                            :grade_point="7.34"/>
-                                        <x-acad-progress-subject-row
-                                            :code="'KK34502'"
-                                            :subject_name="'Augmented Reality/Virtual Reality'"
-                                            :credit="2"
-                                            :grade="'A'"
-                                            :grade_point="8.00"/>
-                                        <x-acad-progress-subject-row
-                                            :code="'KK34702'"
-                                            :subject_name="'Cloud Computing'"
-                                            :credit="2"
-                                            :grade="'A'"
-                                            :grade_point="8.00"/>
-                                        <x-acad-progress-subject-row
-                                            :code="'NP40503'"
-                                            :subject_name="'Food Ingredients and Usage'"
-                                            :credit="3"
-                                            :grade="'B'"
-                                            :grade_point="9.00"/>
-                                        <x-acad-progress-subject-row
-                                            :code="'KT34102'"
-                                            :subject_name="'Technopreneurship'"
-                                            :credit="2"
-                                            :grade="'A'"
-                                            :grade_point="8.00"/>
-                                        <!-- END LOOPING COMPONENT -->
+                                    <tbody id="subjects-taken-table-body">
+                                        <!-- LOOPING COMPONENT GOES HERE -->
                                     </tbody>
                                 </table>
                             </div>
