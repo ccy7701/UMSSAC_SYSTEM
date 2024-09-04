@@ -10,9 +10,7 @@
 </head>
 
 <body>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    @include('components.topnav')
+    <x-topnav/>
     <br>
     <div class="container p-3">
         <!-- PROFILE PICTURE -->
@@ -123,38 +121,48 @@
                         </select>
                     </div>
                     <script>
-                        $(document).ready(function() {
+                        document.addEventListener('DOMContentLoaded', function() {
                             let facultyCourses = {};
 
-                            // Load the JSON file
-                            $.getJSON('{{ asset("resources/data/faculties_and_courses.json") }}', function(data) {
-                                facultyCourses = data;
-
-                                // Pre-select the faculty and populate courses if they already exist
-                                let selectedFaculty = "{{ profile()->profile_faculty }}";
-                                let selectedCourse = "{{ profile()->profile_course }}";
-
-                                if (selectedFaculty) {
-                                    $('#faculty').val(selectedFaculty).change();
-                                    populateCourses(selectedFaculty, selectedCourse);
-                                }
-                            });
+                            // Fetch the JSON file
+                            fetch('{{ asset("resources/data/faculties_and_courses.json") }}')
+                                .then(response => response.json())
+                                .then(data => {
+                                    facultyCourses = data;
+                                    // Pre-select the faculty and populate courses if they already exist
+                                    let selectedFaculty = "{{ profile()->profile_faculty }}";
+                                    let selectedCourse = "{{ profile()->profile_course }}";
+                                    if (selectedFaculty) {
+                                        const facultyDropdown = document.getElementById('faculty');
+                                        facultyDropdown.value = selectedFaculty;
+                                        populateCourses(selectedFaculty, selectedCourse);
+                                    }
+                                })
+                                .catch(error => console.error('Error fetching JSON: ', error));
 
                             // Handle change event for faculty dropdown
-                            $('#faculty').change(function() {
-                                var selectedFaculty = $(this).val();
-                                $('#course').empty().append('<option selected disabled value="">Choose...</option>');
+                            document.getElementById('faculty').addEventListener('change', function() {
+                                const selectedFaculty = this.value;
+                                document.getElementById('course').innerHTML = '<option selected disabled value="">Choose...</option>';
                                 populateCourses(selectedFaculty);
-                            });
+                            });        
 
                             function populateCourses(faculty, selectedCourse = null) {
-                                // Clear the course select to avoid duplication
-                                $('#course').empty().append('<option selected disabled value="">Choose...</option>');
+                                const courseDropdown = document.getElementById('course');
+                                courseDropdown.innerHTML = '<option selected disabled value="">Choose...</option>'; // Clear the dropdown
 
                                 if (facultyCourses[faculty]) {
                                     facultyCourses[faculty].forEach(function(course) {
-                                        let isSelected = (course.course_code === selectedCourse) ? 'selected' : '';
-                                        $('#course').append('<option value="' + course.course_code + '" ' + isSelected + '>' + course.course_code + ' ' + course.course_name + '</option>');
+                                        const option = document.createElement('option');
+                                        option.value = course.course_code;
+                                        option.textContent = `${course.course_code} ${course.course_name}`;
+
+                                        // Pre-select course if provided
+                                        if (course.course_code === selectedCourse) {
+                                            option.selected = true;
+                                        }
+
+                                        courseDropdown.appendChild(option);
                                     });
                                 }
                             }

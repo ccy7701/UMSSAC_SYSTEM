@@ -11,9 +11,7 @@
 
 <body>
     <x-topnav/>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Flash message component -->
-    <x-success-message/>
+    <x-success-message/> <!-- Flash message component -->
     <br>
     <div class="container p-3">
         <!-- PROFILE PICTURE -->
@@ -29,7 +27,7 @@
         </div>
         <div class="row align-items-center py-3">
             <div class="col-md-2 text-center">
-                <img src="{{ profile()->profile_picture }}" class="rounded-circle border" alt="Profile picture" style="width: 200px; height: 200px; object-fit: cover">
+                <img src="{{ asset(profile()->profile_picture) }}" class="rounded-circle border" alt="Profile picture" style="width: 200px; height: 200px; object-fit: cover">
             </div>
             <div class="col-md-10">
                 <h2 class="rserif fw-bold">{{ currentAccount()->account_full_name }}</h2>

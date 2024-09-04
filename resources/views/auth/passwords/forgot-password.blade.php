@@ -10,6 +10,7 @@
 </head>
 
 <body style="height: 100%; overflow: hidden">
+    <x-email-sent-message/>
     <div class="container-fluid vh-100">
         <div class="row h-100">
             <!-- Left section (Form) -->
@@ -51,6 +52,7 @@
             </div>
         </div>
     </div>
+    @vite('resources/js/app.js')
 </body>
 
 </html>

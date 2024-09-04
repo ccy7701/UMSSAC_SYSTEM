@@ -10,7 +10,6 @@
 </head>
 
 <body>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Flash message component -->
     <x-success-message/>
     <div class="container-fluid vh-100">

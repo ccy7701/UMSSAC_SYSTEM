@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center py-3">
-                                    <button type="submit" class="rsans btn btn-primary" style="width: 50%;">Change password</button>
+                                    <button type="submit" class="rsans fw-bold btn btn-primary" style="width: 50%;">Change password</button>
                                 </div>
                             </form>
                             <!-- END CHANGE PASSWORD FORM -->
