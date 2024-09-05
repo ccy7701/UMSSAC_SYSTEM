@@ -38,18 +38,18 @@
 
     <div class="image-carousel px-sm-5">
         <div class="carousel-track">
-            <img src="{{ asset('placeholder-images/welcome_img_1.png') }}" alt="Welcome image 1" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/welcome_img_2.png') }}" alt="Welcome image 2" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/welcome_img_3.png') }}" alt="Welcome image 3" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/welcome_img_4.png') }}" alt="Welcome image 4" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/welcome_img_5.png') }}" alt="Welcome image 5" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/welcome_img_6.png') }}" alt="Welcome image 6" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/welcome_img_1.png') }}" alt="Welcome image 1" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/welcome_img_2.png') }}" alt="Welcome image 2" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/welcome_img_3.png') }}" alt="Welcome image 3" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/welcome_img_4.png') }}" alt="Welcome image 4" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/welcome_img_5.png') }}" alt="Welcome image 5" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/welcome_img_6.png') }}" alt="Welcome image 6" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/system_users.png') }}" alt="System users placeholder illustration" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/study_partner_suggester.png') }}" alt="Study partner suggester placeholder illustration" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/study_partner_list.png') }}" alt="Study partner list placeholder illustration" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/bookmarked_events.png') }}" alt="Bookmarked events placeholder illustration" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/acad_prog_tracker.png') }}" alt="Academic progress tracker placeholder illustration" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/timetable_builder.png') }}" alt="Timetable builder placeholder illustration" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/system_users.png') }}" alt="System users placeholder illustration" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/study_partner_suggester.png') }}" alt="Study partner suggester placeholder illustration" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/study_partner_list.png') }}" alt="Study partner list placeholder illustration" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/bookmarked_events.png') }}" alt="Bookmarked events placeholder illustration" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/acad_prog_tracker.png') }}" alt="Academic progress tracker placeholder illustration" class="img-fluid mx-3">
+            <img src="{{ asset('placeholder-images/timetable_builder.png') }}" alt="Timetable builder placeholder illustration" class="img-fluid mx-3">
         </div>
     </div>
 
