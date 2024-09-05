@@ -26,4 +26,12 @@ class SubjectStatsLog extends Model
     public function semesterProgressLog() {
         return $this->belongsTo(SemesterProgressLog::class, 'sem_prog_log_id', 'sem_prog_log_id');
     }
+
+    // Override the save method to skip PK validation
+    public function save(array $options = []) {
+        if (!$this->exists) {
+            $this->exists = true;   // "Trick Eloquent into thinking the record exists
+        }
+        return parent::save($options);
+    }
 }

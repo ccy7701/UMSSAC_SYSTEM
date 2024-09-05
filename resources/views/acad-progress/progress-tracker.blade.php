@@ -98,30 +98,38 @@
                                 const tableBody = document.getElementById('subjects-taken-table-body');
                                 tableBody.innerHTML = ''; // Clear previous data
 
-                                subjects.forEach(subject => {
-                                    const row = document.createElement('tr');
-                                    row.className = 'text-left align-middle';
+                                if (subjects.length > 0) {
+                                    subjects.forEach(subject => {
+                                        const row = document.createElement('tr');
+                                        row.className = 'text-left align-middle';
 
+                                        row.innerHTML = `
+                                            <td>${subject.subject_code}</td>
+                                            <td>${subject.subject_name}</td>
+                                            <td>${subject.subject_credit_hours}</td>
+                                            <td>${subject.subject_grade}</td>
+                                            <td>${subject.subject_grade_point.toFixed(2)}</td>
+                                            <td style="width: 1%;">
+                                                <div class="dropdown">
+                                                    <button class="subject-row btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton${subject.subject_code}" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-vertical"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton${subject.subject_code}">
+                                                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                                                        <li><a class="text-danger dropdown-item" href="#">Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        `;
+                                        tableBody.appendChild(row);
+                                    });
+                                } else {
+                                    const row = document.createElement('tr');
                                     row.innerHTML = `
-                                        <td>${subject.subject_code}</td>
-                                        <td>${subject.subject_name}</td>
-                                        <td>${subject.subject_credit_hours}</td>
-                                        <td>${subject.subject_grade}</td>
-                                        <td>${subject.subject_grade_point.toFixed(2)}</td>
-                                        <td style="width: 1%;">
-                                            <div class="dropdown">
-                                                <button class="subject-row btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton${subject.subject_code}" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-ellipsis-vertical"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton${subject.subject_code}">
-                                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                                    <li><a class="text-danger dropdown-item" href="#">Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    `;
-                                    tableBody.appendChild(row);
-                                });
+                                            <td colspan="6">No subjects added yet</td>
+                                        `;
+                                        tableBody.appendChild(row);
+                                }
                             })
                             .catch(error => console.error('Error fetching subject stats:', error));
                     }
@@ -175,6 +183,18 @@
                 };
             </script>
 
+            <!-- TEMPORARY -->
+            @if ($errors->any())
+                <br>
+                <div class="rsans alert alert-danger">
+                    @foreach($errors->all() as $error)
+                        {!! $error !!}
+                        <br>
+                    @endforeach
+                </div>
+            @endif
+            <!-- TEMPORARY -->
+
             <!-- SUBJECTS TAKEN TABLE -->
             <div class="row pb-3 pt-2">
                 <div class="d-flex justify-content-center align-items-center py-3 w-100 align-self-center">
@@ -186,10 +206,27 @@
                                         <h4 class="rserif card-title fw-bold py-2 placeholder-glow">Subjects taken this semester</h4>
                                     </div>
                                     <div class="col-md-4 text-end px-3">
-                                        <a href="#" class="rsans btn btn-primary fw-bold px-2 w-50">Add subject</a>
+                                        <button id="add-subject-button" type="button" class="rsans btn btn-primary fw-bold px-2 w-50" data-bs-toggle="modal" data-bs-target="#addSubjectModal" disabled>Add subject</button>
                                     </div>
+                                    <x-add-subject/>
+                                    <!-- add-subject modal form -->
                                 </div>
                             </div>
+                            <script>
+                                const semesterDropdown = document.getElementById('select-semester');
+                                const addButton = document.getElementById('add-subject-button');
+
+                                function checkSemesterSelection() {
+                                    const selectedSemester = semesterDropdown.value;
+                                    if (selectedSemester) {
+                                        addButton.disabled = false;
+                                    } else {
+                                        addButton.disabled = true;
+                                    }
+                                }
+
+                                semesterDropdown.addEventListener('change', checkSemesterSelection);
+                            </script>
                             <!-- SUBJECTS TAKEN TABLE -->
                             <div class="table-responsive" style="overflow: visible;">
                                 <table class="rsans table table-hover">
@@ -197,7 +234,7 @@
                                         <tr>
                                             <th>Code</th>
                                             <th>Subject name</th>
-                                            <th>Credit</th>
+                                            <th>Credit Hours</th>
                                             <th>Grade</th>
                                             <th>Grade Point</th>
                                             <th></th>   <!-- Edit tools column -->

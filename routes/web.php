@@ -5,6 +5,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\SemesterProgressLogController;
+use App\Http\Controllers\SubjectStatsLogController;
 use App\Http\Middleware\PreventAuthenticatedAccess;
 use App\Http\Middleware\RoleAccessMiddleware;
 
@@ -85,6 +86,9 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
     // CURRENT ROUTE OF FOCUS
     Route::get('/fetch-subject-stats/{sem_prog_log_id?}', [SemesterProgressLogController::class, 'fetchSubjectStatsLogs'])->name('fetch-subject-stats');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/add-subject', [SubjectStatsLogController::class, 'addSubject'])->name('add-subject');
 });
 
 // Routes accessible to accountRole -> FacultyMember only
