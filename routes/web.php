@@ -80,31 +80,15 @@ Route::middleware('auth')->group(function () {
 
 // Routes accessible to accountRole -> Student only
 Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function () {
-    Route::get('/test', function () {
-        return view('test');
-    })->name('test');
-
-    // Route::get('/progress-tracker', function () {
-    //     return view('acad-progress.progress-tracker');
-    // })->name('progress-tracker');
-
-    // CURRENT ROUTE OF FOCUS
-    // CURRENT ROUTE OF FOCUS
     // CURRENT ROUTE OF FOCUS
     Route::get('/progress-tracker/{profile_id?}', [SemesterProgressLogController::class, 'showProgressTracker'])->name('progress-tracker');
 
-    // CURRENT ROUTE OF FOCUS
-    // CURRENT ROUTE OF FOCUS
     // CURRENT ROUTE OF FOCUS
     Route::get('/fetch-subject-stats/{sem_prog_log_id?}', [SemesterProgressLogController::class, 'fetchSubjectStatsLogs'])->name('fetch-subject-stats');
 });
 
 // Routes accessible to accountRole -> FacultyMember only
-Route::middleware(['auth', RoleAccessMiddleware::class.':2'])->group(function () {
-
-});
+// Use (['auth', RoleAccessMiddleware::class.':2'])->group(fx(){});
 
 // Routes accessible to accountRole -> Admin only
-Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function () {
-
-});
+// Use (['auth', RoleAccessMiddleware::class.':3'])->group(fx(){});

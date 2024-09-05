@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" xml:lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -128,10 +128,3 @@
 </body>
 
 <html>
-
-
-<!--
-BEFORE YOU CONTINUE, 27/8/2024, ADDRESS THE FOLLOWING
-    2. Consider increasing the padding on the form.
-    3. After addressing the above two, get ready for the beginning of DB integration!
--->

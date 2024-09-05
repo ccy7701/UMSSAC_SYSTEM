@@ -11,8 +11,13 @@ class SubjectStatsLogSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
-    {
+    public function run(): void {
+        $this->insertSeederSem1();
+        $this->insertSeederSem2();
+        $this->insertSeederSem3();
+    }
+
+    private function insertSeederSem1(): void {
         DB::table('subject_stats_log')->insert([
             // S1-2021/2022
             [
@@ -63,6 +68,11 @@ class SubjectStatsLogSeeder extends Seeder
                 'subject_grade' => 'A',
                 'subject_grade_point' => 8.00,
             ],
+        ]);
+    }
+
+    private function insertSeederSem2(): void {
+        DB::table('subject_stats_log')->insert([
             // S2-2021/2022
             [
                 'sem_prog_log_id' => 2,
@@ -120,6 +130,11 @@ class SubjectStatsLogSeeder extends Seeder
                 'subject_grade' => 'A-',
                 'subject_grade_point' => 7.34,
             ],
+        ]);
+    }
+
+    private function insertSeederSem3(): void {
+        DB::table('subject_stats_log')->insert([
             // S1-2022/2023
             [
                 'sem_prog_log_id' => 3,
