@@ -10,8 +10,9 @@
 </head>
 
 <body>
-    <!-- Flash message component -->
-    <x-success-message/>
+    @vite('resources/js/app.js')
+    @vite('resources/js/loginFormRoleSelector.js')
+    <x-success-message/> <!-- Flash message component -->
     <div class="container-fluid vh-100">
         <div class="row h-100">
             <!-- Left section (login form) -->
@@ -80,49 +81,6 @@
                                 <!-- End login credentials -->
                             </form>
                             <!-- END LOGIN FORM -->
-                            <script>
-                                document.addEventListener('DOMContentLoaded', function () {
-                                    const identifierField = document.getElementById('identifier-field');
-                                    const roleRadios = document.querySelectorAll('input[name="account_role"]');
-
-                                    function updateLoginForm() {
-                                        const selectedRole = document.querySelector('input[name="account_role"]:checked').value;
-
-                                        if (selectedRole === "1") {
-                                            identifierField.innerHTML = `
-                                                <label for="matric-number" class="rsans form-label fw-semibold">Matric number</label>
-                                                <div class="input-group">
-                                                    <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
-                                                    <input type="text" id="matric-number" name="account_matric_number" class="rsans form-control" required autofocus>
-                                                </div>
-                                            `;
-                                        } else if (selectedRole === "2") {
-                                            identifierField.innerHTML = `
-                                                <label for="fm-email-address" class="rsans form-label fw-semibold">Faculty member e-mail address</label>
-                                                <div class="input-group">
-                                                    <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                                    <input type="text" id="fm_email-address" name="account_email_address" class="rsans form-control" required autofocus>
-                                                </div>
-                                            `;
-                                        } else {
-                                            identifierField.innerHTML = `
-                                                <label for="ad-email-address" class="rsans form-label fw-semibold">Admin e-mail address</label>
-                                                <div class="input-group">
-                                                    <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                                    <input type="text" id="ad-email-address" name="account_email_address" class="rsans form-control" required autofocus>
-                                                </div>
-                                            `;
-                                        }
-                                    }
-
-                                    roleRadios.forEach(radio => {
-                                        radio.addEventListener('change', updateLoginForm);
-                                    });
-
-                                    // Initialise form based on default selected role
-                                    updateLoginForm();
-                                });
-                            </script>
                             <div class="my-2">
                                 <p class="rsans">New user? <a href="{{ route('register') }}" class="rsans fw-semibold link-dark"><u>Register here</u></a></p>
                             </div>
@@ -136,7 +94,6 @@
             </div>
         </div>
     </div>
-    @vite('resources/js/app.js')
 </body>
 
 </html>

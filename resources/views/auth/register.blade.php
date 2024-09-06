@@ -10,6 +10,8 @@
 </head>
 
 <body style="">
+    @vite('resources/js/app.js')
+    @vite('resources/js/registerFormRoleSelector.js');
     <div class="container-fluid vh-100">
         <div class="row h-100">
             <!-- Left section (register form) -->
@@ -87,30 +89,6 @@
                                 </div>
                             </form>
                             <!-- END REGISTRATION FORM -->
-                            <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    const roleSelect = document.getElementById('role-select');
-                                    const matricNumberField = document.querySelector('input[name="account_matric_number"]');
-                                    const matricNumberFormGroup = matricNumberField.closest('.mb-3');
-
-                                    function toggleMatricNumberField() {
-                                        if (roleSelect.value === '1') {
-                                            matricNumberFormGroup.style.display = 'block';
-                                            matricNumberField.required = true;
-                                        } else {
-                                            matricNumberFormGroup.style.display = 'none';
-                                            matricNumberField.required = false;
-                                            matricNumberField.value = '';
-                                        }
-                                    }
-
-                                    // Hide the matric number field initially
-                                    matricNumberFormGroup.style.display = 'none';
-
-                                    // Add event listener to role select
-                                    roleSelect.addEventListener('change', toggleMatricNumberField);
-                                });
-                            </script>
                             <div class="my-1">
                                 <p class="rsans">Already have an account? <a href="{{ route('login') }}" class="rsans fw-semibold link-dark">Log in</a></p>
                             </div>
@@ -124,7 +102,6 @@
             </div>
         </div>
     </div>
-    @vite('resources/js/app.js')
 </body>
 
 <html>
