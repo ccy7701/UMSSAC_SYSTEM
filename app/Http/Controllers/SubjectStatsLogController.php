@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\SubjectStatsLog;
+use App\Services\CGPAService;
 
 class SubjectStatsLogController extends Controller
 {
@@ -49,7 +50,7 @@ class SubjectStatsLogController extends Controller
             $subject->subject_grade_point = $this->getGradePoint($subject->subject_grade) * $subject->subject_credit_hours;
 
             // Insert new record explicitly, ignore potential updates
-            DB::table('subject_stats_log')->insert([
+            $status = DB::table('subject_stats_log')->insert([
                 'sem_prog_log_id' => $subject->sem_prog_log_id,
                 'subject_code' => $subject->subject_code,
                 'subject_name' => $subject->subject_name,
@@ -58,11 +59,25 @@ class SubjectStatsLogController extends Controller
                 'subject_grade_point' => $subject->subject_grade_point,
             ]);
 
-            // return redirect()->back()->with('success', 'Subject added successfully!');
-            return redirect()->route('profile')->with('success', 'Why are you here, though? (ADD_SUBJECT)');
+            if ($status) {
+                // Recalculate CGPA and SGPA
+                $cgpaService = new CGPAService();
+                $cgpa = $cgpaService->calculateCGPA(profile()->profile_id, $validated['sem_prog_log_id']);
+                $sgpa = $cgpaService->calculateSGPA($validated['sem_prog_log_id']);
+
+                // Return JSON response for AJAX handling
+                return response()->json([
+                    'success' => true,
+                    'cgpa' => $cgpa,
+                    'sgpa' => $sgpa,
+                    'subjects' => SubjectStatsLog::where('sem_prog_log_id', $validated['sem_prog_log_id'])->get()
+                ]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Failed to add new subject. Please try again.']);
+            }
         } catch (\Exception $e) {
             // Return error response if something goes wrong
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
 
@@ -85,7 +100,7 @@ class SubjectStatsLogController extends Controller
 
         try {
             // Manually updating each field
-            DB::table('subject_stats_log')
+            $status = DB::table('subject_stats_log')
                 ->where('sem_prog_log_id', $sem_prog_log_id)
                 ->where('subject_code', $subject_code)
                 ->update([
@@ -96,8 +111,9 @@ class SubjectStatsLogController extends Controller
                     'subject_grade_point' => $this->getGradePoint($validated['subject_grade']) * $validated['subject_credit_hours'],
                 ]);
     
-            // return redirect()->back()->with('success', 'Subject added successfully!');
-            return redirect()->route('profile')->with('success', 'Why are you here, though? (EDIT_SUBJECT)');
+            return $status
+                ? redirect()->route('progress-tracker')->with('success', 'Subject updated successfully.')
+                : back()->withErrors(['progress-tracker' => 'Failed to update subject. Please try again.']);
         } catch (\Exception $e) {
             // Return error response if something goes wrong
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -106,16 +122,15 @@ class SubjectStatsLogController extends Controller
 
     public function deleteSubject($sem_prog_log_id, $subject_code) {
         try {
-            // dd("Deleting subject with sem_prog_log_id: $sem_prog_log_id, subject_code: $subject_code");
-
-            // Perform a direct deletion using the DB facade
-            DB::table('subject_stats_log')
+            // Manually deleting the row
+            $status = DB::table('subject_stats_log')
                 ->where('sem_prog_log_id', $sem_prog_log_id)
                 ->where('subject_code', $subject_code)
                 ->delete();
 
-            // Check if the deletion was successful and return a response accordingly
-            return redirect()->route('profile')->with('success', 'Why are you here, though? (DELETE_SUBJECT)');
+            return $status
+                ? redirect()->route('progress-tracker')->with('success', 'Subject deleted successfully.')
+                : back()->withErrors(['progress-tracker' => 'Failed to delete subject. Please try again.']);
         } catch (\Exception $e) {
             return back()->withErrors(['error' => $e->getMessage()]);
         }
