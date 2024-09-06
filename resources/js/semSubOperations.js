@@ -68,30 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.querySelector('#sgpa-value').textContent = sgpa;
 
                         // Update CGPA message and color based on the value
-                        const cgpaMessageElement = document.querySelector('#cgpa-message');
-                        if (cgpa >= 3.67) {
-                            cgpaMessageElement.textContent = 'On track to first class';
-                            cgpaMessageElement.style.color = '#15AA07';
-                        } else if (cgpa < 3.67 && cgpa > 0) {
-                            cgpaMessageElement.textContent = 'You\'re on the right path!';
-                            cgpaMessageElement.style.color = '#FF0000';
-                        } else {
-                            cgpaMessageElement.textContent = 'No data available';
-                            cgpaMessageElement.style.color = '#BBBBBB';
-                        }
-
-                        // Update SGPA message and color based on the value
-                        const sgpaMessageElement = document.querySelector('#sgpa-message');
-                        if (sgpa >= 3.50) {
-                            sgpaMessageElement.textContent = 'On track to dean\'s list';
-                            sgpaMessageElement.style.color = '#15AA07';
-                        } else if (sgpa < 3.50 && sgpa > 0) {
-                            sgpaMessageElement.textContent = 'Good effort, keep pushing!';
-                            sgpaMessageElement.style.color = '#B4C75C';
-                        } else {
-                            sgpaMessageElement.textContent = 'No data available';
-                            sgpaMessageElement.style.color = '#BBBBBB';
-                        }
+                        updateCGPAandSGPA(data.cgpa, data.sgpa);
 
                         // Handle subject list and populate table
                         const subjects = data.subjects || [];
@@ -187,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('#cgpa-value').textContent = cgpaValue;
 
         // Update SGPA in the view
-        const sgpaValue = sgpa ? sgpa.toFixed(2) : '0.00';
+        const sgpaValue = sgpa ? (Math.round(sgpa * 100) / 100).toFixed(2) : '0.00';
         document.querySelector('#sgpa-value').textContent = sgpaValue;
 
         // Update CGPA message and color based on the value

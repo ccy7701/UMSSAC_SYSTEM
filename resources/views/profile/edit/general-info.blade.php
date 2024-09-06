@@ -24,7 +24,7 @@
         </div>
         <div class="row align-items-center py-3">
             <div class="col-md-2 text-center">
-                <img src="{{ profile()->profile_picture }}" class="rounded-circle border" alt="Profile picture" style="width: 200px; height: 200px; object-fit: cover">
+                <img src="{{ profile()->profile_picture }}" class="rounded-circle border" alt="User profile" style="width: 200px; height: 200px; object-fit: cover">
             </div>
             <div class="col-md-10">
                 <h2 class="rserif fw-bold">{{ currentAccount()->account_full_name }}</h2>
@@ -145,7 +145,7 @@
                                 const selectedFaculty = this.value;
                                 document.getElementById('course').innerHTML = '<option selected disabled value="">Choose...</option>';
                                 populateCourses(selectedFaculty);
-                            });        
+                            });
 
                             function populateCourses(faculty, selectedCourse = null) {
                                 const courseDropdown = document.getElementById('course');

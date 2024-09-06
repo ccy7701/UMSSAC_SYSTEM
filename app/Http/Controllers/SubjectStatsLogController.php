@@ -82,7 +82,6 @@ class SubjectStatsLogController extends Controller
     }
 
     public function getSubjectData($sem_prog_log_id, $subject_code) {
-        // dd($sem_prog_log_id, $subject_code);
         $subject = SubjectStatsLog::where('sem_prog_log_id', $sem_prog_log_id)
             ->where('subject_code', $subject_code)
             ->first();

@@ -21,7 +21,7 @@
             <!-- Links and buttons section -->
             <div class="features-nav col-md-9 col-sm-8 col-xs-12 py-2">
                 <a href="{{ route('login') }}" class="rsans text-decoration-none text-dark fw-bold px-3">Login</a>
-                <a href="{{ route('register') }}" class="rsans btn btn-primary fw-bold px-3 mx-2">Get started</a>                
+                <a href="{{ route('register') }}" class="rsans btn btn-primary fw-bold px-3 mx-2">Get started</a>
             </div>
         </div>
     </div>
