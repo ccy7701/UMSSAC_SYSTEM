@@ -59,7 +59,45 @@ class SubjectStatsLogController extends Controller
             ]);
 
             // return redirect()->back()->with('success', 'Subject added successfully!');
-            return redirect()->route('profile')->with('success', 'Why are you here, though?');
+            return redirect()->route('profile')->with('success', 'Why are you here, though? (ADD_SUBJECT)');
+        } catch (\Exception $e) {
+            // Return error response if something goes wrong
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function getSubjectData($sem_prog_log_id, $subject_code) {
+        // dd($sem_prog_log_id, $subject_code);
+        $subject = SubjectStatsLog::where('sem_prog_log_id', $sem_prog_log_id)
+            ->where('subject_code', $subject_code)
+            ->first();
+
+        return response()->json($subject);
+    }
+
+    public function updateSubject(Request $request, $sem_prog_log_id, $subject_code) {
+        $validated = $request->validate([
+            'subject_code' => 'required|string|max:7',
+            'subject_name' => 'required|string|max:255',
+            'subject_credit_hours' => 'required|string|min:1|max:4',
+            'subject_grade' => 'required|string|max:2',
+        ]);
+
+        try {
+            // Manually updating each field
+            DB::table('subject_stats_log')
+                ->where('sem_prog_log_id', $sem_prog_log_id)
+                ->where('subject_code', $subject_code)
+                ->update([
+                    'subject_code' => $validated['subject_code'],
+                    'subject_name' => $validated['subject_name'],
+                    'subject_credit_hours' => $validated['subject_credit_hours'],
+                    'subject_grade' => $validated['subject_grade'],
+                    'subject_grade_point' => $this->getGradePoint($validated['subject_grade']) * $validated['subject_credit_hours'],
+                ]);
+    
+            // return redirect()->back()->with('success', 'Subject added successfully!');
+            return redirect()->route('profile')->with('success', 'Why are you here, though? (EDIT_SUBJECT)');
         } catch (\Exception $e) {
             // Return error response if something goes wrong
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);

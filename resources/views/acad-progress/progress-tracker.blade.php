@@ -115,7 +115,9 @@
                                                         <i class="fa fa-ellipsis-vertical"></i>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton${subject.subject_code}">
-                                                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                                                        <li>
+                                                            <a class="dropdown-item" href="javascript:void(0)" onclick="editSubject(${subject.sem_prog_log_id}, '${subject.subject_code}')" data-bs-target="#editSubjectModal">Edit</a>
+                                                        </li>
                                                         <li><a class="text-danger dropdown-item" href="#">Delete</a></li>
                                                     </ul>
                                                 </div>
@@ -134,6 +136,39 @@
                             .catch(error => console.error('Error fetching subject stats:', error));
                     }
                 });
+
+                function editSubject(sem_prog_log_id, subject_code) {
+                    const subjectDataRoute = "{{ route('get_subject_data', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
+
+                    const url = subjectDataRoute
+                        .replace(':sem_prog_log_id', sem_prog_log_id)
+                        .replace(':subject_code', subject_code);
+
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Populate modal form fields with fetched data
+                            document.getElementById('edit-subject-code').value = data.subject_code;
+                            document.getElementById('edit-subject-name').value = data.subject_name;
+                            document.getElementById('edit-subject-credit-hours').value = data.subject_credit_hours;
+                            document.getElementById('edit-subject-grade').value = data.subject_grade;
+                            document.getElementById('edit-selected-semester').value = sem_prog_log_id;
+
+                            // Dynamically update the form action to point to the update route
+                            const formAction = `{{ route('update-subject', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}`
+                                .replace(':sem_prog_log_id', sem_prog_log_id)
+                                .replace(':subject_code', subject_code);
+
+                            console.log("NEW_FORMACTION:", formAction);
+
+                            document.getElementById('edit-subject-form').action = formAction;
+
+                            // Open the modal
+                            const editModal = new bootstrap.Modal(document.getElementById('editSubjectModal'));
+                            editModal.show();
+                        })
+                        .catch(error => console.error('Error fetching subject data:', error));
+                }
             </script>
 
             <!-- RESULTS OVERVIEW -->
@@ -208,8 +243,8 @@
                                     <div class="col-md-4 text-end px-3">
                                         <button id="add-subject-button" type="button" class="rsans btn btn-primary fw-bold px-2 w-50" data-bs-toggle="modal" data-bs-target="#addSubjectModal" disabled>Add subject</button>
                                     </div>
-                                    <x-add-subject/>
-                                    <!-- add-subject modal form -->
+                                    <x-add-subject/> <!-- add-subject modal form -->
+                                    <x-edit-subject/> <!-- edit-subject modal form -->
                                 </div>
                             </div>
                             <script>
@@ -249,9 +284,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 
     <x-footer/>
