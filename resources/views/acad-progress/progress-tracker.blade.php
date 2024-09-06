@@ -118,7 +118,14 @@
                                                         <li>
                                                             <a class="dropdown-item" href="javascript:void(0)" onclick="editSubject(${subject.sem_prog_log_id}, '${subject.subject_code}')" data-bs-target="#editSubjectModal">Edit</a>
                                                         </li>
-                                                        <li><a class="text-danger dropdown-item" href="#">Delete</a></li>
+                                                        <li>
+                                                            <a href="javascript:void(0)" class="text-danger dropdown-item" onclick="document.getElementById('delete-form-${subject.subject_code}').submit()">Delete</a>
+
+                                                            <form id="delete-form-${subject.subject_code}" action="${getRoute(subject.sem_prog_log_id, subject.subject_code)}" method="POST" style="display: none;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                            </form>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </td>
@@ -138,7 +145,7 @@
                 });
 
                 function editSubject(sem_prog_log_id, subject_code) {
-                    const subjectDataRoute = "{{ route('get_subject_data', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
+                    const subjectDataRoute = "{{ route('subject-stats-log.get', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
 
                     const url = subjectDataRoute
                         .replace(':sem_prog_log_id', sem_prog_log_id)
@@ -155,7 +162,7 @@
                             document.getElementById('edit-selected-semester').value = sem_prog_log_id;
 
                             // Dynamically update the form action to point to the update route
-                            const formAction = `{{ route('update-subject', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}`
+                            const formAction = `{{ route('subject-stats-log.update', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}`
                                 .replace(':sem_prog_log_id', sem_prog_log_id)
                                 .replace(':subject_code', subject_code);
 
@@ -168,6 +175,12 @@
                             editModal.show();
                         })
                         .catch(error => console.error('Error fetching subject data:', error));
+                }
+
+                function getRoute(sem_prog_log_id, subject_code) {
+                    return `{{ route('subject-stats-log.delete', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}`
+                        .replace(':sem_prog_log_id', sem_prog_log_id)
+                        .replace(':subject_code', subject_code);
                 }
             </script>
 

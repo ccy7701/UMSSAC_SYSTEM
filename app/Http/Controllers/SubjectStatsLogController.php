@@ -103,4 +103,21 @@ class SubjectStatsLogController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+
+    public function deleteSubject($sem_prog_log_id, $subject_code) {
+        try {
+            // dd("Deleting subject with sem_prog_log_id: $sem_prog_log_id, subject_code: $subject_code");
+
+            // Perform a direct deletion using the DB facade
+            DB::table('subject_stats_log')
+                ->where('sem_prog_log_id', $sem_prog_log_id)
+                ->where('subject_code', $subject_code)
+                ->delete();
+
+            // Check if the deletion was successful and return a response accordingly
+            return redirect()->route('profile')->with('success', 'Why are you here, though? (DELETE_SUBJECT)');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
 }

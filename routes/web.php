@@ -88,12 +88,14 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::get('/fetch-subject-stats/{sem_prog_log_id?}', [SemesterProgressLogController::class, 'fetchSubjectStatsLogs'])->name('fetch-subject-stats');
 
     // CURRENT ROUTE OF FOCUS
-    Route::post('/add-subject', [SubjectStatsLogController::class, 'addSubject'])->name('add-subject');
+    Route::post('/add-subject', [SubjectStatsLogController::class, 'addSubject'])->name('subject-stats-log.add');
 
     // CURRENT ROUTE OF FOCUS
-    Route::get('/get-subject-data/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'getSubjectData'])->name('get_subject_data');
+    Route::get('/get-subject-data/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'getSubjectData'])->name('subject-stats-log.get');
 
-    Route::post('/update-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'updateSubject'])->name('update-subject');
+    Route::post('/update-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'updateSubject'])->name('subject-stats-log.update');
+
+    Route::delete('/delete-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'deleteSubject'])->name('subject-stats-log.delete');
 });
 
 // Routes accessible to accountRole -> FacultyMember only

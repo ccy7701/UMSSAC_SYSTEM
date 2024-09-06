@@ -6,7 +6,7 @@
                 <h5 class="modal-title" id="addSubjectModalLabel">Add New Subject</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="add-subject-form" method="POST" action="{{ route('add-subject') }}">
+            <form id="add-subject-form" method="POST" action="{{ route('subject-stats-log.add') }}">
                 @csrf
                 <input type="hidden" id="selected-semester" name="sem_prog_log_id"> <!-- Selected semester will be added here -->
                 <div class="modal-body text-start">
