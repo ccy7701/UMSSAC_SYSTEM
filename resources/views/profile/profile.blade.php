@@ -69,7 +69,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="enrolment-session" class="rsans fw-bold form-label">Enrolment session</label>
-                        <input type="text" id="enrolment-session" name="profile_enrolment_session" class="rsans form-control w-50" value="{{ profile()->profile_enrolment_session }}" readonly> 
+                        <input type="text" id="enrolment-session" name="profile_enrolment_session" class="rsans form-control w-50" value="{{ profile()->profile_enrolment_session }}" readonly>
                     </div>
                 @endif
                 <div class="form-group mb-3">

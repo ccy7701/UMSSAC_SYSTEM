@@ -56,17 +56,3 @@
         </div>
     </div>
 </div>
-<script>
-    document.getElementById('add-subject-form').addEventListener('submit', function(event) {
-        const selectedSemesterID = document.getElementById('select-semester').value;
-
-        if (!selectedSemesterID) {
-            alert('Please select a semester.');
-            event.preventDefault();  // Stop form submission if no semester is selected
-            return;
-        }
-
-        // Set the hidden semester ID field
-        document.getElementById('selected-semester').value = selectedSemesterID;
-    });
-</script>

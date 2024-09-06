@@ -45,7 +45,7 @@
                     <ul class="rsans navbar-nav">
                         <li class="nav-item-dropdown">
                             <a class="nav-link dropdown" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="{{ profile()->profile_picture }}" alt="Profile picture" class="rounded-circle" width="50" height="50">
+                                <img src="{{ profile()->profile_picture }}" alt="User avatar" class="rounded-circle" width="50" height="50">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li class="px-3">

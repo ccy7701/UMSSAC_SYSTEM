@@ -25,7 +25,6 @@
             </div>
         </div>
     </div>
-
     <div class="container p-3">
         <div class="row align-items-center">
             <!-- Illustration section -->
@@ -39,13 +38,10 @@
             </div>
         </div>
     </div>
-
     <div class="benefits container-fluid p-5">
         <p class="benefits-subtitle rserif fs-5 text-uppercase text-center mb-1">Benefits overview</p>
         <h2 class="rserif fw-bold fs-2 text-center mt-1 mb-0">Why use UMSSACS?</h2>
-        
         <br><br>
-
         <div id="benefits-carousel-standard" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -124,7 +120,6 @@
                 </div>
             </div>
         </div>
-
         <div id="benefits-carousel-small" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
