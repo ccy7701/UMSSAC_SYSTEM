@@ -93,7 +93,7 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     // CURRENT ROUTE OF FOCUS
     Route::get('/get-subject-data/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'getSubjectData'])->name('subject-stats-log.get');
 
-    Route::post('/update-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'updateSubject'])->name('subject-stats-log.update');
+    Route::post('/edit-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'editSubject'])->name('subject-stats-log.edit');
 
     Route::delete('/delete-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'deleteSubject'])->name('subject-stats-log.delete');
 });

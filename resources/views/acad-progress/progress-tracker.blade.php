@@ -50,7 +50,7 @@
             <script>
                 window.fetchSubjectStatsRoute = "{{ route('fetch-subject-stats', ['sem_prog_log_id' => '']) }}";
                 window.getSubjectDataRouteTemplate = "{{ route('subject-stats-log.get', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
-                window.updateSubjectRouteTemplate = "{{ route('subject-stats-log.update', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
+                window.editSubjectRouteTemplate = "{{ route('subject-stats-log.edit', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
                 window.deleteRouteTemplate = "{{ route('subject-stats-log.delete', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
                 window.csrfToken = "{{ csrf_token() }}";
             </script>

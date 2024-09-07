@@ -6,7 +6,7 @@
                 <h5 class="modal-title" id="editSubjectModalLabel">Edit Subject</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="edit-subject-form" method="POST" action="#">
+            <form id="edit-subject-form" method="POST" action="">
                 @csrf
                 <input type="hidden" id="edit-selected-semester" name="sem_prog_log_id"> <!-- Selected semester will be added here -->
                 <div class="modal-body text-start">

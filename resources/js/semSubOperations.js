@@ -1,3 +1,6 @@
+const editModalElement = document.getElementById('editSubjectModal');
+const editModal = new bootstrap.Modal(editModalElement);
+
 window.editSubject = function(sem_prog_log_id, subject_code) {
     const subjectDataRoute = window.getSubjectDataRouteTemplate
         .replace(':sem_prog_log_id', sem_prog_log_id)
@@ -14,16 +17,16 @@ window.editSubject = function(sem_prog_log_id, subject_code) {
             document.getElementById('edit-selected-semester').value = sem_prog_log_id;
 
             // Dynamically update the form action to point to the update route
-            const formAction = window.updateSubjectRouteTemplate
+            const formAction = window.editSubjectRouteTemplate
                 .replace(':sem_prog_log_id', sem_prog_log_id)
                 .replace(':subject_code', subject_code);
 
-            console.log("NEW_FORMACTION:", formAction);
+            console.log("NEW_FORM_ACTION:", formAction);
 
             document.getElementById('edit-subject-form').action = formAction;
 
             // Open the modal
-            const editModal = new bootstrap.Modal(document.getElementById('editSubjectModal'));
+            // const editModal = new bootstrap.Modal(document.getElementById('editSubjectModal'));
             editModal.show();
         })
         .catch(error => console.error('Error fetching subject data:', error));
@@ -37,9 +40,10 @@ window.getDeleteRoute = function(sem_prog_log_id, subject_code) {
 
 document.addEventListener('DOMContentLoaded', function () {
     const selectSemester = document.getElementById('select-semester');
+
     const addSubjectForm = document.getElementById('add-subject-form');
-    const modalElement = document.getElementById('addSubjectModal');
-    const modal = new bootstrap.Modal(modalElement);
+    const addModalElement = document.getElementById('addSubjectModal');
+    const addModal = new bootstrap.Modal(addModalElement);
 
     if (selectSemester) {
         selectSemester.addEventListener('change', function () {
@@ -143,7 +147,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log('New subject added successfully!');
 
                     // Close the modal after success
-                    modal.hide();
+                    console.log(addModal);
+                    addModal.hide();
                     document.getElementById('add-subject-form').reset();
 
                     // Update CGPA and SGPA and subject list
@@ -155,6 +160,51 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Error:', error));
         })
+    }
+
+    const editSubjectForm = document.getElementById('edit-subject-form')
+    // const editModalElement = document.getElementById('editSubjectModal');
+    // const editModal = new bootstrap.Modal(editModalElement);
+
+    // Handle Edit Subject form submission via AJAX
+    if (editSubjectForm) {
+        editSubjectForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+            const formData = new FormData(editSubjectForm);  // Gather form data
+            
+            const formAction = editSubjectForm.action; // The action attribute of the form contains the URL for the edit operation
+
+            fetch(formAction, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content // Add CSRF token
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json(); // Attempt to parse JSON
+            })
+            .then(data => {
+                if (data.success) {
+                    console.log('Subject updated successfully!');
+
+                    // Close the modal after success
+                    console.log('Model instance:', editModal);
+                    editModal.hide();
+                    document.getElementById('edit-subject-form').reset();
+
+                    // Update CGPA and SGPA and subject list
+                    updateCGPAandSGPA(data.cgpa, data.sgpa);
+                    updateSubjectList(data.subjects); // Re-fetch and update the subject list dynamically
+                } else {
+                    alert('Failed to update the subject. Please try again.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
     }
 
     // Helper function to update CGPA and SGPA dynamically
@@ -172,8 +222,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (cgpa >= 3.67) {
             cgpaMessageElement.textContent = 'On track to first class';
             cgpaMessageElement.style.color = '#15AA07';
-        } else if (cgpa < 3.67 && cgpa > 0) {
+        } else if (cgpa >= 2.00 && cgpa < 3.67) {
             cgpaMessageElement.textContent = 'You\'re on the right path!';
+            cgpaMessageElement.style.color = '#B4C75C';
+        } else if (cgpa < 2.00 && cgpa > 0.00) {
+            cgpaMessageElement.textContent = 'Needs improvement';
             cgpaMessageElement.style.color = '#FF0000';
         } else {
             cgpaMessageElement.textContent = 'No data available';
@@ -185,10 +238,14 @@ document.addEventListener('DOMContentLoaded', function () {
         if (sgpa >= 3.50) {
             sgpaMessageElement.textContent = 'On track to dean\'s list';
             sgpaMessageElement.style.color = '#15AA07';
-        } else if (sgpa < 3.50 && sgpa > 0) {
+        } else if (sgpa >= 2.00 && sgpa < 3.50) {
             sgpaMessageElement.textContent = 'Good effort, keep pushing!';
             sgpaMessageElement.style.color = '#B4C75C';
-        } else {
+        } else if (sgpa < 2.00 && sgpa > 0.00) {
+            sgpaMessageElement.textContent = 'Needs improvement';
+            sgpaMessageElement.style.color = '#FF0000';
+        } 
+        else {
             sgpaMessageElement.textContent = 'No data available';
             sgpaMessageElement.style.color = '#BBBBBB';
         }

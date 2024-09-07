@@ -89,7 +89,7 @@ class SubjectStatsLogController extends Controller
         return response()->json($subject);
     }
 
-    public function updateSubject(Request $request, $sem_prog_log_id, $subject_code) {
+    public function editSubject(Request $request, $sem_prog_log_id, $subject_code) {
         $validated = $request->validate([
             'subject_code' => 'required|string|max:7',
             'subject_name' => 'required|string|max:255',
@@ -109,13 +109,26 @@ class SubjectStatsLogController extends Controller
                     'subject_grade' => $validated['subject_grade'],
                     'subject_grade_point' => $this->getGradePoint($validated['subject_grade']) * $validated['subject_credit_hours'],
                 ]);
-    
-            return $status
-                ? redirect()->route('progress-tracker')->with('success', 'Subject updated successfully.')
-                : back()->withErrors(['progress-tracker' => 'Failed to update subject. Please try again.']);
+
+            if ($status) {
+                // Recalculate CGPA and SGPA
+                $cgpaService = new CGPAService();
+                $cgpa = $cgpaService->calculateCGPA(profile()->profile_id, $sem_prog_log_id);
+                $sgpa = $cgpaService->calculateSGPA($sem_prog_log_id);
+
+                // Return JSON response for AJAX handling
+                return response()->json([
+                    'success' => true,
+                    'cgpa' => $cgpa,
+                    'sgpa' => $sgpa,
+                    'subjects' => SubjectStatsLog::where('sem_prog_log_id', $sem_prog_log_id)->get()
+                ]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Failed to edit subject. Please try again.']);
+            }
         } catch (\Exception $e) {
             // Return error response if something goes wrong
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
 
