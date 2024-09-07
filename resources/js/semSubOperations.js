@@ -1,3 +1,17 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const initialiserForm = document.getElementById('initialiser-form');
+
+    if (initialiserForm) {
+        initialiserForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting immediately
+            if (confirm("Confirm if the details are correct before submission. They cannot be changed afterwards.")) {
+                this.submit(); // Submit the form if confirmed
+            }
+        });
+    }
+});
+
+
 // Helper function to update CGPA and SGPA dynamically
 function updateCGPAandSGPA(cgpa, sgpa) {
     // Update CGPA in the view

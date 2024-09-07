@@ -41,27 +41,16 @@ class ProfileController extends Controller
 
     // Update general info
     public function updateGeneralInfo(Request $request) {
-        // Custom validation messages
-        $messages = [
-            'profile_enrolment_session.required_if' => 'The profile enrolment session field is required.',
-        ];
-
         // Validate the incoming request data
         $validatedData = $request->validate([
             'profile_personal_desc' => 'max:1024',
-            'profile_enrolment_session' => 'required_if:account_role,1|nullable|string',
             'profile_faculty' => 'required|string|max:16',
             'profile_course' => 'required|string|max:255',
             'profile_nickname' => 'required|string|max:255',
-        ], $messages);
+        ]);
 
         // Assuming you have the authenticated user's profile
         $profile = Profile::where('account_id', currentAccount()->account_id)->firstOrFail();
-
-        // Explicitly handle the profile_enrolment_session if it's missing (for account_role != 1)
-        if ($request->input('account_role') != 1) {
-            $validatedData['profile_enrolment_session'] = null;
-        }
 
         // Update the profile with the validated data
         $status = $profile->update($validatedData);

@@ -6,12 +6,56 @@ use Illuminate\Http\Request;
 use App\Models\SemesterProgressLog;
 use App\Models\SubjectStatsLog;
 use App\Services\CGPAService;
+use App\Models\Profile;
 
 class SemesterProgressLogController extends Controller
 {
+    // Create new SemesterProgressLogs based on the details pushed to this function
+    public function initialiseProgressTracker(Request $request, $profile_id = null) {
+        // Check if profile_id is provided; otherwise, get the profile_id of the logged-in student
+        $profile_id = $profile_id ?? profile()->profile_id;
+
+        // Retrieve the profile instance of the user
+        $profile = Profile::find($profile_id);
+
+        // Update profile_enrolment_session with the user's input
+        $profile->profile_enrolment_session = $request->input('profile_enrolment_session');
+        $profile->save();
+
+        // Extract user input for the enrolment session and course duration
+        $enrolmentSession = $request->input('profile_enrolment_session');
+        $courseDuration = $request->input('course_duration');
+
+        // Split the enrolment session to extract the starting year
+        $sessionParts = explode('/', $enrolmentSession);
+        $startYear = intval($sessionParts[0]);
+
+        // Create SemesterProgressLogs for each semester in the course duration
+        for ($semesterCount = 0; $semesterCount < $courseDuration; $semesterCount++) {
+            // Calculate the academic session for the current semester
+            $academicYear = $startYear + intdiv($semesterCount, 2);
+            $academicSession = $academicYear .'/'. ($academicYear + 1);
+
+            // Determine whether it is semester 1 or 2 for the academic year
+            $semester = ($semesterCount % 2) + 1;
+
+            // Create the SemesterProgressLog entry
+            $status = SemesterProgressLog::create([
+                'profile_id' => $profile_id,
+                'semester' => $semester,
+                'academic_session' => $academicSession,
+                'semester_gpa' => 0.00, // Initially , SGPA can be null
+            ]);
+        }
+
+        // Redirect back to the page with a success message
+        return $status
+            ? redirect()->route('progress-tracker')->with('success', 'Progress tracker set up successfully. Feel free to use it now!')
+            : back()->withErrors(['progress-tracker' => 'Failed to initialise progress tracker. Please try again.']);
+    }
+
     // Fetch the necessary data from the semester_progress_log
     public function showProgressTracker($profile_id = null) {
-        // Check if profile_id is provided; otherwise, get the profile_id of the logged-in student
         $profile_id = $profile_id ?? profile()->profile_id;
     
         // Fetch all available semesters for the dropdown

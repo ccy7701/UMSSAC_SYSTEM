@@ -52,7 +52,7 @@ class AccountController extends Controller
     }
 
     public function login(Request $request) {
-        $credentials = $request->validate([
+        $request->validate([
             'account_role' => 'required',
             'account_matric_number' => 'required_if:account_role,1',
             'account_email_address' => 'required_if:account_role,2,3',

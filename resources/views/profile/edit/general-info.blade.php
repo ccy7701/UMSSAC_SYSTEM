@@ -80,18 +80,8 @@
                             <input type="text" id="matric-number" name="account_matric_number" class="rsans form-control" value="{{ currentAccount()->account_matric_number }}" readonly disabled>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="enrolment-session-select" class="rsans fw-bold form-label">Enrolment session</label>
-                            <select id="enrolment-session-select" class="rsans form-select w-50" name="profile_enrolment_session">
-                                <option selected disabled value="">Choose...</option>
-                                <!-- KIV: Is this the most graceful way to handle it considering future usecases? -->
-                                <option value="2021/2022" {{ old('profile_enrolment_session', profile()->profile_enrolment_session) == '2021/2022' ? 'selected' : '' }}>2021/2022</option>
-                                <option value="2022/2023" {{ old('profile_enrolment_session', profile()->profile_enrolment_session) == '2022/2023' ? 'selected' : '' }}>2022/2023</option>
-                                <option value="2023/2024" {{ old('profile_enrolment_session', profile()->profile_enrolment_session) == '2023/2024' ? 'selected' : '' }}>2023/2024</option>
-                                <option value="2024/2025" {{ old('profile_enrolment_session', profile()->profile_enrolment_session) == '2024/2025' ? 'selected' : '' }}>2024/2025</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select an enrolment session.
-                            </div>
+                            <label for="enrolment-session" class="rsans fw-bold form-label">Enrolment session</label>
+                            <input type="text" id="enrolment-session" class="rsans form-control" value="{{ profile()->profile_enrolment_session }}" readonly disabled>
                         </div>
                     @endif
                     <div class="form-group mb-3">

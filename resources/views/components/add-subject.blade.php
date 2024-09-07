@@ -26,8 +26,10 @@
                         <label for="subject-grade" class="form-label">Grade</label>
                         <select class="form-select" id="subject-grade" name="subject_grade" required>
                             <option selected disabled value="">Choose...</option>
+                            @if (profile()->profile_enrolment_session > "2021/2022")
+                                <option value="A+">A+</option>
+                            @endif
                             <option value="A">A</option>
-                            <!-- <option value="A+">A+</option> -->
                             <option value="A-">A-</option>
                             <option value="B+">B+</option>
                             <option value="B">B</option>
