@@ -1,90 +1,76 @@
-<nav class="navbar navbar-expand-lg navbar-light w-100 m-0" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
-    <div class="container">
-        <div class="row align-items-center">
-            <!-- Logo section -->
-            <div class="col-md-2 col-sm-3 col-xs-4 text-center">
-                <a href="{{ route('profile') }}">
-                    <img src="{{ asset('images/umssacs_logo_final.png') }}" alt="UMSSACS logo" class="topnav-website-logo img-fluid">
-                </a>
-            </div>
-            <!-- Navlinks section -->
-            <div class="col-md-10 col-sm-9 col-xs-8">
-                <!-- Toggler for mobile view -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <!-- Navbar items -->
-                <div class="rsans collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav me-auto py-2">
-                        <!-- TAB 1 with dropdown -->
-                        <li class="nav-item dropdown px-2">
-                            <button class="nav-link dropdown px-3" id="tab1Dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                TAB_1
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="tab1Dropdown">
-                                <li><a class="dropdown-item" href="#">T1-Dropdown1</a></li>
-                                <li><a class="dropdown-item" href="#">T1-Dropdown2</a></li>
-                            </ul>
-                        </li>
-                        <!-- TAB 2 with no dropdown -->
-                        <li class="nav-item-dropdown px-2">
-                            <button class="rsans nav-link dropdown px-3" id="tab2Dropdown" data-bs-toggle="dropdown" aria-expadned="false">
-                                TAB_2
-                            </button>
-                        </li>
-                        <!-- TAB 3 with no dropdown -->
-                        @if (currentAccount()->account_role == 1)
-                        <li class="nav-item-dropdown px-2">
-                            <a class="nav-link px-3" href="{{ route('progress-tracker') }}" id="progress-tracker-link">
-                                PROGRESS TRACKER
-                            </a>
-                        </li>
-                        @endif
-                    </ul>
-                    <!-- User profile dropdown -->
-                    <ul class="rsans navbar-nav">
-                        <li class="nav-item-dropdown">
-                            <button class="nav-link dropdown p-0 border-0 bg-transparent" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" width="50" height="50">
-                                <img id="profile-picture-circle" src="{{ profile()->profile_picture }}" alt="User profile" class="rounded-circle" width="50" height="50">
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li class="px-3">
-                                    <div class="d-flex align-items-center">
-                                        <img src="{{ profile()->profile_picture }}" alt="User profile" class="rounded-circle" width="60" height="60">
-                                        <div class="ms-2">
-                                            <strong>{{ currentAccount()->account_full_name }}</strong><br>
-                                            @switch(currentAccount()->account_role)
-                                                @case(1)
-                                                    <small>Student</small><br>
-                                                    <small>{{ currentAccount()->account_matric_number }}</small>
-                                                    @break
-                                                @case(2)
-                                                    <small>Faculty Member</small><br>
-                                                    <small>{{ currentAccount()->account_email_address }}</small>
-                                                    @break
-                                                @case(3)
-                                                    <small>Admin</small><br>
-                                                    <small>{{ currentAccount()->account_email_address }}</small>
-                                                    @break
-                                            @endswitch
-                                        </div>
-                                    </div>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
-                                <li>
-                                    <form method="POST" action="{{ route('account.logout') }}">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item text-danger">
-                                            Log out
-                                        </button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+<nav class="navbar navbar-light w-100 m-0" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+    <div class="container-fluid px-5 py-2">
+        <div class="col-md-2 col-sm-3 col-6 text-start">
+            <a class="navbar-brand" href="{{ route('profile') }}">
+                <img id="topnav-logo" src="{{ asset('images/umssacs_logo_final.png') }}" alt="UMSSACS logo" class="topnav-website-logo img-fluid w-75">
+            </a>
+        </div>
+        <div class="col-6 text-end">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
     </div>
 </nav>
+
+<!-- Offcanvas Navbar -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="rsans offcanvas-header pb-0">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="rsans offcanvas-body p-0 m-0">
+        <ul class="navbar-nav justify-content-end flex-grow-1">
+            <li class="text-center">
+                <div class="align-items-center pb-2">
+                    <img src="{{ profile()->profile_picture }}" alt="User profile" class="rounded-circle border" style="width: 100px; height: 100px; object-fit: cover">
+                </div>
+                <strong>{{ currentAccount()->account_full_name }}</strong><br>
+                @switch(currentAccount()->account_role)
+                    @case(1)
+                        <small>Student</small><br>
+                        <small>{{ currentAccount()->account_matric_number }}</small>
+                        @break
+                    @case(2)
+                        <small>Faculty Member</small><br>
+                        <small>{{ currentAccount()->account_email_address }}</small>
+                        @break
+                    @case(3)
+                        <small>Admin</small><br>
+                        <small>{{ currentAccount()->account_email_address }}</small>
+                        @break
+                @endswitch
+            </li>
+            <li><hr class="divider-gray-300"></li>
+            <div class="px-0">
+                <li class="nav-item"><a class="nav-link px-3" href="{{ route('profile') }}">Profile</a></li>
+                <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Study Partners (WIP)</a></li>
+                <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Timetable Builder (WIP)</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="{{ route('progress-tracker') }}">Academic Progress Tracker</a></li>
+                <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Events (WIP)</a></li>
+                <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Clubs (WIP)</a></li>
+                <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Bookmarks (WIP)</a></li>
+                <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Calendar (WIP)</a></li>
+                <li class="nav-item">
+                    <form method="POST" action="{{ route('account.logout') }}">
+                        @csrf
+                        <button type="submit" class="nav-link px-3 text-danger">
+                            Log out
+                        </button>
+                    </form>
+                </li>
+            </div>
+            <!--
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                    Study Partners
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another Action</a></li>
+                </ul>
+            </li>
+        -->
+        </ul>
+    </div>
+</div>

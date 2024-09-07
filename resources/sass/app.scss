@@ -45,30 +45,8 @@ html {
     background-color: #EAF2FD;
 }
 
-.nav-link {
-    border-radius: 10px;
-}
-
-.nav-link:hover {
-    background-color: #DDDDDD;
-}
-
-.nav-item.dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-.nav-item .dropdown-menu {
-    display: none;
-}
-
-#profile-picture-circle {
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-#profile-picture-circle:hover {
-    transform: scale(1.1); /* Slight zoom on hover */
-    border: 2px solid $btn-primary-bg; /* Optional: Adds a border with your chosen color */
+.nav-item:hover {
+    background-color: #E0E0E0;
 }
 
 .profile-section-header,
@@ -93,7 +71,7 @@ html {
 // add media for max-width: 1400px, 1200px, 992px, 768px when needed
 
 @media (max-width: 576px) {
-    .topnav-website-logo {
-        width: 50.00%;
+    #topnav-logo {
+        width: 100.00% !important;
     }
 }
