@@ -45,6 +45,10 @@ html {
     background-color: #EAF2FD;
 }
 
+.nav-item {
+    transition: background-color 0.1s ease;
+}
+
 .nav-item:hover {
     background-color: #E0E0E0;
 }

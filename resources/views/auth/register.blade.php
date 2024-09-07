@@ -9,9 +9,9 @@
     @vite('resources/sass/app.scss')
 </head>
 
-<body style="">
+<body>
     @vite('resources/js/app.js')
-    @vite('resources/js/registerFormRoleSelector.js');
+    @vite('resources/js/registerFormRoleSelector.js')
     <div class="container-fluid vh-100">
         <div class="row h-100">
             <!-- Left section (register form) -->
