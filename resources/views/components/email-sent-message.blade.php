@@ -1,7 +1,7 @@
 <!-- resources/views/components/email-sent-message.blade.php -->
 @if (session()->has('success') || session()->has('error'))
     <div class="modal fade" id="flashModal" tabindex="-1" role="dialog" aria-labelledby="flashModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="modal-body">

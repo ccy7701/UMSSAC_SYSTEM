@@ -15,12 +15,12 @@
                 </button>
                 <!-- Navbar items -->
                 <div class="rsans collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto py-2">
                         <!-- TAB 1 with dropdown -->
                         <li class="nav-item dropdown px-2">
-                            <a class="nav-link dropdown px-3" href="#" id="tab1Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="nav-link dropdown px-3" id="tab1Dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 TAB_1
-                            </a>
+                            </button>
                             <ul class="dropdown-menu" aria-labelledby="tab1Dropdown">
                                 <li><a class="dropdown-item" href="#">T1-Dropdown1</a></li>
                                 <li><a class="dropdown-item" href="#">T1-Dropdown2</a></li>
@@ -28,14 +28,14 @@
                         </li>
                         <!-- TAB 2 with no dropdown -->
                         <li class="nav-item-dropdown px-2">
-                            <a class="rsans nav-link dropdown px-3" href="#" id="tab2Dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="rsans nav-link dropdown px-3" id="tab2Dropdown" data-bs-toggle="dropdown" aria-expadned="false">
                                 TAB_2
-                            </a>
+                            </button>
                         </li>
                         <!-- TAB 3 with no dropdown -->
                         @if (currentAccount()->account_role == 1)
                         <li class="nav-item-dropdown px-2">
-                            <a class="nav-link px-3" href="{{ route('progress-tracker') }}" id="tab3Dropdown" role="button">
+                            <a class="nav-link px-3" href="{{ route('progress-tracker') }}" id="progress-tracker-link">
                                 PROGRESS TRACKER
                             </a>
                         </li>
@@ -44,9 +44,9 @@
                     <!-- User profile dropdown -->
                     <ul class="rsans navbar-nav">
                         <li class="nav-item-dropdown">
-                            <a class="nav-link dropdown" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="{{ profile()->profile_picture }}" alt="User profile" class="rounded-circle" width="50" height="50">
-                            </a>
+                            <button class="nav-link dropdown p-0 border-0 bg-transparent" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" width="50" height="50">
+                                <img id="profile-picture-circle" src="{{ profile()->profile_picture }}" alt="User profile" class="rounded-circle" width="50" height="50">
+                            </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li class="px-3">
                                     <div class="d-flex align-items-center">

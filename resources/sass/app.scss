@@ -61,6 +61,16 @@ html {
     display: none;
 }
 
+#profile-picture-circle {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+#profile-picture-circle:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+    border: 2px solid $btn-primary-bg; /* Optional: Adds a border with your chosen color */
+}
+
 .profile-section-header,
 .acad-progress-section-header {
     border-bottom: 1px solid #E0E0E0;
