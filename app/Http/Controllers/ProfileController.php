@@ -50,7 +50,7 @@ class ProfileController extends Controller
         $validatedData = $request->validate([
             'profile_personal_desc' => 'max:1024',
             'profile_enrolment_session' => 'required_if:account_role,1|nullable|string',
-            'profile_faculty' => 'required|string|max:255',
+            'profile_faculty' => 'required|string|max:16',
             'profile_course' => 'required|string|max:255',
             'profile_nickname' => 'required|string|max:255',
         ], $messages);

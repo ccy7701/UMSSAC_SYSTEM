@@ -41,17 +41,19 @@
                                 @csrf
                                 <!-- Role selection -->
                                 <div class="mb-3">
-                                    <div class="mb-3 align-items-center">
-                                        <label class="rsans form-label fw-semibold">Select user role</label>
+                                    <fieldset class="mb-3 align-items-center" style="border: none; padding: 0;">
+                                        <legend class="rsans form-label fw-semibold mb-1" style="font-size: inherit; margin-bottom: 0;">Select user role</legend>
                                         <div>
                                             <input type="radio" id="account-role-student" name="account_role" value="1" checked>
                                             <label for="account-role-student" class="rsans px-2 form-label">Student</label>
+                                            
                                             <input type="radio" id="account-role-facultymember" name="account_role" value="2">
                                             <label for="account-role-facultymember" class="rsans px-2 form-label">Faculty Member</label>
+                                            
                                             <input type="radio" id="account-role-admin" name="account_role" value="3">
                                             <label for="account-role-admin" class="rsans px-2 form-label">Admin</label>
                                         </div>
-                                    </div>
+                                    </fieldset>
                                 </div>
                                 <!-- End role selection -->
                                 <!-- Login credentials -->
