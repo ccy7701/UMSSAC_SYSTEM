@@ -20,13 +20,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="subject-credit-hours" class="form-label">Credit Hours</label>
-                        <select class="form-select" id="subject-credit-hours" name="subject_credit_hours" required>
-                            <option selected disabled value="">Choose...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
+                        <input type="number" class="form-control" id="subject-credit-hours" name="subject_credit_hours" min="1" max="12" required placeholder="Enter credit hours...">
                     </div>
                     <div class="mb-3">
                         <label for="subject-grade" class="form-label">Grade</label>

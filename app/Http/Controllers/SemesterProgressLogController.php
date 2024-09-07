@@ -36,6 +36,7 @@ class SemesterProgressLogController extends Controller
     // Fetch and display the subjects based on the selected semester
     // KIV
     public function fetchSubjectStatsLogs($sem_prog_log_id) {
+        $semesterProgressLog = SemesterProgressLog::where('sem_prog_log_id', $sem_prog_log_id)->first();
         $subjectStatsLog = SubjectStatsLog::where('sem_prog_log_id', $sem_prog_log_id)->get();
     
         // Calculate CGPA and SGPA for this semester
@@ -45,9 +46,11 @@ class SemesterProgressLogController extends Controller
     
         // Return both the subject data and CGPA/SGPA values
         return response()->json([
+            'semester' => $semesterProgressLog ? $semesterProgressLog->semester : null,
+            'academic_session' => $semesterProgressLog ? $semesterProgressLog->academic_session : null,
             'subjects' => $subjectStatsLog,
             'cgpa' => $cgpa,
-            'sgpa' => $sgpa
+            'sgpa' => $sgpa,
         ]);
     }
 }

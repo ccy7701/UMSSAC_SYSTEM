@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\SubjectStatsLog;
 use App\Services\CGPAService;
+use App\Models\SemesterProgressLog;
 
 class SubjectStatsLogController extends Controller
 {
@@ -35,7 +36,7 @@ class SubjectStatsLogController extends Controller
             'sem_prog_log_id' => 'required|integer|exists:semester_progress_log,sem_prog_log_id', // Validate the selected semester ID
             'subject_code' => 'required|string|max:7',
             'subject_name' => 'required|string|max:255',
-            'subject_credit_hours' => 'required|integer|min:1|max:4',
+            'subject_credit_hours' => 'required|integer|min:1|max:12',
             'subject_grade' => 'required|string|max:2',
         ]);
 
@@ -59,12 +60,12 @@ class SubjectStatsLogController extends Controller
                 'subject_grade_point' => $subject->subject_grade_point,
             ]);
 
-            if ($status) {
-                // Recalculate CGPA and SGPA
-                $cgpaService = new CGPAService();
-                $cgpa = $cgpaService->calculateCGPA(profile()->profile_id, $validated['sem_prog_log_id']);
-                $sgpa = $cgpaService->calculateSGPA($validated['sem_prog_log_id']);
+            // Recalculate CGPA and SGPA
+            $cgpaService = new CGPAService();
+            $cgpa = $cgpaService->calculateCGPA(profile()->profile_id, $validated['sem_prog_log_id']);
+            $sgpa = $cgpaService->calculateSGPA($validated['sem_prog_log_id']);
 
+            if ($status) {
                 // Return JSON response for AJAX handling
                 return response()->json([
                     'success' => true,
@@ -110,12 +111,12 @@ class SubjectStatsLogController extends Controller
                     'subject_grade_point' => $this->getGradePoint($validated['subject_grade']) * $validated['subject_credit_hours'],
                 ]);
 
-            if ($status) {
-                // Recalculate CGPA and SGPA
-                $cgpaService = new CGPAService();
-                $cgpa = $cgpaService->calculateCGPA(profile()->profile_id, $sem_prog_log_id);
-                $sgpa = $cgpaService->calculateSGPA($sem_prog_log_id);
+            // Recalculate CGPA and SGPA
+            $cgpaService = new CGPAService();
+            $cgpa = $cgpaService->calculateCGPA(profile()->profile_id, $sem_prog_log_id);
+            $sgpa = $cgpaService->calculateSGPA($sem_prog_log_id);
 
+            if ($status) {
                 // Return JSON response for AJAX handling
                 return response()->json([
                     'success' => true,
@@ -140,11 +141,24 @@ class SubjectStatsLogController extends Controller
                 ->where('subject_code', $subject_code)
                 ->delete();
 
-            return $status
-                ? redirect()->route('progress-tracker')->with('success', 'Subject deleted successfully.')
-                : back()->withErrors(['progress-tracker' => 'Failed to delete subject. Please try again.']);
+            // Recalculate CGPA and SGPA
+            $cgpaService = new CGPAService();
+            $cgpa = $cgpaService->calculateCGPA(profile()->profile_id, $sem_prog_log_id);
+            $sgpa = $cgpaService->calculateSGPA($sem_prog_log_id);
+
+            if ($status) {
+                return response()->json([
+                    'success' => true,
+                    'cgpa' => $cgpa,
+                    'sgpa' => $sgpa,
+                    'subjects' => SubjectStatsLog::where('sem_prog_log_id', $sem_prog_log_id)->get()
+                ]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Failed to edit subject. Please try again.']);
+            }
         } catch (\Exception $e) {
-            return back()->withErrors(['error' => $e->getMessage()]);
+            // Return error response if something goes wrong
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
 }

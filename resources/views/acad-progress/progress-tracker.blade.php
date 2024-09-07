@@ -61,7 +61,7 @@
                     <div class="card shadow-sm w-80 p-3">
                         <div class="card-body">
                             <!-- WORK IN PROGRESS HERE -->
-                            <h4 class="rserif card-title fw-bold pb-0">S1-2021/2022 results at a glance</h4>
+                            <h4 id="semester-results-title" class="rserif card-title fw-bold pb-0">My results at a glance</h4>
                             <!-- WORK IN PROGRESS HERE -->
                             <p class="rslab card-text fs-5">How are my results so far?</p>
                             <br>
