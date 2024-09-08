@@ -53,8 +53,7 @@ html {
     background-color: #E0E0E0;
 }
 
-.profile-section-header,
-.acad-progress-section-header {
+.section-header {
     border-bottom: 1px solid #E0E0E0;
 }
 
@@ -70,6 +69,15 @@ html {
     background: none;
     padding: 0 20px;
     border: none;
+}
+
+#event-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#event-card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 // add media for max-width: 1400px, 1200px, 992px, 768px when needed

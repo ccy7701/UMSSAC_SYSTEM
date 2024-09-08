@@ -15,7 +15,7 @@
     <div class="container p-3">
         <!-- PROFILE PICTURE -->
         <div class="d-flex align-items-center">
-            <div class="profile-section-header row w-100">
+            <div class="section-header row w-100">
                 <div class="col-md-6 text-start">
                     <h3 class="rserif fw-bold w-100 py-2">Profile picture</h3>
                 </div>
@@ -44,7 +44,7 @@
             <input type="hidden" name="account_role" value="{{ currentAccount()->account_role }}">
 
             <div class="d-flex align-items-center">
-                <div class="profile-section-header row w-100">
+                <div class="section-header row w-100">
                     <div class="col-md-6 text-start">
                         <h3 class="rserif fw-bold w-100 py-2">General</h3>
                     </div>
@@ -168,7 +168,7 @@
         </form>
         <!-- ACCOUNT -->
         <div class="d-flex align-items-center">
-            <div class="profile-section-header row w-100">
+            <div class="section-header row w-100">
                 <div class="col-md-6 text-start">
                     <h3 class="rserif fw-bold w-100 py-2">Account</h3>
                 </div>

@@ -23,7 +23,7 @@
     <div class="container p-3">
 
         <div class="d-flex align-items-center">
-            <div class="acad-progress-section-header row w-100">
+            <div class="section-header row w-100">
                 <div class="col-12 text-center">
                     <h3 class="rserif fw-bold w-100 py-2">Academic progress tracker</h3>
                 </div>
@@ -140,12 +140,12 @@
                     <div class="card shadow-sm w-80 p-3">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <div class="acad-progress-section-header row w-100">
-                                    <div class="col-md-8 text-start px-3">
+                                <div class="row w-100 px-3">
+                                    <div class="col-md-8 text-start">
                                         <h4 class="rserif card-title fw-bold py-2 placeholder-glow">Subjects taken this semester</h4>
                                     </div>
-                                    <div class="col-md-4 text-end px-3">
-                                        <button id="add-subject-button" type="button" class="rsans btn btn-primary fw-bold px-2 w-50" data-bs-toggle="modal" data-bs-target="#addSubjectModal" disabled>Add subject</button>
+                                    <div class="col-md-4 text-end pe-0">
+                                        <button id="add-subject-button" type="button" class="rsans btn btn-primary fw-bold w-50" data-bs-toggle="modal" data-bs-target="#addSubjectModal" disabled>Add subject</button>
                                     </div>
                                     <x-add-subject/> <!-- add-subject modal form -->
                                     <x-edit-subject/> <!-- edit-subject modal form -->
