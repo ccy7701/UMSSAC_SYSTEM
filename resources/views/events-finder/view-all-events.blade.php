@@ -38,8 +38,7 @@
                         <div class="col-6 d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="rsans breadcrumb mb-0" style="--bs-breadcrumb-divider: '>';">
-                                    <li class="breadcrumb-item"><a href="#">All Events</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Search Results</li>
+                                    <li class="breadcrumb-item-active"><a href="{{ route('events-finder.view-all-events') }}">All Events</a></li>
                                 </ol>
                             </nav>
                         </div>

@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             ProfileSeeder::class,
             SemesterProgressLogSeeder::class,
             SubjectStatsLogSeeder::class,
+            ClubSeeder::class,
+            EventSeeder::class,
         ]);
     }
 }

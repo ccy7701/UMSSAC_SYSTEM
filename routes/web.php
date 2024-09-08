@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\SemesterProgressLogController;
 use App\Http\Controllers\SubjectStatsLogController;
+use App\Http\Controllers\EventController;
 use App\Http\Middleware\PreventAuthenticatedAccess;
 use App\Http\Middleware\RoleAccessMiddleware;
 
@@ -81,7 +82,8 @@ Route::middleware('auth')->group(function () {
         return view('events-finder.view-all-events');
     })->name('events-finder.view-all-events');
 
-
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/events-finder/view-event-details', [EventController::class, 'viewEventDetails'])->name('events-finder.view-event-details');
 
 
 
