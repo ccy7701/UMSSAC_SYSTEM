@@ -24,7 +24,9 @@ class EventSeeder extends Seeder
                 'event_description' => 'Learn the art of brewing the perfect cup of coffee. From espresso to pour-over, this workshop will cover it all!',
                 'event_entrance_fee' => 15.00,
                 'event_sdp_provided' => 1,
-                'event_image_paths' => null,
+                'event_image_paths' => json_encode([
+                    'placeholder-images/coffee-making.png'
+                ]),
                 'event_registration_link' => 'https://coffeeclub.com/register/1',
                 'event_status' => 1,
                 'created_at' => Carbon::now(),
@@ -39,7 +41,9 @@ class EventSeeder extends Seeder
                 'event_description' => 'Join the Xianzhou Alliance for strategy discussions.',
                 'event_entrance_fee' => 0.00,
                 'event_sdp_provided' => 0,
-                'event_image_paths' => null,
+                'event_image_paths' => json_encode([
+                    'placeholder-images/xianzhou-luofu.png'
+                ]),
                 'event_registration_link' => 'https://coffeeclub.com/register/1',
                 'event_status' => 1,
                 'created_at' => Carbon::now(),

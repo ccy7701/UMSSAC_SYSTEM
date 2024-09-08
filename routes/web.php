@@ -77,13 +77,14 @@ Route::middleware('auth')->group(function () {
     // Handle the change password submission
     Route::post('/change-password/action', [PasswordResetController::class, 'changePassword'])->name('change-password.action');
 
+
+
+    
     // CURRENT ROUTE OF FOCUS
-    Route::get('/events-finder/view-all', function () {
-        return view('events-finder.view-all-events');
-    })->name('events-finder.view-all-events');
+    Route::get('/events-finder', [EventController::class, 'fetchAllEvents'])->name('events-finder');
 
     // CURRENT ROUTE OF FOCUS
-    Route::get('/events-finder/view-event-details', [EventController::class, 'viewEventDetails'])->name('events-finder.view-event-details');
+    Route::get('/events-finder/full-details', [EventController::class, 'fetchEventDetails'])->name('events-finder.fetch-event-details');
 
 
 

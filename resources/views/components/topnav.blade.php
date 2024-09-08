@@ -49,7 +49,7 @@
                 @if (currentAccount()->account_role == 1)
                     <li class="nav-item"><a class="nav-link px-3" href="{{ route('progress-tracker') }}">Academic Progress Tracker</a></li>
                 @endif
-                <li class="nav-item"><a class="nav-link px-3" href="{{ route('events-finder.view-all-events') }}">Events Finder (WIP)</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="{{ route('events-finder') }}">Events Finder (WIP)</a></li>
                 <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Clubs (WIP)</a></li>
                 <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Bookmarks (WIP)</a></li>
                 <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Calendar (WIP)</a></li>

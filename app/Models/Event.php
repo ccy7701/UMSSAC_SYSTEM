@@ -11,7 +11,7 @@ class Event extends Model
 
     protected $table = 'event';
     protected $primaryKey = 'event_id';
-    protected $timestamps = true;   // timestamps enabled for this model
+    public $timestamps = true;   // timestamps enabled for this model
 
     protected $fillable = [
         'club_id',

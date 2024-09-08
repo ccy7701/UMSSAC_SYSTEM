@@ -21,7 +21,7 @@
             <div class="section-header row w-100">
                 <div class="col-12 text-center">
                     <h3 class="rserif fw-bold w-100 mb-1">Events finder</h3>
-                    <p class="rserif fs-4 w-100 mt-0">{123} events found</p>
+                    <p class="rserif fs-4 w-100 mt-0">{{ $totalEventCount }} events found</p>
                     <!-- SEARCH TAB -->
                     <form class="d-flex justify-content-center">
                         <div class="mb-4 w-50">
@@ -38,7 +38,7 @@
                         <div class="col-6 d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="rsans breadcrumb mb-0" style="--bs-breadcrumb-divider: '>';">
-                                    <li class="breadcrumb-item-active"><a href="{{ route('events-finder.view-all-events') }}">All Events</a></li>
+                                    <li class="breadcrumb-item-active"><a href="{{ route('events-finder') }}">All Events</a></li>
                                 </ol>
                             </nav>
                         </div>
@@ -105,24 +105,11 @@
                 <div class="col-md-9 px-3 py-0">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 pb-4">
-                                <x-event-card/>
-                            </div>
-                            <div class="col-lg-4 col-md-6 pb-4">
-                                <x-event-card/>
-                            </div>
-                            <div class="col-lg-4 col-md-6 pb-4">
-                                <x-event-card/>
-                            </div>
-                            <div class="col-lg-4 col-md-6 pb-4">
-                                <x-event-card/>
-                            </div>
-                            <div class="col-lg-4 col-md-6 pb-4">
-                                <x-event-card/>
-                            </div>
-                            <div class="col-lg-4 col-md-6 pb-4">
-                                <x-event-card/>
-                            </div>
+                            @foreach($events as $event)
+                                <div class="col-lg-4 col-md-6">
+                                    <x-event-card :event="$event"/>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
