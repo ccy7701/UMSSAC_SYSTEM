@@ -44,7 +44,7 @@ class Account extends Authenticatable
 
     // Override method to get email address for password reset
     public function getEmailForPasswordReset() {
-        return $this->account_email_address;
+        return $this->getEmailAttribute();
     }
 
     // Define the email attribute to satisfy the password reset broker

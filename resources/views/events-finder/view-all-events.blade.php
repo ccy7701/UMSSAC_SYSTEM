@@ -11,6 +11,7 @@
 
 <body>
     @vite('resources/js/app.js')
+    @vite('resources/js/itemViewToggler.js')
     <x-topnav/>
     <br>
     <div class="container p-3">
@@ -44,11 +45,16 @@
                         </div>
                         <!-- Right Column: View Icons -->
                         <div class="col-6 d-flex align-items-center justify-content-end">
-                            <p class="rsans mb-0">
-                                View: 
-                                <i class="fa fa-th fs-5 ps-3 pe-2 text-primary"></i>
-                                <i class="fa fa-list-ul fs-5 ps-2 text-muted"></i>
-                            </p>
+                            <div class="input-group justify-content-end">
+                                <!-- Grid view toggle button -->
+                                <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn active">
+                                    <i class="fa fa-th fs-4 text-primary"></i> <!-- Icon for grid view -->
+                                </button>
+                                <!-- List view toggle button -->
+                                <button id="toggle-list-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn">
+                                    <i class="fa fa-list-ul fs-4 text-muted"></i> <!-- Icon for list view -->
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,7 +72,7 @@
                     <h4 class="rserif fw-bold fs-5">Faculty</h4>
                     <ul class="rsans list-group py-2">
                         <li class="list-group-item">
-                            <input type="checkbox" id="fkikk" checked>
+                            <input type="checkbox" id="fkikk">
                             <label for="fkikk">FKIKK</label>
                         </li>
                         <li class="list-group-item">
@@ -101,14 +107,25 @@
                     </ul>
                 </div>
 
-                <!-- RIGHT SECTION FOR EVENT CARDS GRID -->
+                <!-- RIGHT SECTION FOR EVENT CARDS GRID OR LIST -->
                 <div class="col-md-9 px-3 py-0">
                     <div class="container-fluid">
-                        <div class="row">
+                        <!-- GRID VIEW (Initially hidden) -->
+                        <div class="row grid-view">
                             @foreach($events as $event)
                                 <div class="col-lg-4 col-md-6">
                                     <x-event-card :event="$event"/>
                                 </div>
+                            @endforeach
+                        </div>
+                        <!-- LIST VIEW (Initially visible) -->
+                        <div class="row list-view d-none">
+                            @foreach($events as $event)
+                            <div class="row pb-3">
+                                <div class="col-lg-12">
+                                    <x-event-list-item :event="$event"/>
+                                </div>
+                            </div>
                             @endforeach
                         </div>
                     </div>

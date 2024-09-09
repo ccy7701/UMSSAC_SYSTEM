@@ -26,7 +26,7 @@
         @php
             $eventImagePaths = json_decode($event->event_image_paths, true);
         @endphp
-        <img src="{{ asset($eventImagePaths[0]) }}" class="card-img-top w-50" alt="Event image"><br>
+        <img src="{{ asset($eventImagePaths[0]) }}" class="card-img-top w-50" alt="Event illustration"><br>
         Event registration link = {{ $event->event_registration_link }}<br>
         Event status = {{ $event->event_status }}<br>
         CREATED AT = {{ $event->created_at }}<br>

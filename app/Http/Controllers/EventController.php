@@ -13,7 +13,7 @@ class EventController extends Controller
 
         return view('events-finder.view-all-events', [
             'events' => $allEvents,
-            'totalEventCount' => $allEvents->count(), 
+            'totalEventCount' => $allEvents->count(),
         ]);
     }
 

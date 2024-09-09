@@ -71,11 +71,33 @@ html {
     border: none;
 }
 
-#event-card {
+.toggle-view-btn {
+    background-color: transparent !important;
+}
+
+.toggle-view-btn:focus, 
+.toggle-view-btn:active, 
+.toggle-view-btn:hover {
+    background-color: transparent !important; /* Prevent blue background on hover */
+    box-shadow: none !important; /* Remove any focus/active shadow */
+}
+
+/* Only the icons should change color based on the state */
+.toggle-view-btn i {
+    color: text-muted; /* Default state */
+}
+
+.toggle-view-btn.active i {
+    color: text-primary; /* Active state */
+}
+
+#event-card,
+#event-list-item {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#event-card:hover {
+#event-card:hover,
+#event-list-item:hover {
     transform: scale(1.01);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
