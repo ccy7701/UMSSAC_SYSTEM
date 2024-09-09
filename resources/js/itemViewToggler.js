@@ -1,33 +1,26 @@
-document.getElementById('toggle-grid-view').addEventListener('click', function() {
-    // Show grid view, hide list view
-    document.querySelector('.grid-view').classList.remove('d-none');
-    document.querySelector('.list-view').classList.add('d-none');
-
-    // Set grid button to active, list button to inactive
-    this.classList.add('active');
-    document.getElementById('toggle-list-view').classList.remove('active');
+function toggleView(activeViewId, inactiveViewId, activeContainerClass, inactiveContainerClass) {
+    // Show the active view, hide the inactive view
+    document.querySelector(activeContainerClass).classList.remove('d-none');
+    document.querySelector(inactiveContainerClass).classList.add('d-none');
+    
+    // Set the active button, and reset the inactive button
+    document.getElementById(activeViewId).classList.add('active');
+    document.getElementById(inactiveViewId).classList.remove('active');
     
     // Change icon colors accordingly
-    this.querySelector('i').classList.add('text-primary');
-    this.querySelector('i').classList.remove('text-muted');
+    document.getElementById(activeViewId).querySelector('i').classList.add('text-primary');
+    document.getElementById(activeViewId).querySelector('i').classList.remove('text-muted');
     
-    document.getElementById('toggle-list-view').querySelector('i').classList.add('text-muted');
-    document.getElementById('toggle-list-view').querySelector('i').classList.remove('text-primary');
+    document.getElementById(inactiveViewId).querySelector('i').classList.add('text-muted');
+    document.getElementById(inactiveViewId).querySelector('i').classList.remove('text-primary');
+}
+
+// Event listener for Grid view
+document.getElementById('toggle-grid-view').addEventListener('click', function() {
+    toggleView('toggle-grid-view', 'toggle-list-view', '.grid-view', '.list-view');
 });
 
+// Event listener for List view
 document.getElementById('toggle-list-view').addEventListener('click', function() {
-    // Show list view, hide grid view
-    document.querySelector('.list-view').classList.remove('d-none');
-    document.querySelector('.grid-view').classList.add('d-none');
-
-    // Set list button to active, grid button to inactive
-    this.classList.add('active');
-    document.getElementById('toggle-grid-view').classList.remove('active');
-    
-    // Change icon colors accordingly
-    this.querySelector('i').classList.add('text-primary');
-    this.querySelector('i').classList.remove('text-muted');
-    
-    document.getElementById('toggle-grid-view').querySelector('i').classList.add('text-muted');
-    document.getElementById('toggle-grid-view').querySelector('i').classList.remove('text-primary');
+    toggleView('toggle-list-view', 'toggle-grid-view', '.list-view', '.grid-view');
 });
