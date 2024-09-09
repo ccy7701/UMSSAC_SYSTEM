@@ -11,6 +11,7 @@
 
 <body>
     @vite('resources/js/app.js')
+    @vite('resources/js/itemViewToggler.js')
     <x-topnav/>
     <br>
 
@@ -81,11 +82,55 @@
                     </div>
                 </div>
             </div>
-            <div class="container p-3 py-4">
+            <div class="container px-3 py-4">
                 <h5 class="rserif fw-bold">About this club</h5>
                 <p class="rsans pb-3">{{ $club->club_description }}</p>
                 <h5 class="rserif fw-bold">Club creation date</h5>
                 <p class="rsans pb-3">{{ $club->created_at }}</p>
+            </div>
+            <!-- Events conducted -->
+            <div class="d-flex align-items-center">
+                <div class="section-header row w-100">
+                    <!-- Left column: Events header -->
+                    <div class="col-md-6 text-start">
+                        <h3 class="rserif fw-bold w-100 py-2 px-3 mb-2">Events</h3>
+                    </div>
+                    <!-- Right column: View icons -->
+                    <div class="col-md-6 d-flex align-items-center justify-content-end mb-2">
+                        <div class="input-group justify-content-end">
+                            <!-- Grid view toggle button -->
+                            <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn active">
+                                <i class="fa fa-th fs-4 text-primary"></i>
+                            </button>
+                            <!-- List view toggle button -->
+                            <button id="toggle-list-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn">
+                                <i class="fa fa-list-ul fs-4 text-muted"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-3 py-4">
+                <div class="col-md-12 px-3 py-0">
+                    <!-- GRID VIEW (Initially visible) -->
+                    <div class="row grid-view">
+                        @foreach ($clubEvents as $event)
+                            <div class="col-lg-4 col-md-6">
+                                <x-event-card :event="$event"/>
+                            </div>
+                        @endforeach
+                    </div>
+                    <!-- LIST VIEW (Initially hidden) -->
+                    <div class="row list-view d-none justify-content-center">
+                        @foreach ($clubEvents as $event)
+                            <div class="row pb-3 w-75">
+                                <div class="col-lg-12">
+                                    <x-event-list-item :event="$event" />
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </div>
