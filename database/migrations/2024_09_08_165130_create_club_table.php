@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('club_name', 512);
             $table->string('club_faculty', 8);
             $table->string('club_description', 1024);
-            $table->string('club_logo_filepath');
+            $table->json('club_image_paths')->nullable();
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ class Club extends Model
         'club_name',
         'club_faculty',
         'club_description',
-        'club_logo_filepath',
+        'club_image_paths',
     ];
 
     public function events() {

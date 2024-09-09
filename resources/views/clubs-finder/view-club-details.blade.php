@@ -19,8 +19,11 @@
         Club name = {{ $club->club_name }}<br>
         Club faculty = {{ $club->club_faculty }}<br>
         Club description = {{ $club->description }}<br>
-        Image = 
-        <img src="{{ asset($club->club_logo_filepath) }}" class="card-img-top w-50" alt="Club illustration"><br>
+        Image =
+        @php
+            $clubImagePaths = json_decode($club->club_image_paths, true);
+        @endphp
+        <img src="{{ asset($clubImagePaths[0]) }}" class="card-img-top w-50" alt="Club illustration"><br>
         CREATED AT = {{ $club->created_at }}<br>
         UPDATED AT = {{ $club->updated_at }}<br>
     </div>

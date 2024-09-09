@@ -1,10 +1,10 @@
 <!-- resources/views/components/event-card.blade.php -->
 <a href="{{ route('events-finder.fetch-event-details', ['event_id' => $event->event_id]) }}" class="text-decoration-none">
-    <div class="card" id="event-card">
+    <div class="card" id="card-standard">
         @php
             $eventImagePaths = json_decode($event->event_image_paths, true);
         @endphp
-        <img src="{{ asset($eventImagePaths[0]) }}" class="card-img-top" alt="Event card illustration" style="aspect-ratio: 16/10;">
+        <img src="{{ asset($eventImagePaths[0]) }}" class="card-img-top border-bottom" alt="Event card illustration" style="aspect-ratio: 16/10;">
         <div class="rsans card-body p-3">
             <h5 class="card-title fw-bold">{{ $event->event_name }}</h5>
             <div class="card-text">

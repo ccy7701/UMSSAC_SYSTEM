@@ -91,13 +91,13 @@ html {
     color: text-primary; /* Active state */
 }
 
-#event-card,
-#event-list-item {
+#list-item-standard,
+#card-standard {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#event-card:hover,
-#event-list-item:hover {
+#list-item-standard:hover,
+#card-standard:hover {
     transform: scale(1.01);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

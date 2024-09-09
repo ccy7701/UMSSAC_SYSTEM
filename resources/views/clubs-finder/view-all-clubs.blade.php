@@ -96,11 +96,21 @@
                 <!-- RIGHT SECTION FOR CLUB CARDS GRID OR LIST -->
                 <div class="col-md-9 px-3 py-0">
                     <div class="container-fluid">
-                        <!-- GRID VIEW (Initially hidden) -->
+                        <!-- GRID VIEW (Initially visible) -->
                         <div class="row grid-view">
                             @foreach($clubs as $club)
                                 <div class="col-lg-4 col-md-6">
                                     <x-club-card :club="$club"/>
+                                </div>
+                            @endforeach
+                        </div>
+                        <!-- LIST VIEW (Initially hidden) -->
+                        <div class="row list-view d-none">
+                            @foreach($clubs as $club)
+                                <div class="row pb-3">
+                                    <div class="col-lg-12">
+                                        <x-club-list-item :club="$club"/>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>

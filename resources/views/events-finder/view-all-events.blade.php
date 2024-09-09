@@ -110,7 +110,7 @@
                 <!-- RIGHT SECTION FOR EVENT CARDS GRID OR LIST -->
                 <div class="col-md-9 px-3 py-0">
                     <div class="container-fluid">
-                        <!-- GRID VIEW (Initially hidden) -->
+                        <!-- GRID VIEW (Initially visible) -->
                         <div class="row grid-view">
                             @foreach($events as $event)
                                 <div class="col-lg-4 col-md-6">
@@ -118,14 +118,14 @@
                                 </div>
                             @endforeach
                         </div>
-                        <!-- LIST VIEW (Initially visible) -->
+                        <!-- LIST VIEW (Initially hidden) -->
                         <div class="row list-view d-none">
                             @foreach($events as $event)
-                            <div class="row pb-3">
-                                <div class="col-lg-12">
-                                    <x-event-list-item :event="$event"/>
+                                <div class="row pb-3">
+                                    <div class="col-lg-12">
+                                        <x-event-list-item :event="$event"/>
+                                    </div>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>

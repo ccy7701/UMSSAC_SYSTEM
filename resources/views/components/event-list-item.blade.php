@@ -1,13 +1,13 @@
 <!-- resources/views/components/event-list-item.blade.php -->
 <a href="{{ route('events-finder.fetch-event-details', ['event_id' => $event->event_id]) }}" class="text-decoration-none">
-    <div class="card" id="event-list-item">
+    <div class="card" id="list-item-standard">
         <div class="row g-0 align-items-center">
             @php
                 $eventImagePaths = json_decode($event->event_image_paths, true);
             @endphp
             <!-- Image section -->
             <div class="col-md-4">
-                <img src="{{ asset($eventImagePaths[0]) }}" class="img-fluid rounded-start" alt="Event list item illustration" style="aspect-ratio: 16/10;">
+                <img src="{{ asset($eventImagePaths[0]) }}" class="img-fluid rounded-start border-end" alt="Event list item illustration" style="aspect-ratio: 16/10;">
             </div>
             <!-- Content section -->
             <div class="col-md-8">
