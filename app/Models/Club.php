@@ -11,7 +11,7 @@ class Club extends Model
 
     protected $table = 'club';
     protected $primaryKey = 'club_id';
-    protected $timestamps = true;   // timestamps enabled for this model
+    public $timestamps = true;   // timestamps enabled for this model
 
     protected $fillable = [
         'club_name',

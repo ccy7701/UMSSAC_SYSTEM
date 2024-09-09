@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\SemesterProgressLogController;
 use App\Http\Controllers\SubjectStatsLogController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ClubController;
 use App\Http\Middleware\PreventAuthenticatedAccess;
 use App\Http\Middleware\RoleAccessMiddleware;
 
@@ -85,6 +86,12 @@ Route::middleware('auth')->group(function () {
 
     // CURRENT ROUTE OF FOCUS
     Route::get('/events-finder/full-details', [EventController::class, 'fetchEventDetails'])->name('events-finder.fetch-event-details');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/clubs-finder', [ClubController::class, 'fetchAllClubs'])->name('clubs-finder');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetails'])->name('clubs-finder.fetch-club-details');
 
 
 

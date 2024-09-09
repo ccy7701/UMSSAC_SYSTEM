@@ -102,6 +102,15 @@ html {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+#user-profile-topnav {
+    transition: transform 0.2s ease, border 0.2s ease;
+    border: 2px solid #AAAAAA; /* Set an initial transparent border */
+}
+
+#user-profile-topnav:hover {
+    transform: scale(1.05);
+    border: 2px solid $btn-primary-bg; /* Use your SCSS variable here */
+}
 // add media for max-width: 1400px, 1200px, 992px, 768px when needed
 
 @media (max-width: 576px) {

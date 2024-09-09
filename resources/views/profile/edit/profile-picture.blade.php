@@ -38,7 +38,7 @@
             @endif
             <div class="row align-items-center py-3">
                 <div class="col-md-2 text-center">
-                    <img id="profile-picture-preview" src="{{ profile()->profile_picture }}" class="rounded-circle border" alt="User profile" style="width: 200px; height: 200px; object-fit: cover">
+                    <img id="profile-picture-preview" src="{{ profile()->profile_picture }}" class="rounded-circle" alt="User profile" style="width: 200px; height: 200px; object-fit: cover; border: 2px solid #AAAAAA;">
                 </div>
                 <div class="col-md-10">
                     <input id="profile-picture-input" type="file" name="new_profile_picture" class="rsans form-control-file">
