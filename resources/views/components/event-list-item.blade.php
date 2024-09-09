@@ -6,11 +6,11 @@
                 $eventImagePaths = json_decode($event->event_image_paths, true);
             @endphp
             <!-- Image section -->
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <img src="{{ asset($eventImagePaths[0]) }}" class="img-fluid rounded-start border-end" alt="Event list item illustration" style="aspect-ratio: 16/10;">
             </div>
             <!-- Content section -->
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="rsans card-body p-3">
                     <h5 class="card-title fw-bold">{{ $event->event_name }}</h5>
                     <div class="card-text">

@@ -15,17 +15,79 @@
     <br>
 
     <div class="container p-3">
-        Club id = {{ $club->club_id }}<br>
-        Club name = {{ $club->club_name }}<br>
-        Club faculty = {{ $club->club_faculty }}<br>
-        Club description = {{ $club->description }}<br>
-        Image =
-        @php
-            $clubImagePaths = json_decode($club->club_image_paths, true);
-        @endphp
-        <img src="{{ asset($clubImagePaths[0]) }}" class="card-img-top w-50" alt="Club illustration"><br>
-        CREATED AT = {{ $club->created_at }}<br>
-        UPDATED AT = {{ $club->updated_at }}<br>
+
+        <div class="d-flex align-items-center">
+
+
+            <!-- TOP SECTION -->
+            <div class="row w-100">
+                <div class="col-12 text-center">
+                    <!-- BREADCRUMB NAV -->
+                    <div class="row pb-3">
+                        <div class="col-6 align-items-center">
+                            <nav aria-label="breadcrumb">
+                                <ol class="rsans breadcrumb" style="--bs-breadcrumb-divider: '>';">
+                                    <li class="breadcrumb-item"><a href="{{ route('clubs-finder') }}">All Clubs</a></li>
+                                    <li class="breadcrumb-item active">{{ $club->club_name }}</li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="col-6 align-items-center">
+                            <p class="rsans text-end">Last updated: {{ $club->updated_at }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- BODY OF CONTENT -->
+        <div class="container-fluid align-items-center py-4">
+            <!-- Club images carousel -->
+            <div class="row w-100 justify-content-center align-items-center">
+                @php
+                    $clubImagePaths = json_decode($club->club_image_paths, true);
+                @endphp
+                <div id="clubImagesCarousel" class="carousel slide carousel-fade w-30" data-bs-ride="carousel" data-bs-interval="3000">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ asset($clubImagePaths[0]) }}" class="d-block w-100" alt="Club illustration" style="aspect-ratio: 4/4; object-fit: cover;">
+                        </div>
+                        @foreach(array_slice($clubImagePaths, 1) as $imagePath)
+                            <div class="carousel-item">
+                                <img src="{{ asset($imagePath) }}" class="d-block w-100" alt="Club illustration" style="aspect-ratio: 4/4; object-fit: cover;">
+                            </div>
+                        @endforeach()
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#clubImagesCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#clubImagesCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+            <br>
+            <!-- Club description -->
+            <div class="d-flex align-items-center">
+                <div class="section-header row w-100">
+                    <div class="col-md-6 text-start">
+                        <h3 class="rserif fw-bold w-100 py-2 px-3 mb-2">{{ $club->club_name }}</h3>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center justify-content-end">
+                        <i class="fa fa-university text-muted mb-2 me-3"></i>
+                        <h3 class="rserif fw-bold text-muted mb-2">{{ $club->club_faculty }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="container p-3 py-4">
+                <h5 class="rserif fw-bold">About this club</h5>
+                <p class="rsans pb-3">{{ $club->club_description }}</p>
+                <h5 class="rserif fw-bold">Club creation date</h5>
+                <p class="rsans pb-3">{{ $club->created_at }}</p>
+            </div>
+        </div>
     </div>
 
     <x-footer/>

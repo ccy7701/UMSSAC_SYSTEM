@@ -32,7 +32,9 @@ class ClubSeeder extends Seeder
                 'club_faculty' => 'FPP',
                 'club_description' => 'An ancient, space-faring civilisation following the Aeon Lan and a major faction in Honkai: Star Rail.',
                 'club_image_paths' => json_encode([
-                    'placeholder-images/xianzhou-club-logo.png'
+                    'placeholder-images/xianzhou-club-logo.png',
+                    'placeholder-images/xianzhou-second-logo.png',
+                    'placeholder-images/xianzhou-third-logo.png',
                 ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
