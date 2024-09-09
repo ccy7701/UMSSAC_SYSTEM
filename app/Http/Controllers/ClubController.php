@@ -25,7 +25,7 @@ class ClubController extends Controller
 
         // Return a view with the club details
         return view(
-            'clubs-finder.view-club-details', 
+            'clubs-finder.view-club-details',
             compact('club', 'clubEvents')
         );
     }

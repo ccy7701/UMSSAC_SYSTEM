@@ -18,8 +18,6 @@
     <div class="container p-3">
 
         <div class="d-flex align-items-center">
-
-
             <!-- TOP SECTION -->
             <div class="row w-100">
                 <div class="col-12 text-center">
@@ -39,8 +37,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
 
         <!-- BODY OF CONTENT -->
@@ -59,7 +55,7 @@
                             <div class="carousel-item">
                                 <img src="{{ asset($imagePath) }}" class="d-block w-100" alt="Club illustration" style="aspect-ratio: 4/4; object-fit: cover;">
                             </div>
-                        @endforeach()
+                        @endforeach
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#clubImagesCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\Club;
 
 class EventController extends Controller
 {
@@ -18,13 +19,13 @@ class EventController extends Controller
     }
 
     public function fetchEventDetails(Request $request) {
-        // Get 'event_id' from the query string
         $event_id = $request->query('event_id');
-
-        // Find the event using the event_id
         $event = Event::findOrFail($event_id);
+        $club = Club::findOrFail($event->club_id);
 
-        // Return a view with the event details
-        return view('events-finder.view-event-details', compact('event'));
+        return view(
+            'events-finder.view-event-details', 
+            compact('event', 'club')
+        );
     }
 }
