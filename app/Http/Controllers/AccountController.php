@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
-use App\Models\Profile;
+use App\Services\AccountService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Validator;
 class AccountController extends Controller
 {
     public function register(Request $request) {
-        // KEEP IN VIEW -> USE YOUR PARAMETERS!
         $validator = Validator::make($request->all(), [
             'account_full_name' => 'required|string|max:255',
             'account_email_address' => 'required|string|email|max:255|unique:account,account_email_address',
@@ -25,27 +24,11 @@ class AccountController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        // Create the account
-        $account = Account::create([
-            'account_full_name' => $request->account_full_name,
-            'account_email_address' => $request->account_email_address,
-            'account_password' => Hash::make($request->account_password),
-            'account_role' => $request->account_role,
-            'account_matric_number' => $request->account_role == 1 ? $request->account_matric_number : null,
-        ]);
-
-        // Also create the corresponding empty profile
-        Profile::create([
-            'account_id' => $account->account_id,
-            'profile_nickname' => '',
-            'profile_personal_desc' => '',
-            'profile_enrolment_session' => $request->account_role == 1 ? '' : null,
-            'profile_faculty' => '',
-            'profile_course' => '',
-            'profile_picture_filepath' => '',
-            'profile_colour_theme' => '',
-        ]);
-
+        $accountService = new AccountService();
+        $account = $accountService->createAccount($request);
+        $profile = $accountService->createProfile($request, $account);
+        $accountService->createUserPreference($profile);
+        
         Auth::login($account);
 
         return redirect()->route('profile');

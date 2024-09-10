@@ -29,4 +29,8 @@ class ClubController extends Controller
             compact('club', 'clubEvents')
         );
     }
+
+    // public function clubScopeFilter(Request $request) {
+    //     $selectedFaculties = 
+    // }
 }

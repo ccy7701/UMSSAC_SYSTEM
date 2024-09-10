@@ -35,6 +35,10 @@ class Profile extends Model
         return $this->hasMany(SemesterProgressLog::class, 'profile_id', 'profile_id');
     }
 
+    public function userPreference() {
+        return $this->hasOne(UserPreference::class, 'profile_id', 'profile_id');
+    }
+
     // ACCESSOR: Profile picture filepath
     public function getProfilePictureAttribute() {
         return $this->profile_picture_filepath ? Storage::url($this->profile_picture_filepath) : asset('images/no_profile_pic_default.png');

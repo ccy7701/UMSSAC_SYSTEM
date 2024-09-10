@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             SubjectStatsLogSeeder::class,
             ClubSeeder::class,
             EventSeeder::class,
+            UserPreferenceSeeder::class,
         ]);
     }
 }
