@@ -24,11 +24,12 @@ class ClubController extends Controller
         $club_id = $request->query('club_id');
         $club = Club::findOrFail($club_id);
         $clubEvents = Event::where('club_id', $club_id)->get();
+        $searchViewPreference = getUserSearchViewPreference(profile()->profile_id);
 
         // Return a view with the club details
         return view(
             'clubs-finder.view-club-details',
-            compact('club', 'clubEvents')
+            compact('club', 'clubEvents', 'searchViewPreference'),
         );
     }
 

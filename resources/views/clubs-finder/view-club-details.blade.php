@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $club->club_name }} | Clubs Finder</title>
     @vite('resources/sass/app.scss')
 </head>
@@ -95,12 +96,12 @@
                     <div class="col-md-6 d-flex align-items-center justify-content-end mb-2">
                         <div class="input-group justify-content-end">
                             <!-- Grid view toggle button -->
-                            <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn active">
-                                <i class="fa fa-th fs-4 text-primary"></i>
+                            <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 1 ? 'active' : '' }}">
+                                <i class="fa fa-th fs-4 {{ $searchViewPreference == 1 ? 'text-primary' : 'text-muted' }}"></i> <!-- Icon for grid view -->
                             </button>
                             <!-- List view toggle button -->
-                            <button id="toggle-list-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn">
-                                <i class="fa fa-list-ul fs-4 text-muted"></i>
+                            <button id="toggle-list-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 2 ? 'active' : '' }}">
+                                <i class="fa fa-list-ul fs-4 {{ $searchViewPreference == 2 ? 'text-primary' : 'text-muted' }}"></i> <!-- Icon for list view -->
                             </button>
                         </div>
                     </div>
@@ -108,16 +109,16 @@
             </div>
             <div class="container px-3 py-4">
                 <div class="col-md-12 px-3 py-0">
-                    <!-- GRID VIEW (Initially visible) -->
-                    <div class="row grid-view">
+                    <!-- GRID VIEW (Toggle based on preference) -->
+                    <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                         @foreach ($clubEvents as $event)
                             <div class="col-lg-4 col-md-6">
                                 <x-event-card :event="$event"/>
                             </div>
                         @endforeach
                     </div>
-                    <!-- LIST VIEW (Initially hidden) -->
-                    <div class="row list-view d-none justify-content-center">
+                    <!-- LIST VIEW (Toggle based on preference) -->
+                    <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }} justify-content-center">
                         @foreach ($clubEvents as $event)
                             <div class="row pb-3 w-75">
                                 <div class="col-lg-12">

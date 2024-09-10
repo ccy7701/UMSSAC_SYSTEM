@@ -11,9 +11,11 @@ class EventController extends Controller
     public function fetchAllEvents() {
         // Fetch all events from the database
         $allEvents = Event::all();
+        $searchViewPreference = getUserSearchViewPreference(profile()->profile_id);
 
         return view('events-finder.view-all-events', [
             'events' => $allEvents,
+            'searchViewPreference' => $searchViewPreference,
             'totalEventCount' => $allEvents->count(),
         ]);
     }
