@@ -8,6 +8,7 @@ use App\Http\Controllers\SemesterProgressLogController;
 use App\Http\Controllers\SubjectStatsLogController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ClubController;
+use App\Http\Controllers\UserPreferenceController;
 use App\Http\Middleware\PreventAuthenticatedAccess;
 use App\Http\Middleware\RoleAccessMiddleware;
 
@@ -93,7 +94,8 @@ Route::middleware('auth')->group(function () {
     // CURRENT ROUTE OF FOCUS
     Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetails'])->name('clubs-finder.fetch-club-details');
 
-
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/update-search-view-preference', [UserPreferenceController::class, 'updateItemViewPreference']);
 
 
 

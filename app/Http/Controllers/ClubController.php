@@ -11,9 +11,11 @@ class ClubController extends Controller
     public function fetchAllClubs() {
         // Fetch all clubs from the database
         $allClubs = Club::all();
+        $searchViewPreference = getUserSearchViewPreference(profile()->profile_id);
 
         return view('clubs-finder.view-all-clubs', [
             'clubs' => $allClubs,
+            'searchViewPreference' => $searchViewPreference,
             'totalClubCount' => $allClubs->count(),
         ]);
     }
@@ -31,6 +33,6 @@ class ClubController extends Controller
     }
 
     // public function clubScopeFilter(Request $request) {
-    //     $selectedFaculties = 
+    //     $selectedFaculties =
     // }
 }

@@ -24,7 +24,7 @@ class EventController extends Controller
         $club = Club::findOrFail($event->club_id);
 
         return view(
-            'events-finder.view-event-details', 
+            'events-finder.view-event-details',
             compact('event', 'club')
         );
     }
