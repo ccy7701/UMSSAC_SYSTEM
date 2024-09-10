@@ -84,16 +84,23 @@ Route::middleware('auth')->group(function () {
 
 
     // CURRENT ROUTE OF FOCUS
-    Route::get('/clubs-finder', [ClubController::class, 'fetchAllClubs'])->name('clubs-finder');
+    Route::get('/clubs-finder', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder');
 
     // CURRENT ROUTE OF FOCUS
-    Route::post('/clubs-finder/filter', [ClubController::class, 'fetchAllClubs'])->name('clubs-finder.filter');
+    Route::post('/clubs-finder/filter', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder.filter');
 
     // CURRENT ROUTE OF FOCUS
     Route::post('/clubs-finder/clear-all', [ClubController::class, 'clearFilter'])->name('clubs-finder.clear-filter');
 
-
+    // CURRENT ROUTE OF FOCUS (ADMIN)
+    Route::get('/manage-clubs', [ClubController::class, 'fetchClubsManager'])->name('clubs-manager');
     
+    // CURRENT ROUTE OF FOCUS (ADMIN)
+    Route::post('/manage-clubs/filter', [ClubController::class, 'fetchClubsManager'])->name('clubs-manager.filter');
+
+    Route::post('/manage-clubs/clear-all', [ClubController::class, 'clearManagerFilter'])->name('clubs-manager.clear-filter');
+
+
 
 
     Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetails'])->name('clubs-finder.fetch-club-details');

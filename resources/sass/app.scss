@@ -1,7 +1,8 @@
 $btn-primary-bg: #1064D6;
 
-@import 'pages/features';
-@import 'pages/welcome';
+@import 'features';
+@import 'welcome';
+@import 'search-cards';
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Roboto+Slab:wght@100;300;400;700;900&family=Roboto+Serif:wght@100;300;400;700;900&display=swap');
@@ -92,17 +93,6 @@ html {
 
 .toggle-view-btn.active i {
     color: text-primary; /* Active state */
-}
-
-#list-item-standard,
-#card-standard {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-#list-item-standard:hover,
-#card-standard:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #user-profile-topnav {

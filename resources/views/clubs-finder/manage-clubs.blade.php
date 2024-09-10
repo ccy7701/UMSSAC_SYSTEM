@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Clubs Finder</title>
+    <title>Manage Clubs</title>
     @vite('resources/sass/app.scss')
 </head>
 
@@ -22,7 +22,7 @@
             <!-- TOP SECTION -->
             <div class="section-header row w-100">
                 <div class="col-12 text-center">
-                    <h3 class="rserif fw-bold w-100 mb-1">Clubs finder</h3>
+                    <h3 class="rserif fw-bold w-100 mb-1">Manage clubs</h3>
                     <p id="club-count-display" class="rserif fs-4 w-100 mt-0">
                         @if ($totalClubCount == 0) No clubs found
                         @elseif ($totalClubCount == 1) 1 club found
@@ -79,7 +79,7 @@
                             <h4 class="rsans fw-bold mb-0">Search filters</h4>
                         </div>
                         <div class="col-4 d-flex align-items-center justify-content-end">
-                            <form id="clear-filter-form" method="POST" action="{{ route('clubs-finder.clear-filter') }}">
+                            <form id="clear-filter-form" method="POST" action="{{ route('clubs-manager.clear-filter') }}">
                                 @csrf
                                 <button class="rsans btn btn-secondary fw-bold px-2">Clear all</button>
                             </form>
@@ -87,7 +87,7 @@
                     </div>
                     <br>
                     <h5 class="rsans fw-semibold mb-0">Faculty</h5>
-                    <form id="filter-form" method="POST" action="{{ route('clubs-finder.filter') }}">
+                    <form id="filter-form" method="POST" action="{{ route('clubs-manager.filter') }}">
                         @csrf
                         <ul class="rsans list-group py-2">
                             <li class="list-group-item">
@@ -121,9 +121,21 @@
                     <div class="container-fluid">
                         <!-- GRID VIEW (Toggle based on preference) -->
                         <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
+                            <!-- Add new club card -->
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                                <a href="#" class="text-decoration-none w-100">
+                                    <div class="card add-club-card d-flex justify-content-center align-items-center h-100">
+                                        <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                            <i class="fa fa-plus-circle fa-3x mb-2"></i>
+                                            <h5 class="card-title fw-bold">Add new club</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Existing clubs' cards -->
                             @foreach($clubs as $club)
                                 <div class="col-lg-4 col-md-6">
-                                    <x-club-card :club="$club"/>
+                                    <x-manage-club-card :club="$club"/>
                                 </div>
                             @endforeach
                         </div>
@@ -132,7 +144,7 @@
                             @foreach($clubs as $club)
                                 <div class="row pb-3">
                                     <div class="col-lg-12">
-                                        <x-club-list-item :club="$club"/>
+                                        <x-manage-club-list-item :club="$club"/>
                                     </div>
                                 </div>
                             @endforeach

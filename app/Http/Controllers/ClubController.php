@@ -11,52 +11,86 @@ use Illuminate\Support\Facades\Log;
 
 class ClubController extends Controller
 {
-    public function fetchAllClubs(Request $request) {
-        // Get filters from the form submission
-        $filters = $request->input('faculty_filter', []); // Default to an empty array if no filters are selected
+    private function getFilters(Request $request) {
+        // Fetch filters from form submission (may be empty if no checkboxes are selected)
+        $filters = $request->input('faculty_filter', []);
     
-        // If no filters were submitted, get saved filters from the database
+        // If the form is submitted with no filters, we should treat it as clearing all filters
+        if ($request->isMethod('post') && empty($filters)) {
+            return []; // Explicitly return an empty array if the form is submitted with no filters
+        }
+    
+        // If no form submission and no filters, retrieve saved filters from the database
         if (empty($filters)) {
             $savedFilters = DB::table('user_preference')
                 ->where('profile_id', profile()->profile_id)
-                ->value('club_search_filters'); // Get the saved filters from the JSON column
-
-            // Decode the JSON into an array (it could be null if no filters are saved)
+                ->value('club_search_filters');
             $filters = $savedFilters ? json_decode($savedFilters, true) : [];
-        } else {
-            // If filters were submitted, save them in the database
-            DB::table('user_preference')
-                ->where('profile_id', profile()->profile_id)
-                ->update([
-                    'club_search_filters' => json_encode($filters),
-                    'updated_at' => now()
-                ]);
         }
     
-        // Fetch clubs based on stored filters
-        $allClubs = Club::when(!empty($filters), function($query) use ($filters) {
-            return $query->whereIn('club_faculty', $filters);
-        })->get();
-    
-        // Return the view with filtered clubs
-        return view('clubs-finder.view-all-clubs', [
-            'clubs' => $allClubs,
-            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
-            'totalClubCount' => $allClubs->count(),
-            'filters' => $filters // Pass filters back to the view for checkbox selections
-        ]);
+        return $filters;
     }
 
-    public function clearFilter() {
-        // Clear the filters for the authenticated user's profile
+    private function getAllClubs(array $filters) {
+        // Always save the filters, even if empty (to clear the saved filters)
+        DB::table('user_preference')
+            ->where('profile_id', profile()->profile_id)
+            ->update([
+                'club_search_filters' => json_encode($filters),
+                'updated_at' => now()
+            ]);
+    
+        // Fetch clubs based on the filters (if empty, return all clubs)
+        return Club::when(!empty($filters), function($query) use ($filters) {
+            return $query->whereIn('club_faculty', $filters);
+        })->get();
+    }
+
+    private function flushFilters() {
         DB::table('user_preference')
             ->where('profile_id', profile()->profile_id)
             ->update([
                 'club_search_filters' => json_encode([]),
                 'updated_at' => now()
             ]);
-    
+    }
+
+    public function clearFilter() {
+        // Clear the filters for the authenticated user's profile
+        $this->flushFilters();
+
         return redirect()->route('clubs-finder');
+    }
+
+    public function clearManagerFilter() {
+        // Clear the filters for the authenticated user's profile
+        $this->flushFilters();
+    
+        return redirect()->route('clubs-manager');
+    }
+
+    public function fetchClubsFinder(Request $request) {
+        $filters = $this->getFilters($request);
+        $allClubs = $this->getAllClubs($filters);
+    
+        return view('clubs-finder.view-all-clubs', [
+            'clubs' => $allClubs,
+            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
+            'totalClubCount' => $allClubs->count(),
+            'filters' => $filters
+        ]);
+    }
+
+    public function fetchClubsManager(Request $request) {
+        $filters = $this->getFilters($request);
+        $allClubs = $this->getAllClubs($filters);
+
+        return view('clubs-finder.manage-clubs', [
+            'clubs' => $allClubs,
+            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
+            'totalClubCount' => $allClubs->count(),
+            'filters' => $filters
+        ]);
     }
 
     public function fetchClubDetails(Request $request) {
