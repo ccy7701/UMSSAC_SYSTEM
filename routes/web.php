@@ -81,27 +81,30 @@ Route::middleware('auth')->group(function () {
 
 
 
-    
-    // CURRENT ROUTE OF FOCUS
-    Route::get('/events-finder', [EventController::class, 'fetchAllEvents'])->name('events-finder');
 
-    // CURRENT ROUTE OF FOCUS
-    Route::get('/events-finder/full-details', [EventController::class, 'fetchEventDetails'])->name('events-finder.fetch-event-details');
 
     // CURRENT ROUTE OF FOCUS
     Route::get('/clubs-finder', [ClubController::class, 'fetchAllClubs'])->name('clubs-finder');
 
     // CURRENT ROUTE OF FOCUS
-    Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetails'])->name('clubs-finder.fetch-club-details');
+    Route::post('/clubs-finder/filter', [ClubController::class, 'fetchAllClubs'])->name('clubs-finder.filter');
 
     // CURRENT ROUTE OF FOCUS
+    Route::post('/clubs-finder/clear-all', [ClubController::class, 'clearFilter'])->name('clubs-finder.clear-filter');
+
+
+    
+
+
+    Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetails'])->name('clubs-finder.fetch-club-details');
+
+    
+    Route::get('/events-finder', [EventController::class, 'fetchAllEvents'])->name('events-finder');
+
+    
+    Route::get('/events-finder/full-details', [EventController::class, 'fetchEventDetails'])->name('events-finder.fetch-event-details');
+    
     Route::post('/update-search-view-preference', [UserPreferenceController::class, 'updateItemViewPreference']);
-
-
-
-
-
-
 
     Route::post('/logout', [AccountController::class, 'logout'])->name('account.logout');
 });

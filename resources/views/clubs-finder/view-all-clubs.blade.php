@@ -23,7 +23,12 @@
             <div class="section-header row w-100">
                 <div class="col-12 text-center">
                     <h3 class="rserif fw-bold w-100 mb-1">Clubs finder</h3>
-                    <p class="rserif fs-4 w-100 mt-0">{{ $totalClubCount }} clubs found</p>
+                    <p id="club-count-display" class="rserif fs-4 w-100 mt-0">
+                        @if ($totalClubCount == 0) No clubs found
+                        @elseif ($totalClubCount == 1) 1 club found
+                        @else {{ $totalClubCount }} clubs found
+                        @endif
+                    </p>
                     <!-- SEARCH TAB -->
                     <form class="d-flex justify-content-center">
                         <div class="mb-4 w-50">
@@ -69,31 +74,48 @@
 
                 <!-- LEFT SECTIONS FOR FILTERS -->
                 <div class="col-md-3 border p-3">
-                    <h4 class="rserif fw-bold fs-5">Faculty</h4>
-                    <ul class="rsans list-group py-2">
-                        <li class="list-group-item">
-                            <input type="checkbox" id="fkikk">
-                            <label for="fkikk">FKIKK</label>
-                        </li>
-                        <li class="list-group-item">
-                            <input type="checkbox" id="fkikal">
-                            <label for="fkikal">FKIKAL</label>
-                        </li>
-                        <li class="list-group-item">
-                            <input type="checkbox" id="astif">
-                            <label for="astif">ASTIF</label>
-                        </li>
-                        <li class="list-group-item">
-                            <input type="checkbox" id="fsmp">
-                            <label for="fsmp">FSMP</label>
-                        </li>
-                        <li class="list-group-item">
-                            <input type="checkbox" id="fpp">
-                            <label for="fpp">FPP</label>
-                        </li>
-                    </ul>
+                    <div class="row">
+                        <div class="col-8 d-flex align-items-center justify-content-start">
+                            <h4 class="rsans fw-bold mb-0">Search filters</h4>
+                        </div>
+                        <div class="col-4 d-flex align-items-center justify-content-end">
+                            <form id="clear-filter-form" method="POST" action="{{ route('clubs-finder.clear-filter') }}">
+                                @csrf
+                                <button class="rsans btn btn-secondary fw-bold px-2">Clear all</button>
+                            </form>
+                        </div>
+                    </div>
+                    <br>
+                    <h5 class="rsans fw-semibold mb-0">Faculty</h5>
+                    <form id="filter-form" method="POST" action="{{ route('clubs-finder.filter') }}">
+                        @csrf
+                        <ul class="rsans list-group py-2">
+                            <li class="list-group-item">
+                                <input type="checkbox" id="fkikk" name="faculty_filter[]" value="FKIKK" {{ in_array('FKIKK', $filters) ? 'checked' : '' }}>
+                                <label for="fkikk">FKIKK</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input type="checkbox" id="fkikal" name="faculty_filter[]" value="FKIKAL" {{ in_array('FKIKAL', $filters) ? 'checked' : '' }}>
+                                <label for="fkikal">FKIKAL</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input type="checkbox" id="astif" name="faculty_filter[]" value="ASTIF" {{ in_array('ASTIF', $filters) ? 'checked' : '' }}>
+                                <label for="astif">ASTIF</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input type="checkbox" id="fsmp" name="faculty_filter[]" value="FSMP" {{ in_array('FSMP', $filters) ? 'checked' : '' }}>
+                                <label for="fsmp">FSMP</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input type="checkbox" id="fpp" name="faculty_filter[]" value="FPP" {{ in_array('FPP', $filters) ? 'checked' : '' }}>
+                                <label for="fpp">FPP</label>
+                            </li>
+                        </ul>
+                        <div class="row p-3 d-flex justify-content-center">
+                            <button type="submit" class="rsans btn btn-primary fw-bold w-60">Apply Filters</button>
+                        </div>
+                    </form>
                 </div>
-
                 <!-- RIGHT SECTION FOR CLUB CARDS GRID OR LIST -->
                 <div class="col-md-9 px-3 py-0">
                     <div class="container-fluid">
@@ -117,11 +139,8 @@
                         </div>
                     </div>
                 </div>
-                
             </div>
-
         </div>
-
     </div>
     <x-footer/>
 </body>

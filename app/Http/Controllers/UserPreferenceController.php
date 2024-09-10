@@ -13,7 +13,9 @@ class UserPreferenceController extends Controller
         ]);
         DB::table('user_preference')
             ->where('profile_id', profile()->profile_id)
-            ->update(['search_view_preference' => $request->input('search_view_preference'), 'updated_at' => now()]);
+            ->update([
+                'search_view_preference' => $request->input('search_view_preference'), 'updated_at' => now()
+            ]);
 
         return response()->json(['status' => 'success']);
     }

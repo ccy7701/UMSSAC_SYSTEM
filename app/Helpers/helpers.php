@@ -15,8 +15,15 @@ if (!function_exists('profile')) {
     }
 }
 
-if (!function_exists('userPreference')) {
+if (!function_exists('getUserSearchViewPreference')) {
     function getUserSearchViewPreference($profile_id) {
-        return UserPreference::where('profile_Id', $profile_id)->value('search_view_preference');
+        return UserPreference::where('profile_id', $profile_id)->value('search_view_preference');
+    }
+}
+
+if (!function_exists('getUserClubSearchFilters')) {
+    function getUserClubSearchViewFilters($profile_id) {
+        $filters = UserPreference::where('profile_id', $profile_id)->value('club_search_filters');
+        return json_decode($filters, true);
     }
 }
