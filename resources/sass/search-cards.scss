@@ -9,54 +9,64 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#card-manage {
+#card-manage,
+#list-item-manage {
     position: relative;
     overflow: hidden;
 }
 
-.card-manage-overlay {
+.card-manage-overlay,
+.list-item-manage-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     display: none;
     opacity: 0;
     transition: opacity 0.2s ease;
 }
 
-#card-manage:hover .card-manage-overlay {
+#card-manage:hover .card-manage-overlay,
+#list-item-manage:hover .list-item-manage-overlay {
     display: flex; /* Show buttons on hover */
     opacity: 1;
 }
 
-.card-manage-overlay .btn {
+.card-manage-overlay .btn,
+.list-item-manage-overlay .btn {
     z-index: 1;
     transition: transform 0.2s ease;
 }
 
-#card-manage:hover .btn {
+#card-manage:hover .btn
+#list-item-manage:hover .btn {
     transform: scale(1.1);
 }
 
-.add-club-card {
+.add-club-card,
+.add-club-list-item {
     transition: background-color 0.3s ease;
 }
 
 /* Hover background color effect */
-.add-club-card:hover {
-    background-color: rgba(0, 0, 0, 0.5); /* Darkened background */
+.add-club-card:hover,
+.add-club-list-item:hover {
+    background-color: rgba(0, 0, 0, 0.3); /* Darkened background */
 }
 
 /* Hover effects for the icon and text */
-.add-club-card .card-body {
+.add-club-card .card-body,
+.add-club-list-item .card-body {
     transition: transform 0.2s ease, color 0.2s ease;
 }
 
 /* Hover scale and color change for icon and text */
 .add-club-card:hover .card-body i,
-.add-club-card:hover .card-body h5 {
+.add-club-card:hover .card-body h5,
+.add-club-list-item:hover .card-body i,
+.add-club-list-item:hover .card-body h5 {
     transform: scale(1.1); /* Slight zoom-in effect */
     color: white; /* Change text color to white */
 }
