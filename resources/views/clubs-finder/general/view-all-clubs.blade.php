@@ -24,17 +24,20 @@
                 <div class="col-12 text-center">
                     <h3 class="rserif fw-bold w-100 mb-1">Clubs finder</h3>
                     <p id="club-count-display" class="rserif fs-4 w-100 mt-0">
-                        @if ($totalClubCount == 0) No clubs found
-                        @elseif ($totalClubCount == 1) 1 club found
-                        @else {{ $totalClubCount }} clubs found
+                        @if ($totalClubCount == 0)
+                            No clubs found{{ $search ? ' for search term "' . $search . '"' : '' }}
+                        @elseif ($totalClubCount == 1)
+                            1 club found{{ $search ? ' for search term "' . $search . '"' : '' }}
+                        @else
+                            {{ $totalClubCount }} clubs found{{ $search ? ' for search term "' . $search . '"' : '' }}
                         @endif
                     </p>
                     <!-- SEARCH TAB -->
-                    <form class="d-flex justify-content-center">
+                    <form class="d-flex justify-content-center" method="GET" action="{{ route('clubs-finder') }}">
                         <div class="mb-4 w-50">
                             <div class="input-group">
                                 <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-search"></i></span>
-                                <input type="search" id="club-search" class="rsans form-control" aria-label="search" placeholder="Search...">
+                                <input type="search" id="club-search" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
                                 <button class="rsans btn btn-primary fw-bold">Search</button>
                             </div>
                         </div>

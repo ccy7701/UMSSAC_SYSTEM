@@ -12,14 +12,16 @@ use Illuminate\Support\Facades\Log;
 class ClubController extends Controller
 {
     public function fetchClubsFinder(Request $request) {
+        $search = $request->input('search');
         $filters = $this->getFilters($request);
-        $allClubs = $this->getAllClubs($filters);
+        $allClubs = $this->getAllClubs($search, $filters);
     
         return view('clubs-finder.general.view-all-clubs', [
             'clubs' => $allClubs,
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
             'totalClubCount' => $allClubs->count(),
-            'filters' => $filters
+            'filters' => $filters,
+            'search' => $search,
         ]);
     }
 
@@ -39,14 +41,16 @@ class ClubController extends Controller
     }
 
     public function fetchClubsManager(Request $request) {
+        $search = $request->input('search');
         $filters = $this->getFilters($request);
-        $allClubs = $this->getAllClubs($filters);
+        $allClubs = $this->getAllClubs($search, $filters);
 
         return view('clubs-finder.manage.view-all-clubs', [
             'clubs' => $allClubs,
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
             'totalClubCount' => $allClubs->count(),
-            'filters' => $filters
+            'filters' => $filters,
+            'search' => $search,
         ]);
     }
 
@@ -91,7 +95,7 @@ class ClubController extends Controller
         return $filters;
     }
 
-    private function getAllClubs(array $filters) {
+    private function getAllClubs($search = null, array $filters) {
         // Always save the filters, even if empty (to clear the saved filters)
         DB::table('user_preference')
             ->where('profile_id', profile()->profile_id)
@@ -100,10 +104,17 @@ class ClubController extends Controller
                 'updated_at' => now()
             ]);
     
-        // Fetch clubs based on the filters (if empty, return all clubs)
-        return Club::when(!empty($filters), function($query) use ($filters) {
-            return $query->whereIn('club_faculty', $filters);
-        })->get();
+        // Fetch clubs based on the filters (if empty, return all clubs) and search input
+        return Club::when(!empty($filters), function ($query) use ($filters) {
+                return $query
+                    ->whereIn('club_faculty', $filters);
+            })
+            ->when($search, function ($query) use ($search) {
+                return $query
+                    ->where('club_name', 'like', "%{$search}%")
+                    ->orWhere('club_description', 'like', "%{$search}%");
+            })
+            ->get();
     }
 
     private function flushFilters() {
