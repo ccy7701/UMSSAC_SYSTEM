@@ -141,6 +141,19 @@
                         </div>
                         <!-- LIST VIEW (Toggle based on preference) -->
                         <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
+                            <!-- Add new club list item -->
+                            <div class="row pb-3">
+                                <div class="col-lg-12">
+                                    <a href="#" class="text-decoration-none w-100">
+                                        <div class="card add-club-list-item" id="list-item-manage">
+                                            <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                                <i class="fa fa-plus-circle fa-3x pt-2 pb-1"></i>
+                                                <h5 class="card-title fw-bold pt-1 pb-0">Add new club</5>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
                             @foreach($clubs as $club)
                                 <div class="row pb-3">
                                     <div class="col-lg-12">
