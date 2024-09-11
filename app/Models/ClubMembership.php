@@ -10,7 +10,7 @@ class ClubMembership extends Model
     use HasFactory;
 
     protected $table = 'club_membership';
-    protected $incrementing = false;
+    public $incrementing = false;
     public $timestamps = true;
 
     // composite PK

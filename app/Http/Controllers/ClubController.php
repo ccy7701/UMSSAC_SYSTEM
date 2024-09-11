@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Club;
 use App\Models\Event;
 use App\Models\UserPreference;
+use App\Services\ClubMembersService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -32,12 +33,18 @@ class ClubController extends Controller
         return redirect()->route('clubs-finder');
     }
 
+    // REFACTOR REQUIRED!
     public function fetchClubDetailsForGeneral(Request $request) {
-        $club_id = $request->query('club_id');
-        $data = $this->getClubDetails($club_id);
-
-        // Return a view with the club details
-        return view('clubs-finder.general.view-club-details', $data);
+        $clubId = $request->query('club_id');
+        $clubMembersService = new ClubMembersService();
+        
+        // Return a view with the club details, events, members and view preference
+        return view('clubs-finder.general.view-club-details', [
+            'club' => $this->getClubDetails($clubId),
+            'clubEvents' => $this->getClubEvents($clubId),
+            'clubMembers' => $clubMembersService->getClubMembers($clubId),
+            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
+        ]);
     }
 
     public function fetchClubsManager(Request $request) {
@@ -61,18 +68,28 @@ class ClubController extends Controller
         return redirect()->route('manage-clubs');
     }
 
+    // REFACTOR REQUIRED!
     public function fetchClubDetailsForManager(Request $request) {
-        $club_id = $request->query('club_id');
-        $data = $this->getClubDetails($club_id);
-
-        return view('clubs-finder.manage.view-club-details', $data);
+        $clubId = $request->query('club_id');
+        $clubMembersService = new ClubMembersService();
+        
+        // Return a view with the club details, events, members and view preference
+        return view('clubs-finder.manage.view-club-details', [
+            'club' => $this->getClubDetails($clubId),
+            'clubEvents' => $this->getClubEvents($clubId),
+            'clubMembers' => $clubMembersService->getClubMembers($clubId),
+            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
+        ]);
     }
 
     public function fetchEditForm(Request $request) {
-        $club_id = $request->query('club_id');
-        $data = $this->getClubDetails($club_id);
+        $clubId = $request->query('club_id');
+        $clubMembersService = new ClubMembersService();
 
-        return view('clubs-finder.manage.edit-club-details', $data);
+        return view('clubs-finder.manage.edit-club-details', [
+            'club' => $this->getClubDetails($clubId),
+            'clubMembers' => $clubMembersService->getClubMembers($clubId),
+        ]);
     }
 
     private function getFilters(Request $request) {
@@ -127,10 +144,10 @@ class ClubController extends Controller
     }
 
     private function getClubDetails($club_id) {
-        $club = Club::findOrFail($club_id);
-        $clubEvents = Event::where('club_id', $club_id)->get();
-        $searchViewPreference = getUserSearchViewPreference(profile()->profile_id);
+        return Club::findOrFail($club_id);
+    }
 
-        return compact('club', 'clubEvents', 'searchViewPreference');
+    private function getClubEvents($club_id) {
+        return Event::where('club_id', $club_id)->get();
     }
 }
