@@ -47,21 +47,23 @@
                     $eventImagePaths = json_decode($event->event_image_paths, true);
                 @endphp
                 <div id="eventImagesCarousel" class="carousel slide carousel-fade w-50" data-bs-ride="carousel" data-bs-interval="5000">
-                    <div class="carousel-item active">
-                        <img src="{{ asset($eventImagePaths[0]) }}" class="d-block w-100" alt="Event illustration" style="aspect-ratio: 16/10; object-fit: cover;">
-                    </div>
-                    @foreach(array_slice($eventImagePaths, 1) as $imagePath)
-                        <div class="carousel-item">
-                            <img src="{{ asset($imagePath) }}" class="d-block w-100" alt="Event illustration" style="aspect-ratio: 16/10; object-fit: cover;">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ asset($eventImagePaths[0]) }}" class="d-block w-100" alt="Event illustration" style="aspect-ratio: 16/10; object-fit: cover;">
                         </div>
-                    @endforeach
+                        @foreach(array_slice($eventImagePaths, 1) as $imagePath)
+                            <div class="carousel-item">
+                                <img src="{{ asset($imagePath) }}" class="d-block w-100" alt="Event illustration" style="aspect-ratio: 16/10; object-fit: cover;">
+                            </div>
+                        @endforeach
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#eventImagesCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#eventImagesCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </button>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#eventImagesCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#eventImagesCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </button>
             </div>
         </div>
         <br>
