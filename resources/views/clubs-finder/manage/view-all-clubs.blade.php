@@ -45,7 +45,7 @@
                         <div class="col-6 d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="rsans breadcrumb mb-0" style="--bs-breadcrumb-divider: '>';">
-                                    <li class="breadcrumb-item-active"><a href="{{ route('clubs-finder') }}">All Clubs</a></li>
+                                    <li class="breadcrumb-item-active"><a href="{{ route('manage-clubs') }}">All Clubs</a></li>
                                 </ol>
                             </nav>
                         </div>
@@ -79,7 +79,7 @@
                             <h4 class="rsans fw-bold mb-0">Search filters</h4>
                         </div>
                         <div class="col-4 d-flex align-items-center justify-content-end">
-                            <form id="clear-filter-form" method="POST" action="{{ route('clubs-manager.clear-filter') }}">
+                            <form id="clear-filter-form" method="POST" action="{{ route('manage-clubs.clear-filter') }}">
                                 @csrf
                                 <button class="rsans btn btn-secondary fw-bold px-2">Clear all</button>
                             </form>
@@ -87,7 +87,7 @@
                     </div>
                     <br>
                     <h5 class="rsans fw-semibold mb-0">Faculty</h5>
-                    <form id="filter-form" method="POST" action="{{ route('clubs-manager.filter') }}">
+                    <form id="filter-form" method="POST" action="{{ route('manage-clubs.filter') }}">
                         @csrf
                         <ul class="rsans list-group py-2">
                             <li class="list-group-item">
