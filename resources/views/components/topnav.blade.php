@@ -54,11 +54,15 @@
                     <li class="nav-item"><a class="nav-link px-3" href="{{ route('progress-tracker') }}">Academic Progress Tracker</a></li>
                 @endif
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('events-finder') }}">Events Finder (WIP)</a></li>
+
+
                 @if (currentAccount()->account_role == 1)
                     <li class="nav-item"><a class="nav-link px-3" href="{{ route('clubs-finder') }}">Clubs Finder (WIP)</a></li>
                 @elseif (currentAccount()->account_role == 3)
-                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('clubs-manager') }}">Manage Clubs (WIP)</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('manage-clubs') }}">Manage Clubs (WIP)</a></li>
                 @endif
+
+
                 <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Bookmarks (WIP)</a></li>
                 <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Calendar (WIP)</a></li>
                 <li class="nav-item">
