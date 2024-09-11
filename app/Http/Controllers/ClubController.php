@@ -32,15 +32,10 @@ class ClubController extends Controller
 
     public function fetchClubDetailsForGeneral(Request $request) {
         $club_id = $request->query('club_id');
-        $club = Club::findOrFail($club_id);
-        $clubEvents = Event::where('club_id', $club_id)->get();
-        $searchViewPreference = getUserSearchViewPreference(profile()->profile_id);
+        $data = $this->getClubDetails($club_id);
 
         // Return a view with the club details
-        return view(
-            'clubs-finder.general.view-club-details',
-            compact('club', 'clubEvents', 'searchViewPreference'),
-        );
+        return view('clubs-finder.general.view-club-details', $data);
     }
 
     public function fetchClubsManager(Request $request) {
@@ -63,16 +58,18 @@ class ClubController extends Controller
     }
 
     public function fetchClubDetailsForManager(Request $request) {
-        
+        $club_id = $request->query('club_id');
+        $data = $this->getClubDetails($club_id);
+
+        return view('clubs-finder.manage.view-club-details', $data);
     }
 
+    public function fetchEditForm(Request $request) {
+        $club_id = $request->query('club_id');
+        $data = $this->getClubDetails($club_id);
 
-
-
-
-
-
-
+        return view('clubs-finder.manage.edit-club-details', $data);
+    }
 
     private function getFilters(Request $request) {
         // Fetch filters from form submission (may be empty if no checkboxes are selected)
@@ -116,5 +113,13 @@ class ClubController extends Controller
                 'club_search_filters' => json_encode([]),
                 'updated_at' => now()
             ]);
+    }
+
+    private function getClubDetails($club_id) {
+        $club = Club::findOrFail($club_id);
+        $clubEvents = Event::where('club_id', $club_id)->get();
+        $searchViewPreference = getUserSearchViewPreference(profile()->profile_id);
+
+        return compact('club', 'clubEvents', 'searchViewPreference');
     }
 }

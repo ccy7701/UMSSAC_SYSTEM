@@ -79,44 +79,8 @@ Route::middleware('auth')->group(function () {
     // Handle the change password submission
     Route::post('/change-password/action', [PasswordResetController::class, 'changePassword'])->name('change-password.action');
 
-
-
-
-
-    // CURRENT ROUTE OF FOCUS
-    Route::get('/clubs-finder', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder');
-
-    // CURRENT ROUTE OF FOCUS
-    Route::post('/clubs-finder/filter', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder.filter');
-
-    // CURRENT ROUTE OF FOCUS
-    Route::post('/clubs-finder/clear-all', [ClubController::class, 'clearFilterForGeneral'])->name('clubs-finder.clear-filter');
-
-    // CURRENT ROUTE OF FOCUS
-    Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetailsForGeneral'])->name('clubs-finder.fetch-club-details');
-
-
-
-
-
-    // CURRENT ROUTE OF FOCUS (ADMIN)
-    Route::get('/manage-clubs', [ClubController::class, 'fetchClubsManager'])->name('manage-clubs');
-
-    // CURRENT ROUTE OF FOCUS (ADMIN)
-    Route::post('/manage-clubs/filter', [ClubController::class, 'fetchClubsManager'])->name('manage-clubs.filter');
-
-    // CURRENT ROUTE OF FOCUS (ADMIN)
-    Route::post('/manage-clubs/clear-all', [ClubController::class, 'clearFilterForManager'])->name('manage-clubs.clear-filter');
-
-    // ADDITIONAL ROUTE INCOMING (ADMIN)
-
-
-    
-
-    
     Route::get('/events-finder', [EventController::class, 'fetchAllEvents'])->name('events-finder');
 
-    
     Route::get('/events-finder/full-details', [EventController::class, 'fetchEventDetails'])->name('events-finder.fetch-event-details');
     
     Route::post('/update-search-view-preference', [UserPreferenceController::class, 'updateItemViewPreference']);
@@ -139,10 +103,36 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::post('/edit-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'editSubject'])->name('subject-stats-log.edit');
 
     Route::delete('/delete-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'deleteSubject'])->name('subject-stats-log.delete');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/clubs-finder', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/clubs-finder/filter', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder.filter');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/clubs-finder/clear-all', [ClubController::class, 'clearFilterForGeneral'])->name('clubs-finder.clear-filter');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetailsForGeneral'])->name('clubs-finder.fetch-club-details');
 });
 
 // Routes accessible to accountRole -> FacultyMember only
 // Use (['auth', RoleAccessMiddleware::class.':2'])->group(fx(){});
 
-// Routes accessible to accountRole -> Admin only
-// Use (['auth', RoleAccessMiddleware::class.':3'])->group(fx(){});
+Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function () {
+    // CURRENT ROUTE OF FOCUS (ADMIN)
+    Route::get('/manage-clubs', [ClubController::class, 'fetchClubsManager'])->name('manage-clubs');
+
+    // CURRENT ROUTE OF FOCUS (ADMIN)
+    Route::post('/manage-clubs/filter', [ClubController::class, 'fetchClubsManager'])->name('manage-clubs.filter');
+
+    // CURRENT ROUTE OF FOCUS (ADMIN)
+    Route::post('/manage-clubs/clear-all', [ClubController::class, 'clearFilterForManager'])->name('manage-clubs.clear-filter');
+
+    // CURRENT ROUTE OF FOCUS (ADMIN)
+    Route::get('/manage-clubs/full-details', [ClubController::class, 'fetchClubDetailsForManager'])->name('manage-clubs.fetch-club-details');
+
+    // CURRENT ROUTE OF FOCUS (ADMIN)
+    Route::get('/manage-clubs/edit-details', [ClubController::class, 'fetchEditForm'])->name('manage-clubs.edit-details');
+});
