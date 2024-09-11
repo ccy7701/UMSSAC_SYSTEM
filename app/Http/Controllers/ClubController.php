@@ -14,7 +14,7 @@ class ClubController extends Controller
     public function fetchClubsFinder(Request $request) {
         $search = $request->input('search');
         $filters = $this->getFilters($request);
-        $allClubs = $this->getAllClubs($search, $filters);
+        $allClubs = $this->getAllClubs($filters, $search);
     
         return view('clubs-finder.general.view-all-clubs', [
             'clubs' => $allClubs,
@@ -43,7 +43,7 @@ class ClubController extends Controller
     public function fetchClubsManager(Request $request) {
         $search = $request->input('search');
         $filters = $this->getFilters($request);
-        $allClubs = $this->getAllClubs($search, $filters);
+        $allClubs = $this->getAllClubs($filters, $search);
 
         return view('clubs-finder.manage.view-all-clubs', [
             'clubs' => $allClubs,
@@ -95,7 +95,7 @@ class ClubController extends Controller
         return $filters;
     }
 
-    private function getAllClubs($search = null, array $filters) {
+    private function getAllClubs(array $filters, $search = null) {
         // Always save the filters, even if empty (to clear the saved filters)
         DB::table('user_preference')
             ->where('profile_id', profile()->profile_id)

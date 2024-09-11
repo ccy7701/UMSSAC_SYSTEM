@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             ClubSeeder::class,
             EventSeeder::class,
             UserPreferenceSeeder::class,
+            ClubMembershipSeeder::class,
         ]);
     }
 }
