@@ -160,7 +160,7 @@
                     </script>
                     <div class="form-group mb-3">
                         <label for="personal-desc" class="rsans fw-bold form-label">Personal description</label>
-                        <textarea id="personal-desc" name="profile_personal_desc" class="rsans form-control" rows="5" style="resize: none;" maxlength="512" oninput="updateCharacterCount()">{{ profile()->profile_personal_desc }}</textarea>
+                        <textarea id="personal-desc" name="profile_personal_desc" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024">{{ profile()->profile_personal_desc }}</textarea>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Club;
 use App\Models\Event;
-use App\Models\UserPreference;
 use App\Services\ClubMembersService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -33,7 +32,6 @@ class ClubController extends Controller
         return redirect()->route('clubs-finder');
     }
 
-    // REFACTOR REQUIRED!
     public function fetchClubDetailsForGeneral(Request $request) {
         $clubId = $request->query('club_id');
         $clubMembersService = new ClubMembersService();
@@ -68,7 +66,6 @@ class ClubController extends Controller
         return redirect()->route('manage-clubs');
     }
 
-    // REFACTOR REQUIRED!
     public function fetchClubDetailsForManager(Request $request) {
         $clubId = $request->query('club_id');
         $clubMembersService = new ClubMembersService();
