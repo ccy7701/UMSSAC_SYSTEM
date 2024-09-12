@@ -5,11 +5,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="profile-faculty" content="{{ profile()->profile_faculty }}">
+    <meta name="profile-course" content="{{ profile()->profile_course }}">
     <title>Edit General Info</title>
     @vite('resources/sass/app.scss')
 </head>
 
 <body>
+    @vite('resources/js/app.js')
+    @vite('resources/js/facultyCoursesLoader.js')
     <x-topnav/>
     <br>
     <div class="container p-3">
@@ -110,54 +114,6 @@
                             <option select disabled value="">Choose...</option>
                         </select>
                     </div>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            let facultyCourses = {};
-
-                            // Fetch the JSON file
-                            fetch('{{ asset("resources/data/faculties_and_courses.json") }}')
-                                .then(response => response.json())
-                                .then(data => {
-                                    facultyCourses = data;
-                                    // Pre-select the faculty and populate courses if they already exist
-                                    let selectedFaculty = "{{ profile()->profile_faculty }}";
-                                    let selectedCourse = "{{ profile()->profile_course }}";
-                                    if (selectedFaculty) {
-                                        const facultyDropdown = document.getElementById('faculty');
-                                        facultyDropdown.value = selectedFaculty;
-                                        populateCourses(selectedFaculty, selectedCourse);
-                                    }
-                                })
-                                .catch(error => console.error('Error fetching JSON: ', error));
-
-                            // Handle change event for faculty dropdown
-                            document.getElementById('faculty').addEventListener('change', function() {
-                                const selectedFaculty = this.value;
-                                document.getElementById('course').innerHTML = '<option selected disabled value="">Choose...</option>';
-                                populateCourses(selectedFaculty);
-                            });
-
-                            function populateCourses(faculty, selectedCourse = null) {
-                                const courseDropdown = document.getElementById('course');
-                                courseDropdown.innerHTML = '<option selected disabled value="">Choose...</option>'; // Clear the dropdown
-
-                                if (facultyCourses[faculty]) {
-                                    facultyCourses[faculty].forEach(function(course) {
-                                        const option = document.createElement('option');
-                                        option.value = course.course_code;
-                                        option.textContent = `${course.course_code} ${course.course_name}`;
-
-                                        // Pre-select course if provided
-                                        if (course.course_code === selectedCourse) {
-                                            option.selected = true;
-                                        }
-
-                                        courseDropdown.appendChild(option);
-                                    });
-                                }
-                            }
-                        });
-                    </script>
                     <div class="form-group mb-3">
                         <label for="personal-desc" class="rsans fw-bold form-label">Personal description</label>
                         <textarea id="personal-desc" name="profile_personal_desc" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024">{{ profile()->profile_personal_desc }}</textarea>
@@ -189,7 +145,6 @@
         </div>
     </div>
     <x-footer/>
-    @vite('resources/js/app.js')
 </body>
 
 </html>
