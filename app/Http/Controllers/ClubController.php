@@ -91,8 +91,8 @@ class ClubController extends Controller
         ]);
     }
 
-    public function updateClubInfo(Request $request) {
-
+    public function updateClubInfo() {
+        // TO BE FILLED IN LATER!
     }
 
     private function getFilters(Request $request) {
