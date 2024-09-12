@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-6 d-flex justify-content-end align-items-center">
                             <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ $club->updated_at }}</p>
-                            <a href="{{ url()->previous() }}" class="btn btn-secondary fw-semibold w-25">Go back</a>
+                            <a href="{{ route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]) }}" class="btn btn-secondary fw-semibold w-25">Go back</a>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
             <br>
             <!-- END EDIT CLUB IMAGES SECTION -->
 
-            <!-- EDIT MEMBER ACCESS LEVEL FORM -->
+            <!-- EDIT MEMBER ACCESS LEVEL SECTION -->
             <div class="d-flex align-items-center">
                 <div class="section-header row w-100">
                     <div class="col-md-6 text-start">
@@ -111,11 +111,16 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center align-items-center py-3 w-75 align-self-center">
-                
+            <div class="container px-3 py-4">
+                <div id="member-grid-view" class="row grid-view">
+                    @foreach ($clubMembers as $member)
+                        <div class="col-lg-3 col-md-4 py-2">
+                            <x-member-card :member="$member"/>
+                        </div>
+                    @endforeach
+                </div>
             </div>
             <!-- END EDIT MEMBER ACCESS LEVEL SECTION -->
-
             <!-- EDIT EVENTS SECTION -->
             <div class="d-flex align-items-center">
                 <div class="section-header row w-100">
@@ -140,18 +145,6 @@
                 <div class="col-md-12 px-3 py-0">
                     <!-- GRID VIEW (Toggle based on preference) -->
                     <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
-                        <!-- Add new club card, conditionally render only for committee members -->
-                        {{ dump($isCommitteeMember) }}
-                        <div class="col-lg-4 col-md-6">
-                            <a href="#" class="text-decoration-none w-100">
-                                <div class="card add-event-card d-flex justify-content-center align-items-center h-100">
-                                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-                                        <i class="fa fa-plus-circle fa-3x mb-2"></i>
-                                        <h5 class="card-titel fw-bold">Add new event</5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
                         @foreach ($clubEvents as $event)
                             <div class="col-lg-4 col-md-6">
                                 <x-event-card :event="$event"/>
@@ -160,18 +153,6 @@
                     </div>
                     <!-- LIST VIEW (Toggle based on preference) -->
                     <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }} justify-content-center">
-                        <div class="row pb-3 w-75">
-                            <div class="col-lg-12">
-                                <a href="#" class="text-decoration-none w-100">
-                                    <div class="card add-event-list-item" id="list-item-manage">
-                                        <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-                                            <i class="fa fa-plus-circle fa-3x pt-2 pb-1"></i>
-                                            <h5 class="card-title fw-bold pt-1 pb-0">Add new event</h5>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
                         @foreach ($clubEvents as $event)
                             <div class="row pb-3 w-75">
                                 <div class="col-lg-12">

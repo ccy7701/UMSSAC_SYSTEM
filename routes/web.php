@@ -128,7 +128,7 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':2'])->group(function ()
     Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetailsForGeneral'])->name('clubs-finder.fetch-club-details');
 
     Route::middleware(CommitteeAccessMiddleware::class)->group(function () {
-        Route::get('/committee-manage/manage-details', [ClubController::class, 'fetchCommitteeManagePage'])
+        Route::get('/committee-manage/full-details/manage', [ClubController::class, 'fetchCommitteeManagePage'])
             ->name('committee-manage.manage-details');
     });
 });
@@ -147,5 +147,5 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
     Route::get('/manage-clubs/full-details', [ClubController::class, 'fetchClubDetailsForManager'])->name('manage-clubs.fetch-club-details');
 
     // CURRENT ROUTE OF FOCUS (ADMIN)
-    Route::get('/admin-manage/manage-details', [ClubController::class, 'fetchAdminManagePage'])->name('admin-manage.manage-details');
+    Route::get('/admin-manage/full-details/manage', [ClubController::class, 'fetchAdminManagePage'])->name('admin-manage.manage-details');
 });
