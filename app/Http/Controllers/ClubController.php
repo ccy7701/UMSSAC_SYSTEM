@@ -82,6 +82,19 @@ class ClubController extends Controller
         return view('clubs-finder.admin-manage.manage-club-details', $data);
     }
 
+    public function showClubInfoEditForm(Request $request) {
+        $clubId = $request->query('club_id');
+        $data = $this->prepareClubData($clubId);
+
+        return view('clubs-finder.admin-manage.edit-club-info', [
+            'club' => $data['club'],
+        ]);
+    }
+
+    public function updateClubInfo(Request $request) {
+
+    }
+
     private function getFilters(Request $request) {
         // Fetch filters from form submission (may be empty if no checkboxes are selected)
         $filters = $request->input('faculty_filter', []);

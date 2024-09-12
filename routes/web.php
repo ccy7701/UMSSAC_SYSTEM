@@ -105,16 +105,12 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
     Route::delete('/delete-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'deleteSubject'])->name('subject-stats-log.delete');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/clubs-finder', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder');
 
-    // CURRENT ROUTE OF FOCUS
     Route::post('/clubs-finder/filter', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder.filter');
 
-    // CURRENT ROUTE OF FOCUS
     Route::post('/clubs-finder/clear-all', [ClubController::class, 'clearFilterForGeneral'])->name('clubs-finder.clear-filter');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetailsForGeneral'])->name('clubs-finder.fetch-club-details');
 });
 
@@ -134,18 +130,19 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':2'])->group(function ()
 });
 
 Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function () {
-    // CURRENT ROUTE OF FOCUS (ADMIN)
     Route::get('/manage-clubs', [ClubController::class, 'fetchClubsManager'])->name('manage-clubs');
 
-    // CURRENT ROUTE OF FOCUS (ADMIN)
     Route::post('/manage-clubs/filter', [ClubController::class, 'fetchClubsManager'])->name('manage-clubs.filter');
 
-    // CURRENT ROUTE OF FOCUS (ADMIN)
     Route::post('/manage-clubs/clear-all', [ClubController::class, 'clearFilterForManager'])->name('manage-clubs.clear-filter');
 
-    // CURRENT ROUTE OF FOCUS (ADMIN)
     Route::get('/manage-clubs/full-details', [ClubController::class, 'fetchClubDetailsForManager'])->name('manage-clubs.fetch-club-details');
 
-    // CURRENT ROUTE OF FOCUS (ADMIN)
     Route::get('/admin-manage/full-details/manage', [ClubController::class, 'fetchAdminManagePage'])->name('admin-manage.manage-details');
+
+    // CURRENT ROUTE OF FOCUS (ADMIN)
+    Route::get('/admin-manage/full-details/manage/edit-club-info', [ClubController::class, 'showClubInfoEditForm'])->name('admin-manage.edit-club-info');
+
+    // CURRENT ROUTE OF FOCUS (ADMIN)
+    Route::post('/admin-manage/full-details/manage/edit-club-info/update', [ClubController::class, 'updateClubInfo'])->name('admin-manage.edit-club-info-action');
 });
