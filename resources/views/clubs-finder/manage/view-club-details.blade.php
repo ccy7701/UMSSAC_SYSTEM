@@ -18,8 +18,8 @@
 
     <div class="container p-3">
 
+        <!-- TOP SECTION -->
         <div class="d-flex align-items-center">
-            <!-- TOP SECTION -->
             <div class="row w-100">
                 <div class="col-12 text-center">
                     <!-- BREADCRUMB NAV -->
@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-6 d-flex justify-content-end align-items-center">
                             <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ $club->updated_at }}</p>
-                            <a href="{{ route('manage-clubs.edit-details', ['club_id' => $club->club_id]) }}" class="btn btn-primary fw-semibold align-self-center">Edit club details</a>
+                            <a href="{{ route('manage-clubs.manage-details', ['club_id' => $club->club_id]) }}" class="btn btn-primary fw-semibold align-self-center">Manage club details</a>
                         </div>
                     </div>
                 </div>

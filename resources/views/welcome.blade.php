@@ -52,7 +52,6 @@
             <img src="{{ asset('placeholder-images/timetable_builder.png') }}" alt="Timetable builder placeholder illustration" class="img-fluid mx-3">
         </div>
     </div>
-
     @vite('resources/js/app.js')
 </body>
 

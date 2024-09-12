@@ -10,6 +10,8 @@
 </head>
 
 <body>
+    @vite('resources/js/app.js')
+    @vite('resources/js/picturePreviewer.js')
     <x-topnav/>
     <br>
     <div class="container p-3">
@@ -46,14 +48,6 @@
             </div>
             <br>
         </form>
-        <script>
-            document.getElementById('profile-picture-input').addEventListener('change', function(event) {
-                const[file] = event.target.files;
-                if (file) {
-                    document.getElementById('profile-picture-preview').src = URL.createObjectURL(file);
-                }
-            });
-        </script>
         <!-- GENERAL -->
         <div class="d-flex align-items-center">
             <div class="section-header row w-100">
@@ -122,7 +116,6 @@
         <br>
     </div>
     <x-footer/>
-    @vite('resources/js/app.js')
 </body>
 
 </html>

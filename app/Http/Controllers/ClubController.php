@@ -79,11 +79,11 @@ class ClubController extends Controller
         ]);
     }
 
-    public function fetchEditForm(Request $request) {
+    public function fetchManagePage(Request $request) {
         $clubId = $request->query('club_id');
         $clubMembersService = new ClubMembersService();
 
-        return view('clubs-finder.manage.edit-club-details', [
+        return view('clubs-finder.manage.manage-club-details', [
             'club' => $this->getClubDetails($clubId),
             'clubMembers' => $clubMembersService->getClubMembers($clubId),
         ]);

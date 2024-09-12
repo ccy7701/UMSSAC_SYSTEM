@@ -29,7 +29,7 @@
     <!-- Hidden buttons for edit and view to be revealed on hover -->
     <div class="list-item-manage-overlay d-flex flex-row justify-content-center align-items-center">
         <div class="p-2 w-40">
-            <a href="{{ route('manage-clubs.edit-details', ['club_id' => $club->club_id]) }}" class="btn btn-primary fw-semibold w-100">Edit club details</a>
+            <a href="{{ route('manage-clubs.manage-details', ['club_id' => $club->club_id]) }}" class="btn btn-primary fw-semibold w-100">Manage club details</a>
         </div>
         <div class="p-2 w-40">
             <a href="{{ route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]) }}" class="btn btn-secondary fw-semibold w-100">View club details</a>

@@ -134,5 +134,5 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
     Route::get('/manage-clubs/full-details', [ClubController::class, 'fetchClubDetailsForManager'])->name('manage-clubs.fetch-club-details');
 
     // CURRENT ROUTE OF FOCUS (ADMIN)
-    Route::get('/manage-clubs/edit-details', [ClubController::class, 'fetchEditForm'])->name('manage-clubs.edit-details');
+    Route::get('/manage-clubs/manage-details', [ClubController::class, 'fetchManagePage'])->name('manage-clubs.manage-details');
 });

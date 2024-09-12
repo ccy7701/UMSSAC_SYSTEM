@@ -22,10 +22,10 @@
     </div>
     <!-- Hidden buttons for edit and view to be revealed on hover -->
     <div class="card-manage-overlay d-flex flex-column justify-content-center align-items-center">
-        <div class="py-2 w-60">
-            <a href="{{ route('manage-clubs.edit-details', ['club_id' => $club->club_id]) }}" class="btn btn-primary fw-semibold w-100">Edit club details</a>
+        <div class="py-2 w-75">
+            <a href="{{ route('manage-clubs.manage-details', ['club_id' => $club->club_id]) }}" class="btn btn-primary fw-semibold w-100">Manage club details</a>
         </div>
-        <div class="py-2 w-60">
+        <div class="py-2 w-75">
             <a href="{{ route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]) }}" class="btn btn-secondary fw-semibold w-100">View club details</a>
         </div>
     </div>
