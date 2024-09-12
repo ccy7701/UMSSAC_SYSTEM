@@ -1,4 +1,4 @@
-
+<!-- resources/views/components/manage-club-list-item.blade.php -->
 <div class="card" id="list-item-manage">
     <div class="row g-0 align-items-center">
         @php

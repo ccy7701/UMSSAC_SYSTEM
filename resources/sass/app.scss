@@ -1,8 +1,10 @@
 $btn-primary-bg: #1064D6;
+$text-muted: #777777;
+$bg-muted: #777777;
 
 @import 'features';
 @import 'welcome';
-@import 'search-cards';
+@import 'cards';
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Roboto+Slab:wght@100;300;400;700;900&family=Roboto+Serif:wght@100;300;400;700;900&display=swap');
@@ -42,6 +44,14 @@ html {
 
 .btn-primary {
     background-color: $btn-primary-bg;
+}
+
+.text-muted {
+    color: $text-muted !important;
+}
+
+.bg-muted {
+    background-color: $bg-muted !important;
 }
 
 .formfield-span {

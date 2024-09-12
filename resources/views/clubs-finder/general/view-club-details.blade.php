@@ -85,6 +85,26 @@
                 <h5 class="rserif fw-bold">Club creation date</h5>
                 <p class="rsans pb-3">{{ $club->created_at }}</p>
             </div>
+            <!-- SECTION IN PROGRESS | Members section -->
+            <div class="d-flex align-items-center">
+                <div class="section-header row w-100">
+                    <!-- Left column: Members header -->
+                    <div class="col-md-6 text-start">
+                        <h3 class="rserif fw-bold w-100 py-2 px-3 pb-2">Members</h3>
+                    </div>
+                    <div class="col-md-6 text-end"></div>
+                </div>
+            </div>
+            <div class="container px-3 py-4">
+                <div id="member-grid-view" class="row grid-view"> <!-- keep this row in view -->
+                    @foreach ($clubMembers as $member)
+                        <div class="col-lg-3 col-md-4 py-2">
+                            <x-member-card :member="$member"/>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <!-- END SECTION IN PROGRESS | Members section -->
             <!-- Events conducted -->
             <div class="d-flex align-items-center">
                 <div class="section-header row w-100">

@@ -1,10 +1,12 @@
 #list-item-standard,
-#card-standard {
+#card-standard,
+#card-member {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #list-item-standard:hover,
-#card-standard:hover {
+#card-standard:hover,
+#card-member:hover {
     transform: scale(1.01);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
