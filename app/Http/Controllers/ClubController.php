@@ -34,15 +34,10 @@ class ClubController extends Controller
 
     public function fetchClubDetailsForGeneral(Request $request) {
         $clubId = $request->query('club_id');
-        $clubMembersService = new ClubMembersService();
+        $data = $this->prepareClubData($clubId);
         
         // Return a view with the club details, events, members and view preference
-        return view('clubs-finder.general.view-club-details', [
-            'club' => $this->getClubDetails($clubId),
-            'clubEvents' => $this->getClubEvents($clubId),
-            'clubMembers' => $clubMembersService->getClubMembers($clubId),
-            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
-        ]);
+        return view('clubs-finder.general.view-club-details', $data);
     }
 
     public function fetchClubsManager(Request $request) {
@@ -50,7 +45,7 @@ class ClubController extends Controller
         $filters = $this->getFilters($request);
         $allClubs = $this->getAllClubs($filters, $search);
 
-        return view('clubs-finder.manage.view-all-clubs', [
+        return view('clubs-finder.admin-manage.view-all-clubs', [
             'clubs' => $allClubs,
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
             'totalClubCount' => $allClubs->count(),
@@ -68,25 +63,23 @@ class ClubController extends Controller
 
     public function fetchClubDetailsForManager(Request $request) {
         $clubId = $request->query('club_id');
-        $clubMembersService = new ClubMembersService();
+        $data = $this->prepareClubData($clubId);
         
-        // Return a view with the club details, events, members and view preference
-        return view('clubs-finder.manage.view-club-details', [
-            'club' => $this->getClubDetails($clubId),
-            'clubEvents' => $this->getClubEvents($clubId),
-            'clubMembers' => $clubMembersService->getClubMembers($clubId),
-            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
-        ]);
+        return view('clubs-finder.admin-manage.view-club-details', $data);
     }
 
-    public function fetchManagePage(Request $request) {
+    public function fetchCommitteeManagePage(Request $request) {
         $clubId = $request->query('club_id');
-        $clubMembersService = new ClubMembersService();
+        $data = $this->prepareClubData($clubId);
 
-        return view('clubs-finder.manage.manage-club-details', [
-            'club' => $this->getClubDetails($clubId),
-            'clubMembers' => $clubMembersService->getClubMembers($clubId),
-        ]);
+        return view('clubs-finder.committee-manage.manage-club-details', $data);
+    }
+
+    public function fetchAdminManagePage(Request $request) {
+        $clubId = $request->query('club_id');
+        $data = $this->prepareClubData($clubId);
+
+        return view('clubs-finder.admin-manage.manage-club-details', $data);
     }
 
     private function getFilters(Request $request) {
@@ -138,6 +131,18 @@ class ClubController extends Controller
                 'club_search_filters' => json_encode([]),
                 'updated_at' => now()
             ]);
+    }
+
+    private function prepareClubData($clubId) {
+        $clubMembersService = new ClubMembersService();
+
+        return [
+            'club' => $this->getClubDetails($clubId),
+            'clubMembers' => $clubMembersService->getClubMembers($clubId),
+            'clubEvents' => $this->getClubEvents($clubId),
+            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
+            'isCommitteeMember' => $clubMembersService->checkCommitteeMember($clubId, profile()->profile_id)
+        ];
     }
 
     private function getClubDetails($club_id) {

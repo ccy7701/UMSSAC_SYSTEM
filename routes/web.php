@@ -11,6 +11,7 @@ use App\Http\Controllers\ClubController;
 use App\Http\Controllers\UserPreferenceController;
 use App\Http\Middleware\PreventAuthenticatedAccess;
 use App\Http\Middleware\RoleAccessMiddleware;
+use App\Http\Middleware\CommitteeAccessMiddleware;
 
 // Routes accessible to guests but not authenticated users
 Route::middleware([PreventAuthenticatedAccess::class])->group(function () {
@@ -117,8 +118,20 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetailsForGeneral'])->name('clubs-finder.fetch-club-details');
 });
 
-// Routes accessible to accountRole -> FacultyMember only
-// Use (['auth', RoleAccessMiddleware::class.':2'])->group(fx(){});
+Route::middleware(['auth', RoleAccessMiddleware::class.':2'])->group(function () {
+    Route::get('/clubs-finder', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder');
+
+    Route::post('/clubs-finder/filter', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder.filter');
+
+    Route::post('/clubs-finder/clear-all', [ClubController::class, 'clearFilterForGeneral'])->name('clubs-finder.clear-filter');
+
+    Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetailsForGeneral'])->name('clubs-finder.fetch-club-details');
+
+    Route::middleware(CommitteeAccessMiddleware::class)->group(function () {
+        Route::get('/committee-manage/manage-details', [ClubController::class, 'fetchCommitteeManagePage'])
+            ->name('committee-manage.manage-details');
+    });
+});
 
 Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function () {
     // CURRENT ROUTE OF FOCUS (ADMIN)
@@ -134,5 +147,5 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
     Route::get('/manage-clubs/full-details', [ClubController::class, 'fetchClubDetailsForManager'])->name('manage-clubs.fetch-club-details');
 
     // CURRENT ROUTE OF FOCUS (ADMIN)
-    Route::get('/manage-clubs/manage-details', [ClubController::class, 'fetchManagePage'])->name('manage-clubs.manage-details');
+    Route::get('/admin-manage/manage-details', [ClubController::class, 'fetchAdminManagePage'])->name('admin-manage.manage-details');
 });

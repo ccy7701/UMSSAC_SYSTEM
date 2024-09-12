@@ -17,4 +17,12 @@ class ClubMembersService
             ->orderBy('membership_type', 'desc')
             ->get();
     }
+
+    // Determine if the current user is a committee member
+    public function checkCommitteeMember($clubId, $profileId) {
+        return ClubMembership::where('club_id', $clubId)
+            ->where('profile_id', $profileId)
+            ->where('membership_type', 2)
+            ->exists();
+    }
 }
