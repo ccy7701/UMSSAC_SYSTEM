@@ -56,7 +56,7 @@
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('events-finder') }}">Events Finder (WIP)</a></li>
 
 
-                @if (currentAccount()->account_role == 1)
+                @if (currentAccount()->account_role == 1 || currentAccount()->account_role == 2)
                     <li class="nav-item"><a class="nav-link px-3" href="{{ route('clubs-finder') }}">Clubs Finder (WIP)</a></li>
                 @elseif (currentAccount()->account_role == 3)
                     <li class="nav-item"><a class="nav-link px-3" href="{{ route('manage-clubs') }}">Manage Clubs (WIP)</a></li>

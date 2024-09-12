@@ -12,6 +12,7 @@
 
 <body>
     @vite('resources/js/app.js')
+    @vite('resources/js/itemViewToggler.js')
     <x-topnav/>
     <br>
     <div class="container p-3">
@@ -31,13 +32,17 @@
                                 </ol>
                             </nav>
                         </div>
+                        <div class="col-6 d-flex justify-content-end align-items-center">
+                            <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ $club->updated_at }}</p>
+                            <a href="{{ url()->previous() }}" class="btn btn-secondary fw-semibold w-25">Go back</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- BODY OF CONTENT -->
-        <div class="container-fluid align-items-center py-2">
+        <div class="container-fluid align-items-center py-4">
             <!-- EDIT CLUB INFO SECTION -->
             <form>
                 <div class="d-flex align-items-center">
@@ -110,6 +115,74 @@
                 
             </div>
             <!-- END EDIT MEMBER ACCESS LEVEL SECTION -->
+
+            <!-- EDIT EVENTS SECTION -->
+            <div class="d-flex align-items-center">
+                <div class="section-header row w-100">
+                    <div class="col-md-6 text-start">
+                        <h3 class="rserif fw-bold w-100 py-2">Events</h3>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center justify-content-end mb-2">
+                        <div class="input-group justify-content-end me-2">
+                            <!-- Grid view toggle button -->
+                            <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 1 ? 'active' : '' }}">
+                                <i class="fa fa-th fs-4 {{ $searchViewPreference == 1 ? 'text-primary' : 'text-muted' }}"></i>
+                            </button>
+                            <!-- List view toggle button -->
+                            <button id="toggle-list-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 2 ? 'active' : '' }}">
+                                <i class="fa fa-list-ul fs-4 {{ $searchViewPreference == 2 ? 'text-primary' : 'text-muted' }}"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-3 py-4">
+                <div class="col-md-12 px-3 py-0">
+                    <!-- GRID VIEW (Toggle based on preference) -->
+                    <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
+                        <!-- Add new club card, conditionally render only for committee members -->
+                        {{ dump($isCommitteeMember) }}
+                        <div class="col-lg-4 col-md-6">
+                            <a href="#" class="text-decoration-none w-100">
+                                <div class="card add-event-card d-flex justify-content-center align-items-center h-100">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                        <i class="fa fa-plus-circle fa-3x mb-2"></i>
+                                        <h5 class="card-titel fw-bold">Add new event</5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        @foreach ($clubEvents as $event)
+                            <div class="col-lg-4 col-md-6">
+                                <x-event-card :event="$event"/>
+                            </div>
+                        @endforeach
+                    </div>
+                    <!-- LIST VIEW (Toggle based on preference) -->
+                    <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }} justify-content-center">
+                        <div class="row pb-3 w-75">
+                            <div class="col-lg-12">
+                                <a href="#" class="text-decoration-none w-100">
+                                    <div class="card add-event-list-item" id="list-item-manage">
+                                        <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                            <i class="fa fa-plus-circle fa-3x pt-2 pb-1"></i>
+                                            <h5 class="card-title fw-bold pt-1 pb-0">Add new event</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        @foreach ($clubEvents as $event)
+                            <div class="row pb-3 w-75">
+                                <div class="col-lg-12">
+                                    <x-event-list-item :event="$event"/>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <!-- END EDIT EVENTS SECTION -->
         </div>
     </div>
     <x-footer/>

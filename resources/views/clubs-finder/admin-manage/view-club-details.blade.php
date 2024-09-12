@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-6 d-flex justify-content-end align-items-center">
                             <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ $club->updated_at }}</p>
-                            <a href="{{ route('manage-clubs.manage-details', ['club_id' => $club->club_id]) }}" class="btn btn-primary fw-semibold align-self-center">Manage club details</a>
+                            <a href="{{ route('admin-manage.manage-details', ['club_id' => $club->club_id]) }}" class="btn btn-primary fw-semibold align-self-center">Manage club details</a>
                         </div>
                     </div>
                 </div>

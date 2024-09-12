@@ -32,14 +32,18 @@
                                 </ol>
                             </nav>
                         </div>
-                        <div class="col-6 align-items-center">
-                            <p class="rsans text-end">Last updated: {{ $club->updated_at }}</p>
+                        <div class="col-6 d-flex justify-content-end">
+                            @if ($isCommitteeMember)
+                                <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ $club->updated_at }}</p>
+                                <a href="{{ route('committee-manage.manage-details', ['club_id' => $club->club_id]) }}" class="btn btn-primary fw-semibold align-self-center">Manage club details</a>
+                            @else
+                                <p class="rsans text-end">Last updated: {{ $club->updated_at }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- BODY OF CONTENT -->
         <div class="container-fluid align-items-center py-4">
             <!-- Club images carousel -->

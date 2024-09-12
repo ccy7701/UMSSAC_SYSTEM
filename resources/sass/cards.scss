@@ -1,3 +1,5 @@
+$btn-primary-bg: #1064D6;
+
 #list-item-standard,
 #card-standard,
 #card-member {
@@ -48,19 +50,26 @@
 }
 
 .add-club-card,
-.add-club-list-item {
-    transition: background-color 0.3s ease;
+.add-club-list-item,
+.add-event-card,
+.add-event-list-item {
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 /* Hover background color effect */
 .add-club-card:hover,
-.add-club-list-item:hover {
-    background-color: rgba(0, 0, 0, 0.8); /* Darkened background */
+.add-club-list-item:hover,
+.add-event-card:hover,
+.add-event-list-item:hover {
+    background-color: $btn-primary-bg; /* Darkened background */
+    transform: scale(1.01);
 }
 
 /* Hover effects for the icon and text */
 .add-club-card .card-body,
-.add-club-list-item .card-body {
+.add-club-list-item .card-body,
+.add-event-card .card-body,
+.add-event-list-item .card-body {
     transition: transform 0.2s ease, color 0.2s ease;
 }
 
@@ -68,7 +77,11 @@
 .add-club-card:hover .card-body i,
 .add-club-card:hover .card-body h5,
 .add-club-list-item:hover .card-body i,
-.add-club-list-item:hover .card-body h5 {
+.add-club-list-item:hover .card-body h5,
+.add-event-card:hover .card-body i,
+.add-event-card:hover .card-body h5,
+.add-event-list-item:hover .card-body i,
+.add-event-list-item:hover .card-body h5 {
     transform: scale(1.1); /* Slight zoom-in effect */
     color: white; /* Change text color to white */
 }
