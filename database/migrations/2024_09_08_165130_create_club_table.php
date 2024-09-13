@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('club', function (Blueprint $table) {
             $table->increments('club_id');
             $table->string('club_name', 512);
-            $table->string('club_category', 8);
+            $table->string('club_category', 16);
             $table->string('club_description', 1024);
             $table->json('club_image_paths')->nullable();
             $table->timestamps();

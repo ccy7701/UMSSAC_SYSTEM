@@ -82,17 +82,48 @@ class ClubController extends Controller
         return view('clubs-finder.admin-manage.manage-club-details', $data);
     }
 
-    public function showClubInfoEditForm(Request $request) {
+    public function showClubInfoEditForAdmin(Request $request) {
         $clubId = $request->query('club_id');
         $data = $this->prepareClubData($clubId);
 
-        return view('clubs-finder.admin-manage.edit-club-info', [
+        return view('clubs-finder.admin-manage.edit.club-info', [
             'club' => $data['club'],
         ]);
     }
 
-    public function updateClubInfo() {
-        // TO BE FILLED IN LATER!
+    public function showClubInfoEditForCommittee(Request $request) {
+        $clubId = $request->query('club_id');
+        $data = $this->prepareClubData($clubId);
+
+        return view('clubs-finder.committee-manage.edit.club-info', [
+            'club' => $data['club'],
+        ]);
+    }
+
+    public function updateClubInfo(Request $request) {
+        $validatedData = $request->validate([
+            'club_name' => 'required|string|max:128',
+            'club_category' => 'required|string',
+            'club_description' => 'required|string|max:1024',
+        ]);
+
+        // Fetch the club to update
+        $club = Club::where('club_id', $request->club_id)->firstOrFail();
+
+        // Update the club with the validated data
+        $status = $club->update($validatedData);
+
+        // Get the view based on logged in account's role
+        $routeName = '';
+        if (currentAccount()->account_role != 3) {
+            $route = route('committee-manage.manage-details', ['club_id' => $club->club_id]);
+        } else {
+            $route = route('admin-manage.manage-details', ['club_id' => $club->club_id]);
+        }
+        
+        return $status
+            ? redirect($route)->with('success', 'Club info updated successfully!')
+            : back()->withErrors([$routeName => 'Failed to update club info. Please try again.']);
     }
 
     private function getFilters(Request $request) {

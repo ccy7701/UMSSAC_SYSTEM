@@ -41,7 +41,9 @@
 
         <!-- BODY OF CONTENT -->
         <!-- EDIT CLUB INFO FORM -->
-        <form action="{{ route('admin-manage.edit-club-info-action') }}" method="POST">
+        <form action="{{ route('admin-manage.edit-club-info.action') }}" method="POST">
+            @csrf
+            <input type="hidden" name="club_id" value="{{ $club->club_id }}">
             <div class="d-flex align-items-center">
                 <div class="section-header row w-100">
                     <div class="col-md-6 text-start">
@@ -66,26 +68,39 @@
                 <div class="container px-3 w-75">
                     <div class="form-group mb-3">
                         <label for="club-name" class="rsans fw-bold form-label">Club name</label>
-                        <input type="text" id="club-name" name="club_name" class="rsans form-control" value="{{ $club->club_name }}">
+                        <input type="text" id="club-name" name="club_name" class="rsans form-control" value="{{ $club->club_name }}" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="club-category" name="club_category" class="rsans fw-bold form-label">Category</label>
                         <select id="club-category" class="rsans form-select w-50" name="club_category">
                             <option selected disabled value="">Choose...</option>
-                            <option value="ASTIF" {{ $club->club_category == 'ASTIF' ? 'selected' : '' }}>ASTIF</option>
-                            <option value="FIS" {{ $club->club_category == 'FIS' ? 'selected' : '' }}>FIS</option>
-                            <option value="FKAL" {{ $club->club_category == 'FKAL' ? 'selected' : '' }}>FKAL</option>
-                            <option value="FKIKK" {{ $club->club_category == 'FKIKK' ? 'selected' : '' }}>FKIKK</option>
-                            <option value="FKIKAL" {{ $club->club_category == 'FKIKAL' ? 'selected' : '' }}>FKIKAL</option>
-                            <option value="FKJ" {{ $club->club_category == 'FKJ' ? 'selected' : '' }}>FKJ</option>
-                            <option value="FPEP" {{ $club->club_category == 'FPEP' ? 'selected' : '' }}>FPEP</option>
-                            <option value="FPL" {{ $club->club_category == 'FPL' ? 'selected' : '' }}>FPL</option>
-                            <option value="FPP" {{ $club->club_category == 'FPP' ? 'selected' : '' }}>FPP</option>
-                            <option value="FPSK" {{ $club->club_category == 'FPSK' ? 'selected' : '' }}>FPSK</option>
-                            <option value="FPT" {{ $club->club_category == 'FPT' ? 'selected' : '' }}>FPT</option>
-                            <option value="FSMP" {{ $club->club_category == 'FSMP' ? 'selected' : '' }}>FSMP</option>
-                            <option value="FSSA" {{ $club->club_category == 'FSSA' ? 'selected' : '' }}>FSSA</option>
-                            <option value="FSSK" {{ $club->club_category == 'FSSK' ? 'selected' : '' }}>FSSK</option>
+                            <optgroup label="Faculty">
+                                <option value="ASTIF" {{ $club->club_category == 'ASTIF' ? 'selected' : '' }}>ASTIF</option>
+                                <option value="FIS" {{ $club->club_category == 'FIS' ? 'selected' : '' }}>FIS</option>
+                                <option value="FKAL" {{ $club->club_category == 'FKAL' ? 'selected' : '' }}>FKAL</option>
+                                <option value="FKIKK" {{ $club->club_category == 'FKIKK' ? 'selected' : '' }}>FKIKK</option>
+                                <option value="FKIKAL" {{ $club->club_category == 'FKIKAL' ? 'selected' : '' }}>FKIKAL</option>
+                                <option value="FKJ" {{ $club->club_category == 'FKJ' ? 'selected' : '' }}>FKJ</option>
+                                <option value="FPEP" {{ $club->club_category == 'FPEP' ? 'selected' : '' }}>FPEP</option>
+                                <option value="FPL" {{ $club->club_category == 'FPL' ? 'selected' : '' }}>FPL</option>
+                                <option value="FPP" {{ $club->club_category == 'FPP' ? 'selected' : '' }}>FPP</option>
+                                <option value="FPSK" {{ $club->club_category == 'FPSK' ? 'selected' : '' }}>FPSK</option>
+                                <option value="FPT" {{ $club->club_category == 'FPT' ? 'selected' : '' }}>FPT</option>
+                                <option value="FSMP" {{ $club->club_category == 'FSMP' ? 'selected' : '' }}>FSMP</option>
+                                <option value="FSSA" {{ $club->club_category == 'FSSA' ? 'selected' : '' }}>FSSA</option>
+                                <option value="FSSK" {{ $club->club_category == 'FSSK' ? 'selected' : '' }}>FSSK</option>
+                            </optgroup>
+                            <optgroup label="Residential College">
+                                <option value="KKTF" {{ $club->club_category == 'KKTF' ? 'selected' : '' }}>KKTF</option>
+                                <option value="KKTM" {{ $club->club_category == 'KKTM' ? 'selected' : '' }}>KKTM</option>
+                                <option value="KKTPAR" {{ $club->club_category == 'KKTPAR' ? 'selected' : '' }}>KKTPAR</option>
+                                <option value="KKAKF" {{ $club->club_category == 'KKAKF' ? 'selected' : '' }}>KKAKF</option>
+                                <option value="KK USIA 1B" {{ $club->club_category == 'KK USIA 1B' ? 'selected' : '' }}>KK USIA 1B</option>
+                                <option value="NR" {{ $club->club_category == 'NR' ? 'selected' : '' }}>NR</option>
+                            </optgroup>
+                            <optgroup label="Others">
+                                <option value="GENERAL" {{ $club->category == 'GENERAL' ? 'selected' : '' }}>General</option>
+                            </optgroup>
                         </select>
                     </div>
                     <div class="form-group mb-3">

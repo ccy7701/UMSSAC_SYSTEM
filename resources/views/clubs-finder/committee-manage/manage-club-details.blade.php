@@ -14,6 +14,7 @@
     @vite('resources/js/app.js')
     @vite('resources/js/itemViewToggler.js')
     <x-topnav/>
+    <x-success-message/>
     <br>
     <div class="container p-3">
 
@@ -51,7 +52,7 @@
                             <h3 class="rserif fw-bold w-100 py-2">Club info</h3>
                         </div>
                         <div class="col-md-6 text-end">
-                            <a href="#" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
+                            <a href="{{ route('committee-manage.edit-club-info', ['club_id' => $club->club_id]) }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
                         </div>
                     </div>
                 </div>

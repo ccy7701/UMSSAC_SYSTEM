@@ -25,11 +25,17 @@ class CommitteeAccessMiddleware
     {
         // Get the current user profile and club ID from the request
         $user = currentAccount();
-        $clubId = $request->query('club_id');
+        $clubId = $request->query('club_id') ?? $request->input('club_id');
 
-        // Check if the user is a faculty member but not a club committee member
-        if ($user->account_role == 2 && !$this->clubMembersService->checkCommitteeMember($clubId, $user->profile->profile_id)) {
-            abort(403, 'Forbidden');
+        // If the user is a student (role 1) or faculty member (role 2), check committee membership
+        if (in_array($user->account_role, [1, 2])) {
+            // Check if the user is part of the club's committee
+            $isCommitteeMember = $this->clubMembersService->checkCommitteeMember($clubId, $user->profile->profile_id);
+
+            // If not a committee member, abort with a 403 Forbidden response
+            if (!$isCommitteeMember) {
+                abort(403, 'Forbidden');
+            }
         }
 
         return $next($request);

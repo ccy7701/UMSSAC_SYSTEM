@@ -108,10 +108,7 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
 // Routes accessible by facultyMember only (account role 2)
 Route::middleware(['auth', RoleAccessMiddleware::class.':2'])->group(function () {
-    Route::middleware(CommitteeAccessMiddleware::class)->group(function () {
-        Route::get('/committee-manage/full-details/manage', [ClubController::class, 'fetchCommitteeManagePage'])
-            ->name('committee-manage.manage-details');
-    });
+    
 });
 
 // Routes accessible by both student and facultyMember (account role 1 and 2)
@@ -123,6 +120,16 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
     Route::post('/clubs-finder/clear-all', [ClubController::class, 'clearFilterForGeneral'])->name('clubs-finder.clear-filter');
 
     Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetailsForGeneral'])->name('clubs-finder.fetch-club-details');
+
+    Route::middleware(CommitteeAccessMiddleware::class)->group(function () {
+        Route::get('/committee-manage/full-details/manage', [ClubController::class, 'fetchCommitteeManagePage'])
+            ->name('committee-manage.manage-details');
+
+        // CURRENT ROUTE OF FOCUS (CM)
+        Route::get('/committee-manage/full-details/manage/edit-club-info', [ClubController::class, 'showClubInfoEditForCommittee'])->name('committee-manage.edit-club-info');
+
+        Route::post('/committee-manage/full-details/manage/edit-club-info/action', [ClubController::class, 'updateClubInfo'])->name('committee-manage.edit-club-info.action');
+    });
 });
 
 // Routes accessible by admin only (account role 3)
@@ -138,8 +145,8 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
     Route::get('/admin-manage/full-details/manage', [ClubController::class, 'fetchAdminManagePage'])->name('admin-manage.manage-details');
 
     // CURRENT ROUTE OF FOCUS (ADMIN)
-    Route::get('/admin-manage/full-details/manage/edit-club-info', [ClubController::class, 'showClubInfoEditForm'])->name('admin-manage.edit-club-info');
+    Route::get('/admin-manage/full-details/manage/edit-club-info', [ClubController::class, 'showClubInfoEditForAdmin'])->name('admin-manage.edit-club-info');
 
     // CURRENT ROUTE OF FOCUS (ADMIN)
-    Route::post('/admin-manage/full-details/manage/edit-club-info/update', [ClubController::class, 'updateClubInfo'])->name('admin-manage.edit-club-info-action');
+    Route::post('/admin-manage/full-details/manage/edit-club-info/action', [ClubController::class, 'updateClubInfo'])->name('admin-manage.edit-club-info.action');
 });
