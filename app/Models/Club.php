@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Club extends Model
 {
@@ -22,5 +23,10 @@ class Club extends Model
 
     public function events() {
         return $this->hasMany(Event::class, 'club_id', 'club_id');
+    }
+
+    // ACCESSOR: Club image JSON attribute
+    public function getClubImagePathsAttribute() {
+        return $this->attributes['club_image_paths'];
     }
 }

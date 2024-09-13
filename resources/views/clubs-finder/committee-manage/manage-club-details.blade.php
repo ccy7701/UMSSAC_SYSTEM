@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en" xml:lang="en">
 
 <head>
@@ -83,7 +83,7 @@
                         <h3 class="rserif fw-bold w-100 py-2">Club images</h3>
                     </div>
                     <div class="col-md-6 text-end">
-                        <a href="#" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
+                        <a href="{{ route('committee-manage.edit-images', ['club_id' => $club->club_id]) }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
                     </div>
                 </div>
             </div>
@@ -91,12 +91,18 @@
                 @php
                     $clubImagePaths = json_decode($club->club_image_paths, true);
                 @endphp
-                @foreach ($clubImagePaths as $imagePath)
-                    <!-- Display the image -->
+                @if (empty($clubImagePaths))
                     <div class="position-relative me-4">
-                        <img src="{{ asset($imagePath) }}" alt="Club illustration" class="img-fluid border" style="width: 128px; height: 128px; object-fit: cover;">
+                        <img src="{{ asset('images/no_club_images_defaultpng') }}" alt="No club illustration" class="img-thumbnail">
                     </div>
-                @endforeach
+                @else
+                    @foreach ($clubImagePaths as $imagePath)
+                        <!-- Display the image -->
+                        <div class="position-relative me-4">
+                            <img src="{{ Storage::url($imagePath) }}" alt="Club illustration" class="img-fluid border" style="width: 128px; height: 128px; object-fit: cover;">
+                        </div>
+                    @endforeach
+                @endif
             </div>
             <br>
             <!-- END EDIT CLUB IMAGES SECTION -->
