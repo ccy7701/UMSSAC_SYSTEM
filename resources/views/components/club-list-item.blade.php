@@ -19,7 +19,7 @@
                                 <i class="fa fa-university"></i>
                             </div>
                             <div class="col-10">
-                                {{ $club->club_faculty }}
+                                {{ $club->club_category }}
                             </div>
                             <div class="col-1"></div>
                         </div>

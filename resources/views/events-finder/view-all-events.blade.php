@@ -70,7 +70,7 @@
                 <!-- LEFT SECTIONS FOR FILTERS -->
                 <div class="col-md-3 border p-3">
                     <!-- Faculty filters -->
-                    <h4 class="rserif fw-bold fs-5">Faculty</h4>
+                    <h4 class="rserif fw-bold fs-5">Category</h4>
                     <ul class="rsans list-group py-2">
                         <li class="list-group-item">
                             <input type="checkbox" id="fkikk">

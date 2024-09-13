@@ -27,7 +27,7 @@ class CommitteeAccessMiddleware
         $user = currentAccount();
         $clubId = $request->query('club_id');
 
-        // Check if the user is a faculty member but not a committee member
+        // Check if the user is a faculty member but not a club committee member
         if ($user->account_role == 2 && !$this->clubMembersService->checkCommitteeMember($clubId, $user->profile->profile_id)) {
             abort(403, 'Forbidden');
         }

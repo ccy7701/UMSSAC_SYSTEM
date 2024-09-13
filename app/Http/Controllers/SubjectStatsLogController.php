@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\SubjectStatsLog;
 use App\Services\CGPAService;
-use App\Models\SemesterProgressLog;
 
 class SubjectStatsLogController extends Controller
 {

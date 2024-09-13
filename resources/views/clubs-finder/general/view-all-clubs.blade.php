@@ -89,28 +89,28 @@
                         </div>
                     </div>
                     <br>
-                    <h5 class="rsans fw-semibold mb-0">Faculty</h5>
+                    <h5 class="rsans fw-semibold mb-0">Category</h5>
                     <form id="filter-form" method="POST" action="{{ route('clubs-finder.filter') }}">
                         @csrf
                         <ul class="rsans list-group py-2">
                             <li class="list-group-item">
-                                <input type="checkbox" id="fkikk" name="faculty_filter[]" value="FKIKK" {{ in_array('FKIKK', $filters) ? 'checked' : '' }}>
+                                <input type="checkbox" id="fkikk" name="category_filter[]" value="FKIKK" {{ in_array('FKIKK', $filters) ? 'checked' : '' }}>
                                 <label for="fkikk">FKIKK</label>
                             </li>
                             <li class="list-group-item">
-                                <input type="checkbox" id="fkikal" name="faculty_filter[]" value="FKIKAL" {{ in_array('FKIKAL', $filters) ? 'checked' : '' }}>
+                                <input type="checkbox" id="fkikal" name="category_filter[]" value="FKIKAL" {{ in_array('FKIKAL', $filters) ? 'checked' : '' }}>
                                 <label for="fkikal">FKIKAL</label>
                             </li>
                             <li class="list-group-item">
-                                <input type="checkbox" id="astif" name="faculty_filter[]" value="ASTIF" {{ in_array('ASTIF', $filters) ? 'checked' : '' }}>
+                                <input type="checkbox" id="astif" name="category_filter[]" value="ASTIF" {{ in_array('ASTIF', $filters) ? 'checked' : '' }}>
                                 <label for="astif">ASTIF</label>
                             </li>
                             <li class="list-group-item">
-                                <input type="checkbox" id="fsmp" name="faculty_filter[]" value="FSMP" {{ in_array('FSMP', $filters) ? 'checked' : '' }}>
+                                <input type="checkbox" id="fsmp" name="category_filter[]" value="FSMP" {{ in_array('FSMP', $filters) ? 'checked' : '' }}>
                                 <label for="fsmp">FSMP</label>
                             </li>
                             <li class="list-group-item">
-                                <input type="checkbox" id="fpp" name="faculty_filter[]" value="FPP" {{ in_array('FPP', $filters) ? 'checked' : '' }}>
+                                <input type="checkbox" id="fpp" name="category_filter[]" value="FPP" {{ in_array('FPP', $filters) ? 'checked' : '' }}>
                                 <label for="fpp">FPP</label>
                             </li>
                         </ul>

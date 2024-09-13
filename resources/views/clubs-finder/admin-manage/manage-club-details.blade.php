@@ -63,11 +63,11 @@
                             <input type="text" id="club-name" name="club_name" class="rsans form-control" value="{{ $club->club_name }}" readonly>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="club-faculty" class="rsans fw-bold form-label">Faculty</label>
-                            <input type="text" id="club-faculty" name="club_faculty" class="rsans form-control w-50" value="{{ $club->club_faculty }}" readonly>
+                            <label for="club-category" class="rsans fw-bold form-label">Category</label>
+                            <input type="text" id="club-category" name="club_category" class="rsans form-control w-50" value="{{ $club->club_category }}" readonly>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="club-description" class="rsans fw-bold form-label">Club description</label>
+                            <label for="club-description" class="rsans fw-bold form-label">Description</label>
                             <textarea id="club-description" name="club_description" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024" readonly>{{ $club->club_description }}</textarea>
                         </div>
                     </div>

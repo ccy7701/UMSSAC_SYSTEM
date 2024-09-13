@@ -76,7 +76,7 @@
                     </div>
                     <div class="col-md-6 d-flex align-items-center justify-content-end">
                         <i class="fa fa-university text-muted mb-2 me-3"></i>
-                        <h3 class="rserif fw-bold text-muted mb-2">{{ $club->club_faculty }}</h3>
+                        <h3 class="rserif fw-bold text-muted mb-2">{{ $club->club_category }}</h3>
                     </div>
                 </div>
             </div>

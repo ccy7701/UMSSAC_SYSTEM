@@ -13,7 +13,7 @@ use App\Http\Middleware\PreventAuthenticatedAccess;
 use App\Http\Middleware\RoleAccessMiddleware;
 use App\Http\Middleware\CommitteeAccessMiddleware;
 
-// Routes accessible to guests but not authenticated users
+// Routes accessible by guests but not authenticated users
 Route::middleware([PreventAuthenticatedAccess::class])->group(function () {
     Route::get('/', function () {
         return redirect('welcome');
@@ -54,7 +54,7 @@ Route::middleware([PreventAuthenticatedAccess::class])->group(function () {
     Route::post('/forgot-password/reset', [PasswordResetController::class, 'reset'])->name('password.update');
 });
 
-// Routes accessible to all levels of authenticated user
+// Routes accessible by all levels of authenticated user
 Route::middleware('auth')->group(function () {
     Route::get('/profile', function () {
         return view('profile.profile');
@@ -89,7 +89,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AccountController::class, 'logout'])->name('account.logout');
 });
 
-// Routes accessible to accountRole -> Student only
+// Routes accessible by student only (account role 1)
 Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function () {
     Route::get('/progress-tracker/{profile_id?}', [SemesterProgressLogController::class, 'showProgressTracker'])->name('progress-tracker');
 
@@ -104,31 +104,28 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::post('/edit-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'editSubject'])->name('subject-stats-log.edit');
 
     Route::delete('/delete-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'deleteSubject'])->name('subject-stats-log.delete');
-
-    Route::get('/clubs-finder', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder');
-
-    Route::post('/clubs-finder/filter', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder.filter');
-
-    Route::post('/clubs-finder/clear-all', [ClubController::class, 'clearFilterForGeneral'])->name('clubs-finder.clear-filter');
-
-    Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetailsForGeneral'])->name('clubs-finder.fetch-club-details');
 });
 
+// Routes accessible by facultyMember only (account role 2)
 Route::middleware(['auth', RoleAccessMiddleware::class.':2'])->group(function () {
-    Route::get('/clubs-finder', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder');
-
-    Route::post('/clubs-finder/filter', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder.filter');
-
-    Route::post('/clubs-finder/clear-all', [ClubController::class, 'clearFilterForGeneral'])->name('clubs-finder.clear-filter');
-
-    Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetailsForGeneral'])->name('clubs-finder.fetch-club-details');
-
     Route::middleware(CommitteeAccessMiddleware::class)->group(function () {
         Route::get('/committee-manage/full-details/manage', [ClubController::class, 'fetchCommitteeManagePage'])
             ->name('committee-manage.manage-details');
     });
 });
 
+// Routes accessible by both student and facultyMember (account role 1 and 2)
+Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function () {
+    Route::get('/clubs-finder', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder');
+
+    Route::post('/clubs-finder/filter', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder.filter');
+
+    Route::post('/clubs-finder/clear-all', [ClubController::class, 'clearFilterForGeneral'])->name('clubs-finder.clear-filter');
+
+    Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetailsForGeneral'])->name('clubs-finder.fetch-club-details');
+});
+
+// Routes accessible by admin only (account role 3)
 Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function () {
     Route::get('/manage-clubs', [ClubController::class, 'fetchClubsManager'])->name('manage-clubs');
 

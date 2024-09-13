@@ -15,7 +15,7 @@ class Club extends Model
 
     protected $fillable = [
         'club_name',
-        'club_faculty',
+        'club_category',
         'club_description',
         'club_image_paths',
     ];

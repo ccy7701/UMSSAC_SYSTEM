@@ -69,27 +69,27 @@
                         <input type="text" id="club-name" name="club_name" class="rsans form-control" value="{{ $club->club_name }}">
                     </div>
                     <div class="form-group mb-3">
-                        <label for="club-faculty" name="club_faculty" class="rsans fw-bold form-label">Club faculty</label>
-                        <select id="club-faculty" class="rsans form-select w-50" name="club_faculty">
+                        <label for="club-category" name="club_category" class="rsans fw-bold form-label">Category</label>
+                        <select id="club-category" class="rsans form-select w-50" name="club_category">
                             <option selected disabled value="">Choose...</option>
-                            <option value="ASTIF" {{ $club->club_faculty == 'ASTIF' ? 'selected' : '' }}>ASTIF</option>
-                            <option value="FIS" {{ $club->club_faculty == 'FIS' ? 'selected' : '' }}>FIS</option>
-                            <option value="FKAL" {{ $club->club_faculty == 'FKAL' ? 'selected' : '' }}>FKAL</option>
-                            <option value="FKIKK" {{ $club->club_faculty == 'FKIKK' ? 'selected' : '' }}>FKIKK</option>
-                            <option value="FKIKAL" {{ $club->club_faculty == 'FKIKAL' ? 'selected' : '' }}>FKIKAL</option>
-                            <option value="FKJ" {{ $club->club_faculty == 'FKJ' ? 'selected' : '' }}>FKJ</option>
-                            <option value="FPEP" {{ $club->club_faculty == 'FPEP' ? 'selected' : '' }}>FPEP</option>
-                            <option value="FPL" {{ $club->club_faculty == 'FPL' ? 'selected' : '' }}>FPL</option>
-                            <option value="FPP" {{ $club->club_faculty == 'FPP' ? 'selected' : '' }}>FPP</option>
-                            <option value="FPSK" {{ $club->club_faculty == 'FPSK' ? 'selected' : '' }}>FPSK</option>
-                            <option value="FPT" {{ $club->club_faculty == 'FPT' ? 'selected' : '' }}>FPT</option>
-                            <option value="FSMP" {{ $club->club_faculty == 'FSMP' ? 'selected' : '' }}>FSMP</option>
-                            <option value="FSSA" {{ $club->club_faculty == 'FSSA' ? 'selected' : '' }}>FSSA</option>
-                            <option value="FSSK" {{ $club->club_faculty == 'FSSK' ? 'selected' : '' }}>FSSK</option>
+                            <option value="ASTIF" {{ $club->club_category == 'ASTIF' ? 'selected' : '' }}>ASTIF</option>
+                            <option value="FIS" {{ $club->club_category == 'FIS' ? 'selected' : '' }}>FIS</option>
+                            <option value="FKAL" {{ $club->club_category == 'FKAL' ? 'selected' : '' }}>FKAL</option>
+                            <option value="FKIKK" {{ $club->club_category == 'FKIKK' ? 'selected' : '' }}>FKIKK</option>
+                            <option value="FKIKAL" {{ $club->club_category == 'FKIKAL' ? 'selected' : '' }}>FKIKAL</option>
+                            <option value="FKJ" {{ $club->club_category == 'FKJ' ? 'selected' : '' }}>FKJ</option>
+                            <option value="FPEP" {{ $club->club_category == 'FPEP' ? 'selected' : '' }}>FPEP</option>
+                            <option value="FPL" {{ $club->club_category == 'FPL' ? 'selected' : '' }}>FPL</option>
+                            <option value="FPP" {{ $club->club_category == 'FPP' ? 'selected' : '' }}>FPP</option>
+                            <option value="FPSK" {{ $club->club_category == 'FPSK' ? 'selected' : '' }}>FPSK</option>
+                            <option value="FPT" {{ $club->club_category == 'FPT' ? 'selected' : '' }}>FPT</option>
+                            <option value="FSMP" {{ $club->club_category == 'FSMP' ? 'selected' : '' }}>FSMP</option>
+                            <option value="FSSA" {{ $club->club_category == 'FSSA' ? 'selected' : '' }}>FSSA</option>
+                            <option value="FSSK" {{ $club->club_category == 'FSSK' ? 'selected' : '' }}>FSSK</option>
                         </select>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="club-description" class="rsans fw-bold form-label">Club description</label>
+                        <label for="club-description" class="rsans fw-bold form-label">Description</label>
                         <textarea id="club-description" name="club_description" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024">{{ $club->club_description }}</textarea>
                     </div>
                 </div>

@@ -97,7 +97,7 @@ class ClubController extends Controller
 
     private function getFilters(Request $request) {
         // Fetch filters from form submission (may be empty if no checkboxes are selected)
-        $filters = $request->input('faculty_filter', []);
+        $filters = $request->input('category_filter', []);
     
         // If the form is submitted with no filters, we should treat it as clearing all filters
         if ($request->isMethod('post') && empty($filters)) {
@@ -127,7 +127,7 @@ class ClubController extends Controller
         // Fetch clubs based on the filters (if empty, return all clubs) and search input
         return Club::when(!empty($filters), function ($query) use ($filters) {
                 return $query
-                    ->whereIn('club_faculty', $filters);
+                    ->whereIn('club_category', $filters);
             })
             ->when($search, function ($query) use ($search) {
                 return $query
