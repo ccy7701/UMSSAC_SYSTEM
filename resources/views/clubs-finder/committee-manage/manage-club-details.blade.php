@@ -93,7 +93,7 @@
                 @endphp
                 @if (empty($clubImagePaths))
                     <div class="position-relative me-4">
-                        <img src="{{ asset('images/no_club_images_defaultpng') }}" alt="No club illustration" class="img-thumbnail">
+                        <p>No images added yet</p>
                     </div>
                 @else
                     @foreach ($clubImagePaths as $imagePath)

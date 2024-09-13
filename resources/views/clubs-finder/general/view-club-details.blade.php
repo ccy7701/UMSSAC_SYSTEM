@@ -53,14 +53,20 @@
                 @endphp
                 <div id="clubImagesCarousel" class="carousel slide carousel-fade w-30" data-bs-ride="carousel" data-bs-interval="3000">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="{{ Storage::url($clubImagePaths[0]) }}" class="d-block w-100" alt="Club illustration" style="aspect-ratio: 4/4; object-fit: cover;">
-                        </div>
-                        @foreach(array_slice($clubImagePaths, 1) as $imagePath)
-                            <div class="carousel-item">
-                                <img src="{{ Storage::url($imagePath) }}" class="d-block w-100" alt="Club illustration" style="aspect-ratio: 4/4; object-fit: cover;">
+                        @if (empty($clubImagePaths))
+                            <div class="carousel-item active">
+                                <img src="{{ asset('images/no_club_images_default.png') }}" alt="No club illustration found" style="aspect-ratio: 4/4; object-fit: cover;">
                             </div>
-                        @endforeach
+                        @else
+                            <div class="carousel-item active">
+                                <img src="{{ Storage::url($clubImagePaths[0]) }}" class="d-block w-100" alt="Club illustration" style="aspect-ratio: 4/4; object-fit: cover;">
+                            </div>
+                            @foreach(array_slice($clubImagePaths, 1) as $imagePath)
+                                <div class="carousel-item">
+                                    <img src="{{ Storage::url($imagePath) }}" class="d-block w-100" alt="Club illustration" style="aspect-ratio: 4/4; object-fit: cover;">
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#clubImagesCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

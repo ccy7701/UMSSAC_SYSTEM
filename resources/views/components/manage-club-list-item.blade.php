@@ -6,7 +6,12 @@
         @endphp
         <!-- Image section -->
         <div class="col-md-2">
-            <img src="{{ asset($clubImagePaths[0]) }}" class="img-fluid rounded-start border-end" alt="Club list item illustration" style="aspect-ratio: 4/4;">
+            @if (empty($clubImagePaths))
+                <img src="{{ asset('images/no_club_images_default.png') }}" class="img-fluid rounded-start border-end" alt="No club illustration default" style="aspect-ratio: 4/4;">
+            @else
+                <img src="{{ Storage::url($clubImagePaths[0]) }}" class="img-fluid rounded-start border-end" alt="Club list item illustration" style="aspect-ratio: 4/4;">
+            @endif
+            
         </div>
         <!-- Content section -->
         <div class="col-md-10">

@@ -28,12 +28,12 @@ class ProfileSeeder extends Seeder
             [
                 'profile_id' => 2,
                 'account_id' => 2,
-                'profile_nickname' => '',
+                'profile_nickname' => 'SeeleOfBelobog',
                 'profile_personal_desc' => '',
                 'profile_enrolment_session' => null,
-                'profile_faculty' => '',
-                'profile_course' => '',
-                'profile_picture_filepath' => '',
+                'profile_faculty' => 'FKIKK',
+                'profile_course' => 'UH6481005',
+                'profile_picture_filepath' => 'profile-pictures/jBfzQnwQjc80jr66lGwDpJCxXdjoGy1SXzKqpi3G.png',
                 'profile_colour_theme' => '',
             ],
             [

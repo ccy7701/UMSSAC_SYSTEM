@@ -21,7 +21,7 @@ class ClubSeeder extends Seeder
                 'club_category' => 'FKIKK',
                 'club_description' => 'We drink and learn about many types of coffess.',
                 'club_image_paths' => json_encode([
-                    'placeholder-images/coffee-club-logo.png'
+                    'club-images/JbuxwvQBsPyPxKfz1L7CQ6qND0vnw3k1HPQCAe7L.png'
                 ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -31,11 +31,7 @@ class ClubSeeder extends Seeder
                 'club_name' => 'Xianzhou Alliance',
                 'club_category' => 'FPP',
                 'club_description' => 'An ancient, space-faring civilisation following the Aeon Lan and a major faction in Honkai: Star Rail.',
-                'club_image_paths' => json_encode([
-                    'placeholder-images/xianzhou-club-logo.png',
-                    'placeholder-images/xianzhou-second-logo.png',
-                    'placeholder-images/xianzhou-third-logo.png',
-                ]),
+                'club_image_paths' => json_encode([]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],

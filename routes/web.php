@@ -150,4 +150,10 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
     Route::get('/admin-manage/full-details/manage/edit-club-info', [ClubController::class, 'showClubInfoEditForAdmin'])->name('admin-manage.edit-club-info');
 
     Route::post('/admin-manage/full-details/manage/edit-club-info/action', [ClubController::class, 'updateClubInfo'])->name('admin-manage.edit-club-info.action');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/admin-manage/full-details/manage/edit-images', [ClubController::class, 'showClubImagesEditForAdmin'])->name('admin-manage.edit-images');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/admin-manage/full-details/manage/edit-images/action', [ClubController::class, 'updateClubImages'])->name('admin-manage.edit-images.action');
 });

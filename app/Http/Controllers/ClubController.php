@@ -101,6 +101,15 @@ class ClubController extends Controller
         ]);
     }
 
+    public function showClubImagesEditForAdmin(Request $request) {
+        $clubId = $request->query('club_id');
+        $data = $this->prepareClubData($clubId);
+
+        return view('clubs-finder.admin-manage.edit.images', [
+            'club' => $data['club'],
+        ]);
+    }
+
     public function showClubImagesEditForCommittee(Request $request) {
         $clubId = $request->query('club_id');
         $data = $this->prepareClubData($clubId);
