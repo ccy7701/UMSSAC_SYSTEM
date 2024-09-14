@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\user as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class Account extends Authenticatable
 {

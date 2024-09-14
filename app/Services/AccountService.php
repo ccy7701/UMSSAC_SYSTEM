@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Models\Account;
 use App\Models\Profile;
-use App\Models\UserPreference;
 use Illuminate\Http\Request;
+use App\Models\UserPreference;
 use Illuminate\Support\Facades\Hash;
 
 class AccountService

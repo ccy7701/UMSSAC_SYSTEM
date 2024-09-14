@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\Models\Club;
 use App\Models\ClubMembership;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ClubService
 {

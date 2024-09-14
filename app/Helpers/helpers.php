@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use App\Models\UserPreference;
+use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('currentAccount')) {
     function currentAccount() {

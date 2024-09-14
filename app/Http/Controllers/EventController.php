@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Event;
 use App\Models\Club;
+use App\Models\Event;
+use Illuminate\Http\Request;
 
 class EventController extends Controller
 {

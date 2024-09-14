@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\ClubService;
 use App\Models\ClubMembership;
-use Illuminate\SUpport\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class ClubMembershipController extends Controller
 {

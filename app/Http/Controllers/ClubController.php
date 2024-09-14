@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Club;
-use App\Models\Event;
+use Illuminate\Http\Request;
 use App\Services\ClubService;
 use App\Services\EventService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
 
 class ClubController extends Controller
 {

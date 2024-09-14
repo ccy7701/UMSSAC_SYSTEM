@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\SemesterProgressLog;
-use App\Models\SubjectStatsLog;
-use App\Services\CGPAService;
 use App\Models\Profile;
+use Illuminate\Http\Request;
+use App\Services\CGPAService;
+use App\Models\SubjectStatsLog;
+use App\Models\SemesterProgressLog;
 
 class SemesterProgressLogController extends Controller
 {
