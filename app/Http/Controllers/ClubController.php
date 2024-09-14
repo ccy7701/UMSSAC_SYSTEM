@@ -139,6 +139,17 @@ class ClubController extends Controller
         ]);
     }
 
+    public function showClubMembersForCommittee(Request $request) {
+        $clubId = $request->query('club_id');
+        $data = $this->prepareClubData($clubId);
+
+        return view('clubs-finder.committee-manage.edit.members-access', [
+            'club' => $data['club'],
+            'clubMembers' => $data['clubMembers'],
+            'isCommitteeMember' => $data['isCommitteeMember'],
+        ]);
+    }
+
     public function updateClubInfo(Request $request) {
         $validatedData = $request->validate([
             'club_name' => 'required|string|max:128',

@@ -27,9 +27,9 @@
                         <div class="col-8 align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="rsans breadcrumb" style="--bs-breadcrumb-divider: '>';">
-                                    <li class="breadcrumb-item"><a href="{{ route('manage-clubs') }}">All Clubs</a></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('admin-manage.manage-details', ['club_id' => $club->club_id]) }}">Manage Details</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('clubs-finder') }}">All Clubs</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('committee-manage.manage-details', ['club_id' => $club->club_id]) }}">Manage Details</a></li>
                                     <li class="breadcrumb-item active">Edit Members and Access Levels
                                 </ol>
                             </nav>
@@ -45,10 +45,12 @@
             <div class="d-flex align-items-center">
                 <div class="section-header row w-100">
                     <div class="col-md-6 text-start">
-                        <h3 class="rserif fw-bold w-100 py-2">Members and access levels</h3>
+                        <h3 class="rserif fw-bold w-100 py-2">
+                            Members and access levels
+                        </h3>
                     </div>
                     <div class="col-md-6 text-end">
-                        <a href="{{ route('admin-manage.manage-details', ['club_id' => $club->club_id]) }}" class="rsans btn btn-secondary fw-bold px-3 mx-2 w-25">Go back</a>
+                        <a href="{{ route('committee-manage.manage-details', ['club_id' => $club->club_id]) }}" class="rsans btn btn-secondary fw-bold px-3 mx-2 w-25">Go back</a>
                     </div>
                 </div>
             </div>
@@ -59,15 +61,17 @@
                             <x-manage-member-card
                                 :member="$member"
                                 :club="$club"
-                                :route="'admin-manage.edit-member-access.action'"
+                                :route="'committee-manage.edit-member-access.action'"
                             />
                         </div>
                     @endforeach
                 </div>
             </div>
         </div>
+
     </div>
     <x-footer/>
 </body>
 
 </html>
+

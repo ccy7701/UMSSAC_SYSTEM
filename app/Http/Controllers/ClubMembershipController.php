@@ -25,6 +25,7 @@ class ClubMembershipController extends Controller
         $route = '';
         if (currentAccount()->account_role != 3) {
             // ROUTE TO BE ADDED LATER!
+            $route = route('committee-manage.edit-member-access', ['club_id' => $validatedData['club_id']]);
         } else {
             $route = route('admin-manage.edit-member-access', ['club_id' => $validatedData['club_id']]);
         }

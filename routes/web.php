@@ -131,6 +131,12 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
         Route::get('/committee-manage/full-details/manage/edit-images', [ClubController::class, 'showClubImagesEditForCommittee'])->name('committee-manage.edit-images');
 
         Route::post('/committee-manage/full-details/manage/edit-images/action', [ClubController::class, 'updateClubImages'])->name('committee-manage.edit-images.action');
+
+        // CURRENT ROUTE OF FOCUS
+        Route::get('/committee-manage/full-details/manage/edit-members-access', [ClubController::class, 'showClubMembersForCommittee'])->name('committee-manage.edit-member-access');
+
+        // CURRENT ROUTE OF FOCUS
+        Route::post('/committee-manage/full-details/manage/edit-members-access/action', [ClubMembershipController::class, 'updateClubMemberAccess'])->name('committee-manage.edit-member-access.action');
     });
 });
 
