@@ -71,8 +71,17 @@
                     @endphp
                     @if (empty($clubImagePaths))
                         <div class="col-md-3 align-items-center">
-                            <div class="card justify-content-center" style="height: 40vh;" id="card-club-images">
+                            <div class="card h-100 justify-content-center" id="card-club-images">
                                 <p class="rsans text-center">No images added yet</p>
+                            </div>
+                        </div>
+                        <!-- Preview of to-be-uploaded file -->
+                        <div class="col-md-3 align-items-center text-center">
+                            <div class="card h-100" id="card-club-images-previewer">
+                                <img id="new-club-image-preview" src="{{ asset('images/no_club_images_default.png') }}" alt="New club illustration preview" class="card-img-top" style="aspect-ratio: 4/4; object-fit: cover;">
+                                <div class="rsans card-body d-flex justify-content-center align-items-center h-100">
+                                    <p class="mb-1">New image preview</p>
+                                </div>
                             </div>
                         </div>
                     @else
@@ -92,7 +101,7 @@
                             <div class="card h-100" id="card-club-images-previewer">
                                 <img id="new-club-image-preview" src="{{ asset('images/no_club_images_default.png') }}" alt="New club illustration preview" class="card-img-top" style="aspect-ratio: 4/4; object-fit: cover;">
                                 <div class="rsans card-body d-flex justify-content-center align-items-center h-100">
-                                    <p class="mb-1">Preview</p>
+                                    <p class="mb-1">New image preview</p>
                                 </div>
                             </div>
                         </div>
