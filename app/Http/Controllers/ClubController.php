@@ -119,6 +119,17 @@ class ClubController extends Controller
         ]);
     }
 
+    public function showClubMembersForAdmin(Request $request) {
+        $clubId = $request->query('club_id');
+        $data = $this->prepareClubData($clubId);
+
+        return view('clubs-finder.admin-manage.edit.members-access', [
+            'club' => $data['club'],
+            'clubMembers' => $data['clubMembers'],
+            'isCommitteeMember' => $data['isCommitteeMember'],
+        ]);
+    }
+
     public function updateClubInfo(Request $request) {
         $validatedData = $request->validate([
             'club_name' => 'required|string|max:128',
@@ -199,6 +210,10 @@ class ClubController extends Controller
         return $status
             ? redirect($route)->with('success', 'Club images updated successfully!')
             : back()->withErrors(['club' => 'Failed to update club images. Please try again.']);
+    }
+
+    public function updateClubMemberAccess(Request $request) {
+
     }
 
     private function getFilters(Request $request) {

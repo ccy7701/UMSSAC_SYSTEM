@@ -127,10 +127,8 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
 
         Route::post('/committee-manage/full-details/manage/edit-club-info/action', [ClubController::class, 'updateClubInfo'])->name('committee-manage.edit-club-info.action');
 
-        // CURRENT ROUTE OF FOCUS
         Route::get('/committee-manage/full-details/manage/edit-images', [ClubController::class, 'showClubImagesEditForCommittee'])->name('committee-manage.edit-images');
 
-        // CURRENT ROUTE OF FOCUS
         Route::post('/committee-manage/full-details/manage/edit-images/action', [ClubController::class, 'updateClubImages'])->name('committee-manage.edit-images.action');
     });
 });
@@ -151,9 +149,13 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
 
     Route::post('/admin-manage/full-details/manage/edit-club-info/action', [ClubController::class, 'updateClubInfo'])->name('admin-manage.edit-club-info.action');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/admin-manage/full-details/manage/edit-images', [ClubController::class, 'showClubImagesEditForAdmin'])->name('admin-manage.edit-images');
 
-    // CURRENT ROUTE OF FOCUS
     Route::post('/admin-manage/full-details/manage/edit-images/action', [ClubController::class, 'updateClubImages'])->name('admin-manage.edit-images.action');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/admin-manage/full-details/manage/edit-members-access', [ClubController::class, 'showClubMembersForAdmin'])->name('admin-manage.edit-member-access');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/admin-manage/full-details/manage/edit-members-access/action', [ClubController::class, 'updateClubMemberAccess'])->name('admin-manage.edit-member-access.action');
 });

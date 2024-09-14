@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en" xml:lang="en">
 
 <head>
@@ -29,7 +29,7 @@
                                 <ol class="rsans breadcrumb" style="--bs-breadcrumb-divider: '>';">
                                     <li class="breadcrumb-item"><a href="{{ route('manage-clubs') }}">All Clubs</a></li>
                                     <li class="breadcrumb-item"><a href="{{ route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a></li>
-                                    <li class="breadcrumb-item active">Manage Club Details</li>
+                                    <li class="breadcrumb-item active">Manage Details</li>
                                 </ol>
                             </nav>
                         </div>
@@ -114,7 +114,7 @@
                         <h3 class="rserif fw-bold w-100 py-2">Members and access levels</h3>
                     </div>
                     <div class="col-md-6 text-end">
-                        <a href="#" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
+                        <a href="{{ route('admin-manage.edit-member-access', ['club_id' => $club->club_id]) }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
                     </div>
                 </div>
             </div>
