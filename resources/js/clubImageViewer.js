@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const newImageInput = document.getElementById('new-image-input');
     const newImageSubmit = document.getElementById('new-image-submit');
     const newClubImagePreview = document.getElementById('new-club-image-preview');
+    const viewImageModal = document.getElementById('view-image-modal');
 
     // Disable the submit button initially
     newImageSubmit.disabled = true;
@@ -21,4 +22,15 @@ document.addEventListener('DOMContentLoaded', function () {
             newImageSubmit.disabled = true;
         }
     });
+
+    // Update modal image
+    viewImageModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const imageUrl = button.getAttribute('data-image');
+        const imageIndex = button.getAttribute('data-index');
+        const modalImage = document.getElementById('modalImage');
+        modalImage.src = imageUrl;
+        const modalImageIndex = document.getElementById('image-index');
+        modalImageIndex.textContent = `Club image ${imageIndex}`;
+    })
 });

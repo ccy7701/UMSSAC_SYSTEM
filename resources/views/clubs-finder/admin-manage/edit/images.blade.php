@@ -12,7 +12,7 @@
 
 <body>
     @vite('resources/js/app.js')
-    @vite('resources/js/clubNewImagePreviewer.js')
+    @vite('resources/js/clubImageViewer.js')
     <x-topnav/>
     <x-success-message/>
     <br>
@@ -90,12 +90,32 @@
                                 <div class="card h-100" id="card-club-images">
                                     <img src="{{ Storage::url($imagePath) }}" alt="Club illustration" class="card-img-top border-bottom" style="aspect-ratio: 4/4; object-fit: cover;">
                                     <div class="card-body d-flex flex-row justify-content-center align-items-center py-3">
-                                        <button type="button" class="rsans btn btn-secondary fw-semibold w-40 me-1">View</button>
+                                        <button type="button" class="rsans btn btn-secondary fw-semibold w-40 me-1"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#view-image-modal"
+                                            data-image="{{ Storage::url($imagePath) }}"
+                                            data-index={{ $loop->iteration }}>View</button>
                                         <button type="submit" name="delete_image" value="{{ $key }}" class="rsans btn btn-danger fw-semibold w-40 ms-1" onclick="return confirm('Are you sure you want to delete this image? Press OK to proceed.');">Delete</button>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
+                        <!-- View image modal -->
+                        <div class="rsans modal fade" id="view-image-modal" tabindex="-1" aria-labelledby="viewImageModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="viewImageModalLabel">
+                                            <span id="image-index"></span>
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body d-flex justify-content-center align-items-center">
+                                        <img src="" alt="Club illustration" class="img-fluid" id="modalImage">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Preview of to-be-uploaded file -->
                         <div class="col-md-3 align-items-center text-center">
                             <div class="card h-100" id="card-club-images-previewer">
