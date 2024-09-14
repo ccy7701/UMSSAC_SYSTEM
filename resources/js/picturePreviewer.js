@@ -1,3 +1,4 @@
+// Profile picture preview
 document.getElementById('profile-picture-input').addEventListener('change', function(event) {
     const [file] = event.target.files;
     if (file) {

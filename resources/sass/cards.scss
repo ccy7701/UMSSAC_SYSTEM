@@ -2,13 +2,17 @@ $btn-primary-bg: #1064D6;
 
 #list-item-standard,
 #card-standard,
-#card-member {
+#card-member,
+#card-club-images,
+#card-club-images-previewer {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #list-item-standard:hover,
 #card-standard:hover,
-#card-member:hover {
+#card-member:hover,
+#card-club-images:hover,
+#card-club-images-previewer:hover {
     transform: scale(1.01);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

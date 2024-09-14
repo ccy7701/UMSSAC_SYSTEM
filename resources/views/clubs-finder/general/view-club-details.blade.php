@@ -55,7 +55,7 @@
                     <div class="carousel-inner">
                         @if (empty($clubImagePaths))
                             <div class="carousel-item active">
-                                <img src="{{ asset('images/no_club_images_default.png') }}" alt="No club illustration found" style="aspect-ratio: 4/4; object-fit: cover;">
+                                <img src="{{ asset('images/no_club_images_default.png') }}"  class="d-block w-100" alt="No club illustration found" style="aspect-ratio: 4/4; object-fit: cover;">
                             </div>
                         @else
                             <div class="carousel-item active">

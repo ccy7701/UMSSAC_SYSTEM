@@ -165,7 +165,7 @@ class ClubController extends Controller
     
             if ($imagePath) {
                 // Delete the image file from storage
-                Storage::delete($imagePath);  // Already relative to 'public/' folder
+                Storage::delete('public/'.$imagePath);
                 // Remove the image from the current images array
                 unset($currentImages[$imageIndex]);
                 // Reindex the array

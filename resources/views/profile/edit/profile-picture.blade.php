@@ -43,7 +43,7 @@
                     <img id="profile-picture-preview" src="{{ profile()->profile_picture }}" class="rounded-circle" alt="User profile" style="width: 200px; height: 200px; object-fit: cover; border: 2px solid #AAAAAA;">
                 </div>
                 <div class="col-md-10">
-                    <input id="profile-picture-input" type="file" name="new_profile_picture" class="rsans form-control-file">
+                    <input type="file" name="new_profile_picture" id="profile-picture-input" class="rsans form-control w-50" accept="image/*">
                 </div>
             </div>
             <br>
