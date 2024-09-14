@@ -187,10 +187,17 @@ class ClubController extends Controller
     
         // Save the club and check if successful
         $status = $club->save();
+
+        $route = '';
+        if (currentAccount()->account_role != 3) {
+            $route = route('committee-manage.edit-images', ['club_id' => $club->club_id]);
+        } else {
+            $route = route('admin-manage.edit-images', ['club_id' => $club->club_id]);
+        }
     
         // Return with a success or error message
         return $status
-            ? redirect()->route('committee-manage.edit-images', ['club_id' => $club->club_id])->with('success', 'Club images updated successfully!')
+            ? redirect($route)->with('success', 'Club images updated successfully!')
             : back()->withErrors(['club' => 'Failed to update club images. Please try again.']);
     }
 
