@@ -56,7 +56,10 @@
                 <div id="member-grid-view" class="row grid-view">
                     @foreach ($clubMembers as $member)
                         <div class="col-lg-3 col-md-4 py-2">
-                            <x-manage-member-card :member="$member"/>
+                            <x-manage-member-card 
+                                :member="$member"
+                                :club="$club"
+                            />
                         </div>
                     @endforeach
                 </div>

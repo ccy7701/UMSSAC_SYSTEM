@@ -9,6 +9,7 @@ use App\Http\Controllers\SubjectStatsLogController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\UserPreferenceController;
+use App\Http\Controllers\ClubMembershipController;
 use App\Http\Middleware\PreventAuthenticatedAccess;
 use App\Http\Middleware\RoleAccessMiddleware;
 use App\Http\Middleware\CommitteeAccessMiddleware;
@@ -157,5 +158,5 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
     Route::get('/admin-manage/full-details/manage/edit-members-access', [ClubController::class, 'showClubMembersForAdmin'])->name('admin-manage.edit-member-access');
 
     // CURRENT ROUTE OF FOCUS
-    Route::post('/admin-manage/full-details/manage/edit-members-access/action', [ClubController::class, 'updateClubMemberAccess'])->name('admin-manage.edit-member-access.action');
+    Route::post('/admin-manage/full-details/manage/edit-members-access/action', [ClubMembershipController::class, 'updateClubMemberAccess'])->name('admin-manage.edit-member-access.action');
 });

@@ -1,14 +1,14 @@
 <!-- resources/views/components/manage-member-card.blade.php -->
 <div class="card h-100 d-flex align-items-center justify-content-center" id="card-member">
     <div class="rsans card-body text-center d-flex flex-column align-items-center justify-content-center">
-        <form action="{{ route('admin-manage.edit-member-access.action', ['club_id' => $member->club_id]) }}" method="POST">
+        <form action="{{ route('admin-manage.edit-member-access.action') }}" method="POST">
             @csrf
             <input type="hidden" name="profile_id" value="{{ $member->profile_id }}">
-
+            <input type="hidden" name="club_id" value="{{ $club->club_id }}">
             <!-- Membership Type Display -->
             <div class="input-group py-1 px-2 mb-2">
                 <label class="input-group-text">Level</label>
-                <select id="membership-select-{{ $member->profile_id }}" name="membership_type" class="form-select" data-current-role="{{ $member->membership_type }}">
+                <select id="membership-select-{{ $member->profile_id }}" name="new_membership_type" class="form-select" data-current-role="{{ $member->membership_type }}">
                     <option value="1" {{ $member->membership_type == 1 ? 'selected' : '' }}>Member</option>
                     <option value="2" {{ $member->membership_type == 2 ? 'selected' : '' }}>Committee</option>
                 </select>

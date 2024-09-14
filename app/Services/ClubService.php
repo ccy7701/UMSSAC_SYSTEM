@@ -2,11 +2,17 @@
 
 namespace App\Services;
 
+use App\Models\Club;
 use App\Models\ClubMembership;
 use Illuminate\Support\Facades\Log;
 
-class ClubMembersService
+class ClubService
 {
+    // Get the club details
+    public function getClubDetails($club_id) {
+        return Club::findOrFail($club_id);
+    }
+
     // Get all the profiles (students, faculty members) inside the club
     public function getClubMembers($club_id) {
         $currentProfileId = profile()->profile_id;

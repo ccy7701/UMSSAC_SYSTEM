@@ -5,13 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Club;
 use App\Models\Event;
-use App\Services\ClubMembersService;
+use App\Services\ClubService;
+use App\Services\EventService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
 class ClubController extends Controller
 {
+    protected $clubService;
+    protected $eventService;
+
+    public function __construct(ClubService $clubService, EventService $eventService) {
+        $this->clubService = $clubService;
+        $this->eventService = $eventService;
+    }
+
     public function fetchClubsFinder(Request $request) {
         $search = $request->input('search');
         $filters = $this->getFilters($request);
@@ -144,7 +153,7 @@ class ClubController extends Controller
         $status = $club->update($validatedData);
 
         // Get the view based on logged in account's role
-        $routeName = '';
+        $route = '';
         if (currentAccount()->account_role != 3) {
             $route = route('committee-manage.manage-details', ['club_id' => $club->club_id]);
         } else {
@@ -153,7 +162,7 @@ class ClubController extends Controller
         
         return $status
             ? redirect($route)->with('success', 'Club info updated successfully!')
-            : back()->withErrors([$routeName => 'Failed to update club info. Please try again.']);
+            : back()->withErrors(['error' => 'Failed to update club info. Please try again.']);
     }
 
     public function updateClubImages(Request $request) {
@@ -212,10 +221,6 @@ class ClubController extends Controller
             : back()->withErrors(['club' => 'Failed to update club images. Please try again.']);
     }
 
-    public function updateClubMemberAccess(Request $request) {
-
-    }
-
     private function getFilters(Request $request) {
         // Fetch filters from form submission (may be empty if no checkboxes are selected)
         $filters = $request->input('category_filter', []);
@@ -268,22 +273,12 @@ class ClubController extends Controller
     }
 
     private function prepareClubData($clubId) {
-        $clubMembersService = new ClubMembersService();
-
         return [
-            'club' => $this->getClubDetails($clubId),
-            'clubMembers' => $clubMembersService->getClubMembers($clubId),
-            'clubEvents' => $this->getClubEvents($clubId),
+            'club' => $this->clubService->getClubDetails($clubId),
+            'clubMembers' => $this->clubService->getClubMembers($clubId),
+            'clubEvents' => $this->eventService->getEventsForClub($clubId),
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
-            'isCommitteeMember' => $clubMembersService->checkCommitteeMember($clubId, profile()->profile_id)
+            'isCommitteeMember' => $this->clubService->checkCommitteeMember($clubId, profile()->profile_id)
         ];
-    }
-
-    private function getClubDetails($club_id) {
-        return Club::findOrFail($club_id);
-    }
-
-    private function getClubEvents($club_id) {
-        return Event::where('club_id', $club_id)->get();
     }
 }

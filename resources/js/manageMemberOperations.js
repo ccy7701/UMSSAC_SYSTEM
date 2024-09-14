@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Select all membership select elements
-    document.querySelectorAll('select[name="membership_type"]').forEach(function(selectElement) {
+    document.querySelectorAll('select[name="new_membership_type"]').forEach(function(selectElement) {
         const profileId = selectElement.id.split('-').pop(); // Extract profile_id from the ID
         const saveButton = document.getElementById('membership-type-submit-' + profileId); // Get the corresponding save button
         const currentRole = selectElement.getAttribute('data-current-role'); // Get current role from data attribute
