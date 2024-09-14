@@ -104,11 +104,11 @@
                         <div class="rsans modal fade" id="view-image-modal" tabindex="-1" aria-labelledby="viewImageModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="viewImageModalLabel">
+                                    <div class="modal-header py-2 d-flex align-items-center justify-content-center">
+                                        <p class="fw-semibold fs-5 mb-0">
                                             <span id="image-index"></span>
-                                        </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </p>
+                                        <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body d-flex justify-content-center align-items-center">
                                         <img src="" alt="Club illustration" class="img-fluid" id="modalImage">
