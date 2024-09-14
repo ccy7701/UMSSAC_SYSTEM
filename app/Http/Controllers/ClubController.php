@@ -24,7 +24,7 @@ class ClubController extends Controller
     public function fetchClubsFinder(Request $request) {
         $search = $request->input('search');
         $filters = $this->getFilters($request);
-        $allClubs = $this->getAllClubs($filters, $search);
+        $allClubs = $this->clubService->getAllClubs($filters, $search);
     
         return view('clubs-finder.general.view-all-clubs', [
             'clubs' => $allClubs,
@@ -53,7 +53,7 @@ class ClubController extends Controller
     public function fetchClubsManager(Request $request) {
         $search = $request->input('search');
         $filters = $this->getFilters($request);
-        $allClubs = $this->getAllClubs($filters, $search);
+        $allClubs = $this->clubService->getAllClubs($filters, $search);
 
         return view('clubs-finder.admin-manage.view-all-clubs', [
             'clubs' => $allClubs,
@@ -78,18 +78,18 @@ class ClubController extends Controller
         return view('clubs-finder.admin-manage.view-club-details', $data);
     }
 
-    public function fetchCommitteeManagePage(Request $request) {
-        $clubId = $request->query('club_id');
-        $data = $this->prepareClubData($clubId);
-
-        return view('clubs-finder.committee-manage.manage-club-details', $data);
-    }
-
     public function fetchAdminManagePage(Request $request) {
         $clubId = $request->query('club_id');
         $data = $this->prepareClubData($clubId);
 
         return view('clubs-finder.admin-manage.manage-club-details', $data);
+    }
+
+    public function fetchCommitteeManagePage(Request $request) {
+        $clubId = $request->query('club_id');
+        $data = $this->prepareClubData($clubId);
+
+        return view('clubs-finder.committee-manage.manage-club-details', $data);
     }
 
     public function showClubInfoEditForAdmin(Request $request) {
@@ -125,28 +125,6 @@ class ClubController extends Controller
 
         return view('clubs-finder.committee-manage.edit.images', [
             'club' => $data['club'],
-        ]);
-    }
-
-    public function showClubMembersForAdmin(Request $request) {
-        $clubId = $request->query('club_id');
-        $data = $this->prepareClubData($clubId);
-
-        return view('clubs-finder.admin-manage.edit.members-access', [
-            'club' => $data['club'],
-            'clubMembers' => $data['clubMembers'],
-            'isCommitteeMember' => $data['isCommitteeMember'],
-        ]);
-    }
-
-    public function showClubMembersForCommittee(Request $request) {
-        $clubId = $request->query('club_id');
-        $data = $this->prepareClubData($clubId);
-
-        return view('clubs-finder.committee-manage.edit.members-access', [
-            'club' => $data['club'],
-            'clubMembers' => $data['clubMembers'],
-            'isCommitteeMember' => $data['isCommitteeMember'],
         ]);
     }
 
@@ -250,28 +228,6 @@ class ClubController extends Controller
         }
     
         return $filters;
-    }
-
-    private function getAllClubs(array $filters, $search = null) {
-        // Always save the filters, even if empty (to clear the saved filters)
-        DB::table('user_preference')
-            ->where('profile_id', profile()->profile_id)
-            ->update([
-                'club_search_filters' => json_encode($filters),
-                'updated_at' => now()
-            ]);
-    
-        // Fetch clubs based on the filters (if empty, return all clubs) and search input
-        return Club::when(!empty($filters), function ($query) use ($filters) {
-                return $query
-                    ->whereIn('club_category', $filters);
-            })
-            ->when($search, function ($query) use ($search) {
-                return $query
-                    ->where('club_name', 'like', "%{$search}%")
-                    ->orWhere('club_description', 'like', "%{$search}%");
-            })
-            ->get();
     }
 
     private function flushFilters() {
