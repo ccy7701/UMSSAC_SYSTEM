@@ -129,7 +129,6 @@
                 </div>
             </form>
         </div>
-
     </div>
     <x-footer/>
 </body>

@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-6 d-flex justify-content-end align-items-center">
                             <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ $club->updated_at }}</p>
-                            <a href="{{ route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]) }}" class="btn btn-secondary fw-semibold w-25">Go back</a>
+                            <a href="{{ route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]) }}" class="rsans btn btn-secondary fw-semibold w-25">Go back</a>
                         </div>
                     </div>
                 </div>

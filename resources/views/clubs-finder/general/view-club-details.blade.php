@@ -35,7 +35,7 @@
                         <div class="col-6 d-flex justify-content-end">
                             @if ($isCommitteeMember)
                                 <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ $club->updated_at }}</p>
-                                <a href="{{ route('committee-manage.manage-details', ['club_id' => $club->club_id]) }}" class="btn btn-primary fw-semibold align-self-center">Manage club details</a>
+                                <a href="{{ route('committee-manage.manage-details', ['club_id' => $club->club_id]) }}" class="rsans btn btn-primary fw-semibold align-self-center">Manage club details</a>
                             @else
                                 <p class="rsans text-end">Last updated: {{ $club->updated_at }}</p>
                             @endif

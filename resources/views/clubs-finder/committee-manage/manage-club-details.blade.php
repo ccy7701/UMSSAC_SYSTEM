@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-6 d-flex justify-content-end align-items-center">
                             <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ $club->updated_at }}</p>
-                            <a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}" class="btn btn-secondary fw-semibold w-25">Go back</a>
+                            <a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}" class="rsans btn btn-secondary fw-semibold w-25">Go back</a>
                         </div>
                     </div>
                 </div>
@@ -156,7 +156,7 @@
                         <!-- Add new club card -->
                         <div class="col-lg-4 col-md-6">
                             <a href="#" class="text-decoration-none w-100">
-                                <div class="card add-event-card d-flex justify-content-center align-items-center h-100">
+                                <div class="rsans card add-event-card d-flex justify-content-center align-items-center h-100">
                                     <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                                         <i class="fa fa-plus-circle fa-3x mb-2"></i>
                                         <h5 class="card-titel fw-bold">Add new event</5>
@@ -175,7 +175,7 @@
                         <div class="row pb-3 w-75">
                             <div class="col-lg-12">
                                 <a href="#" class="text-decoration-none w-100">
-                                    <div class="card add-event-list-item" id="list-item-manage">
+                                    <div class="rsans card add-event-list-item" id="list-item-manage">
                                         <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                                             <i class="fa fa-plus-circle fa-3x pt-2 pb-1"></i>
                                             <h5 class="card-title fw-bold pt-1 pb-0">Add new event</h5>

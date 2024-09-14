@@ -5,13 +5,13 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Services\ClubMembersService;
+use App\Services\ClubService;
 
 class CommitteeAccessMiddleware
 {
     protected $clubMembersService;
 
-    public function __construct(ClubMembersService $clubMembersService)
+    public function __construct(ClubService $clubMembersService)
     {
         $this->clubMembersService = $clubMembersService;
     }
