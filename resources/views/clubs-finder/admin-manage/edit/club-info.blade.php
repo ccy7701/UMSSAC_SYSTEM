@@ -95,7 +95,7 @@
                                 <option value="KKTM" {{ $club->club_category == 'KKTM' ? 'selected' : '' }}>KKTM</option>
                                 <option value="KKTPAR" {{ $club->club_category == 'KKTPAR' ? 'selected' : '' }}>KKTPAR</option>
                                 <option value="KKAKF" {{ $club->club_category == 'KKAKF' ? 'selected' : '' }}>KKAKF</option>
-                                <option value="KK USIA 1B" {{ $club->club_category == 'KK USIA 1B' ? 'selected' : '' }}>KK USIA 1B</option>
+                                <option value="KKUSIA" {{ $club->club_category == 'KK USIA' ? 'selected' : '' }}>KKUSIA</option>
                                 <option value="NR" {{ $club->club_category == 'NR' ? 'selected' : '' }}>NR</option>
                             </optgroup>
                             <optgroup label="Others">

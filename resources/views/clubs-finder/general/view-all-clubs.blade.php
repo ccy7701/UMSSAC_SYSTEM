@@ -89,31 +89,32 @@
                         </div>
                     </div>
                     <br>
-                    <h5 class="rsans fw-semibold mb-0">Category</h5>
                     <form id="filter-form" method="POST" action="{{ route('clubs-finder.filter') }}">
                         @csrf
-                        <ul class="rsans list-group py-2">
-                            <li class="list-group-item">
-                                <input type="checkbox" id="fkikk" name="category_filter[]" value="FKIKK" {{ in_array('FKIKK', $filters) ? 'checked' : '' }}>
-                                <label for="fkikk">FKIKK</label>
-                            </li>
-                            <li class="list-group-item">
-                                <input type="checkbox" id="fkikal" name="category_filter[]" value="FKIKAL" {{ in_array('FKIKAL', $filters) ? 'checked' : '' }}>
-                                <label for="fkikal">FKIKAL</label>
-                            </li>
-                            <li class="list-group-item">
-                                <input type="checkbox" id="astif" name="category_filter[]" value="ASTIF" {{ in_array('ASTIF', $filters) ? 'checked' : '' }}>
-                                <label for="astif">ASTIF</label>
-                            </li>
-                            <li class="list-group-item">
-                                <input type="checkbox" id="fsmp" name="category_filter[]" value="FSMP" {{ in_array('FSMP', $filters) ? 'checked' : '' }}>
-                                <label for="fsmp">FSMP</label>
-                            </li>
-                            <li class="list-group-item">
-                                <input type="checkbox" id="fpp" name="category_filter[]" value="FPP" {{ in_array('FPP', $filters) ? 'checked' : '' }}>
-                                <label for="fpp">FPP</label>
-                            </li>
-                        </ul>
+                        @php
+                            $categories = [
+                                'ASTIF', 'FIS', 'FKAL', 'FKIKK', 'FKIKAL',
+                                'FKJ', 'FPEP', 'FPL', 'FPP', 'FPSK',
+                                'FPT', 'FSMP', 'FSSA', 'FSSK', 'KKTF',
+                                'KKTM', 'KKTPAR', 'KKAKF', 'KKUSIA', 'NR',
+                                'General'
+                            ];
+                        @endphp
+                        <h5 class="rsans fw-semibold mb-2">Categories</h5>
+                        <div class="rsans row">
+                            @foreach ($categories as $category)
+                            <div class="col-6 mb-2 px-1">
+                                <div class="p-2 border rounded">
+                                    <div class="form-check w-50">
+                                        <input class="form-check-input" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" value="{{ $category }}" {{ in_array($category, $filters) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="{{ strtolower($category) }}">
+                                            {{ $category }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                         <div class="row p-3 d-flex justify-content-center">
                             <button type="submit" class="rsans btn btn-primary fw-bold w-60">Apply filters</button>
                         </div>
