@@ -14,8 +14,8 @@
     @vite('resources/js/app.js')
     @vite('resources/js/itemViewToggler.js')
     <x-topnav/>
+    <x-success-message/>
     <br>
-
     <div class="container p-3">
 
         <div class="d-flex align-items-center">
@@ -95,7 +95,7 @@
                 <h5 class="rserif fw-bold">Club creation date</h5>
                 <p class="rsans pb-3">{{ $club->created_at }}</p>
             </div>
-            <!-- SECTION IN PROGRESS | Members section -->
+            <!-- Members section -->
             <div class="d-flex align-items-center">
                 <div class="section-header row w-100">
                     <!-- Left column: Members header -->
@@ -114,7 +114,8 @@
                     @endforeach
                 </div>
             </div>
-            <!-- END SECTION IN PROGRESS | Members section -->
+            <br>
+            <!-- End members section -->
             <!-- Events conducted -->
             <div class="d-flex align-items-center">
                 <div class="section-header row w-100">
@@ -157,6 +158,36 @@
                             </div>
                         @endforeach
                     </div>
+                </div>
+            </div>
+            <br>
+            <!-- End events conducted -->
+            <!-- Membership - join or leave -->
+            <div class="d-flex align-items-center">
+                <div class="section-header row w-100">
+                    <div class="col-md-6 text-start">
+                        <h3 class="rserif fw-bold w-100 py-2 px-3 mb-2">Membership</h3>
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+            </div>
+            <div class="container px-3 py-4 d-flex align-items-center justify-content-center">
+                <div class="row w-75">
+                    @if (!in_array(profile()->profile_id, $clubMembers->pluck('profile_id')->toArray()))
+                        <div class="rsans card text-center p-0">
+                            <div class="card-body align-items-center justify-content-center">
+                                <p class="card-text">Click the button below to become a member of this club.</p>
+                                <a href="#" class="btn btn-primary fw-semibold align-self-center w-20">Join club</a>
+                            </div>
+                        </div>
+                    @else
+                        <div class="rsans card text-center p-0">
+                            <div class="card-body align-items-center justify-content-center">
+                                <p class="card-text">Click the button below to leave from this club.</p>
+                                <a href="#" class="btn btn-danger fw-semibold align-self-center w-20">Leave club</a>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -120,6 +120,9 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
 
     Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetailsForGeneral'])->name('clubs-finder.fetch-club-details');
 
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/clubs-finder/join-club', [ClubMembershipController::class, 'joinClub'])->name('clubs-finder.join-club');
+
     Route::middleware(CommitteeAccessMiddleware::class)->group(function () {
         Route::get('/committee-manage/full-details/manage', [ClubController::class, 'fetchCommitteeManagePage'])
             ->name('committee-manage.manage-details');
@@ -128,27 +131,11 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
 
         Route::post('/committee-manage/full-details/manage/edit-club-info/action', [ClubController::class, 'updateClubInfo'])->name('committee-manage.edit-club-info.action');
 
-
-
-
-
-
-
         Route::get('/committee-manage/full-details/manage/edit-images', [ClubController::class, 'showClubImagesEditForCommittee'])->name('committee-manage.edit-images');
 
-        // CURRENT ROUTE OF FOCUS
         Route::post('/committee-manage/full-details/manage/edit-images/add', [ClubController::class, 'addClubImage'])->name('committee-manage.edit-images.add');
 
-        // CURRENT ROUTE OF FOCUS
         Route::post('/committee-manage/full-details/manage/edit-images/delete', [ClubController::class, 'deleteClubImage'])->name('committee-manage.edit-images.delete');
-
-
-
-
-
-
-
-
 
         Route::get('/committee-manage/full-details/manage/edit-members-access', [ClubMembershipController::class, 'showClubMembersForCommittee'])->name('committee-manage.edit-member-access');
 
@@ -171,11 +158,6 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
     Route::get('/admin-manage/full-details/manage/edit-club-info', [ClubController::class, 'showClubInfoEditForAdmin'])->name('admin-manage.edit-club-info');
 
     Route::post('/admin-manage/full-details/manage/edit-club-info/action', [ClubController::class, 'updateClubInfo'])->name('admin-manage.edit-club-info.action');
-
-
-
-
-
 
     Route::get('/admin-manage/full-details/manage/edit-images', [ClubController::class, 'showClubImagesEditForAdmin'])->name('admin-manage.edit-images');
 

@@ -84,8 +84,7 @@
                                     <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <!-- KEEP IN VIEW -->
-                                    Are you sure you want to change access level for {{ $member->profile->account->account_full_name }}?
+                                    Are you sure you want to change access level for (user)?
                                 </div>
                                 <div class="modal-footer">
                                     <form id="edit-access-level-form" method="POST" action="{{ route('committee-manage.edit-member-access.action', ['club_id' => $club->club_id]) }}">
@@ -108,4 +107,3 @@
 </body>
 
 </html>
-
