@@ -27,11 +27,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const profileId = this.getAttribute('data-profile-id'); // Get the profile_id from the button's data attribute
             const selectElement = document.querySelector(`#membership-select-${profileId}`); // Find the corresponding select element
             const selectedRole = selectElement.value; // Get the selected membership type
+            const memberName = selectElement.closest('.card-body').querySelector('p.fw-bold').innerText; // Get the member's name
 
             // Fill the hidden form fields in the modal
             const form = document.getElementById('edit-access-level-form');
             form.querySelector('input[name="profile_id"]').value = profileId;
             form.querySelector('input[name="new_membership_type"]').value = selectedRole;
+
+            // Update modal content dynamically
+            const modalBodyText = `Are you sure you want to change access level for ${memberName}?`;
+            document.querySelector('#edit-confirmation-modal .modal-body').innerText = modalBodyText;
         });
     });
 });

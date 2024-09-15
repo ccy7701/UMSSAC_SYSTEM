@@ -92,7 +92,7 @@
                     $clubImagePaths = json_decode($club->club_image_paths, true);
                 @endphp
                 @if (empty($clubImagePaths))
-                    <div class="position-relative me-4">
+                    <div class="rsans position-relative me-4">
                         <p>No images added yet</p>
                     </div>
                 @else
