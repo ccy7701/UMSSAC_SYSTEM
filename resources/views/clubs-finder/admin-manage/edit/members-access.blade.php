@@ -54,14 +54,18 @@
             </div>
             <div class="container px-3 py-4">
                 <div id="member-grid-view" class="row grid-view">
-                    @foreach ($clubMembers as $member)
-                        <div class="col-lg-3 col-md-4 py-2">
-                            <x-manage-member-card
-                                :member="$member"
-                                :club="$club"
-                            />
-                        </div>
-                    @endforeach
+                    @if ($clubMembers->isNotEmpty())
+                        @foreach ($clubMembers as $member)
+                            <div class="col-lg-3 col-md-4 py-2">
+                                <x-manage-member-card
+                                    :member="$member"
+                                    :club="$club"
+                                />
+                            </div>
+                        @endforeach
+                    @else
+                        <p class="rsans px-0">No members in this club yet</p>
+                    @endif
                     <!-- Edit confirmation modal -->
                     <div class="rsans modal fade" id="edit-confirmation-modal" tabindex="-1" aria-labelledby="editConfirmationModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">

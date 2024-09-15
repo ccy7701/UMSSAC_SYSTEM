@@ -118,15 +118,21 @@
                     </div>
                 </div>
             </div>
-            <div class="container px-3 py-4">
-                <div id="member-grid-view" class="row grid-view">
-                    @foreach ($clubMembers as $member)
-                        <div class="col-lg-3 col-md-4 py-2">
-                            <x-member-card :member="$member"/>
-                        </div>
-                    @endforeach
+            @if ($clubMembers->isNotEmpty())
+                <div class="container px-3 py-4">
+                    <div id="member-grid-view" class="row grid-view">
+                        @foreach ($clubMembers as $member)
+                            <div class="col-lg-3 col-md-4 py-2">
+                                <x-member-card :member="$member"/>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @else
+                <div class="d-flex justify-content-start align-items-center py-4 w-100 align-self-center">
+                    <p class="rsans position-relative me-4">No members in this club yet</p>
+                </div>
+            @endif
             <!-- END EDIT MEMBER ACCESS LEVEL SECTION -->
             <!-- EDIT EVENTS SECTION -->
             <div class="d-flex align-items-center">

@@ -4,12 +4,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    @if (session()->has('success'))
+                    @if (session()->has('leave'))
                         <div class="row text-center p-3">
-                            <i class="text-muted fa-regular fa-sign-out" style="font-size: 80px;"></i>
+                            <i class="text-muted fa fa-sign-out" style="font-size: 80px;"></i>
                         </div>
                         <div class="row text-center p-0">
-                            <h4 class="rsans">Success!</h4>
+                            <h4 class="rsans">Left club</h4>
                             <p class="rsans">{{ session('leave') ?? 'Process successful.' }}</p>
                         </div>
                     @elseif (session()->has('error'))

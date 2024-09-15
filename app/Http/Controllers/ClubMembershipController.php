@@ -38,7 +38,20 @@ class ClubMembershipController extends Controller
     }
 
     public function joinClub(Request $request) {
-        // TO BE FILLED
+        $profileId = $request->profile_id;
+        $clubId = $request->club_id;
+
+        $status = DB::table('club_membership')->insert([
+            'profile_id' => $profileId,
+            'club_id' => $clubId,
+            'membership_type' => 1, // Default assign 1 (non-committee)
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        return $status
+            ? redirect()->route('clubs-finder.fetch-club-details', ['club_id' => $clubId])->with('success', 'You are now a member of this group.')
+            : back()->withErrors(['error' => 'Failed to process join club request. Please try again.']);
     }
 
     public function leaveClub(Request $request) {

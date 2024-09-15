@@ -108,11 +108,15 @@
             </div>
             <div class="container px-3 py-4">
                 <div id="member-grid-view" class="row grid-view"> <!-- keep this row in view -->
-                    @foreach ($clubMembers as $member)
-                        <div class="col-lg-3 col-md-4 py-2">
-                            <x-member-card :member="$member"/>
-                        </div>
-                    @endforeach
+                    @if ($clubMembers->isNotEmpty())
+                        @foreach ($clubMembers as $member)
+                            <div class="col-lg-3 col-md-4 py-2">
+                                <x-member-card :member="$member"/>
+                            </div>
+                        @endforeach
+                    @else
+                        <p class="rsans">No members in this club yet</p>
+                    @endif
                 </div>
             </div>
             <br>
@@ -178,7 +182,12 @@
                         <div class="rsans card text-center p-0">
                             <div class="card-body align-items-center justify-content-center">
                                 <p class="card-text">Click the button below to become a member of this club.</p>
-                                <a href="#" class="btn btn-primary fw-semibold align-self-center w-20">Join club</a>
+                                <form id="join-club-form" method="POST" action="{{ route('clubs-finder.join-club') }}">
+                                    @csrf
+                                    <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
+                                    <input type="hidden" name="club_id" value="{{ $club->club_id }}">
+                                    <button type="submit" class="btn btn-primary fw-semibold align-self-center w-20">Join club</button>
+                                </form>
                             </div>
                         </div>
                     @else
@@ -206,7 +215,7 @@
                                 Are you sure you want to leave {{ $club->club_name }}?
                             </div>
                             <div class="modal-footer">
-                                <form id="delete-club-image-form" method="POST" action="{{ route('clubs-finder.leave-club') }}">
+                                <form id="leave-club-form" method="POST" action="{{ route('clubs-finder.leave-club') }}">
                                     @csrf
                                     <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
                                     <input type="hidden" name="club_id" value="{{ $club->club_id }}">

@@ -105,11 +105,15 @@
             </div>
             <div class="container px-3 py-4">
                 <div id="member-grid-view" class="row grid-view">       <!-- keep this row in view -->
-                    @foreach ($clubMembers as $member)
-                        <div class="col-lg-3 col-md-4 py-2">
-                            <x-member-card :member="$member"/>
-                        </div>
-                    @endforeach
+                    @if ($clubMembers->isNotEmpty())
+                        @foreach ($clubMembers as $member)
+                            <div class="col-lg-3 col-md-4 py-2">
+                                <x-member-card :member="$member"/>
+                            </div>
+                        @endforeach
+                    @else
+                        <p class="rsans">No members in this club yet</p>
+                    @endif
                 </div>
             </div>
             <!-- END SECTION IN PROGRESS | Members section -->
