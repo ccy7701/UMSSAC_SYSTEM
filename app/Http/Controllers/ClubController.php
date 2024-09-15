@@ -152,47 +152,47 @@ class ClubController extends Controller
             : back()->withErrors(['error' => 'Failed to update club info. Please try again.']);
     }
 
-    public function updateClubImages(Request $request) {
+    public function deleteClubImage(Request $request) {
+        $club = Club::findOrFail($request->club_id);
+        $currentImages = json_decode($club->getRawOriginal('club_image_paths'), true) ?? [];
+        $imageToDeleteIndex = $request->input('key');
+        $imagePath = $currentImages[$imageToDeleteIndex] ?? null;
+
+        if ($imagePath) {
+            Storage::delete('public/'.$imagePath);
+        }
+
+        unset($currentImages[$imageToDeleteIndex]);
+        $currentImages = array_values($currentImages);
+
+        $club->club_image_paths = json_encode($currentImages);
+        $status = $club->save();
+
+        $route = '';
+        if (currentAccount()->account_role != 3) {
+            $route = route('committee-manage.edit-images', ['club_id' => $club->club_id]);
+        } else {
+            $route = route('admin-manage.edit-images', ['club_id' => $club->club_id]);
+        }
+    
+        // Return with a success or error message
+        return $status
+            ? redirect($route)->with('success', 'Club images updated successfully!')
+            : back()->withErrors(['club' => 'Failed to update club images. Please try again.']);
+    }
+
+    public function addClubImage(Request $request) {
         // Validate if a new image is uploaded
         $request->validate([
             'new_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
-        // Retrieve the club by ID
         $club = Club::findOrFail($request->club_id);
-    
-        // Get the existing image paths from the database (skip accessor)
         $currentImages = json_decode($club->getRawOriginal('club_image_paths'), true) ?? [];
-    
-        // **Handle Deletion**
-        if ($request->has('delete_image')) {
-            // Get the index of the image to delete
-            $imageIndex = $request->input('delete_image');
-            $imagePath = $currentImages[$imageIndex] ?? null;
-    
-            if ($imagePath) {
-                // Delete the image file from storage
-                Storage::delete('public/'.$imagePath);
-                // Remove the image from the current images array
-                unset($currentImages[$imageIndex]);
-                // Reindex the array
-                $currentImages = array_values($currentImages);
-            }
-        }
-    
-        // **Handle Adding New Image**
-        if ($request->hasFile('new_image')) {
-            // Store the new image in the public/club-images directory
-            $newImagePath = $request->file('new_image')->store('club-images', 'public');
-    
-            // Add the new image path to the current images array
-            $currentImages[] = $newImagePath;
-        }
-    
-        // Update the club with the new or modified image paths
+        $newImagePath = $request->file('new_image')->store('club-images', 'public');
+        $currentImages[] = $newImagePath;
+
         $club->club_image_paths = json_encode($currentImages); // Save updated image paths as JSON
-    
-        // Save the club and check if successful
         $status = $club->save();
 
         $route = '';
