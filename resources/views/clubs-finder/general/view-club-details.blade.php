@@ -15,6 +15,7 @@
     @vite('resources/js/itemViewToggler.js')
     <x-topnav/>
     <x-success-message/>
+    <x-leave-message/>
     <br>
     <div class="container p-3">
 
@@ -184,10 +185,37 @@
                         <div class="rsans card text-center p-0">
                             <div class="card-body align-items-center justify-content-center">
                                 <p class="card-text">Click the button below to leave from this club.</p>
-                                <a href="#" class="btn btn-danger fw-semibold align-self-center w-20">Leave club</a>
+                                <button type="button" class="btn btn-danger fw-semibold align-self-center w-20"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#leave-club-confirmation-modal">Leave club</button>
                             </div>
                         </div>
                     @endif
+                </div>
+                <!-- Leave club confirmation modal -->
+                <div class="rsans modal fade" id="leave-club-confirmation-modal" tabindex="-1" aria-labelledby="leaveClubConfirmationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header py-2 d-flex align-items-center">
+                                <p class="fw-semibold fs-5 mb-0">
+                                    Leave club confirmation
+                                </p>
+                                <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to leave {{ $club->club_name }}?
+                            </div>
+                            <div class="modal-footer">
+                                <form id="delete-club-image-form" method="POST" action="{{ route('clubs-finder.leave-club') }}">
+                                    @csrf
+                                    <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
+                                    <input type="hidden" name="club_id" value="{{ $club->club_id }}">
+                                    <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">No, cancel</button>
+                                    <button type="submit" class="btn btn-danger fw-semibold ms-1">Yes, continue</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

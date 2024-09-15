@@ -123,6 +123,9 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
     // CURRENT ROUTE OF FOCUS
     Route::get('/clubs-finder/join-club', [ClubMembershipController::class, 'joinClub'])->name('clubs-finder.join-club');
 
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/clubs-finder/leave-club', [ClubMembershipController::class, 'leaveClub'])->name('clubs-finder.leave-club');
+
     Route::middleware(CommitteeAccessMiddleware::class)->group(function () {
         Route::get('/committee-manage/full-details/manage', [ClubController::class, 'fetchCommitteeManagePage'])
             ->name('committee-manage.manage-details');

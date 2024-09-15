@@ -37,6 +37,24 @@ class ClubMembershipController extends Controller
         ]);
     }
 
+    public function joinClub(Request $request) {
+        // TO BE FILLED
+    }
+
+    public function leaveClub(Request $request) {
+        $profileId = $request->profile_id;
+        $clubId = $request->club_id;
+
+        $status = DB::table('club_membership')
+            ->where('profile_id', $profileId)
+            ->where('club_id', $clubId)
+            ->delete();
+
+        return $status
+            ? redirect()->route('clubs-finder.fetch-club-details', ['club_id' => $clubId])->with('leave', 'You are no longer a member of this club.')
+            : back()->withErrors(['error' => 'Failed to process leave club request. Please try again.']);
+    }
+
     public function updateClubMemberAccess(Request $request) {
         $validatedData = $request->validate([
             'profile_id' => 'required|exists:club_membership,profile_id',
@@ -53,7 +71,6 @@ class ClubMembershipController extends Controller
 
         $route = '';
         if (currentAccount()->account_role != 3) {
-            // ROUTE TO BE ADDED LATER!
             $route = route('committee-manage.edit-member-access', ['club_id' => $validatedData['club_id']]);
         } else {
             $route = route('admin-manage.edit-member-access', ['club_id' => $validatedData['club_id']]);
