@@ -177,8 +177,8 @@ class ClubController extends Controller
     
         // Return with a success or error message
         return $status
-            ? redirect($route)->with('success', 'Club images updated successfully!')
-            : back()->withErrors(['club' => 'Failed to update club images. Please try again.']);
+            ? redirect($route)->with('success', 'Club image deleted successfully.')
+            : back()->withErrors(['club' => 'Failed to delete club image. Please try again.']);
     }
 
     public function addClubImage(Request $request) {
@@ -204,8 +204,8 @@ class ClubController extends Controller
     
         // Return with a success or error message
         return $status
-            ? redirect($route)->with('success', 'Club images updated successfully!')
-            : back()->withErrors(['club' => 'Failed to update club images. Please try again.']);
+            ? redirect($route)->with('success', 'Club image added successfully!')
+            : back()->withErrors(['club' => 'Failed to add club images. Please try again.']);
     }
 
     private function getFilters(Request $request) {

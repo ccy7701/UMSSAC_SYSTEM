@@ -1,5 +1,5 @@
 <!-- resources/views/components/manage-member-card.blade.php -->
-<div class="card h-100 d-flex align-items-center justify-content-center" id="card-member">
+<div class="card h-100 d-flex align-items-center justify-content-center" id="card-member" style="min-height: 50vh;">
     <div class="rsans card-body text-center d-flex flex-column align-items-center justify-content-center">
         <form action="{{ route($route) }}" method="POST">
             @csrf

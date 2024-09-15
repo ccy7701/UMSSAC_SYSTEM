@@ -57,7 +57,6 @@
                     $clubImagePaths = json_decode($club->club_image_paths, true);
                 @endphp
                 @if (!empty($clubImagePaths))
-
                     @foreach ($clubImagePaths as $key => $imagePath)
                         <div class="col-md-3 align-items-center text-center">
                             <div class="card h-100" id="card-club-images">
@@ -127,7 +126,7 @@
                     </div>
                 @else
                     <div class="col-md-3 align-items-center">
-                        <div class="card h-100 justify-content-center" id="card-club-images">
+                        <div class="card h-100 justify-content-center" id="card-club-images" style="min-height: 50vh;">
                             <p class="rsans text-center">No images added yet</p>
                         </div>
                     </div>

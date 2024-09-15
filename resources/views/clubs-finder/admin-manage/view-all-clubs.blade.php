@@ -128,7 +128,7 @@
                             <!-- Add new club card -->
                             <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
                                 <a href="{{ route('manage-clubs.add-new-club') }}" class="text-decoration-none w-100">
-                                    <div class="card add-club-card d-flex justify-content-center align-items-center h-100">
+                                    <div class="rsans card add-club-card d-flex justify-content-center align-items-center h-100">
                                         <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                                             <i class="fa fa-plus-circle fa-3x mb-2"></i>
                                             <h5 class="card-title fw-bold">Add new club</h5>
@@ -149,7 +149,7 @@
                             <div class="row pb-3">
                                 <div class="col-lg-12">
                                     <a href="{{ route('manage-clubs.add-new-club') }}" class="text-decoration-none w-100">
-                                        <div class="card add-club-list-item" id="list-item-manage">
+                                        <div class="rsans card add-club-list-item" id="list-item-manage">
                                             <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                                                 <i class="fa fa-plus-circle fa-3x pt-2 pb-1"></i>
                                                 <h5 class="card-title fw-bold pt-1 pb-0">Add new club</5>

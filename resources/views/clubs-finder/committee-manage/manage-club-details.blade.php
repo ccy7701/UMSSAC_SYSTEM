@@ -93,7 +93,7 @@
                 @endphp
                 @if (empty($clubImagePaths))
                     <div class="position-relative me-4">
-                        <p>No images added yet</p>
+                        <p class="rsans">No images added yet</p>
                     </div>
                 @else
                     @foreach ($clubImagePaths as $imagePath)
