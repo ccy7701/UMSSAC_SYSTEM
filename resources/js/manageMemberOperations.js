@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Select all membership select elements
     document.querySelectorAll('select[name="new_membership_type"]').forEach(function(selectElement) {
         const profileId = selectElement.id.split('-').pop(); // Extract profile_id from the ID
-        const saveButton = document.getElementById('membership-type-submit-' + profileId); // Get the corresponding save button
+        const saveButton = document.getElementById('edit-access-level-submit-' + profileId); // Get the corresponding save button
         const currentRole = selectElement.getAttribute('data-current-role'); // Get current role from data attribute
 
         // Disable the save button initially
@@ -18,6 +18,20 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 saveButton.disabled = true;
             }
+        });
+    });
+
+    // Attach event listener to all save buttons
+    document.querySelectorAll('[id^="edit-access-level-submit-"]').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const profileId = this.getAttribute('data-profile-id'); // Get the profile_id from the button's data attribute
+            const selectElement = document.querySelector(`#membership-select-${profileId}`); // Find the corresponding select element
+            const selectedRole = selectElement.value; // Get the selected membership type
+
+            // Fill the hidden form fields in the modal
+            const form = document.getElementById('edit-access-level-form');
+            form.querySelector('input[name="profile_id"]').value = profileId;
+            form.querySelector('input[name="new_membership_type"]').value = selectedRole;
         });
     });
 });

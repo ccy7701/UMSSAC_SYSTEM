@@ -54,6 +54,15 @@
                     </div>
                 </div>
             </div>
+            @if ($errors->any())
+                                <br>
+                                <div class="rsans alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        {!! $error !!}
+                                        <br>
+                                    @endforeach
+                                </div>
+                            @endif
             <div class="container px-3 py-4">
                 <div id="member-grid-view" class="row grid-view">
                     @foreach ($clubMembers as $member)
@@ -61,10 +70,35 @@
                             <x-manage-member-card
                                 :member="$member"
                                 :club="$club"
-                                :route="'committee-manage.edit-member-access.action'"
                             />
                         </div>
                     @endforeach
+                    <!-- Edit confirmation modal -->
+                    <div class="rsans modal fade" id="edit-confirmation-modal" tabindex="-1" aria-labelledby="editConfirmationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header py-2 d-flex align-items-center justify-content-center">
+                                    <p class="fw-semibold fs-5 mb-0">
+                                        Edit confirmation
+                                    </p>
+                                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- KEEP IN VIEW -->
+                                    Are you sure you want to change access level for {{ $member->profile->account->account_full_name }}?
+                                </div>
+                                <div class="modal-footer">
+                                    <form id="edit-access-level-form" method="POST" action="{{ route('committee-manage.edit-member-access.action', ['club_id' => $club->club_id]) }}">
+                                        @csrf
+                                        <input type="hidden" name="profile_id">
+                                        <input type="hidden" name="new_membership_type">
+                                        <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">No, cancel</button>
+                                        <button type="submit" class="btn btn-primary fw-semibold ms-1">Yes, continue</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
