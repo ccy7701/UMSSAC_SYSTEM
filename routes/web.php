@@ -79,15 +79,16 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/change-password/action', [PasswordResetController::class, 'changePassword'])->name('change-password.action');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/events-finder', [EventController::class, 'fetchEventsFinder'])->name('events-finder');
 
-    // CURRENT ROUTE OF FOCUS
     Route::post('/events-finder/filter', [EventController::class, 'fetchEventsFinder'])->name('events-finder.filter');
 
     Route::post('/events-finder/clear-all', [EventController::class, 'clearFilterForGeneral'])->name('events-finder.clear-filter');
 
     Route::get('/events-finder/full-details', [EventController::class, 'fetchEventDetails'])->name('events-finder.fetch-event-details');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/events-finder/full-details/manage', [EventController::class, 'fetchEventManagePage'])->name('events-finder.manage-details');
     
     Route::post('/update-search-view-preference', [UserPreferenceController::class, 'updateItemViewPreference']);
 

@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Club;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Services\ClubService;
 use App\Services\EventService;
 use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
     protected $eventService;
+    protected $clubService;
 
-    public function __construct(EventService $eventService) {
+    public function __construct(ClubService $clubService, EventService $eventService) {
+        $this->clubService = $clubService;
         $this->eventService = $eventService;
     }
 
@@ -49,10 +52,16 @@ class EventController extends Controller
         $event = Event::findOrFail($event_id);
         $club = Club::findOrFail($event->club_id);
 
-        return view(
-            'events-finder.view-event-details',
-            compact('event', 'club')
-        );
+        return view('events-finder.view-event-details', [
+            'event' => $event,
+            'club' => $club,
+            'isCommitteeMember' => $this->clubService->checkCommitteeMember($club->club_id, profile()->profile_id)
+        ]);
+    }
+
+    public function fetchEventManagePage(Request $request) {
+
+        return view('events-finder.manage-event-details');
     }
 
     private function getFilters(Request $request) {

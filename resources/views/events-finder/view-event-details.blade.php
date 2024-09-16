@@ -13,7 +13,6 @@
     @vite('resources/js/app.js')
     <x-topnav/>
     <br>
-
     <div class="container p-3">
 
         <div class="d-flex align-items-center">
@@ -31,8 +30,11 @@
                                 </ol>
                             </nav>
                         </div>
-                        <div class="col-6 align-items-center">
-                            <p class="rsans text-end">Last updated: {{ $club->updated_at }}</p>
+                        <div class="col-6 d-flex justify-content-end align-items-center">
+                            <p class="rsans mb-0 me-3 align-self-center text-end">Last updated: {{ $club->updated_at }}</p>
+                            @if ($isCommitteeMember || currentAccount()->account_role == 3)
+                                <a href="{{ route('events-finder.manage-details', ['event_id' => $event->event_id]) }}" class="rsans btn btn-primary fw-semibold align-self-center">Manage event details</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -48,14 +50,17 @@
                 @endphp
                 <div id="eventImagesCarousel" class="carousel slide carousel-fade w-50" data-bs-ride="carousel" data-bs-interval="5000">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="{{ asset($eventImagePaths[0]) }}" class="d-block w-100" alt="Event illustration" style="aspect-ratio: 16/10; object-fit: cover;">
-                        </div>
-                        @foreach(array_slice($eventImagePaths, 1) as $imagePath)
-                            <div class="carousel-item">
-                                <img src="{{ asset($imagePath) }}" class="d-block w-100" alt="Event illustration" style="aspect-ratio: 16/10; object-fit: cover;">
+                        @if (empty($eventImagePaths))
+                            <div class="carousel-item active">
+                                <img src="{{ asset('images/no_event_images_default.png') }}" class="d-block w-100" alt="No event illustration default" style="aspect-ratio: 16/10; object-fit: cover;">
                             </div>
-                        @endforeach
+                        @else
+                            @foreach(array_slice($eventImagePaths, 1) as $imagePath)
+                                <div class="carousel-item">
+                                    <img src="{{ asset($imagePath) }}" class="d-block w-100" alt="Event illustration" style="aspect-ratio: 16/10; object-fit: cover;">
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#eventImagesCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -74,7 +79,7 @@
                     <h3 class="rserif fw-bold w-100 py-2 px-3 mb-2">{{ $event->event_name }}</h3>
                 </div>
                 <div class="col-md-6 d-flex align-items-center justify-content-end">
-                    <i class="fa fa-university text-muted fs-4 mb-2 me-3"></i>
+                    <i class="fa fa-users text-muted fs-4 mb-2 me-3"></i>
                     <h3 class="rserif fw-bold text-muted fs-5 mb-2">{{ $club->club_name }}</h3>
                 </div>
             </div>
@@ -82,6 +87,8 @@
         <div class="container px-3 py-4">
             <h5 class="rserif fw-bold">Event date and time</h5>
             <p class="rsans pb-3">{{ $event->event_datetime }}</p>
+            <h5 class="rserif fw-bold">Location</h5>
+            <p class="rsans pb-3">{{ $event->event_location }}</p>
             <h5 class="rserif fw-bold">Description</h5>
             <p class="rsans pb-3">{{ $event->event_description }}</p>
             <h5 class="rserif fw-bold">Entrance fee</h5>
