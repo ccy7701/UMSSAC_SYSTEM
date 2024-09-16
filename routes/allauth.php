@@ -4,15 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\PasswordResetController;
-use App\Http\Controllers\SemesterProgressLogController;
-use App\Http\Controllers\SubjectStatsLogController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\ClubController;
 use App\Http\Controllers\UserPreferenceController;
-use App\Http\Controllers\ClubMembershipController;
-use App\Http\Middleware\PreventAuthenticatedAccess;
-use App\Http\Middleware\RoleAccessMiddleware;
-use App\Http\Middleware\CommitteeAccessMiddleware;
 
 // Routes accessible by all levels of authenticated user
 Route::middleware('auth')->group(function () {
