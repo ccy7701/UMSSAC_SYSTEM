@@ -15,7 +15,15 @@
     <x-topnav/>
     <br>
     <div class="container p-3">
-        <!-- CONTENT TO GO HERE -->
+        <!--
+            In this form include
+                1. CLUB INFO
+                    1.1 Club name
+                    1.2 Category
+                    1.3 Description
+                2. CLUB IMAGES
+            When done modify existing pages to show if there are no events for that club yet
+        -->
     </div>
     <x-footer/>
     {{ dd("Hello there") }}
