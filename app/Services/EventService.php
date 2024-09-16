@@ -33,11 +33,11 @@ class EventService
                 });
             })
             ->select('event.*')
-            ->get();
+            ->paginate(9);  // TEST, paginate with 9 items per page
     }
 
     // Get the club events
     public function getEventsForClub($club_id) {
-        return Event::where('club_id', $club_id)->get();
+        return Event::where('club_id', $club_id)->paginate(9);
     }
 }

@@ -20,7 +20,13 @@ class ClubController extends Controller
     }
 
     public function fetchClubsFinder(Request $request) {
-        $search = $request->input('search');
+        // Handle POST request for filtering
+        if ($request->isMethod('post')) {
+            // Redirect to the GET route with query parameters for filters
+            return redirect()->route('clubs-finder', $request->all());
+        }
+
+        $search = $request->input('search', '');
         $filters = $this->getFilters($request);
         $allClubs = $this->clubService->getAllClubs($filters, $search);
     
@@ -49,7 +55,11 @@ class ClubController extends Controller
     }
 
     public function fetchClubsManager(Request $request) {
-        $search = $request->input('search');
+        if ($request->isMethod('post')) {
+            return redirect()->route('manage-clubs', $request->all());
+        }
+
+        $search = $request->input('search', '');
         $filters = $this->getFilters($request);
         $allClubs = $this->clubService->getAllClubs($filters, $search);
 

@@ -17,17 +17,24 @@ class EventController extends Controller
     }
 
     public function fetchEventsFinder(Request $request) {
-        $search = $request->input('search');
+        // Handle POST request for filtering
+        if ($request->isMethod('post')) {
+            // Redirect to the GET route with query parameters for filters
+            return redirect()->route('events-finder', $request->all());
+        }
+
+        // Handle GET request as normal (including pagination and filtering)
+        $search = $request->input('search', '');
         $filters = $this->getFilters($request);
         $allEvents = $this->eventService->getAllEvents($filters, $search);
 
         return view('events-finder.view-all-events', [
-            'events' => $allEvents,
-            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
-            'totalEventCount' => $allEvents->count(),
-            'filters' => $filters,
-            'search' => $search,
-        ]);
+             'events' => $allEvents,
+             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
+             'totalEventCount' => $allEvents->total(),
+             'filters' => $filters,
+             'search' => $search,
+         ]);
     }
 
     public function clearFilterForGeneral() {

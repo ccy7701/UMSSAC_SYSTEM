@@ -82,6 +82,7 @@ Route::middleware('auth')->group(function () {
     // CURRENT ROUTE OF FOCUS
     Route::get('/events-finder', [EventController::class, 'fetchEventsFinder'])->name('events-finder');
 
+    // CURRENT ROUTE OF FOCUS
     Route::post('/events-finder/filter', [EventController::class, 'fetchEventsFinder'])->name('events-finder.filter');
 
     Route::post('/events-finder/clear-all', [EventController::class, 'clearFilterForGeneral'])->name('events-finder.clear-filter');

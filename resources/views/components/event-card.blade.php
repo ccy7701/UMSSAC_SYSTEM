@@ -1,6 +1,6 @@
 <!-- resources/views/components/event-card.blade.php -->
 <a href="{{ route('events-finder.fetch-event-details', ['event_id' => $event->event_id]) }}" class="text-decoration-none">
-    <div class="card" id="card-standard">
+    <div class="card h-100" id="card-standard">
         @php
             $eventImagePaths = json_decode($event->event_image_paths, true);
         @endphp

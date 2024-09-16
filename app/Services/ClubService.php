@@ -29,7 +29,7 @@ class ClubService
                     ->where('club_name', 'like', "%{$search}%")
                     ->orWhere('club_description', 'like', "%{$search}%");
             })
-            ->get();
+            ->paginate(9);
     }
 
     // Get the club details
@@ -45,7 +45,7 @@ class ClubService
             ->with(['profile.account'])
             ->orderByRaw("CASE WHEN profile_id = ? THEN 0 ELSE 1 END", [$currentProfileId])
             ->orderBy('membership_type', 'desc')
-            ->get();
+            ->paginate(8);
     }
 
     // Determine if the current user is a committee member

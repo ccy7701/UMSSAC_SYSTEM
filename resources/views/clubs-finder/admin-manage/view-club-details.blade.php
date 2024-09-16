@@ -112,6 +112,9 @@
                                 <x-member-card :member="$member"/>
                             </div>
                         @endforeach
+                        <div class="rsans d-flex justify-content-center">
+                            {{ $clubMembers->links('pagination::bootstrap-4') }}
+                        </div>
                     @else
                         <p class="rsans">No members in this club yet</p>
                     @endif
@@ -150,6 +153,9 @@
                                     <x-event-card :event="$event"/>
                                 </div>
                             @endforeach
+                            <div class="rsans d-flex justify-content-center">
+                                {{ $clubEvents->links('pagination::bootstrap-4') }}
+                            </div>
                         @else
                             <p class="rsans">No events recorded yet</p>
                         @endif
@@ -164,6 +170,9 @@
                                     </div>
                                 </div>
                             @endforeach
+                            <div class="rsans d-flex justify-content-center">
+                                {{ $events->links('pagination::bootstrap-4') }}
+                            </div>
                         @else
                             <p class="rsans">No events recorded yet</p>
                         @endif

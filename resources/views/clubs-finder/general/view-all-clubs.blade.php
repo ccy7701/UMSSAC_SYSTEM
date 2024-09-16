@@ -126,7 +126,7 @@
                         <!-- GRID VIEW (Toggle based on preference) -->
                         <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                             @foreach($clubs as $club)
-                                <div class="col-lg-4 col-md-6">
+                                <div class="col-lg-4 col-md-6 mb-4">
                                     <x-club-card :club="$club"/>
                                 </div>
                             @endforeach

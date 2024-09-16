@@ -1,6 +1,6 @@
 <!-- resources/views/components/club-card.blade.php -->
 <a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}" class="text-decoration-none">
-    <div class="card" id="card-standard">
+    <div class="card h-100" id="card-standard">
         @php
             $clubImagePaths = json_decode($club->club_image_paths, true);
         @endphp

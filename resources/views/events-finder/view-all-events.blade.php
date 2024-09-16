@@ -150,10 +150,13 @@
                         <!-- GRID VIEW (Toggle based on preference) -->
                         <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                             @foreach($events as $event)
-                                <div class="col-lg-4 col-md-6">
+                                <div class="col-lg-4 col-md-6 mb-3">
                                     <x-event-card :event="$event"/>
                                 </div>
                             @endforeach
+                            <div class="rsans d-flex justify-content-center">
+                                {{ $events->links('pagination::bootstrap-4') }}
+                            </div>
                         </div>
                         <!-- LIST VIEW (Toggle based on preference) -->
                         <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
@@ -164,6 +167,9 @@
                                     </div>
                                 </div>
                             @endforeach
+                            <div class="rsans d-flex justify-content-center">
+                                {{ $events->links('pagination::bootstrap-4') }}
+                            </div>
                         </div>
                     </div>
                 </div>
