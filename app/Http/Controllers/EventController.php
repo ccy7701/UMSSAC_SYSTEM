@@ -48,20 +48,25 @@ class EventController extends Controller
     }
 
     public function fetchEventDetails(Request $request) {
-        $event_id = $request->query('event_id');
-        $event = Event::findOrFail($event_id);
-        $club = Club::findOrFail($event->club_id);
+        $eventId = $request->query('event_id');
+        $data = $this->prepareEventData($eventId);
 
         return view('events-finder.view-event-details', [
-            'event' => $event,
-            'club' => $club,
-            'isCommitteeMember' => $this->clubService->checkCommitteeMember($club->club_id, profile()->profile_id)
+            'event' => $data['event'],
+            'club' => $data['club'],
+            'isCommitteeMember' => $this->clubService->checkCommitteeMember($data['club']->club_id, profile()->profile_id),
         ]);
     }
 
     public function fetchEventManagePage(Request $request) {
+        $eventId = $request->query('event_id');
+        $data = $this->prepareEventData($eventId);
 
-        return view('events-finder.manage-event-details');
+        return view('events-finder.manage-event-details', [
+            'event' => $data['event'],
+            'club' => $data['club'],
+            'isCommitteeMember' => $this->clubService->checkCommitteeMember($data['club']->club_id, profile()->profile_id),
+        ]);
     }
 
     private function getFilters(Request $request) {
@@ -94,5 +99,14 @@ class EventController extends Controller
                 'event_search_filters' => json_encode([]),
                 'updated_at' => now()
             ]);
+    }
+
+    private function prepareEventData($eventId) {
+        $event = Event::findOrFail($eventId);
+
+        return [
+            'event' => $event,
+            'club' => Club::findOrFail($event->club_id),
+        ];
     }
 }

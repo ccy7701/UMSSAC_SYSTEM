@@ -33,7 +33,10 @@
                         <div class="col-6 d-flex justify-content-end align-items-center">
                             <p class="rsans mb-0 me-3 align-self-center text-end">Last updated: {{ $club->updated_at }}</p>
                             @if ($isCommitteeMember || currentAccount()->account_role == 3)
-                                <a href="{{ route('events-finder.manage-details', ['event_id' => $event->event_id]) }}" class="rsans btn btn-primary fw-semibold align-self-center">Manage event details</a>
+                                <a href="{{ route('events-finder.manage-details', [
+                                    'event_id' => $event->event_id,
+                                    'club_id' => $club->club_id,
+                                ]) }}" class="rsans btn btn-primary fw-semibold align-self-center">Manage event details</a>
                             @endif
                         </div>
                     </div>

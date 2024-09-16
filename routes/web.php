@@ -86,9 +86,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/events-finder/clear-all', [EventController::class, 'clearFilterForGeneral'])->name('events-finder.clear-filter');
 
     Route::get('/events-finder/full-details', [EventController::class, 'fetchEventDetails'])->name('events-finder.fetch-event-details');
-
-    // CURRENT ROUTE OF FOCUS
-    Route::get('/events-finder/full-details/manage', [EventController::class, 'fetchEventManagePage'])->name('events-finder.manage-details');
     
     Route::post('/update-search-view-preference', [UserPreferenceController::class, 'updateItemViewPreference']);
 
@@ -146,6 +143,9 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
         Route::get('/committee-manage/full-details/manage/edit-members-access', [ClubMembershipController::class, 'showClubMembersForCommittee'])->name('committee-manage.edit-member-access');
 
         Route::post('/committee-manage/full-details/manage/edit-members-access/action', [ClubMembershipController::class, 'updateClubMemberAccess'])->name('committee-manage.edit-member-access.action');
+
+        // CURRENT ROUTE OF FOCUS
+        Route::get('/events-finder/full-details/manage', [EventController::class, 'fetchEventManagePage'])->name('events-finder.manage-details');
     });
 });
 
