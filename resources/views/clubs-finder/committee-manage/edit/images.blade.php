@@ -154,7 +154,7 @@
                                 @csrf
                                 <div class="modal-body">
                                     <div class="col-md-12 text-start py-2">
-                                        <div class="input-group w-100">
+                                        <div class="rsans input-group w-100">
                                             <input type="file" name="new_image" id="new-image-input" class="form-control w-50" accept="image/*">
                                             <button id="new-image-submit" type="submit" class="rsans btn btn-primary fw-bold px-3">Save</button>
                                         </div>

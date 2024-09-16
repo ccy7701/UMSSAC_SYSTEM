@@ -48,7 +48,7 @@
                         <div class="col-6 d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="rsans breadcrumb mb-0" style="--bs-breadcrumb-divider: '>';">
-                                    <li class="breadcrumb-item-active"><a href="{{ route('manage-clubs') }}">All Clubs</a></li>
+                                    <li class="breadcrumb-item active"><a href="{{ route('manage-clubs') }}">All Clubs</a></li>
                                 </ol>
                             </nav>
                         </div>

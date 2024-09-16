@@ -5,9 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const newImageSubmit = document.getElementById('new-image-submit');
     const newClubImagePreview = document.getElementById('new-club-image-preview');
     const viewImageModal = document.getElementById('view-image-modal');
+    const deleteConfirmationModal = document.getElementById('delete-confirmation-modal');
 
-    // Disable the submit button initially
-    newImageSubmit.disabled = true;
+    // Disable the submit button initially, if it exists
+    if (newImageSubmit) {
+        newImageSubmit.disabled = true;
+    }
 
     // Club image preview and button enable/disable
     newImageInput.addEventListener('change', function(event) {
@@ -24,22 +27,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Update modal image
-    viewImageModal.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-        const imageUrl = button.getAttribute('data-image');
-        const imageIndex = button.getAttribute('data-index');
-        const modalImage = document.getElementById('modalImage');
-        modalImage.src = imageUrl;
-        const modalImageIndex = document.getElementById('image-index');
-        modalImageIndex.textContent = `Club image ${imageIndex}`;
-    })
-
-    const deleteConfirmationModal = document.getElementById('delete-confirmation-modal');
-
-    deleteConfirmationModal.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-        const key = button.getAttribute('data-key');
-        const deleteKeyInput = document.getElementById('delete-key');
-        deleteKeyInput.value = key;
-    });
+    if (viewImageModal) {
+        viewImageModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const imageUrl = button.getAttribute('data-image');
+            const imageIndex = button.getAttribute('data-index');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageUrl;
+            const modalImageIndex = document.getElementById('image-index');
+            modalImageIndex.textContent = `Club image ${imageIndex}`;
+        });
+    }
+    
+    if (deleteConfirmationModal) {
+        deleteConfirmationModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const key = button.getAttribute('data-key');
+            const deleteKeyInput = document.getElementById('delete-key');
+            deleteKeyInput.value = key;
+        });
+    }
 });

@@ -92,7 +92,7 @@
                 <h5 class="rserif fw-bold">Club creation date</h5>
                 <p class="rsans pb-3">{{ $club->created_at }}</p>
             </div>
-            <!-- SECTION IN PROGRESS | Members section -->
+            <!-- Members section -->
             <div class="d-flex align-items-center">
                 <div class="section-header row w-100">
                     <!-- Left column: Members header -->
@@ -116,7 +116,7 @@
                     @endif
                 </div>
             </div>
-            <!-- END SECTION IN PROGRESS | Members section -->
+            <!-- Members section -->
             <!-- Events conducted -->
             <div class="d-flex align-items-center">
                 <div class="section-header row w-100">
