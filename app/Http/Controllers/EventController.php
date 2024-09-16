@@ -69,6 +69,17 @@ class EventController extends Controller
         ]);
     }
 
+    public function showEventImagesEdit(Request $request) {
+        $eventId = $request->query('event_id');
+        $data = $this->prepareEventData($eventId);
+
+        return view('events-finder.edit.images', [
+            'event' => $data['event'],
+            'club' => $data['club'],
+            'isCommitteeMember' => $this->clubService->checkCommitteeMember($data['club']->club_id, profile()->profile_id),
+        ]);
+    }
+
     private function getFilters(Request $request) {
         // Fetch filters from form submission (may be empty if no checkboxes are selected)
         $filters = [

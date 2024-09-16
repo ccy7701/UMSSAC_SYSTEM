@@ -152,7 +152,7 @@
                     <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                         @if ($clubEvents->isNotEmpty())
                             @foreach ($clubEvents as $event)
-                                <div class="col-lg-4 col-md-6">
+                                <div class="col-lg-3 col-md-4">
                                     <x-event-card :event="$event"/>
                                 </div>
                             @endforeach
