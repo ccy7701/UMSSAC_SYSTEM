@@ -105,8 +105,8 @@
                             @foreach ($categories as $category)
                                 <div class="col-6 mb-2 px-1">
                                     <div class="p-2 border rounded">
-                                        <div class="form-check w=50">
-                                            <input class="form-check-input" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" value="{{ $category }}" {{ in_array($category, $filters) ? 'checked' : '' }}>
+                                        <div class="form-check w-50">
+                                            <input class="form-check-input" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" value="{{ $category }}" {{ in_array($category, $filters['category_filter'] ?? []) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="{{ strtolower($category) }}">
                                                 {{ $category }}
                                             </label>
@@ -115,23 +115,33 @@
                                 </div>
                             @endforeach
                         </div>
+                        <br>
+                        <h5 class="rsans fw-semibold mb-2">Event Status</h5>
+                        <div class="rsans row">
+                            <div class="col-6 mb-2 px-1">
+                                <div class="p-2 border rounded">
+                                    <div class="form-check w-50">
+                                        <input class="form-check-input" type="checkbox" id="incoming" name="event_status[]" value="1" {{ in_array(1, $filters['event_status'] ?? []) ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="incoming">Incoming</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-2 px-1">
+                                <div class="p-2 border rounded">
+                                    <div class="form-check w-50">
+                                        <input class="form-check-input" type="checkbox" id="closed" name="event_status[]" value="0" {{ in_array(0, $filters['event_status'] ?? []) ? 'checked' : ''}}>
+                                        <label class="form-check-label" for="closed">Closed</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row p-3 d-flex justify-content-center">
                             <button type="submit" class="rsans btn btn-primary fw-bold w-60">Apply filters</button>
                         </div>
                     </form>
                     <!-- End filters -->
                     <!-- KEEP IN VIEW! Event status filters -->
-                    <h4 class="rserif fw-bold fs-5">Event status</h4>
-                    <ul class="rsans list-group py-2">
-                        <li class="list-group-item">
-                            <input type="checkbox" id="incoming">
-                            <label for="incoming">Incoming</label>
-                        </li>
-                        <li class="list-group-item">
-                            <input type="checkbox" id="closed">
-                            <label for="closed">Closed</label>
-                        </li>
-                    </ul>
+                    
                 </div>
 
                 <!-- RIGHT SECTION FOR EVENT CARDS GRID OR LIST -->

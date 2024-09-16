@@ -50,15 +50,18 @@ class EventController extends Controller
 
     private function getFilters(Request $request) {
         // Fetch filters from form submission (may be empty if no checkboxes are selected)
-        $filters = $request->input('category_filter', []);
+        $filters = [
+            'category_filter' => $request->input('category_filter', []),
+            'event_status' => $request->input('event_status', []),
+        ];
     
         // If the form is submitted with no filters, treat it as clearing all filters
-        if ($request->isMethod('post') && empty($filters)) {
+        if ($request->isMethod('post') && empty($filters['category_filter']) && empty($filters['event_status'])) {
             return [];
         }
 
         // If no form submission and no filters, retrieve saved filters from the DB
-        if (empty($filters)) {
+        if (empty($filters['category_filter']) && empty($filters['event_status'])) {
             $savedFilters = DB::table('user_preference')
                 ->where('profile_id', profile()->profile_id)
                 ->value('event_search_filters');
