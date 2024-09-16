@@ -20,9 +20,7 @@ class ClubSeeder extends Seeder
                 'club_name' => 'Coffee Drinking Club',
                 'club_category' => 'FKIKK',
                 'club_description' => 'We drink and learn about many types of coffess.',
-                'club_image_paths' => json_encode([
-                    'club-images/4X5vIcH2wJJMlifThPxBOadmxvoYk0yshXjop1Dv.png'
-                ]),
+                'club_image_paths' => json_encode([]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],

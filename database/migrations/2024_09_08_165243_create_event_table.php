@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('club_id');
             $table->foreign('club_id')->references('club_id')->on('club')->onDelete('cascade');
             $table->string('event_name', 255);
+            $table->string('event_location', 255);
             $table->datetime('event_datetime');
             $table->string('event_description', 1024);
             $table->double('event_entrance_fee', 8, 2)->nullable();

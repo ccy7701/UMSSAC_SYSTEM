@@ -205,7 +205,7 @@
                         @else
                             <div class="row pb-3 w-75">
                                 <div class="col-lg-12">
-                                    <div class="rsans card d-flex justify-content-center align-items-center h-100">
+                                    <div class="rsans card d-flex justify-content-center align-items-center">
                                         <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                                             No events recorded yet
                                         </div>
