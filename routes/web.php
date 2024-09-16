@@ -73,15 +73,18 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/profile/edit-general-info/action', [ProfileController::class, 'updateGeneralInfo'])->name('profile.edit.general-info.action');
 
-    // The change password form
     Route::get('/change-password', function () {
         return view('auth.passwords.change-password');
     })->name('change-password');
 
-    // Handle the change password submission
     Route::post('/change-password/action', [PasswordResetController::class, 'changePassword'])->name('change-password.action');
 
-    Route::get('/events-finder', [EventController::class, 'fetchAllEvents'])->name('events-finder');
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/events-finder', [EventController::class, 'fetchEventsFinder'])->name('events-finder');
+
+    Route::post('/events-finder/filter', [EventController::class, 'fetchEventsFinder'])->name('events-finder.filter');
+
+    Route::post('/events-finder/clear-all', [EventController::class, 'clearFilterForGeneral'])->name('events-finder.clear-filter');
 
     Route::get('/events-finder/full-details', [EventController::class, 'fetchEventDetails'])->name('events-finder.fetch-event-details');
     
@@ -120,7 +123,6 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
 
     Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetailsForGeneral'])->name('clubs-finder.fetch-club-details');
 
-    // CURRENT ROUTE OF FOCUS
     Route::post('/clubs-finder/join-club', [ClubMembershipController::class, 'joinClub'])->name('clubs-finder.join-club');
 
     Route::post('/clubs-finder/leave-club', [ClubMembershipController::class, 'leaveClub'])->name('clubs-finder.leave-club');
@@ -171,11 +173,9 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
 
     Route::post('/admin-manage/full-details/manage/edit-members-access/action', [ClubMembershipController::class, 'updateClubMemberAccess'])->name('admin-manage.edit-member-access.action');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/manage-clubs/add-new-club', function () {
         return view('clubs-finder.admin-manage.add-new-club');
     })->name('manage-clubs.add-new-club');
 
-    // CURRENT ROUTE OF FOCUS
     Route::post('manage-clubs/add-new-club/action', [ClubController::class, 'addNewClub'])->name('manage-clubs.add-new-club.action');
 });

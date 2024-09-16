@@ -23,13 +23,21 @@
             <div class="section-header row w-100">
                 <div class="col-12 text-center">
                     <h3 class="rserif fw-bold w-100 mb-1">Events finder</h3>
-                    <p class="rserif fs-4 w-100 mt-0">{{ $totalEventCount }} events found</p>
+                    <p id="event-count-display" class="rserif fs-4 w-100 mt-0">
+                        @if ($totalEventCount == 0)
+                            No events found{{ $search ? ' for search term "' . $search . '"' : '' }}
+                        @elseif ($totalEventCount == 1)
+                            1 event found{{ $search ? ' for search term "' . $search . '"' : '' }}
+                        @else
+                            {{ $totalEventCount }} events found{{ $search ? ' for search term "' . $search . '"' : '' }}
+                        @endif
+                    </p>
                     <!-- SEARCH TAB -->
-                    <form class="d-flex justify-content-center">
+                    <form class="d-flex justify-content-center" method="GET" action="{{ route('events-finder') }}">
                         <div class="mb-4 w-50">
                             <div class="input-group">
                                 <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-search"></i></span>
-                                <input type="search" id="event-search" class="rsans form-control" aria-label="search" placeholder="Search...">
+                                <input type="search" id="event-search" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
                                 <button class="rsans btn btn-primary fw-bold">Search</button>
                             </div>
                         </div>
@@ -69,32 +77,50 @@
 
                 <!-- LEFT SECTIONS FOR FILTERS -->
                 <div class="col-md-3 border p-3">
-                    <!-- Faculty filters -->
-                    <h4 class="rserif fw-bold fs-5">Category</h4>
-                    <ul class="rsans list-group py-2">
-                        <li class="list-group-item">
-                            <input type="checkbox" id="fkikk">
-                            <label for="fkikk">FKIKK</label>
-                        </li>
-                        <li class="list-group-item">
-                            <input type="checkbox" id="fkikal">
-                            <label for="fkikal">FKIKAL</label>
-                        </li>
-                        <li class="list-group-item">
-                            <input type="checkbox" id="astif">
-                            <label for="astif">ASTIF</label>
-                        </li>
-                        <li class="list-group-item">
-                            <input type="checkbox" id="fsmp">
-                            <label for="fsmp">FSMP</label>
-                        </li>
-                        <li class="list-group-item">
-                            <input type="checkbox" id="fpp">
-                            <label for="fpp">FPP</label>
-                        </li>
-                    </ul>
+                    <div class="row">
+                        <div class="col-8 d-flex align-items-center justify-content-start">
+                            <h4 class="rsans fw-bold mb-0">Search filters</h4>
+                        </div>
+                        <div class="col-4 d-flex align-items-center justify-content-end">
+                            <form id="clear-filter-form" method="POST" action="{{ route('events-finder.clear-filter') }}">
+                                @csrf
+                                <button class="rsans btn btn-secondary fw-bold px-2">Clear all</button>
+                            </form>
+                        </div>
+                    </div>
                     <br>
-                    <!-- Event status filters -->
+                    <form id="filter-form" method="POST" action="{{ route('events-finder.filter') }}">
+                        @csrf
+                        @php
+                            $categories = [
+                                'ASTIF', 'FIS', 'FKAL', 'FKIKK', 'FKIKAL',
+                                'FKJ', 'FPEP', 'FPL', 'FPP', 'FPSK',
+                                'FPT', 'FSMP', 'FSSA', 'FSSK', 'KKTF',
+                                'KKTM', 'KKTPAR', 'KKAKF', 'KKUSIA', 'NR',
+                                'General'
+                            ];
+                        @endphp
+                        <h5 class="rsans fw-semibold mb-2">Categories</h5>
+                        <div class="rsans row">
+                            @foreach ($categories as $category)
+                                <div class="col-6 mb-2 px-1">
+                                    <div class="p-2 border rounded">
+                                        <div class="form-check w=50">
+                                            <input class="form-check-input" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" value="{{ $category }}" {{ in_array($category, $filters) ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="{{ strtolower($category) }}">
+                                                {{ $category }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="row p-3 d-flex justify-content-center">
+                            <button type="submit" class="rsans btn btn-primary fw-bold w-60">Apply filters</button>
+                        </div>
+                    </form>
+                    <!-- End filters -->
+                    <!-- KEEP IN VIEW! Event status filters -->
                     <h4 class="rserif fw-bold fs-5">Event status</h4>
                     <ul class="rsans list-group py-2">
                         <li class="list-group-item">

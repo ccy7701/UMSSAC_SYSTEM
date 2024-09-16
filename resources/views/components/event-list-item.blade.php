@@ -5,26 +5,31 @@
             @php
                 $eventImagePaths = json_decode($event->event_image_paths, true);
             @endphp
-            <!-- Image section -->
-            <div class="col-md-3">
-                <img src="{{ asset($eventImagePaths[0]) }}" class="img-fluid rounded-start border-end" alt="Event list item illustration" style="aspect-ratio: 16/10;">
-            </div>
+            @if (empty($eventImagePaths))
+                <div class="col-md-2">
+                    <img src="{{ asset('images/no_event_images_default.png') }}" class="img-fluid rounded-start border-end" alt="No event illustration default" style="aspect-ratio: 4/4;">
+                </div>
+            @else
+                <div class="col-md-2">
+                    <img src="{{ asset($eventImagePaths[0]) }}" class="img-fluid rounded-start border-end" alt="Event list item illustration" style="aspect-ratio: 4/4; object-fit: cover;">
+                </div>
+            @endif
             <!-- Content section -->
-            <div class="col-md-9">
-                <div class="rsans card-body p-3">
+            <div class="col-md-10">
+                <div class="rsans card-body px-3 py-2">
                     <h5 class="card-title fw-bold">{{ $event->event_name }}</h5>
                     <div class="card-text">
                         <div class="row align-items-center">
-                            <div class="col-1">
+                            <div class="col-1 text-center">
                                 <i class="fa fa-map-marker"></i>
                             </div>
                             <div class="col-10">
-                                DB-COL-!confirmed
+                                {{ $event->event_location }}
                             </div>
                             <div class="col-1"></div>
                         </div>
                         <div class="row align-items-center">
-                            <div class="col-1">
+                            <div class="col-1 text-center">
                                 <i class="fa fa-calendar"></i>
                             </div>
                             <div class="col-10">
@@ -33,11 +38,19 @@
                             <div class="col-1"></div>
                         </div>
                         <div class="row align-items-center">
-                            <div class="col-1">
+                            <div class="col-1 text-center">
+                                <i class="fa fa-users"></i>
+                            </div>
+                            <div class="col-10">
+                                {{ $event->club->club_name }}
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-1 text-center">
                                 <i class="fa fa-university"></i>
                             </div>
                             <div class="col-10">
-                                DB-COL-!finalised
+                                {{ $event->club->club_category }}
                             </div>
                             <div class="col-1"></div>
                         </div>

@@ -103,16 +103,16 @@
                         <h5 class="rsans fw-semibold mb-2">Categories</h5>
                         <div class="rsans row">
                             @foreach ($categories as $category)
-                            <div class="col-6 mb-2 px-1">
-                                <div class="p-2 border rounded">
-                                    <div class="form-check w-50">
-                                        <input class="form-check-input" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" value="{{ $category }}" {{ in_array($category, $filters) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="{{ strtolower($category) }}">
-                                            {{ $category }}
-                                        </label>
+                                <div class="col-6 mb-2 px-1">
+                                    <div class="p-2 border rounded">
+                                        <div class="form-check w-50">
+                                            <input class="form-check-input" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" value="{{ $category }}" {{ in_array($category, $filters) ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="{{ strtolower($category) }}">
+                                                {{ $category }}
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                         <div class="row p-3 d-flex justify-content-center">
