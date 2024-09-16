@@ -18,7 +18,7 @@
     <div class="container p-3">
 
         <!-- TOP SECTION -->
-        <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('manage-clubs.add-new-club.action') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="section-header row w-100">
                 <div class="col-12 text-center">
@@ -84,7 +84,7 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="new-club-description" class="rsans fw-bold form-label">Description</label>
-                            <textarea id="new-club-description" name="club_description" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024" required></textarea>
+                            <textarea id="new-club-description" name="new_club_description" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024" required></textarea>
                         </div>
                         <div class="form-group mb-3">
                             <label for="new-image-input" class="rsans fw-bold form-label">Add club image (optional)</label>

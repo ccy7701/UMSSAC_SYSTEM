@@ -205,7 +205,32 @@ class ClubController extends Controller
         // Return with a success or error message
         return $status
             ? redirect($route)->with('success', 'Club image added successfully!')
-            : back()->withErrors(['club' => 'Failed to add club images. Please try again.']);
+            : back()->withErrors(['error' => 'Failed to add club images. Please try again.']);
+    }
+
+    public function addNewClub(Request $request) {
+        $validatedData = $request->validate([
+            'new_club_name' => 'required|string|max:128',
+            'new_club_category' => 'required|string',
+            'new_club_description' => 'required|string|max:1024',
+            'new_club_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Handle the image upload, if present
+        $imagePath = $request->hasFile('new_club_image')
+            ? $request->file('new_club_image')->store('club-images', 'public')
+            : '';
+
+        $club = Club::create([
+            'club_name' => $validatedData['new_club_name'],
+            'club_category' => $validatedData['new_club_category'],
+            'club_description' => $validatedData['new_club_description'],
+            'club_image_paths' => json_encode($imagePath ? [$imagePath]: []),
+        ]);
+
+        return $club
+            ? redirect()->route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id])->with('success', 'New club added successfully!')
+            : back()->withErrors(['error' => 'Failed to add new club. Please try again.']);
     }
 
     private function getFilters(Request $request) {

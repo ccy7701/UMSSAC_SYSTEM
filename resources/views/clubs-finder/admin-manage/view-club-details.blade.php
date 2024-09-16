@@ -14,6 +14,7 @@
     @vite('resources/js/app.js')
     @vite('resources/js/itemViewToggler.js')
     <x-topnav/>
+    <x-success-message/>
     <br>
 
     <div class="container p-3">

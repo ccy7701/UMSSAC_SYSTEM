@@ -175,4 +175,7 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
     Route::get('/manage-clubs/add-new-club', function () {
         return view('clubs-finder.admin-manage.add-new-club');
     })->name('manage-clubs.add-new-club');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('manage-clubs/add-new-club/action', [ClubController::class, 'addNewClub'])->name('manage-clubs.add-new-club.action');
 });
