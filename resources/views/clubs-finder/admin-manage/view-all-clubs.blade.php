@@ -126,7 +126,7 @@
                         <!-- GRID VIEW (Toggle based on preference) -->
                         <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                             <!-- Add new club card -->
-                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
                                 <a href="{{ route('manage-clubs.add-new-club') }}" class="text-decoration-none w-100">
                                     <div class="rsans card add-club-card d-flex justify-content-center align-items-center h-100">
                                         <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
@@ -138,7 +138,7 @@
                             </div>
                             <!-- Existing clubs' cards -->
                             @foreach($clubs as $club)
-                                <div class="col-lg-4 col-md-6">
+                                <div class="col-lg-4 col-md-6 mb-4">
                                     <x-manage-club-card :club="$club"/>
                                 </div>
                             @endforeach

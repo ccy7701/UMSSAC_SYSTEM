@@ -50,7 +50,7 @@ class ClubMembershipController extends Controller
         ]);
 
         return $status
-            ? redirect()->route('clubs-finder.fetch-club-details', ['club_id' => $clubId])->with('success', 'You are now a member of this group.')
+            ? redirect()->route('clubs-finder.fetch-club-details', ['club_id' => $clubId])->with('success', 'You are now a member of this club.')
             : back()->withErrors(['error' => 'Failed to process join club request. Please try again.']);
     }
 

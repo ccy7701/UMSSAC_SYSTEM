@@ -147,21 +147,29 @@
                 <div class="col-md-12 px-3 py-0">
                     <!-- GRID VIEW (Toggle based on preference) -->
                     <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
-                        @foreach ($clubEvents as $event)
-                            <div class="col-lg-4 col-md-6">
-                                <x-event-card :event="$event"/>
-                            </div>
-                        @endforeach
+                        @if ($clubEvents->isNotEmpty())
+                            @foreach ($clubEvents as $event)
+                                <div class="col-lg-4 col-md-6">
+                                    <x-event-card :event="$event"/>
+                                </div>
+                            @endforeach
+                        @else
+                            <p class="rsans">No events recorded yet</p>
+                        @endif
                     </div>
                     <!-- LIST VIEW (Toggle based on preference) -->
                     <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }} justify-content-center">
-                        @foreach ($clubEvents as $event)
-                            <div class="row pb-3 w-75">
-                                <div class="col-lg-12">
-                                    <x-event-list-item :event="$event" />
+                        @if ($clubEvents->isNotEmpty())
+                            @foreach ($clubEvents as $event)
+                                <div class="row pb-3 w-75">
+                                    <div class="col-lg-12">
+                                        <x-event-list-item :event="$event" />
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        @else
+                            <p class="rsans">No events recorded yet</p>
+                        @endif
                     </div>
                 </div>
             </div>

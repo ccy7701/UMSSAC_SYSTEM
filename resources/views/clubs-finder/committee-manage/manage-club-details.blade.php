@@ -164,11 +164,21 @@
                                 </div>
                             </a>
                         </div>
-                        @foreach ($clubEvents as $event)
+                        @if ($clubEvents->isNotEmpty())
+                            @foreach ($clubEvents as $event)
+                                <div class="col-lg-4 col-md-6">
+                                    <x-event-card :event="$event"/>
+                                </div>
+                            @endforeach
+                        @else
                             <div class="col-lg-4 col-md-6">
-                                <x-event-card :event="$event"/>
+                                <div class="rsans card d-flex justify-content-center align-items-center h-100">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                        No events recorded yet
+                                    </div>
+                                </div>
                             </div>
-                        @endforeach
+                        @endif
                     </div>
                     <!-- LIST VIEW (Toggle based on preference) -->
                     <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }} justify-content-center">
@@ -184,13 +194,25 @@
                                 </a>
                             </div>
                         </div>
-                        @foreach ($clubEvents as $event)
+                        @if ($clubEvents->isNotEmpty())
+                            @foreach ($clubEvents as $event)
+                                <div class="row pb-3 w-75">
+                                    <div class="col-lg-12">
+                                        <x-event-list-item :event="$event"/>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
                             <div class="row pb-3 w-75">
                                 <div class="col-lg-12">
-                                    <x-event-list-item :event="$event"/>
+                                    <div class="rsans card d-flex justify-content-center align-items-center h-100">
+                                        <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                            No events recorded yet
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
