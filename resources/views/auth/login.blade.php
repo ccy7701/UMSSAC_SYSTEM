@@ -12,7 +12,10 @@
 <body>
     @vite('resources/js/app.js')
     @vite('resources/js/loginFormRoleSelector.js')
-    <x-success-message/> <!-- Flash message component -->
+    <x-response-popup
+        messageType="success"
+        iconClass="text-success fa-regular fa-circle-check"
+        title="Password reset successful"/>
     <div class="container-fluid vh-100">
         <div class="row h-100">
             <!-- Left section (login form) -->

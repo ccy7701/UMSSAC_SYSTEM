@@ -11,7 +11,10 @@
 
 <body>
     <x-topnav/>
-    <x-success-message/> <!-- Flash message component -->
+    <x-response-popup
+        messageType="success"
+        iconClass="text-success fa-regular fa-circle-check"
+        title="Success!"/>
     <br>
     <div class="container p-3">
         <!-- PROFILE PICTURE -->

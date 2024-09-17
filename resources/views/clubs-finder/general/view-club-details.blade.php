@@ -14,8 +14,14 @@
     @vite('resources/js/app.js')
     @vite('resources/js/itemViewToggler.js')
     <x-topnav/>
-    <x-success-message/>
-    <x-leave-message/>
+    <x-response-popup
+        messageType="success"
+        iconClass="text-success fa-regular fa-circle-check"
+        title="Success!"/>
+    <x-response-popup
+        messageType="leave"
+        iconClass="text-muted fa fa-sign-out"
+        title="Left club"/>
     <br>
     <div class="container p-3">
 

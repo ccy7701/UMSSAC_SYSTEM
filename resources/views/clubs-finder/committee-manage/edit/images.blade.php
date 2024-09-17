@@ -15,6 +15,10 @@
     @vite('resources/js/clubImageViewer.js')
     <x-topnav/>
     <x-success-message/>
+    <x-response-popup
+        messageType="success"
+        iconClass="text-success fa-regular fa-circle-check"
+        title="Success!"/>
     <br>
     <div class="container p-3">
         

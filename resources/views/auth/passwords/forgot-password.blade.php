@@ -10,7 +10,11 @@
 </head>
 
 <body style="height: 100%; overflow: hidden">
-    <x-email-sent-message/>
+    <x-response-popup
+        messageType="success"
+        iconClass="text-muted fa-solid fa-envelope-circle-check"
+        title="Email sent"
+    />
     <div class="container-fluid vh-100">
         <div class="row h-100">
             <!-- Left section (Form) -->

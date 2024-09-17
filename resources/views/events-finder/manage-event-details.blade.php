@@ -13,7 +13,10 @@
 <body>
     @vite('resources/js/app.js')
     <x-topnav/>
-    <x-success-message/>
+    <x-response-popup
+        messageType="success"
+        iconClass="text-success fa-regular fa-circle-check"
+        title="Success!"/>
     <br>
     <div class="container p-3">
 
@@ -171,7 +174,7 @@
                             <div class="modal-body">
                                 Are you sure you want to delete the event: {{ $event->event_name }}?
                                 <br><br>
-                                <p class="text-danger">This will permanently delete the record of this event and cannot be reversed. Please be certain.</b> 
+                                <p class="text-danger">This will permanently delete the record of this event and cannot be reversed. Please be certain.</b>
                             </div>
                             <div class="modal-footer">
                                 <form id="delete-event-form" method="POST" action="{{ route('event-manage.delete-event', [
