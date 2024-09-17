@@ -73,6 +73,10 @@ class EventController extends Controller
         ]);
     }
 
+    public function addNewEvent(Request $request) {
+        
+    }
+
     public function updateEventInfo(Request $request) {
         $validatedData = $request->validate([
             'event_name' => 'required|string|max:128',
