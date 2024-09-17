@@ -74,7 +74,41 @@ class EventController extends Controller
     }
 
     public function addNewEvent(Request $request) {
-        
+        $validatedData = $request->validate([
+            'new_event_name' => 'required|string|max:128',
+            'new_event_location' => 'required|string|max:255',
+            'new_event_datetime' => 'required|date_format:Y-m-d\TH:i',
+            'new_event_description' => 'required|string|max:1024',
+            'new_event_entrance_fee' => 'nullable|numeric|min:0',
+            'new_event_sdp_provided' => 'required|boolean',
+            'new_event_registration_link' => 'required|string|max:255',
+            'new_event_status' => 'required|boolean',
+            'new_event_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Handle the image upload, if present
+        $imagePath = $request->hasFile('new_event_image')
+            ? $request->file('new_event_image')->store('event-image', 'public')
+            : '';
+
+        $event = Event::create([
+            'club_id' => $request->club_id,
+            'event_name' => $validatedData['new_event_name'],
+            'event_location' => $validatedData['new_event_location'],
+            'event_datetime' => $validatedData['new_event_datetime'],
+            'event_description' => $validatedData['new_event_description'],
+            'event_entrance_fee' => $validatedData['new_event_entrance_fee'],
+            'event_sdp_provided' => $validatedData['new_event_sdp_provided'],
+            'event_image_paths' => json_encode($imagePath ? [$imagePath]: []),
+            'event_registration_link' => $validatedData['new_event_registration_link'],
+            'event_status' => $validatedData['new_event_status'],
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        return $event
+            ? redirect()->route('events-finder.fetch-event-details', ['event_id' => $event->event_id])->with('success', 'New event added successfully!')
+            : back()->withErrors(['errors' => 'Failed to add new event. Please try again.']);
     }
 
     public function updateEventInfo(Request $request) {
@@ -85,7 +119,7 @@ class EventController extends Controller
             'event_description' => 'required|string|max:1024',
             'event_entrance_fee' => 'nullable|numeric|min:0',
             'event_sdp_provided' => 'required|boolean',
-            'event_registration_link' => 'nullable|url|max:255',
+            'event_registration_link' => 'required|string|max:255',
             'event_status' => 'required|boolean',
         ]);
 

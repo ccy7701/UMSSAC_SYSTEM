@@ -45,63 +45,63 @@
                 </div>
             </div>
             <!-- BODY OF CONTENT -->
+            @if ($errors->any())
+                <br>
+                <div class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    {!! $error !!}
+                    <br>
+                @endforeach
+                </div>
+            @endif
             <div class="container-fluid align-items-center py-4">
                 <div class="d-flex justify-content-center align-items-center w-100 align-self-center">
-                    @if ($errors->any())
-                        <br>
-                        <div class="alert alert-danger">
-                            @foreach ($errors->all() as $error)
-                                {!! $error !!}
-                                <br>
-                            @endforeach
-                        </div>
-                    @endif
                     <div class="container px-3 w-75">
                         <div class="form-group mb-3">
                             <label for="new-event-name" class="rsans fw-bold form-label">Event name</label>
-                            <input type="text" id="new-event-name" name="new_event_name" class="rsans form-control" required></input>
+                            <input type="text" id="new-event-name" name="new_event_name" class="rsans form-control" required value="{{ old('new_event_name', $event->new_event_name ?? '') }}">
                         </div>
                         <div class="form-group mb-3">
                             <label for="new-event-location" class="rsans fw-bold form-label">Location</label>
-                            <input type="text" id="new-event-location" name="new_event_location" class="rsans form-control" required>
+                            <input type="text" id="new-event-location" name="new_event_location" class="rsans form-control" required value="{{ old('new_event_location', $event->new_event_location ?? '') }}">
                         </div>
                         <div class="form-group mb-3">
                             <label for="new-event-datetime" class="rsans fw-bold form-label">Event date and time</label>
-                            <input type="datetime-local" id="new-event-datetime" name="new_event_datetime" class="rsans form-control" required>
+                            <input type="datetime-local" id="new-event-datetime" name="new_event_datetime" class="rsans form-control" required value="{{ old('new_event_datetime', $event->new_event_datetime ?? '') }}">
                         </div>
                         <div class="form-group mb-3">
                             <label for="new-event-description" class="rsans fw-bold form-label">Description</label>
-                            <textarea id="new-event-description" name="new_event_description" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024" required></textarea>
+                            <textarea id="new-event-description" name="new_event_description" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024" required>{{ old('new_event_description', $event->new_event_description ?? '') }}</textarea>
                         </div>
                         <div class="form-group mb-3">
                             <label for="new-event-entrance-fee" class="rsans fw-bold form-label">Entrance fee</label>
                             <div class="input-group w-50">
                                 <span class="rsans formfield-span input-group-text d-flex justify-content-center">RM</span>
-                                <input type="text" id="new-event-entrance-fee" name="new_event_entrance_fee" class="rsans form-control" required>
+                                <input type="number" id="new-event-entrance-fee" name="new_event_entrance_fee" class="rsans form-control" step="0.01" min="0" required value="{{ old('new_event_entrance_fee', $event->new_event_entrance_fee ?? '') }}">
                             </div>
                         </div>
                         <div class="form-group mb-3">
                             <label for="new-event-sdp-provided" class="rsans fw-bold form-label">Does this event have SDP?</label>
                             <select id="new-event-sdp-provided" class="rsans form-select w-50" name="new_event_sdp_provided" required>
                                 <option selected disabled value="">Choose...</option>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
+                                <option value="1" {{ old('new_event_sdp_provided', $event->new_event_sdp_provided ?? '') == 1 ? 'selected' : '' }}>Yes</option>
+                                <option value="0" {{ old('new_event_sdp_provided', $event->new_event_sdp_provided ?? '') == 0 ? 'selected' : '' }}>No</option>
                             </select>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="event-registration-link" class="rsans fw-bold form-label">Registration link</label>
-                            <input type="text" id="event-registration-link" name="event_registration_link" class="rsans form-control" required>
+                            <label for="new-event-registration-link" class="rsans fw-bold form-label">Registration link</label>
+                            <input type="text" id="new-event-registration-link" name="new_event_registration_link" class="rsans form-control" required value="{{ old('new_event_registration_link', $event->new_event_registration_link ?? '') }}">
                         </div>
                         <div class="form-group mb-3">
-                            <label for="event-status" class="rsans fw-bold form-label">Event status</label>
-                            <select id="event-status" name="event_status" class="rsans form-select w-50" required readonly disabled>
-                                <option selected disabled value="1">Incoming</option>
+                            <label for="new-event-status" class="rsans fw-bold form-label">Event status</label>
+                            <select id="new-event-status" name="new_event_status" class="rsans form-select w-50" required>
+                                <option value="1" selected>Incoming</option>
                             </select>
                         </div>
                         <div class="form-group mb-3">
                             <label for="new-image-input" class="rsans fw-bold form-label">Add event image (optional)</label>
                             <div class="rsans input-group w-100">
-                                <input type="file" id="new-image-input" name="new_club_image" class="form-control w-50" accept="image/*">
+                                <input type="file" id="new-image-input" name="new_event_image" class="form-control w-50" accept="image/*">
                             </div>
                         </div>
                         <!-- Preview of to-be-uploaded file -->

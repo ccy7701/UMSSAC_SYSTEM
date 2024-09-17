@@ -74,30 +74,30 @@
                 <div class="container px-3 w-75">
                     <div class="form-group mb-3">
                         <label for="event-name" class="rsans fw-bold form-label">Event name</label>
-                        <input type="text" id="event-name" name="event_name" class="rsans form-control" value="{{ $event->event_name }}">
+                        <input type="text" id="event-name" name="event_name" class="rsans form-control" value="{{ $event->event_name }}" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="event-location" class="rsans fw-bold form-label">Location</label>
-                        <input type="text" id="event-location" name="event_location" class="rsans form-control" value="{{ $event->event_location }}">
+                        <input type="text" id="event-location" name="event_location" class="rsans form-control" value="{{ $event->event_location }}" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="event-datetime" class="rsans fw-bold form-label">Event date and time</label>
-                        <input type="datetime-local" id="event-datetime" name="event_datetime" class="rsans form-control" value="{{ \Carbon\Carbon::parse($event->event_datetime)->format('Y-m-d\TH:i') }}">
+                        <input type="datetime-local" id="event-datetime" name="event_datetime" class="rsans form-control" value="{{ \Carbon\Carbon::parse($event->event_datetime)->format('Y-m-d\TH:i') }}" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="event-description" class="rsans fw-bold form-label">Description</label>
-                        <textarea id="event-description" name="event_description" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024">{{ $event->event_description }}</textarea>
+                        <textarea id="event-description" name="event_description" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024" required>{{ $event->event_description }}</textarea>
                     </div>
                     <div class="form-group mb-3">
                         <label for="event-entrance-fee" class="rsans fw-bold form-label">Entrance fee</label>
                         <div class="input-group">
                             <span class="rsans formfield-span input-group-text d-flex justify-content-center">RM</span>
-                            <input type="text" id="event-entrance-fee" name="event_entrance_fee" class="rsans form-control" value="{{ number_format($event->event_entrance_fee, 2) }}">
+                            <input type="number" id="new-event-entrance-fee" name="new_event_entrance_fee" class="rsans form-control" step="0.01" min="0" value="{{ number_format($event->event_entrance_fee, 2) }}" required>
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <label for="event-sdp-provided" class="rsans fw-bold form-label">Does this event have SDP?</label>
-                        <select id="event-sdp-provided" class="rsans form-select w-50" name="event_sdp_provided">
+                        <select id="event-sdp-provided" class="rsans form-select w-50" name="event_sdp_provided" required>
                             <option selected disabled value="">Choose...</option>
                             <option value="1" {{ $event->event_sdp_provided == 1 ? 'selected' : '' }}>Yes</option>
                             <option value="0" {{ $event->event_sdp_provided == 0 ? 'selected' : '' }}>No</option>
@@ -105,11 +105,11 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="event-registration-link" class="rsans fw-bold form-label">Registration link</label>
-                        <input type="text" id="event-registration-link" name="event_registration_link" class="rsans form-control" value="{{ $event->event_registration_link }}">
+                        <input type="text" id="event-registration-link" name="event_registration_link" class="rsans form-control" value="{{ $event->event_registration_link }}" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="event-status" class="rsans fw-bold form-label">Event status</label>
-                        <select id="event-status" name="event_status" class="rsans form-select w-50">
+                        <select id="event-status" name="event_status" class="rsans form-select w-50" required>
                             <option selected disabled value="">Choose...</option>
                             <option value="1" {{ $event->event_status == 1 ? 'selected' : '' }}>Incoming</option>
                             <option value="0" {{ $event->event_status == 0 ? 'selected' : '' }}>Closed</option>
