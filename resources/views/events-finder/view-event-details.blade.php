@@ -119,7 +119,6 @@
             <p class="rsans pb-3"><a href="#">{{ $event->event_registration_link }}</a></p>
         </div>
     </div>
-
     <x-footer/>
 </body>
 

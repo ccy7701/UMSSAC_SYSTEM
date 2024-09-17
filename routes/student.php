@@ -20,4 +20,9 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::post('/edit-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'editSubject'])->name('subject-stats-log.edit');
 
     Route::delete('/delete-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'deleteSubject'])->name('subject-stats-log.delete');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/timetable-builder', function () {
+        return view('timetable-builder.timetable-builder');
+    })->name('timetable-builder');
 });

@@ -50,16 +50,18 @@
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('profile') }}">Profile</a></li>
                 @if (currentAccount()->account_role == 1)
                     <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Study Partners (WIP)</a></li>
-                    <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Timetable Builder (WIP)</a></li>
+
+                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('timetable-builder') }}">Timetable Builder (WIP)</a></li>
+
                     <li class="nav-item"><a class="nav-link px-3" href="{{ route('progress-tracker') }}">Academic Progress Tracker</a></li>
                 @endif
-                <li class="nav-item"><a class="nav-link px-3" href="{{ route('events-finder') }}">Events Finder (WIP)</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="{{ route('events-finder') }}">Events Finder</a></li>
 
 
                 @if (currentAccount()->account_role == 1 || currentAccount()->account_role == 2)
-                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('clubs-finder') }}">Clubs Finder (WIP)</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('clubs-finder') }}">Clubs Finder</a></li>
                 @elseif (currentAccount()->account_role == 3)
-                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('manage-clubs') }}">Manage Clubs (WIP)</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('manage-clubs') }}">Manage Clubs</a></li>
                 @endif
 
 
