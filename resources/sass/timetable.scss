@@ -1,0 +1,10 @@
+.timetable {
+    border: 1px solid #3C3C3C;
+    text-align: center;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.timetable th, .timetable td {
+    height: 50px;
+}

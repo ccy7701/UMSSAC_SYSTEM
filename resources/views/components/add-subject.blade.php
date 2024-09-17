@@ -45,8 +45,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add Subject</button>
+                    <button type="button" class="btn btn-secondary fw-semibold" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary fw-semibold">Add subject</button>
                 </div>
             </form>
         </div>
