@@ -173,7 +173,7 @@
                                 </div>
                             @endforeach
                             <div class="rsans d-flex justify-content-center">
-                                {{ $events->links('pagination::bootstrap-4') }}
+                                {{ $clubEvents->links('pagination::bootstrap-4') }}
                             </div>
                         @else
                             <p class="rsans">No events recorded yet</p>

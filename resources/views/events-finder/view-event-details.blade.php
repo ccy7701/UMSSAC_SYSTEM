@@ -29,14 +29,20 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="rsans breadcrumb" style="--bs-breadcrumb-divider: '>';">
                                     <li class="breadcrumb-item"><a href="{{ route('events-finder') }}">All Events</a></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a></li>
+                                    <li class="breadcrumb-item">
+                                        @if (currentAccount()->account_role != 3)
+                                            <a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a>
+                                        @else
+                                            <a href="{{ route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a>
+                                        @endif
+                                    </li>
                                     <li class="breadcrumb-item active">{{ $event->event_name }}</li>
                                 </ol>
                             </nav>
                         </div>
                         <div class="col-6 d-flex justify-content-end align-items-center">
                             <p class="rsans mb-0 me-3 align-self-center text-end">Last updated: {{ \Carbon\Carbon::parse($event->updated_at)->format('Y-m-d h:i A') }}</p>
-                            @if ($isCommitteeMember || currentAccount()->account_role == 3)
+                            @if ($isCommitteeMember)
                                 <a href="{{ route('events-finder.manage-details', [
                                     'event_id' => $event->event_id,
                                     'club_id' => $club->club_id,
