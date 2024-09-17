@@ -80,6 +80,27 @@ class EventController extends Controller
         ]);
     }
 
+    public function addEventImage(Request $request) {
+        $request->validate([
+            'new_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // dd($validatedData);
+        $event = Event::findOrFail($request->event_id);
+        $currentImages = json_decode($event->getRawOriginal('event_image_paths'), true) ?? [];
+        $newImagePath = $request->file('new_image')->store('event-images', 'public');
+        $currentImages[] = $newImagePath;
+
+        $event->event_image_paths = json_encode($currentImages);
+        $status = $event->save();
+
+        $route = route('event-manage.edit-images', ['event_id' => $event->event_id, 'club_id' => $request->club_id]);
+
+        return $status
+            ? redirect($route)->with('success', 'Event image added successfully!')
+            : back()->withErrors(['error' => 'Failed to add event image. Please try again.']);
+    }
+
     private function getFilters(Request $request) {
         // Fetch filters from form submission (may be empty if no checkboxes are selected)
         $filters = [

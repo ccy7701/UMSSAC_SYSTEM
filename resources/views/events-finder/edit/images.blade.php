@@ -63,10 +63,27 @@
                 @endphp
                 @if (!empty($eventImagePaths))
                     @foreach ($eventImagePaths as $key => $imagePath)
-
+                        <div class="col-md-3 align-items-center text-center">
+                            <div class="card h-100" id="card-event-images">
+                                <img src="{{ Storage::url($imagePath) }}" alt="Event illustration" class="card-img-top border-bottom" style="aspect-ratio: 4/4; object-fit: cover;">
+                                <div class="card-body d-flex flex-row justify-content-center align-items-center py-3">
+                                    <button type="button" class="rsans btn btn-secondary fw-semibold w-40 me-1"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#view-image-modal"
+                                        data-image="{{ Storage::url($imagePath) }}"
+                                        data-index={{ $loop->iteration }}>View</button>
+                                    <button type="button" class="rsans btn btn-danger fw-semibold w-40 ms-1"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#delete-confirmation-modal"
+                                        data-key="{{ $key }}">Delete</button>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                     <!-- Add new image card -->
+                    
                     <!-- View image modal -->
+
                     <!-- Delete confirmation modal -->
                 @else
                     <div class="col-md-3 align-items-center">
@@ -94,7 +111,10 @@
                                 </p>
                                 <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <form id="add-event-image-form" method="POST" action="#" enctype="multipart/form-data">
+                            <form id="add-event-image-form" method="POST" action="{{ route('event-manage.edit-images.add', [
+                                'event_id' => $event->event_id,
+                                'club_id' => $club->club_id
+                            ]) }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body">
                                     <div class="col-md-12 text-start py-2">
@@ -122,10 +142,6 @@
                 </div>
             </div>
         </div>
-
-        {{ dump($club) }}
-        {{ dump($isCommitteeMember) }}
-
     </div>
     <x-footer/>
 </body>
