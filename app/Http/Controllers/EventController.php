@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Club;
 use App\Models\Event;
 use Illuminate\Http\Request;
@@ -66,7 +67,30 @@ class EventController extends Controller
     }
 
     public function updateEventInfo(Request $request) {
+        $validatedData = $request->validate([
+            'event_name' => 'required|string|max:128',
+            'event_location' => 'required|string|max:255',
+            'event_datetime' => 'required|date_format:Y-m-d\TH:i',
+            'event_description' => 'required|string|max:1024',
+            'event_entrance_fee' => 'nullable|numeric|min:0',
+            'event_sdp_provided' => 'required|boolean',
+            'event_registration_link' => 'nullable|url|max:255',
+            'event_status' => 'required|boolean',
+        ]);
 
+        // Convert the event datetime to Carbon
+        $validatedData['event_datetime'] = Carbon::createFromFormat('Y-m-d\TH:i', $validatedData['event_datetime']);
+
+        $event = Event::where('event_id', $request->event_id)->firstOrFail();
+        $status = $event->update($validatedData);
+        $route = route('events-finder.manage-details', [
+            'event_id' => $event->event_id,
+            'club_id' => $event->club_id
+        ]);
+        
+        return $status
+            ? redirect($route)->with('success', 'Event info updated successfully!')
+            : back()->withErrors(['error' => 'Failed to update event info. Please try again.']);
     }
 
     public function showEventImagesEdit(Request $request) {
