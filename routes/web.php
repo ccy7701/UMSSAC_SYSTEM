@@ -61,5 +61,8 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
 
         // CURRENT ROUTE OF FOCUS
         Route::post('/events-finder/full-details/manage/edit-event-info/action', [EventController::class, 'updateEventInfo'])->name('event-manage.edit-event-info.action');
+
+        // CURRENT ROUTE OF FOCUS
+        Route::post('/events-finder/full-details/manage/delete-event', [EventController::class, 'deleteEvent'])->name('event-manage.delete-event');
     });
 });

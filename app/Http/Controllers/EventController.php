@@ -10,6 +10,7 @@ use App\Services\ClubService;
 use App\Services\EventService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class EventController extends Controller
 {
@@ -140,6 +141,18 @@ class EventController extends Controller
         return $status
             ? redirect($route)->with('success', 'Event image deleted successfully.')
             : back()->withErrors(['error' => 'Failed to delete event image. Please try again.']);
+    }
+
+    public function deleteEvent(Request $request) {
+        $eventId = $request->input('event_id');
+        $clubId = $request->input('club_id');
+
+        $event = Event::where('event_id', $eventId)->firstOrFail();
+        $status = $event->delete();
+
+        return $status
+            ? redirect()->route('committee-manage.manage-details', ['club_id' => $clubId])->with('success', 'Event deleted successfully.')
+            : back()->withErrors(['error' => 'Failed to delete event. Please try again.']);
     }
 
     private function getFilters(Request $request) {

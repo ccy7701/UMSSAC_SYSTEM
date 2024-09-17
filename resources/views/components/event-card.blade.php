@@ -26,7 +26,7 @@
                         <i class="fa fa-calendar"></i>
                     </div>
                     <div class="col-10">
-                        {{ $event->event_datetime }}
+                        {{ \Carbon\Carbon::parse($event->event_datetime)->format('Y-m-d h:i A') }}
                     </div>
                 </div>
                 <div class="row align-items-center">

@@ -103,7 +103,6 @@
                 <br>
             </form>
             <!-- END EDIT EVENT INFO SECTION -->
-
             <!-- EDIT EVENT IMAGES SECTION -->
             <div class="d-flex align-items-center">
                 <div class="section-header row w-100">
@@ -134,7 +133,62 @@
                     @endforeach
                 @endif
             </div>
+            <br>
             <!-- END EDIT EVENT IMAGES SECTION -->
+
+            <!-- DELETION SECTION -->
+            <div class="d-flex align-items-center">
+                <div class="section-header row w-100">
+                    <div class="col-md-6 text-start">
+                        <h3 class="rserif fw-bold w-100 py-2">
+                            Event deletion
+                        </h3>
+                        <div class="col-md-6 text-end"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-3 py-4 d-flex align-items-center justify-content-center">
+                <div class="row w-75">
+                    <div class="rsans card text-center p-0">
+                        <div class="card-body align-items-center justify-content-center">
+                            <p class="card-text">Click the button below to delete this event.</p>
+                            <button type="button" class="btn btn-danger fw-semibold align-self-center w-20"
+                                data-bs-toggle="modal"
+                                data-bs-target="#delete-event-confirmation-modal">Delete event</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Delete event confirmation modal -->
+                <div class="rsans modal fade" id="delete-event-confirmation-modal" tabindex="-1" aria-labelledby="deleteEventConfirmationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header py-2 d-flex align-items-center">
+                                <p class="fw-semibold fs-5 mb-0">
+                                    Delete event confirmation
+                                </p>
+                                <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete the event: {{ $event->event_name }}?
+                                <br><br>
+                                <p class="text-danger">This will permanently delete the record of this event and cannot be reversed. Please be certain.</b> 
+                            </div>
+                            <div class="modal-footer">
+                                <form id="delete-event-form" method="POST" action="{{ route('event-manage.delete-event', [
+                                    'event_id' => $event->event_id,
+                                    'club_id' => $club->club_id
+                                ]) }}">
+                                    @csrf
+                                    <input type="hidden" name="event_id" value="{{ $event->event_id }}">
+                                    <input type="hidden" name="club_id" value="{{ $club->club_id }}">
+                                    <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">No, cancel</button>
+                                    <button type="submit" class="btn btn-danger fw-semibold ms-1">Yes, continue</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <x-footer/>

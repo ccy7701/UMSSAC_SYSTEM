@@ -11,7 +11,7 @@
                 </div>
             @else
                 <div class="col-md-2">
-                    <img src="{{ asset($eventImagePaths[0]) }}" class="img-fluid rounded-start border-end" alt="Event list item illustration" style="aspect-ratio: 4/4; object-fit: cover;">
+                    <img src="{{ Storage::url($eventImagePaths[0]) }}" class="img-fluid rounded-start border-end" alt="Event list item illustration" style="aspect-ratio: 4/4; object-fit: cover;">
                 </div>
             @endif
             <!-- Content section -->
@@ -33,7 +33,7 @@
                                 <i class="fa fa-calendar"></i>
                             </div>
                             <div class="col-10">
-                                {{ $event->event_datetime }}
+                                {{ \Carbon\Carbon::parse($event->event_datetime)->format('Y-m-d h:i A') }}
                             </div>
                             <div class="col-1"></div>
                         </div>

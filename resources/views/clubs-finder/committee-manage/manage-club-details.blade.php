@@ -154,7 +154,7 @@
                     <!-- GRID VIEW (Toggle based on preference) -->
                     <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                         <!-- Add new club card -->
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-3 col-md-4">
                             <a href="#" class="text-decoration-none w-100">
                                 <div class="rsans card add-event-card d-flex justify-content-center align-items-center h-100">
                                     <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
@@ -166,7 +166,7 @@
                         </div>
                         @if ($clubEvents->isNotEmpty())
                             @foreach ($clubEvents as $event)
-                                <div class="col-lg-4 col-md-6">
+                                <div class="col-lg-3 col-md-4">
                                     <x-event-card :event="$event"/>
                                 </div>
                             @endforeach
