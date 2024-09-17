@@ -117,7 +117,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="created-at" class="rsans fw-bold form-label">Event creation time and date</label>
-                        <input type="text" id="created-at" name="created_at" class="rsans form-control" value="{{ $event->created_at }}" readonly disabled>
+                        <input type="text" id="created-at" name="created_at" class="rsans form-control" value="{{ \Carbon\Carbon::parse($event->created_at)->format('Y-m-d h:i A') }}" readonly disabled>
                     </div>
                 </div>
             </div>

@@ -34,7 +34,7 @@
                             </nav>
                         </div>
                         <div class="col-6 d-flex justify-content-end align-items-center">
-                            <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ $club->updated_at }}</p>
+                            <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ \Carbon\Carbon::parse($club->updated_at)->format('Y-m-d h:i A') }}</p>
                             <a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}" class="rsans btn btn-secondary fw-semibold w-25">Go back</a>
                         </div>
                     </div>

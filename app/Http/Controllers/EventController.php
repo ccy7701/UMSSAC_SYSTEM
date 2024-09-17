@@ -80,9 +80,11 @@ class EventController extends Controller
 
         // Convert the event datetime to Carbon
         $validatedData['event_datetime'] = Carbon::createFromFormat('Y-m-d\TH:i', $validatedData['event_datetime']);
+        $validatedData['updated_at'] = Carbon::now();
 
         $event = Event::where('event_id', $request->event_id)->firstOrFail();
         $status = $event->update($validatedData);
+        
         $route = route('events-finder.manage-details', [
             'event_id' => $event->event_id,
             'club_id' => $event->club_id

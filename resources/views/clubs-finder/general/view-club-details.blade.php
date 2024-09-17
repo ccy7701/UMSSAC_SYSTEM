@@ -35,10 +35,10 @@
                         </div>
                         <div class="col-6 d-flex justify-content-end">
                             @if ($isCommitteeMember)
-                                <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ $club->updated_at }}</p>
+                                <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ \Carbon\Carbon::parse($club->updated_at)->format('Y-m-d h:i A') }}</p>
                                 <a href="{{ route('committee-manage.manage-details', ['club_id' => $club->club_id]) }}" class="rsans btn btn-primary fw-semibold align-self-center">Manage club details</a>
                             @else
-                                <p class="rsans text-end">Last updated: {{ $club->updated_at }}</p>
+                                <p class="rsans text-end">Last updated: {{ \Carbon\Carbon::parse($club->updated_at)->format('Y-m-d h:i A') }}</p>
                             @endif
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                 <h5 class="rserif fw-bold">About this club</h5>
                 <p class="rsans pb-3">{{ $club->club_description }}</p>
                 <h5 class="rserif fw-bold">Club creation date</h5>
-                <p class="rsans pb-3">{{ $club->created_at }}</p>
+                <p class="rsans pb-3">{{ \Carbon\Carbon::parse($club->created_at)->format('Y-m-d h:i A') }}</p>
             </div>
             <!-- Members section -->
             <div class="d-flex align-items-center">

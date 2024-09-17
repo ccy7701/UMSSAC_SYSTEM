@@ -34,7 +34,7 @@
                             </nav>
                         </div>
                         <div class="col-6 d-flex justify-content-end align-items-center">
-                            <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ $club->updated_at }}</p>
+                            <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ \Carbon\Carbon::parse($event->updated_at)->format('Y-m-d h:i A') }}</p>
                             <a href="{{ route('events-finder.fetch-event-details', ['event_id' => $event->event_id]) }}" class="rsans btn btn-secondary fw-semibold w-30">Go back</a>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="created-at" class="rsans fw-bold form-label">Event creation time and date</label>
-                            <input type="text" id="created-at" name="created_at" class="rsans form-control" value="{{ $event->created_at }}" readonly>
+                            <input type="text" id="created-at" name="created_at" class="rsans form-control" value="{{ \Carbon\Carbon::parse($event->created_at)->format('Y-m-d h:i A') }}" readonly>
                         </div>
                     </div>
                 </div>
