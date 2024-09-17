@@ -53,7 +53,10 @@
                         </div>
                         <div class="col-md-6 text-end">
                             <!-- ROUTE TO BE ADDED HERE -->
-                            <a href="#" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
+                            <a href="{{ route('event-manage.edit-event-info', [
+                                'event_id' => $event->event_id,
+                                'club_id' => $club->club_id,
+                            ]) }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
                         </div>
                     </div>
                 </div>

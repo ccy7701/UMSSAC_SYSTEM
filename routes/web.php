@@ -50,13 +50,16 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
         // CURRENT ROUTE OF FOCUS
         Route::get('/events-finder/full-details/manage', [EventController::class, 'fetchEventManagePage'])->name('events-finder.manage-details');
 
-        // CURRENT ROUTE OF FOCUS
         Route::get('/events-finder/full-details/manage/edit-images', [EventController::class, 'showEventImagesEdit'])->name('event-manage.edit-images');
 
-        // CURRENT ROUTE OF FOCUS
         Route::post('/events-finder/full-details/manage/edit-images/add', [EventController::class, 'addEventImage'])->name('event-manage.edit-images.add');
 
-        // CURRENT ROUTE OF FOCUS
         Route::post('/events-finder/full-details/manage/edit-images/delete', [EventController::class, 'deleteEventImage'])->name('event-manage.edit-images.delete');
+
+        // CURRENT ROUTE OF FOCUS
+        Route::get('/events-finder/full-details/manage/edit-event-info', [EventController::class, 'showEventInfoEdit'])->name('event-manage.edit-event-info');
+
+        // CURRENT ROUTE OF FOCUS
+        Route::post('/events-finder/full-details/manage/edit-event-info/action', [EventController::class, 'updateEventInfo'])->name('event-manage.edit-event-info.action');
     });
 });

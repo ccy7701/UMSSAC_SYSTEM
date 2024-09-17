@@ -70,6 +70,21 @@ class EventController extends Controller
         ]);
     }
 
+    public function showEventInfoEdit(Request $request) {
+        $eventId = $request->query('event_id');
+        $data = $this->prepareEventData($eventId);
+
+        return view('events-finder.edit.event-info', [
+            'event' => $data['event'],
+            'club' => $data['club'],
+            'isCommitteeMember' => $this->clubService->checkCommitteeMember($data['club']->club_id, profile()->profile_id),
+        ]);
+    }
+
+    public function updateEventInfo(Request $request) {
+
+    }
+
     public function showEventImagesEdit(Request $request) {
         $eventId = $request->query('event_id');
         $data = $this->prepareEventData($eventId);
@@ -102,7 +117,6 @@ class EventController extends Controller
     }
 
     public function deleteEventImage(Request $request) {
-        // dd($request);
         $event = Event::findOrFail($request->event_id);
         $currentImages = json_decode($event->getRawOriginal('event_image_paths'), true) ?? [];
         $imageToDeleteIndex = $request->input('key');
