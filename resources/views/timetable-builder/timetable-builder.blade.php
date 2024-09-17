@@ -32,28 +32,28 @@
                 <!-- Days of the week (header) -->
                 <thead>
                     <tr>
-                        <th>Time</th>
-                        <th>7am<br>8am</th>
-                        <th>8am<br>9am</th>
-                        <th>9am<br>10am</th>
-                        <th>10am<br>11am</th>
-                        <th>11am<br>12pm</th>
-                        <th>12pm<br>1pm</th>
-                        <th>1pm<br>2pm</th>
-                        <th>2pm<br>3pm</th>
-                        <th>3pm<br>4pm</th>
-                        <th>4pm<br>5pm</th>
-                        <th>5pm<br>6pm</th>
-                        <th>6pm<br>7pm</th>
-                        <th>7pm<br>8pm</th>
-                        <th>8pm<br>9pm</th>
-                        <th>9pm<br>10pm</th>
+                        <th id="time-header">Time</th>
+                        <th id="7am-8am">7am<br>8am</th>
+                        <th id="8am-9am">8am<br>9am</th>
+                        <th id="9am-10am">9am<br>10am</th>
+                        <th id="10am-11am">10am<br>11am</th>
+                        <th id="11am-12pm">11am<br>12pm</th>
+                        <th id="12pm-1pm">12pm<br>1pm</th>
+                        <th id="1pm-2pm">1pm<br>2pm</th>
+                        <th id="2pm-3pm">2pm<br>3pm</th>
+                        <th id="3pm-4pm">3pm<br>4pm</th>
+                        <th id="4pm-5pm">4pm<br>5pm</th>
+                        <th id="5pm-6pm">5pm<br>6pm</th>
+                        <th id="6pm-7pm">6pm<br>7pm</th>
+                        <th id="7pm-8pm">7pm<br>8pm</th>
+                        <th id="8pm-9pm">8pm<br>9pm</th>
+                        <th id="9pm-10pm">9pm<br>10pm</th>
                     </tr>
                 </thead>
                 <!-- Timetable body -->
                 <tbody>
                     <tr>
-                        <th>MON</th>
+                        <th id="monday">MON</th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -71,7 +71,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>TUE</th>
+                        <th id="tuesday">TUE</th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -89,7 +89,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>WED</th>
+                        <th id="wednesday">WED</th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -107,7 +107,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>THU</th>
+                        <th id="thursday">THU</th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -125,7 +125,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>FRI</th>
+                        <th id="friday">FRI</th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -143,7 +143,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>SAT</th>
+                        <th id="saturday">SAT</th>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -161,7 +161,7 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <th>SUN</th>
+                        <th id="sunday">SUN</th>
                         <td></td>
                         <td></td>
                         <td></td>

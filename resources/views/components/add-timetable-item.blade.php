@@ -95,7 +95,7 @@
                     <button type="button" class="btn btn-secondary fw-semibold" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary fw-semibold">Add subject</button>
                 </div>
-            </form>         
+            </form>
         </div>
     </div>
 </div>

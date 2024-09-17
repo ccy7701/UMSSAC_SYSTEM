@@ -88,7 +88,7 @@ class EventController extends Controller
 
         // Handle the image upload, if present
         $imagePath = $request->hasFile('new_event_image')
-            ? $request->file('new_event_image')->store('event-image', 'public')
+            ? $request->file('new_event_image')->store('event-images', 'public')
             : '';
 
         $event = Event::create([
