@@ -188,7 +188,7 @@ class ClubController extends Controller
         // Return with a success or error message
         return $status
             ? redirect($route)->with('success', 'Club image deleted successfully.')
-            : back()->withErrors(['club' => 'Failed to delete club image. Please try again.']);
+            : back()->withErrors(['error' => 'Failed to delete club image. Please try again.']);
     }
 
     public function addClubImage(Request $request) {

@@ -116,7 +116,7 @@
                                 <div class="modal-footer">
                                     <form id="delete-club-image-form" method="POST" action="{{ route('committee-manage.edit-images.delete', ['club_id' => $club->club_id]) }}">
                                         @csrf
-                                        <input type="hidden" name="key" id="delete-key">
+                                        <input type="hidden" id="delete-key" name="key">
                                         <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">No, cancel</button>
                                         <button type="submit" class="btn btn-danger fw-semibold ms-1">Yes, continue</button>
                                     </form>

@@ -7,7 +7,7 @@
         @if (empty($eventImagePaths))
             <img src="{{ asset('images/no_event_images_default.png') }}" alt="No event illustration default" style="aspect-ratio: 4/4;">
         @else
-            <img src="{{ asset($eventImagePaths[0]) }}" class="card-img-top border-bottom" alt="Event card illustration" style="aspect-ratio: 16/10;">
+            <img src="{{ Storage::url($eventImagePaths[0]) }}" class="card-img-top border-bottom" alt="Event card illustration" style="aspect-ratio: 4/4;">
         @endif
         
         <div class="rsans card-body p-3">

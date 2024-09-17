@@ -58,9 +58,12 @@
                                 <img src="{{ asset('images/no_event_images_default.png') }}" class="d-block w-100" alt="No event illustration default" style="aspect-ratio: 16/10; object-fit: cover;">
                             </div>
                         @else
-                            @foreach(array_slice($eventImagePaths, 1) as $imagePath)
+                            <div class="carousel-item active">
+                                <img src="{{ Storage::url($eventImagePaths[0]) }}" class="d-block w-100" alt="Event illustration" style="aspect-ratio: 16/10; object-fit: cover;">
+                            </div>
+                            @foreach (array_slice($eventImagePaths, 1) as $imagePath)
                                 <div class="carousel-item">
-                                    <img src="{{ asset($imagePath) }}" class="d-block w-100" alt="Event illustration" style="aspect-ratio: 16/10; object-fit: cover;">
+                                    <img src="{{ Storage::url($imagePath) }}" class="d-block w-100" alt="Event illustration" style="aspect-ratio: 16/10; object-fit: cover;">
                                 </div>
                             @endforeach
                         @endif

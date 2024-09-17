@@ -81,10 +81,57 @@
                         </div>
                     @endforeach
                     <!-- Add new image card -->
-                    
+                    <div class="col-md-3 align-items-center">
+                        <div class="rsans card h-100 add-event-image-card d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#add-event-image-modal">
+                            <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                <i class="fa fa-plus-circle fa-3x mb-2"></i>
+                                <h5 class="card-title fw-bold">Add new image</h5>
+                            </div>
+                        </div>
+                    </div>
                     <!-- View image modal -->
-
+                    <div class="rsans modal fade" id="view-image-modal" tabindex="-1" aria-labelledby="viewImageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header py-2 d-flex align-items-center justify-content-center">
+                                    <p class="fw-semibold fs-5 mb-0">
+                                        <span id="image-index"></span>
+                                    </p>
+                                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body d-flex justify-content-center">
+                                    <img src="" alt="Event illustration" class="img-fluid" id="modalImage">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Delete confirmation modal -->
+                    <div class="rsans modal fade" id="delete-confirmation-modal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header py-2 d-flex align-items-center justify-content-center">
+                                    <p class="fw-semibold fs-5 mb-0">
+                                        Delete confirmation
+                                    </p>
+                                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete this image?
+                                </div>
+                                <div class="modal-footer">
+                                    <form id="delete-event-image-form" method="POST" action="{{ route('event-manage.edit-images.delete', [
+                                        'event_id' => $event->event_id,
+                                        'club_id' => $club->club_id,
+                                    ]) }}">
+                                        @csrf
+                                        <input type="hidden" id="delete-key" name="key">
+                                        <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">No, cancel</button>
+                                        <button type="submit" class="btn btn-danger fw-semibold ms-1">Yes, continue</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @else
                     <div class="col-md-3 align-items-center">
                         <div class="card h-100 justify-content-center" id="card-event-images" style="min-height: 50vh;">

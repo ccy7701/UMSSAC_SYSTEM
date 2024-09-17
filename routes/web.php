@@ -55,5 +55,8 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
 
         // CURRENT ROUTE OF FOCUS
         Route::post('/events-finder/full-details/manage/edit-images/add', [EventController::class, 'addEventImage'])->name('event-manage.edit-images.add');
+
+        // CURRENT ROUTE OF FOCUS
+        Route::post('/events-finder/full-details/manage/edit-images/delete', [EventController::class, 'deleteEventImage'])->name('event-manage.edit-images.delete');
     });
 });
