@@ -67,6 +67,12 @@ class EventController extends Controller
         return $this->eventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.edit.event-info');
     }
 
+    public function showAddEventForm(Request $request) {
+        return view('events-finder.add-new-event', [
+            'club' => $this->clubService->getClubDetails($request->club_id),
+        ]);
+    }
+
     public function updateEventInfo(Request $request) {
         $validatedData = $request->validate([
             'event_name' => 'required|string|max:128',

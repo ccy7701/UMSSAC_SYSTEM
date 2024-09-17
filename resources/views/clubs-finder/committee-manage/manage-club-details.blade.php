@@ -158,7 +158,7 @@
                     <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                         <!-- Add new club card -->
                         <div class="col-lg-3 col-md-4">
-                            <a href="#" class="text-decoration-none w-100">
+                            <a href="{{ route('event-manage.add-new-event', ['club_id' => $club->club_id]) }}" class="text-decoration-none w-100">
                                 <div class="rsans card add-event-card d-flex justify-content-center align-items-center h-100">
                                     <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                                         <i class="fa fa-plus-circle fa-3x mb-2"></i>
@@ -187,7 +187,7 @@
                     <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }} justify-content-center">
                         <div class="row pb-3 w-75">
                             <div class="col-lg-12">
-                                <a href="#" class="text-decoration-none w-100">
+                                <a href="{{ route('event-manage.add-new-event', ['club_id' => $club->club_id]) }}" class="text-decoration-none w-100">
                                     <div class="rsans card add-event-list-item" id="list-item-manage">
                                         <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                                             <i class="fa fa-plus-circle fa-3x pt-2 pb-1"></i>

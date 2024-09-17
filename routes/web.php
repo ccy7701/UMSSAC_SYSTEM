@@ -47,7 +47,6 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
 
         Route::post('/committee-manage/full-details/manage/edit-members-access/action', [ClubMembershipController::class, 'updateClubMemberAccess'])->name('committee-manage.edit-member-access.action');
 
-        // CURRENT ROUTE OF FOCUS
         Route::get('/events-finder/full-details/manage', [EventController::class, 'fetchEventManagePage'])->name('events-finder.manage-details');
 
         Route::get('/events-finder/full-details/manage/edit-images', [EventController::class, 'showEventImagesEdit'])->name('event-manage.edit-images');
@@ -56,13 +55,17 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
 
         Route::post('/events-finder/full-details/manage/edit-images/delete', [EventController::class, 'deleteEventImage'])->name('event-manage.edit-images.delete');
 
-        // CURRENT ROUTE OF FOCUS
         Route::get('/events-finder/full-details/manage/edit-event-info', [EventController::class, 'showEventInfoEdit'])->name('event-manage.edit-event-info');
 
-        // CURRENT ROUTE OF FOCUS
         Route::post('/events-finder/full-details/manage/edit-event-info/action', [EventController::class, 'updateEventInfo'])->name('event-manage.edit-event-info.action');
 
-        // CURRENT ROUTE OF FOCUS
+        Route::get('/events-finder/add-new-event', [EventController::class, 'showAddEventForm'])->name('event-manage.add-new-event');
+        // Route::get('/events-finder/add-new-event', function () {
+        //     return view('events-finder.add-new-event');
+        // })->name('event-manage.add-new-event');
+
+        Route::post('/events-finder/add-new-event/action', [EventController::class, 'addNewEvent'])->name('event-manage.add-new-event.action');
+
         Route::post('/events-finder/full-details/manage/delete-event', [EventController::class, 'deleteEvent'])->name('event-manage.delete-event');
     });
 });
