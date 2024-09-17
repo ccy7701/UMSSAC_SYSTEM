@@ -170,7 +170,8 @@
                         @if ($clubEvents->isNotEmpty())
                             @foreach ($clubEvents as $event)
                                 <div class="col-lg-3 col-md-4">
-                                    <x-event-card :event="$event"/>
+                                    {{-- <x-event-card :event="$event"/> --}}
+                                    <x-manage-event-card :event="$event"/>
                                 </div>
                             @endforeach
                         @else
@@ -201,7 +202,7 @@
                             @foreach ($clubEvents as $event)
                                 <div class="row pb-3 w-75">
                                     <div class="col-lg-12">
-                                        <x-event-list-item :event="$event"/>
+                                        <x-manage-event-list-item :event="$event"/>
                                     </div>
                                 </div>
                             @endforeach

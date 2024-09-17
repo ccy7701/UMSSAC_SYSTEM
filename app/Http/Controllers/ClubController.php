@@ -235,7 +235,7 @@ class ClubController extends Controller
             'club_name' => $validatedData['new_club_name'],
             'club_category' => $validatedData['new_club_category'],
             'club_description' => $validatedData['new_club_description'],
-            'club_image_paths' => json_encode($imagePath ? [$imagePath]: []),
+            'club_image_paths' => json_encode($imagePath ? [$imagePath] : []),
         ]);
 
         return $club
