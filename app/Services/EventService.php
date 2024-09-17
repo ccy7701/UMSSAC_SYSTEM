@@ -3,11 +3,18 @@
 namespace App\Services;
 
 use App\Models\Event;
+use App\Models\Club;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
 class EventService
 {
+    protected $clubService;
+
+    public function __construct(ClubService $clubService) {
+        $this->clubService = $clubService;
+    }
+
     // Get all club events for all clubs
     public function getAllEvents(array $filters, $search = null) {
         // Always save the filters, even if empty (to clear the saved filters)
@@ -33,11 +40,33 @@ class EventService
                 });
             })
             ->select('event.*')
-            ->paginate(9);  // TEST, paginate with 9 items per page
+            ->paginate(9);
     }
 
-    // Get the club events
+    // Get all the events for one club
     public function getEventsForClub($club_id) {
         return Event::where('club_id', $club_id)->paginate(9);
+    }
+
+    // Prepare all the data to be sent to the view based on request
+    public function prepareAndRenderEventView($eventId, $viewName) {
+        $data = $this->getEventData($eventId);
+        $isCommitteeMember = $this->clubService->checkCommitteeMember($data['club']->club_id, profile()->profile_id);
+        
+        return view($viewName, [
+            'event' => $data['event'],
+            'club' => $data['club'],
+            'isCommitteeMember' => $isCommitteeMember
+        ]);
+    }
+
+    // Prepare the event data
+    private function getEventData($eventId) {
+        $event = Event::findOrFail($eventId);
+
+        return [
+            'event' => $event,
+            'club' => Club::findOrFail($event->club_id),
+        ];
     }
 }

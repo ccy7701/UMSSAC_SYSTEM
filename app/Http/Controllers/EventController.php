@@ -43,42 +43,26 @@ class EventController extends Controller
 
     public function clearFilterForGeneral() {
         // Clear the filters for the authenticated user's profile
-        $this->flushFilters();
+        DB::table('user_preference')
+            ->where('profile_id', profile()->profile_id)
+            ->update([
+                'event_search_filters' => json_encode([]),
+                'updated_at' => now()
+            ]);
 
         return redirect()->route('events-finder');
     }
 
     public function fetchEventDetails(Request $request) {
-        $eventId = $request->query('event_id');
-        $data = $this->prepareEventData($eventId);
-
-        return view('events-finder.view-event-details', [
-            'event' => $data['event'],
-            'club' => $data['club'],
-            'isCommitteeMember' => $this->clubService->checkCommitteeMember($data['club']->club_id, profile()->profile_id),
-        ]);
+        return $this->eventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.view-event-details');
     }
 
     public function fetchEventManagePage(Request $request) {
-        $eventId = $request->query('event_id');
-        $data = $this->prepareEventData($eventId);
-
-        return view('events-finder.manage-event-details', [
-            'event' => $data['event'],
-            'club' => $data['club'],
-            'isCommitteeMember' => $this->clubService->checkCommitteeMember($data['club']->club_id, profile()->profile_id),
-        ]);
+        return $this->eventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.manage-event-details');
     }
 
     public function showEventInfoEdit(Request $request) {
-        $eventId = $request->query('event_id');
-        $data = $this->prepareEventData($eventId);
-
-        return view('events-finder.edit.event-info', [
-            'event' => $data['event'],
-            'club' => $data['club'],
-            'isCommitteeMember' => $this->clubService->checkCommitteeMember($data['club']->club_id, profile()->profile_id),
-        ]);
+        return $this->eventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.edit.event-info');
     }
 
     public function updateEventInfo(Request $request) {
@@ -86,14 +70,7 @@ class EventController extends Controller
     }
 
     public function showEventImagesEdit(Request $request) {
-        $eventId = $request->query('event_id');
-        $data = $this->prepareEventData($eventId);
-
-        return view('events-finder.edit.images', [
-            'event' => $data['event'],
-            'club' => $data['club'],
-            'isCommitteeMember' => $this->clubService->checkCommitteeMember($data['club']->club_id, profile()->profile_id),
-        ]);
+        return $this->eventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.edit.images');
     }
 
     public function addEventImage(Request $request) {
@@ -160,23 +137,5 @@ class EventController extends Controller
         }
 
         return $filters;
-    }
-
-    private function flushFilters() {
-        DB::table('user_preference')
-            ->where('profile_id', profile()->profile_id)
-            ->update([
-                'event_search_filters' => json_encode([]),
-                'updated_at' => now()
-            ]);
-    }
-
-    private function prepareEventData($eventId) {
-        $event = Event::findOrFail($eventId);
-
-        return [
-            'event' => $event,
-            'club' => Club::findOrFail($event->club_id),
-        ];
     }
 }
