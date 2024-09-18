@@ -159,7 +159,7 @@ function updateSubjectList(timetableSlots) {
 }
 
 function convertToAMPM(time) {
-    let [hours, minutes, seconds] = time.split(':');
+    let hours = time.split(':');
     hours = parseInt(hours, 10);
     const am_pm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12 || 12;
@@ -171,7 +171,7 @@ const editModal = new bootstrap.Modal(editModalElement);
 
 window.editTimetableSlot = function(profile_id, class_subject_code) {
     const subjectDataRoute = window.getSubjectDataRouteTemplate
-        .replace(':profile_id', profile_id)   // Replace with actual profile_id
+        .replace(':profile_id', profile_id)
         .replace(':class_subject_code', class_subject_code);
 
     fetch(subjectDataRoute)
@@ -200,3 +200,37 @@ window.editTimetableSlot = function(profile_id, class_subject_code) {
         })
         .catch(error => console.error('Error fetching timetable slot data:', error));
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const addTimetableItemForm = document.getElementById('add-timetable-item-form');
+
+    addTimetableItemForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(addTimetableItemForm);
+
+        // Send the form data via AJAX
+        fetch(addTimetableItemForm.action, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateSubjectList(data.timetableSlots);
+                generateTimetable(data.timetableSlots);
+                console.log("Timetable builder refreshed with newly added data.");
+
+                const addModal = bootstrap.Modal.getInstance(document.getElementById('addTimetableItemModal'));
+                addModal.hide();
+                document.getElementById('add-timetable-item-form').reset();
+            } else {
+                console.error('Error adding timetable slot:', data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});

@@ -24,4 +24,33 @@ class TimetableSlotController extends Controller
 
         return response()->json($timetableSlot);
     }
+
+    public function addTimetableSlot(Request $request) {
+        $validatedData = $request->validate([
+            'profile_id' => 'required|integer|exists:profile,profile_id',
+            'class_subject_code' => 'required|string|max:12',
+            'class_name' => 'required|string|max:255',
+            'class_category' => 'required|string|in:lecture,labprac,tutorial,cocurricular',
+            'class_section' => 'required|integer|min:1',
+            'class_location' => 'required|string|max:255',
+            'class_day' => 'required|integer|between:1,7',
+            'class_start_time' => 'required|date_format:H:i:s',
+            'class_end_time' => 'required|date_format:H:i:s|after:class_start_time',
+        ]);
+
+        try {
+            $status = DB::table('timetable_slot')->insert($validatedData);
+
+            if ($status) {
+                return response()->json([
+                    'success' => true,
+                    'timetableSlots' => TimetableSlot::where('profile_id', profile()->profile_id)->get()
+                ]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Failed to add new timetable slot. Please try again.']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
 }

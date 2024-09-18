@@ -1,13 +1,13 @@
 
 <!-- resources/views/components/add-timetable-item.blade.php -->
-<div class="rsans modal fade" id="addTimetableItem" tabindex="-1" aria-labelledby="addTimetableItemModalLabel" aria-hidden="true">
+<div class="rsans modal fade" id="addTimetableItemModal" tabindex="-1" aria-labelledby="addTimetableItemModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content p-3">
             <div class="modal-header">
                 <h5 class="modal-title" id="addTimetableItemModalLabel">Add Subject</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="add-timetable-item-form" method="POST" action="#">
+            <form id="add-timetable-item-form" method="POST" action="{{ route('timetable-builder.add') }}">
                 @csrf
                 <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
                 <div class="modal-body text-start">
@@ -38,9 +38,9 @@
                         <input type="text" class="form-control" id="class-location" name="class_location" required>
                     </div>
                     <div class="mb-3">
-                        <label for="day-and-time" class="form-label">Day and time</label>
+                        <label for="day" class="form-label">Day and time</label>
                         <div class="d-flex">
-                            <select class="form-select" id="day-and-time" name="class_day" required>
+                            <select class="form-select" id="day" name="class_day" required>
                                 <option selected disabled value="">Choose...</option>
                                 <option value="1">Monday</option>
                                 <option value="2">Tuesday</option>
@@ -50,8 +50,10 @@
                                 <option value="6">Saturday</option>
                                 <option value="7">Sunday</option>
                             </select>
-                            <span class="align-self-center px-3">from</span>
-                            <select class="form-select" id="day-and-time" name="class_start_time" required>
+                            <label for="start-time" class="align-self-center px-3">
+                                <span>from</span>
+                            </label>
+                            <select class="form-select" id="start-time" name="class_start_time" required>
                                 <option selected disabled value="">Choose...</option>
                                 <option value="07:00:00">7:00 AM</option>
                                 <option value="08:00:00">8:00 AM</option>
@@ -69,8 +71,10 @@
                                 <option value="20:00:00">8:00 PM</option>
                                 <option value="21:00:00">9:00 PM</option>
                             </select>
-                            <span class="align-self-center px-3">to</span>
-                            <select class="form-select" id="day-and-time" name="class_end_time" required>
+                            <label for="end-time" class="align-self-center px-3">
+                                <span>to</span>
+                            </label>
+                            <select class="form-select" id="end-time" name="class_end_time" required>
                                 <option selected disabled value="">Choose...</option>
                                 <option value="08:00:00">8:00 AM</option>
                                 <option value="09:00:00">9:00 AM</option>

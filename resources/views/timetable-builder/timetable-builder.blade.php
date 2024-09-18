@@ -77,7 +77,7 @@
                                 <div class="col-md-4 text-end pe-0">
                                     <button id="add-subject-button" type="button" class="rsans btn btn-primary fw-bold w-50"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#addTimetableItem">Add subject</button>
+                                        data-bs-target="#addTimetableItemModal">Add subject</button>
                                 </div>
                                 <x-add-timetable-slot/>
                                 <x-edit-timetable-slot/>
