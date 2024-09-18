@@ -33,76 +33,25 @@
                 <thead>
                     <tr>
                         <th id="time-header">Time</th>
-                        <th id="7am-8am">7am<br>8am</th>
-                        <th id="8am-9am">8am<br>9am</th>
-                        <th id="9am-10am">9am<br>10am</th>
-                        <th id="10am-11am">10am<br>11am</th>
-                        <th id="11am-12pm">11am<br>12pm</th>
-                        <th id="12pm-1pm">12pm<br>1pm</th>
-                        <th id="1pm-2pm">1pm<br>2pm</th>
-                        <th id="2pm-3pm">2pm<br>3pm</th>
-                        <th id="3pm-4pm">3pm<br>4pm</th>
-                        <th id="4pm-5pm">4pm<br>5pm</th>
-                        <th id="5pm-6pm">5pm<br>6pm</th>
-                        <th id="6pm-7pm">6pm<br>7pm</th>
-                        <th id="7pm-8pm">7pm<br>8pm</th>
-                        <th id="8pm-9pm">8pm<br>9pm</th>
-                        <th id="9pm-10pm">9pm<br>10pm</th>
+                        <th>7am<br>8am</th>
+                        <th>8am<br>9am</th>
+                        <th>9am<br>10am</th>
+                        <th>10am<br>11am</th>
+                        <th>11am<br>12pm</th>
+                        <th>12pm<br>1pm</th>
+                        <th>1pm<br>2pm</th>
+                        <th>2pm<br>3pm</th>
+                        <th>3pm<br>4pm</th>
+                        <th>4pm<br>5pm</th>
+                        <th>5pm<br>6pm</th>
+                        <th>6pm<br>7pm</th>
+                        <th>7pm<br>8pm</th>
+                        <th>8pm<br>9pm</th>
+                        <th>9pm<br>10pm</th>
                     </tr>
                 </thead>
-                <!-- Timetable body -->
-                @php
-                    // Mapping days of the week for cleaner code
-                    $daysOfWeek = [1 => 'MON', 2 => 'TUE', 3 => 'WED', 4 => 'THU', 5 => 'FRI', 6 => 'SAT', 7 => 'SUN'];
-
-                    // Helper function to check if a class exists in the given slot
-                    function getClassIfExists($timetableSlots, $day, $hour) {
-                        foreach ($timetableSlots as $class) {
-                            $classDay = $class->class_day;
-                            $startHour = (int)date('H', strtotime($class->class_start_time));
-                            $endHour = (int)date('H', strtotime($class->class_end_time));
-                            $colspan = $endHour - $startHour;
-
-                            if ($classDay == $day && $startHour == $hour) {
-                                return [
-                                    'colspan' => $colspan,
-                                    'class_name' => $class->class_name,
-                                    'class_location' => $class->class_location,
-                                ];
-                            }
-                        }
-                        return null; // No class found
-                    }
-                @endphp
-                <tbody>
-                    @foreach ($daysOfWeek as $dayNumber => $dayName)
-                        <tr>
-                            <th id="{{ $dayName }}">{{ $dayName }}</th>
-                            @php $hour = 7; @endphp
-                            @while ($hour < 22)
-                                @php
-                                    // Check for a class in the current time slot
-                                    $classData = getClassIfExists($timetableSlots, $dayNumber, $hour);
-                                @endphp
-                
-                                @if ($classData)
-                                    <!-- Render the class with the correct colspan -->
-                                    <td class="bg-success text-white" colspan="{{ $classData['colspan'] }}">
-                                        {{ $classData['class_name'] }}<br>
-                                        {{ $classData['class_location'] }}
-                                    </td>
-                                    @php
-                                        // Skip the hours the class occupies
-                                        $hour += $classData['colspan'];
-                                    @endphp
-                                @else
-                                    <!-- Render an empty cell for slots with no class -->
-                                    <td></td>
-                                    @php $hour++; @endphp
-                                @endif
-                            @endwhile
-                        </tr>
-                    @endforeach
+                <tbody id="timetable-body">
+                    <!-- Timetable rows will be dynamically generated here -->
                 </tbody>
             </table>
 

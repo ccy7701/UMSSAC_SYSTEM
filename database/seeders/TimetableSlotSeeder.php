@@ -25,9 +25,9 @@ class TimetableSlotSeeder extends Seeder
                 'end_time' => '10:00:00',
             ],
             [
-                'subject_code' => 'KK45104',
-                'name' => 'Software Design',
-                'category' => 'lecture',
+                'subject_code' => 'KK12345',
+                'name' => 'SE Tutorial',
+                'category' => 'tutorial',
                 'section' => 1,
                 'location' => 'DKP 15',
                 'day' => 3,

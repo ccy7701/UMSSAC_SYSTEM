@@ -35,7 +35,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="class-location" class="form-label">Location</label>
-                        <input type="text" class="form-control" id="class-location" name="class-location" required>
+                        <input type="text" class="form-control" id="class-location" name="class_location" required>
                     </div>
                     <div class="mb-3">
                         <label for="day-and-time" class="form-label">Day and time</label>
