@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TimetableSlot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TimetableSlotController extends Controller
 {
@@ -43,14 +44,7 @@ class TimetableSlotController extends Controller
         try {
             $status = DB::table('timetable_slot')->insert($validatedData);
 
-            if ($status) {
-                return response()->json([
-                    'success' => true,
-                    'timetableSlots' => TimetableSlot::where('profile_id', profile()->profile_id)->orderBy('class_day')->get()
-                ]);
-            } else {
-                return response()->json(['success' => false, 'message' => 'Failed to add new timetable slot. Please try again.']);
-            }
+            return $this->handleResponse($status, $validatedData['profile_id']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
@@ -86,16 +80,38 @@ class TimetableSlotController extends Controller
                     'class_end_time' => $validatedData['class_end_time']
                 ]);
 
-            if ($status) {
-                return response()->json([
-                    'success' => true,
-                    'timetableSlots' => TimetableSlot::where('profile_id', $profile_id)->orderBy('class_day')->get()
-                ]);
-            } else {
-                return response()->json(['success' => false, 'message' => 'Failed to edit timetable slot. Please try again.']);
-            }
+            return $this->handleResponse($status, $profile_id);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function deleteTimetableSlot($profile_id, $class_subject_code) {
+        try {
+            Log::info('Attempting to delete timetable slot', [
+                'profile_id' => $profile_id,
+                'class_subject_code' => $class_subject_code
+            ]);
+
+            $status = DB::table('timetable_slot')
+                ->where('profile_id', $profile_id)
+                ->where('class_subject_code', $class_subject_code)
+                ->delete();
+
+            return $this->handleResponse($status, $profile_id);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    private function handleResponse($status, $profile_id) {
+        if ($status) {
+            return response()->json([
+                'success' => true,
+                'timetableSlots' => TimetableSlot::where('profile_id', $profile_id)->orderBy('class_day')->get()
+            ]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Failed to edit timetable slot. Please try again.']);
         }
     }
 }

@@ -61,6 +61,7 @@
         <script>
             window.getSubjectDataRouteTemplate = "{{ route('timetable-builder.get', ['profile_id' => ':profile_id', 'class_subject_code' => ':class_subject_code']) }}";
             window.editSubjectRouteTemplate = "{{ route('timetable-builder.edit', ['profile_id' => ':profile_id', 'class_subject_code' => ':class_subject_code']) }}";
+            window.deleteRouteTemplate = "{{ route('timetable-builder.delete', ['profile_id' => ':profile_id', 'class_subject_code' => ':class_subject_code']) }}";
             window.csrfToken = "{{ csrf_token() }}";
         </script>
 

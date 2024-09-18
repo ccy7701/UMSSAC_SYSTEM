@@ -143,7 +143,7 @@ function updateSubjectList(timetableSlots) {
                                 data-bs-target="#editTimetableSlotModal">Edit</a>
                             </li>
                             <li>
-
+                                <a href="javascript:void(0)" class="text-danger dropdown-item" onclick="deleteTimetableSlot(${slot.profile_id}, '${slot.class_subject_code}')">Delete</a>
                             </li>
                         </ul>
                     </div>
@@ -201,8 +201,39 @@ window.editTimetableSlot = function(profile_id, class_subject_code) {
         .catch(error => console.error('Error fetching timetable slot data:', error));
 }
 
-window.deleteSubject = function() {
-    // NOT FILLED YET
+window.deleteTimetableSlot = function(profile_id, class_subject_code) {
+    if (confirm('Are you sure you want to delete this subject from the timetable?')) {
+        const deleteRoute = window.deleteRouteTemplate
+            .replace(':profile_id', profile_id)
+            .replace(':class_subject_code', class_subject_code);
+
+        fetch(deleteRoute, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({
+                '_method': 'DELETE'
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                console.log("Timetable slot deleted successfully.");
+                updateSubjectList(data.timetableSlots);
+                generateTimetable(data.timetableSlots);
+            } else {
+                alert('Failed to delete timetable slot. Please try again.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
