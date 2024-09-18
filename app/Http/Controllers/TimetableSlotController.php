@@ -16,4 +16,12 @@ class TimetableSlotController extends Controller
             'timetableSlots' => $timetableSlots
         ]);
     }
+
+    public function getTimetableSlotData($profile_id, $class_subject_code) {
+        $timetableSlot = TimetableSlot::where('profile_id', $profile_id)
+            ->where('class_subject_code', $class_subject_code)
+            ->first();
+
+        return response()->json($timetableSlot);
+    }
 }

@@ -125,7 +125,6 @@ window.editSubject = function(sem_prog_log_id, subject_code) {
             document.getElementById('edit-subject-form').action = formAction;
 
             // Open the modal
-            // const editModal = new bootstrap.Modal(document.getElementById('editSubjectModal'));
             editModal.show();
         })
         .catch(error => console.error('Error fetching subject data:', error));

@@ -58,7 +58,11 @@
         </div>
 
         <!-- Send route templates to external JS -->
-        {{-- {{ dump($timetableSlots) }} --}}
+        <script>
+            window.getSubjectDataRouteTemplate = "{{ route('timetable-builder.get', ['profile_id' => ':profile_id', 'class_subject_code' => ':class_subject_code']) }}";
+            window.editSubjectRouteTemplate = "{{ route('timetable-builder.edit', ['profile_id' => ':profile_id', 'class_subject_code' => ':class_subject_code']) }}";
+            window.csrfToken = "{{ csrf_token() }}";
+        </script>
 
         <!-- SUBJECTS ON TIMETABLE OVERVIEW -->
         <div class="row pb-3 pt-2">
@@ -75,8 +79,8 @@
                                         data-bs-toggle="modal"
                                         data-bs-target="#addTimetableItem">Add subject</button>
                                 </div>
-                                <x-add-timetable-item/>
-                                <x-edit-timetable-item/>
+                                <x-add-timetable-slot/>
+                                <x-edit-timetable-slot/>
                             </div>
                         </div>
                         <!-- SUBJECTS ADDED TABLE -->
