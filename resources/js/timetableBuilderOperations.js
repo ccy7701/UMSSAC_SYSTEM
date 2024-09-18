@@ -201,6 +201,10 @@ window.editTimetableSlot = function(profile_id, class_subject_code) {
         .catch(error => console.error('Error fetching timetable slot data:', error));
 }
 
+window.deleteSubject = function() {
+    // NOT FILLED YET
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const addTimetableItemForm = document.getElementById('add-timetable-item-form');
 
@@ -233,4 +237,44 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => console.error('Error:', error));
     });
+
+    const editTimetableSlotForm = document.getElementById('edit-timetable-slot-form');
+
+    // Handle edit timetable slot form submision via AJAX
+    if (editTimetableSlotForm) {
+        editTimetableSlotForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(editTimetableSlotForm);
+
+            const formAction = editTimetableSlotForm.action;
+
+            fetch(formAction, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    console.log("Timetable slot updated successfully!");
+                    console.log('Modal instance:', editModal);
+                    editModal.hide();
+                    document.getElementById('edit-timetable-slot-form').reset();
+
+                    updateSubjectList(data.timetableSlots);
+                    generateTimetable(data.timetableSlots);
+                } else {
+                    alert('Failed to update the timetable slot. Please try again.');
+                }
+            })
+            .catch(error => console.error('Error:', error))
+        });
+    }
 });

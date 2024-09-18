@@ -8,7 +8,7 @@
             </div>
             <form id="edit-timetable-slot-form" method="POST" action="">
                 @csrf
-                <input type="hidden" name="profile_id" value="">
+                <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
                 <div class="modal-body text-start">
                     <div class="mb-3">
                         <label for="edit-class-subject-code" class="form-label">Code</label>

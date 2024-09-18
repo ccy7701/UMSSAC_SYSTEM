@@ -38,5 +38,5 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::post('/timetable-builder/add', [TimetableSlotController::class, 'addTimetableSlot'])->name('timetable-builder.add');
 
     // CURRENT ROUTE OF FOCUS
-    Route::post('/timetable-builder/edit', [TimetableSlotController::class, 'editTimetableSlot'])->name('timetable-builder.edit');
+    Route::post('/add-timetable-slot/{profile_id}/{class_subject_code}', [TimetableSlotController::class, 'editTimetableSlot'])->name('timetable-builder.edit');
 });

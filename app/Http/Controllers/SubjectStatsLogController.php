@@ -105,7 +105,7 @@ class SubjectStatsLogController extends Controller
     }
 
     public function editSubject(Request $request, $sem_prog_log_id, $subject_code) {
-        $validated = $this->validateData($request, true);
+        $validatedData = $this->validateData($request, true);
 
         try {
             // Manually updating each field
@@ -113,11 +113,11 @@ class SubjectStatsLogController extends Controller
                 ->where('sem_prog_log_id', $sem_prog_log_id)
                 ->where('subject_code', $subject_code)
                 ->update([
-                    'subject_code' => $validated['subject_code'],
-                    'subject_name' => $validated['subject_name'],
-                    'subject_credit_hours' => $validated['subject_credit_hours'],
-                    'subject_grade' => $validated['subject_grade'],
-                    'subject_grade_point' => $this->getGradePoint($validated['subject_grade']) * $validated['subject_credit_hours'],
+                    'subject_code' => $validatedData['subject_code'],
+                    'subject_name' => $validatedData['subject_name'],
+                    'subject_credit_hours' => $validatedData['subject_credit_hours'],
+                    'subject_grade' => $validatedData['subject_grade'],
+                    'subject_grade_point' => $this->getGradePoint($validatedData['subject_grade']) * $validatedData['subject_credit_hours'],
                 ]);
 
             // Recalculate CGPA and SGPA
