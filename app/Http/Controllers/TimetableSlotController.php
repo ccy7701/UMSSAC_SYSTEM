@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\DB;
 class TimetableSlotController extends Controller
 {
     public function initialiseTimetable() {
-        $timetableSlots = TimetableSlot::where('profile_id', profile()->profile_id)->get();
+        $timetableSlots = TimetableSlot::where('profile_id', profile()->profile_id)
+            ->orderBy('class_day')
+            ->get();
 
         return response()->json([
             'success' => true,
@@ -44,7 +46,7 @@ class TimetableSlotController extends Controller
             if ($status) {
                 return response()->json([
                     'success' => true,
-                    'timetableSlots' => TimetableSlot::where('profile_id', profile()->profile_id)->get()
+                    'timetableSlots' => TimetableSlot::where('profile_id', profile()->profile_id)->orderBy('class_day')->get()
                 ]);
             } else {
                 return response()->json(['success' => false, 'message' => 'Failed to add new timetable slot. Please try again.']);
