@@ -74,24 +74,17 @@ class SubjectStatsLogController extends Controller
         $validated = $this->validateData($request, false);
         
         try {
-            // Create a new subject record
-            $subject = new SubjectStatsLog();
-            $subject->sem_prog_log_id = $validated['sem_prog_log_id'];
-            $subject->subject_code = $validated['subject_code'];
-            $subject->subject_name = $validated['subject_name'];
-            $subject->subject_credit_hours = $validated['subject_credit_hours'];
-            $subject->subject_grade = $validated['subject_grade'];
-            $subject->subject_grade_point = $this->getGradePoint($subject->subject_grade) * $subject->subject_credit_hours;
-
+            $subjectData = [
+                'sem_prog_log_id' => $validated['sem_prog_log_id'],
+                'subject_code' => $validated['subject_code'],
+                'subject_name' => $validated['subject_name'],
+                'subject_credit_hours' => $validated['subject_credit_hours'],
+                'subject_grade' => $validated['subject_grade'],
+                'subject_grade_point' => $this->getGradePoint($validated['subject_grade']) * $validated['subject_credit_hours'],
+            ];
+            
             // Insert new record explicitly, ignore potential updates
-            $status = DB::table('subject_stats_log')->insert([
-                'sem_prog_log_id' => $subject->sem_prog_log_id,
-                'subject_code' => $subject->subject_code,
-                'subject_name' => $subject->subject_name,
-                'subject_credit_hours' => $subject->subject_credit_hours,
-                'subject_grade' => $subject->subject_grade,
-                'subject_grade_point' => $subject->subject_grade_point,
-            ]);
+            $status = DB::table('subject_stats_log')->insert($subjectData);
 
             // Recalculate CGPA and SGPA
             $grades = $this->recalculateCGPAandSGPA(profile()->profile_id, $validated['sem_prog_log_id']);
