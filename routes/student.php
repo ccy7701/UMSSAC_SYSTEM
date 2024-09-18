@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SemesterProgressLogController;
 use App\Http\Controllers\SubjectStatsLogController;
+use App\Http\Controllers\TimetableSlotController;
 use App\Http\Middleware\RoleAccessMiddleware;
 
 // Routes accessible by student only (account role 1)
@@ -22,7 +23,5 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::delete('/delete-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'deleteSubject'])->name('subject-stats-log.delete');
 
     // CURRENT ROUTE OF FOCUS
-    Route::get('/timetable-builder', function () {
-        return view('timetable-builder.timetable-builder');
-    })->name('timetable-builder');
+    Route::get('/timetable-builder', [TimetableSlotController::class, 'showTimetableBuilder'])->name('timetable-builder');
 });

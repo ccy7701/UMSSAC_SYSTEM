@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             UserPreferenceSeeder::class,
             ClubMembershipSeeder::class,
             ClubEventMixedSeeder::class,
+            TimetableSlotSeeder::class,
         ]);
     }
 }

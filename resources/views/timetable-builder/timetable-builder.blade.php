@@ -51,140 +51,65 @@
                     </tr>
                 </thead>
                 <!-- Timetable body -->
+                @php
+                    // Mapping days of the week for cleaner code
+                    $daysOfWeek = [1 => 'MON', 2 => 'TUE', 3 => 'WED', 4 => 'THU', 5 => 'FRI', 6 => 'SAT', 7 => 'SUN'];
+
+                    // Helper function to check if a class exists in the given slot
+                    function getClassIfExists($timetableSlots, $day, $hour) {
+                        foreach ($timetableSlots as $class) {
+                            $classDay = $class->class_day;
+                            $startHour = (int)date('H', strtotime($class->class_start_time));
+                            $endHour = (int)date('H', strtotime($class->class_end_time));
+                            $colspan = $endHour - $startHour;
+
+                            if ($classDay == $day && $startHour == $hour) {
+                                return [
+                                    'colspan' => $colspan,
+                                    'class_name' => $class->class_name,
+                                    'class_location' => $class->class_location,
+                                ];
+                            }
+                        }
+                        return null; // No class found
+                    }
+                @endphp
                 <tbody>
-                    <tr>
-                        <th id="monday">MON</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th id="tuesday">TUE</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th id="wednesday">WED</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th id="thursday">THU</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th id="friday">FRI</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th id="saturday">SAT</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th id="sunday">SUN</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    @foreach ($daysOfWeek as $dayNumber => $dayName)
+                        <tr>
+                            <th>{{ $dayName }}</th>
+                            @php $hour = 7; @endphp
+                            @while ($hour < 22)
+                                @php
+                                    // Check for a class in the current time slot
+                                    $classData = getClassIfExists($timetableSlots, $dayNumber, $hour);
+                                @endphp
+                
+                                @if ($classData)
+                                    <!-- Render the class with the correct colspan -->
+                                    <td class="bg-success text-white" colspan="{{ $classData['colspan'] }}">
+                                        {{ $classData['class_name'] }}<br>
+                                        {{ $classData['class_location'] }}
+                                    </td>
+                                    @php
+                                        // Skip the hours the class occupies
+                                        $hour += $classData['colspan'];
+                                    @endphp
+                                @else
+                                    <!-- Render an empty cell for slots with no class -->
+                                    <td></td>
+                                    @php $hour++; @endphp
+                                @endif
+                            @endwhile
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
-
 
         </div>
 
         <!-- Send route templates to external JS -->
+        {{-- {{ dump($timetableSlots) }} --}}
 
         <!-- SUBJECTS ON TIMETABLE OVERVIEW -->
         <div class="row pb-3 pt-2">
