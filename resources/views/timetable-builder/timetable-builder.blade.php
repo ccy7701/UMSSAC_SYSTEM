@@ -77,7 +77,7 @@
                 <tbody>
                     @foreach ($daysOfWeek as $dayNumber => $dayName)
                         <tr>
-                            <th>{{ $dayName }}</th>
+                            <th id="{{ $dayName }}">{{ $dayName }}</th>
                             @php $hour = 7; @endphp
                             @while ($hour < 22)
                                 @php

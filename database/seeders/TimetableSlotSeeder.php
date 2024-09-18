@@ -47,7 +47,7 @@ class TimetableSlotSeeder extends Seeder
         ]);
     }
 
-    public function insertSeederData(int $profileId, array $classData): void 
+    public function insertSeederData(int $profileId, array $classData): void
     {
         $data = array_map(function ($class) use ($profileId) {
             return array_merge([

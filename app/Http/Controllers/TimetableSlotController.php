@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class TimetableSlotController extends Controller
 {
-    public function showTimetableBuilder(Request $request) {
+    public function showTimetableBuilder() {
         $timetableSlots = DB::table('timetable_slot')
             ->where('profile_id', profile()->profile_id)
             ->get();
