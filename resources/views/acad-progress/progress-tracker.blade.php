@@ -147,10 +147,11 @@
                                         <h4 class="rserif card-title fw-bold py-2 placeholder-glow">Subjects taken this semester</h4>
                                     </div>
                                     <div class="col-md-4 text-end pe-0">
-                                        <button id="add-subject-button" type="button" class="rsans btn btn-primary fw-bold w-50" data-bs-toggle="modal" data-bs-target="#addSubjectModal" disabled>Add subject</button>
+                                        <button id="add-subject-button" type="button" class="rsans btn btn-primary fw-bold w-50" data-bs-toggle="modal" data-bs-target="#add-subject-modal" disabled>Add subject</button>
                                     </div>
-                                    <x-add-subject/> <!-- add-subject modal form -->
-                                    <x-edit-subject/> <!-- edit-subject modal form -->
+                                    <x-add-subject/>
+                                    <x-edit-subject/>
+                                    <x-delete-subject/>
                                 </div>
                             </div>
                             <!-- SUBJECTS TAKEN TABLE -->

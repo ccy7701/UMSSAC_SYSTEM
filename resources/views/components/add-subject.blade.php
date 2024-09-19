@@ -1,5 +1,5 @@
 <!-- resources/views/components/add-subject.blade.php -->
-<div class="rsans modal fade" id="addSubjectModal" tabindex="-1" aria-labelledby="addSubjectModalLabel" aria-hidden="true">
+<div class="rsans modal fade" id="add-subject-modal" tabindex="-1" aria-labelledby="addSubjectModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content p-3">
             <div class="modal-header">

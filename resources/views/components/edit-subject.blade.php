@@ -1,5 +1,5 @@
 <!-- resources/views/components/edit-subject.blade.php -->
-<div class="rsans modal fade" id="editSubjectModal" tabindex="-1" aria-labelledby="editSubjectModalLabel" aria-hidden="true">
+<div class="rsans modal fade" id="edit-subject-modal" tabindex="-1" aria-labelledby="editSubjectModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content p-3">
             <div class="modal-header">
