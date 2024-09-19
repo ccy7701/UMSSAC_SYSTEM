@@ -34,6 +34,10 @@
                         <input type="number" class="form-control" id="class-section" name="class_section" required>
                     </div>
                     <div class="mb-3">
+                        <label for="class-lecturer" class="form-label">Lecturer</label>
+                        <input type="text" class="form-control" id="class-lecturer" name="class_lecturer" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="class-location" class="form-label">Location</label>
                         <input type="text" class="form-control" id="class-location" name="class_location" required>
                     </div>

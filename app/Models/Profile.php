@@ -22,7 +22,6 @@ class Profile extends Model
         'profile_faculty',
         'profile_course',
         'profile_picture_filepath',
-        'profile_colour_theme',
     ];
 
     // Define inverse relationship with Account model

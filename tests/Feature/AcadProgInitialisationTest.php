@@ -14,7 +14,7 @@ class AcadProgInitialisationTest extends TestCase
 
     /**
      * Test that the initialisation form submission for the progress tracker view works.
-     * 
+     *
      * @return void
      */
     public function test_progress_tracker_initialisation(): void

@@ -92,6 +92,7 @@
                                         <th>Code</th>
                                         <th>Subject name</th>
                                         <th>Section</th>
+                                        <th>Lecturer</th>
                                         <th>Day</th>
                                         <th>Time</th>
                                         <th>Location</th>

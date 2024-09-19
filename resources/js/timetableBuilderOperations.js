@@ -129,6 +129,7 @@ function updateSubjectList(timetableSlots) {
                 <td>${slot.class_subject_code}</td>
                 <td>${slot.class_name}</td>
                 <td>${slot.class_section}</td>
+                <td>${slot.class_lecturer}</td>
                 <td>${class_day}</td>
                 <td>${convertToAMPM(slot.class_start_time)} - ${convertToAMPM(slot.class_end_time)}</td>
                 <td>${slot.class_location}</td>
@@ -182,6 +183,7 @@ window.editTimetableSlot = function(profile_id, class_subject_code) {
             document.getElementById('edit-class-name').value = data.class_name;
             document.getElementById('edit-class-category').value = data.class_category;
             document.getElementById('edit-class-section').value = data.class_section;
+            document.getElementById('edit-class-lecturer').value = data.class_lecturer;
             document.getElementById('edit-class-location').value = data.class_location;
             document.getElementById('edit-day').value = data.class_day;
             document.getElementById('edit-start-time').value = data.class_start_time;

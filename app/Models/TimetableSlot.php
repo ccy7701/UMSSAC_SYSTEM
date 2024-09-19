@@ -20,6 +20,7 @@ class TimetableSlot extends Model
         'class_name',
         'class_category',
         'class_section',
+        'class_lecturer',
         'class_location',
         'class_day',
         'class_start_time',

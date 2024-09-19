@@ -28,7 +28,6 @@ class ProfileFactory extends Factory
             'profile_faculty' => 'FKIKK',
             'profile_course' => $this->faker->randomElement(['UH6481001', 'UH6481002', 'UH6481005']),
             'profile_picture_filepath' => '',
-            'profile_colour_theme' => ''
         ];
     }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('class_name', 255);
             $table->string('class_category', 12);
             $table->unsignedInteger('class_section');
+            $table->string('class_lecturer', 255);
             $table->string('class_location', 255);
             $table->unsignedInteger('class_day');
             $table->time('class_start_time');
