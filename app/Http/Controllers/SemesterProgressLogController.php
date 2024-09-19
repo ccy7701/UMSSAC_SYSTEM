@@ -44,7 +44,6 @@ class SemesterProgressLogController extends Controller
                 'profile_id' => $profile_id,
                 'semester' => $semester,
                 'academic_session' => $academicSession,
-                'semester_gpa' => 0.00, // Initially , SGPA can be null
             ]);
         }
 

@@ -42,7 +42,7 @@
                             <p class="rsans card-text fs-5">Before we continue, please confirm the following details to set things up.</p>
                             <br>
                             <div class="w-100 d-flex justify-content-center align-items-center">
-                                <form id="initialiser-form" method="POST" action="{{ route('progress-tracker.initialise', ['profile_id' => profile()->profile_id]) }}" class="w-50">
+                                <form id="initialiser-fill-form" method="POST" action="{{ route('progress-tracker.initialise', ['profile_id' => profile()->profile_id]) }}" class="w-50">
                                     @csrf
                                     <div class="rsans mb-3">
                                         <label for="select-enrolment-session" class="form-label fw-semibold">Enrolment session</label>
@@ -53,23 +53,54 @@
                                             <option value="2023/2024">2023/2024</option>
                                             <option value="2024/2025">2024/2025</option>
                                         </select>
-                                        <div class="invalid-feedback">
+                                        <div class="rsans invalid-feedback">
                                             Please select an enrolment session.
                                         </div>
                                     </div>
                                     <div class="rsans mb-3">
                                         <label for="select-course-duration" class="form-label fw-semibold">Course duration</label>
-                                        <select class="form-select w-100" id="select-course-duration" name="course_duration">
+                                        <select class="form-select w-100" id="select-course-duration" name="course_duration" required>
                                             <option selected disabled value="">Choose...</option>
                                             <option value="6">3 years / 6 semesters</option>
                                             <option value="7">3.5 years / 7 semesters</option>
                                             <option value="8">4 years / 8 semesters</option>
                                             <option value="10">5 years / 10 semesters</option>
                                         </select>
+                                        <div class="rsans invalid-feedback">
+                                            Please select a course duration.
+                                        </div>
                                     </div>
                                     <div class="rsans d-flex justify-content-center py-3">
-                                        <button type="submit" class="btn btn-primary fw-bold" style="width: 50%;">Confirm</button>
+                                        <button id="btn-pass-form" type="button" class="btn btn-primary fw-bold w-50"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#submission-confirmation-modal" disabled>Confirm
+                                        </button>
                                     </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Submission confirmation modal -->
+                <div class="rsans modal fade" id="submission-confirmation-modal" tabindex="-1" aria-labelledby="submissionConfirmationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header py-2 d-flex align-items-center">
+                                <p class="fw-semibold fs-5 mb-0">
+                                    Confirmation
+                                </p>
+                                <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Confirm if the details are correct before submission. They cannot be changed afterwards.
+                            </div>
+                            <div class="modal-footer">
+                                <form id="initialiser-submit-form" method="POST" action="{{ route('progress-tracker.initialise', ['profile_id' => profile()->profile_id]) }}">
+                                    @csrf
+                                    <input type="hidden" id="received_profile_enrolment_sesion" name="profile_enrolment_session" value="">
+                                    <input type="hidden" id="received_course_duration" name="course_duration" value="">
+                                    <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">Wait, go back</button>
+                                    <button type="submit" class="btn btn-primary fw-semibold ms-1">OK, continue</button>
                                 </form>
                             </div>
                         </div>

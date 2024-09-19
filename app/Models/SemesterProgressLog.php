@@ -17,7 +17,6 @@ class SemesterProgressLog extends Model
         'profile_id',
         'semester',
         'academic_session',
-        'semester_gpa',
     ];
 
     public function profile() {

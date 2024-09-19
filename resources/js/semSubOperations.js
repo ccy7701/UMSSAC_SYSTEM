@@ -1,16 +1,32 @@
 // SEMESTER AND SUBJECTS DISPLAY OPERATIONS
 
 document.addEventListener('DOMContentLoaded', function() {
-    const initialiserForm = document.getElementById('initialiser-form');
+    const enrolmentSessionField = document.getElementById('select-enrolment-session');
+    const courseDurationField = document.getElementById('select-course-duration');
+    const btnPassForm = document.getElementById('btn-pass-form');
+    const hiddenEnrolmentSessionField = document.getElementById('received_profile_enrolment_sesion');
+    const hiddenCourseDurationField = document.getElementById('received_course_duration');
 
-    if (initialiserForm) {
-        initialiserForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting immediately
-            if (confirm("Confirm if the details are correct before submission. They cannot be changed afterwards.")) {
-                this.submit(); // Submit the form if confirmed
-            }
-        });
+    function checkFieldsFilled() {
+        if (enrolmentSessionField.value !== "" && courseDurationField.value !== "") {
+            btnPassForm.removeAttribute('disabled'); // Enable the button
+        } else {
+            btnPassForm.setAttribute('disabled', 'disabled'); // Keep it disabled
+        }
     }
+
+    enrolmentSessionField.addEventListener('change', checkFieldsFilled);
+    courseDurationField.addEventListener('change', checkFieldsFilled);
+
+    // Handle the click of the "Confirm" button
+    btnPassForm.addEventListener('click', function (event) {
+        // Prevent default form submission
+        event.preventDefault();
+            
+        // Transfer the values from the form to the hidden fields
+        hiddenEnrolmentSessionField.value = enrolmentSessionField.value;
+        hiddenCourseDurationField.value = courseDurationField.value;
+    });
 });
 
 document.addEventListener('DOMContentLoaded', function () {

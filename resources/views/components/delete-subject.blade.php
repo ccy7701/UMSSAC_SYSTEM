@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header py-2 d-flex align-items-center">
                 <p class="fw-semibold fs-5 mb-0">
-                    Delete confirmation
+                    Delete Confirmation
                 </p>
                 <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>

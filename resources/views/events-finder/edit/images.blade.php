@@ -74,11 +74,13 @@
                                         data-bs-toggle="modal"
                                         data-bs-target="#view-image-modal"
                                         data-image="{{ Storage::url($imagePath) }}"
-                                        data-index={{ $loop->iteration }}>View</button>
+                                        data-index={{ $loop->iteration }}>View
+                                    </button>
                                     <button type="button" class="rsans btn btn-danger fw-semibold w-40 ms-1"
                                         data-bs-toggle="modal"
                                         data-bs-target="#delete-confirmation-modal"
-                                        data-key="{{ $key }}">Delete</button>
+                                        data-key="{{ $key }}">Delete
+                                    </button>
                                 </div>
                             </div>
                         </div>

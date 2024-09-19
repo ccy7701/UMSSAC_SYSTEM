@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreign('profile_id')->references('profile_id')->on('profile')->onDelete('cascade');
             $table->unsignedInteger('semester');
             $table->string('academic_session', 12);
-            $table->double('semester_gpa', 4, 2);
         });
     }
 

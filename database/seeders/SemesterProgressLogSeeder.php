@@ -14,14 +14,14 @@ class SemesterProgressLogSeeder extends Seeder
     public function run(): void
     {
         $this->insertSeederData(1, [
-            ['semester' => 1, 'academic_session' => '2021/2022', 'semester_gpa' => 3.96],
-            ['semester' => 2, 'academic_session' => '2021/2022', 'semester_gpa' => 3.92],
-            ['semester' => 1, 'academic_session' => '2022/2023', 'semester_gpa' => 3.96],
-            ['semester' => 2, 'academic_session' => '2022/2023', 'semester_gpa' => 0.00],
-            ['semester' => 1, 'academic_session' => '2023/2024', 'semester_gpa' => 0.00],
-            ['semester' => 2, 'academic_session' => '2023/2024', 'semester_gpa' => 0.00],
-            ['semester' => 1, 'academic_session' => '2024/2025', 'semester_gpa' => 0.00],
-            ['semester' => 2, 'academic_session' => '2024/2025', 'semester_gpa' => 0.00]
+            ['semester' => 1, 'academic_session' => '2021/2022'],
+            ['semester' => 2, 'academic_session' => '2021/2022'],
+            ['semester' => 1, 'academic_session' => '2022/2023'],
+            ['semester' => 2, 'academic_session' => '2022/2023'],
+            ['semester' => 1, 'academic_session' => '2023/2024'],
+            ['semester' => 2, 'academic_session' => '2023/2024'],
+            ['semester' => 1, 'academic_session' => '2024/2025'],
+            ['semester' => 2, 'academic_session' => '2024/2025']
         ]);
     }
 
