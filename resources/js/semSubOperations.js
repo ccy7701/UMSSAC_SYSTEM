@@ -88,10 +88,10 @@ document.addEventListener('DOMContentLoaded', function () {
             
             fetch(addSubjectForm.action, {
                 method: 'POST',
-                body: formData,
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content // Add CSRF token
                 },
+                body: formData,
             })
             .then(response => {
                 if (!response.ok) {
@@ -202,7 +202,8 @@ document.addEventListener('DOMContentLoaded', function () {
 // DELETE SUBJECT MODAL AND FORM OPERATIONS
 
 const deleteConfirmationModalElement = document.getElementById('delete-confirmation-modal');
-const deleteConfirmationModal = new bootstrap.Modal(deleteConfirmationModalElement);const deleteSubjectForm = document.getElementById('delete-subject-form');
+const deleteConfirmationModal = new bootstrap.Modal(deleteConfirmationModalElement);
+const deleteSubjectForm = document.getElementById('delete-subject-form');
 
 // Update the form fields every time the modal is shown
 deleteConfirmationModalElement.addEventListener('show.bs.modal', function (event) {
@@ -238,10 +239,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         fetch(formAction, {
             method: 'DELETE',
-            body: formData,
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
             },
+            body: formData,
         })
         .then(response => {
             if (!response.ok) {

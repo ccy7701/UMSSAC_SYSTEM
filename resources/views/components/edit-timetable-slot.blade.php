@@ -1,24 +1,26 @@
 <!-- resources/views/components/edit-timetable-item.blade.php -->
-<div class="rsans modal fade" id="editTimetableSlotModal" tabindex="-1" aria-labelledby="editTimetableSlotModalLabel" aria-hidden="true">
+<div class="rsans modal fade" id="edit-timetable-slot-modal" tabindex="-1" aria-labelledby="editTimetableSlotModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content p-3">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editTimetableItemModalLabel">Edit Subject</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header py-2 d-flex align-items-center">
+                <p class="fw-semibold fs-5 mb-0">
+                    Edit Timetable Slot
+                </p>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="edit-timetable-slot-form" method="POST" action="">
                 @csrf
                 <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
-                <div class="modal-body text-start">
-                    <div class="mb-3">
+                <div class="modal-body px-5">
+                    <div class="form-group mb-3">
                         <label for="edit-class-subject-code" class="form-label">Code</label>
                         <input type="text" class="form-control" id="edit-class-subject-code" name="class_subject_code" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="form-group mb-3">
                         <label for="edit-class-name" class="form-label">Subject name</label>
                         <input type="text" class="form-control" id="edit-class-name" name="class_name" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="form-group mb-3">
                         <label for="edit-class-category" class="form-label">Category</label>
                         <select class="form-select" id="edit-class-category" name="class_category" required>
                             <option selected disabled value="">Choose...</option>
@@ -28,20 +30,20 @@
                             <option value="tutorial">Tutorial</option>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="edit-class-section" class="form-label">Section</label>
+                    <div class="form-group mb-3">
+                        <label for="edit-class-section" class="fw-bold form-label">Section</label>
                         <input type="number" class="form-control" id="edit-class-section" name="class_section" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="edit-class-lecturer" class="form-label">Lecturer</label>
+                    <div class="form-group mb-3">
+                        <label for="edit-class-lecturer" class="fw-bold form-label">Lecturer</label>
                         <input type="text" class="form-control" id="edit-class-lecturer" name="class_lecturer" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="edit-class-location" class="form-label">Location</label>
+                    <div class="form-group mb-3">
+                        <label for="edit-class-location" class="fw-bold form-label">Location</label>
                         <input type="text" class="form-control" id="edit-class-location" name="class_location" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="edit-day" class="form-label">Day and time</label>
+                    <div class="form-group mb-3">
+                        <label for="edit-day" class="fw-bold form-label">Day and time</label>
                         <div class="d-flex">
                             <select class="form-select" id="edit-day" name="class_day" required>
                                 <option selected disabled value="">Choose...</option>
@@ -99,8 +101,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary fw-semibold" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary fw-semibold">Add subject</button>
+                    <button type="button" class="btn btn-secondary fw-semibold w-20" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary fw-semibold w-20">Edit</button>
                 </div>
             </form>
         </div>

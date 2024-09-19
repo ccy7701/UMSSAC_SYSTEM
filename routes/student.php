@@ -5,7 +5,6 @@ use App\Http\Controllers\SemesterProgressLogController;
 use App\Http\Controllers\SubjectStatsLogController;
 use App\Http\Controllers\TimetableSlotController;
 use App\Http\Middleware\RoleAccessMiddleware;
-use App\Models\TimetableSlot;
 
 // Routes accessible by student only (account role 1)
 Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function () {
@@ -38,7 +37,7 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::post('/timetable-builder/add', [TimetableSlotController::class, 'addTimetableSlot'])->name('timetable-builder.add');
 
     // CURRENT ROUTE OF FOCUS
-    Route::post('/add-timetable-slot/{profile_id}/{class_subject_code}', [TimetableSlotController::class, 'editTimetableSlot'])->name('timetable-builder.edit');
+    Route::post('/edit-timetable-slot/{profile_id}/{class_subject_code}', [TimetableSlotController::class, 'editTimetableSlot'])->name('timetable-builder.edit');
 
     // CURRENT ROUTE OF FOCUS
     Route::delete('/delete-timetable-slot/{profile_id}/{class_subject_code}', [TimetableSlotController::class, 'deleteTimetableSlot'])->name('timetable-builder.delete');

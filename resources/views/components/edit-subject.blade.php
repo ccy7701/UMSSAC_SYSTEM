@@ -11,7 +11,7 @@
             <form id="edit-subject-form" method="POST" action="">
                 @csrf
                 <input type="hidden" id="edit-selected-semester" name="sem_prog_log_id"> <!-- Selected semester will be added here -->
-                <div class="modal-body">
+                <div class="modal-body px-5">
                     <div class="form-group mb-3">
                         <label for="edit-subject-code" class="fw-bold form-label">Code</label>
                         <input type="text" class="form-control" id="edit-subject-code" name="subject_code" required>
@@ -47,8 +47,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary fw-semibold ms-1">Edit Subject</button>
+                    <button type="button" class="btn btn-secondary fw-semibold me-1 w-20" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary fw-semibold ms-1 w-20">Edit</button>
                 </div>
             </form>
         </div>

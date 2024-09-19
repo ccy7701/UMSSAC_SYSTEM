@@ -11,7 +11,7 @@
             <form id="add-subject-form" method="POST" action="{{ route('subject-stats-log.add') }}">
                 @csrf
                 <input type="hidden" id="selected-semester" name="sem_prog_log_id">
-                <div class="modal-body">
+                <div class="modal-body px-5">
                     <div class="form-group mb-3">
                         <label for="subject-code" class="fw-bold form-label">Code</label>
                         <input type="text" class="form-control" id="subject-code" name="subject_code" required>
@@ -47,8 +47,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary fw-semibold ms-1">Add subject</button>
+                    <button type="button" class="btn btn-secondary fw-semibold me-1 w-20" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary fw-semibold ms-1 w-20">Add</button>
                 </div>
             </form>
         </div>

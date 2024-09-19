@@ -1,5 +1,7 @@
+// TIMETABLE DISPLAY OPERATIONS
+
+// Fetch timetable data on page load
 document.addEventListener('DOMContentLoaded', function () {
-    // Fetch timetable data on page load
     fetch('/timetable-builder/initialise', {
         method: 'GET',
         headers: {
@@ -21,6 +23,208 @@ document.addEventListener('DOMContentLoaded', function () {
     .catch(error => console.error('Error:', error));
 });
 
+// ADD TIMETABLE SLOT MODAL AND FORM OPERATIONS
+
+const addTimetableSlotModalElement = document.getElementById('add-timetable-slot-modal');
+const addTimetableSlotModal = new bootstrap.Modal(addTimetableSlotModalElement);
+const addTimetableSlotForm = document.getElementById('add-timetable-slot-form');
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (addTimetableSlotForm) {
+        addTimetableSlotForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(addTimetableSlotForm);
+
+            fetch(addTimetableSlotForm.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: formData,
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    console.log("Timetable builder refreshed with newly added data.");
+    
+                    // Close the modal after success
+                    console.log(addTimetableSlotModal);
+                    addTimetableSlotModal.hide();
+                    document.getElementById('add-timetable-slot-form').reset();
+
+                    updateSubjectList(data.timetableSlots);
+                    generateTimetable(data.timetableSlots);
+                } else {
+                    console.error('Error adding timetable slot:', data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    }
+});
+
+// EDIT SUBJECT MODAL AND FORM OPERATIONS
+
+const editTimetableSlotModalElement = document.getElementById('edit-timetable-slot-modal');
+const editTimetableSlotModal = new bootstrap.Modal(editTimetableSlotModalElement);
+const editTimetableSlotForm = document.getElementById('edit-timetable-slot-form');
+
+window.editTimetableSlot = function(profile_id, class_subject_code) {
+    const subjectDataRoute = window.getSubjectDataRouteTemplate
+        .replace(':profile_id', profile_id)
+        .replace(':class_subject_code', class_subject_code);
+
+    fetch(subjectDataRoute)
+        .then(response => response.json())
+        .then(data => {
+            // Populate modal form fields with fetched data
+            document.getElementById('edit-class-subject-code').value = data.class_subject_code;
+            document.getElementById('edit-class-name').value = data.class_name;
+            document.getElementById('edit-class-category').value = data.class_category;
+            document.getElementById('edit-class-section').value = data.class_section;
+            document.getElementById('edit-class-lecturer').value = data.class_lecturer;
+            document.getElementById('edit-class-location').value = data.class_location;
+            document.getElementById('edit-day').value = data.class_day;
+            document.getElementById('edit-start-time').value = data.class_start_time;
+            document.getElementById('edit-end-time').value = data.class_end_time;
+
+            const formAction = window.editSubjectRouteTemplate
+                .replace(':profile_id', profile_id)
+                .replace(':class_subject_code', class_subject_code);
+
+            console.log("NEW_FORM_ACTION", formAction);
+
+            document.getElementById('edit-timetable-slot-form').action = formAction;
+
+            // Open the modal
+            editTimetableSlotModal.show();
+        })
+        .catch(error => console.error('Error fetching timetable slot data:', error));
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (editTimetableSlotForm) {
+        editTimetableSlotForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(editTimetableSlotForm);
+            const formAction = editTimetableSlotForm.action;
+
+            fetch(formAction, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    console.log("Timetable slot updated successfully!");
+
+                    console.log('Modal instance:', editTimetableSlotModal);
+                    editTimetableSlotModal.hide();
+                    document.getElementById('edit-timetable-slot-form').reset();
+
+                    updateSubjectList(data.timetableSlots);
+                    generateTimetable(data.timetableSlots);
+                } else {
+                    alert('Failed to update the timetable slot. Please try again.');
+                }
+            })
+            .catch(error => console.error('Error:', error))
+        });
+    }
+})
+
+// DELETE SUBJECT MODAL AND FORM OPERATIONS
+
+const deleteConfirmationModalElement = document.getElementById('delete-confirmation-modal');
+const deleteConfirmationModal = new bootstrap.Modal(deleteConfirmationModalElement);
+const deleteTimetableSlotForm = document.getElementById('delete-timetable-slot-form');
+
+// Update the form fields every time the modal is shown
+deleteConfirmationModalElement.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+    const profileId = button.getAttribute('data-profile-id');
+    const classSubjectCode = button.getAttribute('data-class-subject-code');
+
+    // Populate the form fields with the new data
+    document.getElementById('profile-id').value = profileId;
+    document.getElementById('class-subject-code').value = classSubjectCode;
+
+    // Update the form action URL dynamically
+    const deleteRoute = window.deleteRouteTemplate
+        .replace(':profile_id', profileId)
+        .replace(':class_subject_code', classSubjectCode);
+
+    deleteTimetableSlotForm.action = deleteRoute;
+
+    console.log("Delete Route:", deleteRoute);
+});
+
+deleteConfirmationModalElement.addEventListener('hidden.bs.modal', function () {
+    deleteTimetableSlotForm.reset();
+    deleteTimetableSlotForm.action = '';
+
+    console.log(deleteTimetableSlotForm.action);
+})
+
+document.addEventListener('DOMContentLoaded', function () {
+    deleteTimetableSlotForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formData = new FormData(deleteTimetableSlotForm);
+        const formAction = deleteTimetableSlotForm.action;
+
+        fetch(formAction, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            },
+            body: formData,
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                console.log("Timetable slot deleted successfully.");
+                deleteConfirmationModal.hide();
+                deleteTimetableSlotForm.reset();
+                updateSubjectList(data.timetableSlots);
+                generateTimetable(data.timetableSlots);
+            } else {
+                alert('Failed to delete timetable slot. Please try again.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+})
+
+// HELPER FUNCTIONS
+
+// Helper function to convert to AM/PM format
+function convertToAMPM(time) {
+    let hours = time.split(':');
+    hours = parseInt(hours, 10);
+    const am_pm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    return `${hours} ${am_pm}`;
+}
+
+// Helper function to generate the timetable dynamically
 function generateTimetable(timetableSlots) {
     const timetableBody = document.getElementById('timetable-body');
     const daysOfTheWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
@@ -86,6 +290,7 @@ function generateTimetable(timetableSlots) {
     });
 }
 
+// Helper function to handle generation on timeslots with existing classes
 function getClassIfExists(timetableSlots, day, hour) {
     for (const slot of timetableSlots) {
         const classDay = slot.class_day;
@@ -96,16 +301,16 @@ function getClassIfExists(timetableSlots, day, hour) {
         if (classDay == day && startHour == hour) {
             return {
                 colspan: colspan,
-                // class_name: slot.class_name,
                 class_subject_code: slot.class_subject_code,
                 class_location: slot.class_location,
                 class_category: slot.class_category,
             };
         }
     }
-    return null; // No class found
+    return null;
 }
 
+// Helper function to update the subject list dynamically
 function updateSubjectList(timetableSlots) {
     const tableBody = document.getElementById('subjects-added-table-body');
     tableBody.innerHTML = '';
@@ -141,10 +346,14 @@ function updateSubjectList(timetableSlots) {
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton${slot.class_subject_code}">
                             <li>
                                 <a class="dropdown-item" href="javascript:void(0)" onclick="editTimetableSlot(${slot.profile_id}, '${slot.class_subject_code}')"
-                                data-bs-target="#editTimetableSlotModal">Edit</a>
+                                data-bs-target="#edit-timetable-slot-modal">Edit</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" class="text-danger dropdown-item" onclick="deleteTimetableSlot(${slot.profile_id}, '${slot.class_subject_code}')">Delete</a>
+                                <a href="javascript:void(0)" class="text-danger dropdown-item"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#delete-confirmation-modal"
+                                    data-profile-id="${slot.profile_id}"
+                                    data-class-subject-code="${slot.class_subject_code}">Delete</a>
                             </li>
                         </ul>
                     </div>
@@ -158,156 +367,3 @@ function updateSubjectList(timetableSlots) {
         tableBody.appendChild(row);
     }
 }
-
-function convertToAMPM(time) {
-    let hours = time.split(':');
-    hours = parseInt(hours, 10);
-    const am_pm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-    return `${hours} ${am_pm}`;
-}
-
-const editModalElement = document.getElementById('editTimetableSlotModal');
-const editModal = new bootstrap.Modal(editModalElement);
-
-window.editTimetableSlot = function(profile_id, class_subject_code) {
-    const subjectDataRoute = window.getSubjectDataRouteTemplate
-        .replace(':profile_id', profile_id)
-        .replace(':class_subject_code', class_subject_code);
-
-    fetch(subjectDataRoute)
-        .then(response => response.json())
-        .then(data => {
-            // Populate modal form fields with fetched data
-            document.getElementById('edit-class-subject-code').value = data.class_subject_code;
-            document.getElementById('edit-class-name').value = data.class_name;
-            document.getElementById('edit-class-category').value = data.class_category;
-            document.getElementById('edit-class-section').value = data.class_section;
-            document.getElementById('edit-class-lecturer').value = data.class_lecturer;
-            document.getElementById('edit-class-location').value = data.class_location;
-            document.getElementById('edit-day').value = data.class_day;
-            document.getElementById('edit-start-time').value = data.class_start_time;
-            document.getElementById('edit-end-time').value = data.class_end_time;
-
-            const formAction = window.editSubjectRouteTemplate
-                .replace(':profile_id', profile_id)
-                .replace(':class_subject_code', class_subject_code);
-
-            console.log("NEW_FORM_ACTION", formAction);
-
-            document.getElementById('edit-timetable-slot-form').action = formAction;
-
-            // Open the modal
-            editModal.show();
-        })
-        .catch(error => console.error('Error fetching timetable slot data:', error));
-}
-
-window.deleteTimetableSlot = function(profile_id, class_subject_code) {
-    if (confirm('Are you sure you want to delete this subject from the timetable?')) {
-        const deleteRoute = window.deleteRouteTemplate
-            .replace(':profile_id', profile_id)
-            .replace(':class_subject_code', class_subject_code);
-
-        fetch(deleteRoute, {
-            method: 'DELETE',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: JSON.stringify({
-                '_method': 'DELETE'
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                console.log("Timetable slot deleted successfully.");
-                updateSubjectList(data.timetableSlots);
-                generateTimetable(data.timetableSlots);
-            } else {
-                alert('Failed to delete timetable slot. Please try again.');
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    const addTimetableItemForm = document.getElementById('add-timetable-item-form');
-
-    addTimetableItemForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const formData = new FormData(addTimetableItemForm);
-
-        // Send the form data via AJAX
-        fetch(addTimetableItemForm.action, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: formData,
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                updateSubjectList(data.timetableSlots);
-                generateTimetable(data.timetableSlots);
-                console.log("Timetable builder refreshed with newly added data.");
-
-                const addModal = bootstrap.Modal.getInstance(document.getElementById('addTimetableItemModal'));
-                addModal.hide();
-                document.getElementById('add-timetable-item-form').reset();
-            } else {
-                console.error('Error adding timetable slot:', data.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    });
-
-    const editTimetableSlotForm = document.getElementById('edit-timetable-slot-form');
-
-    // Handle edit timetable slot form submision via AJAX
-    if (editTimetableSlotForm) {
-        editTimetableSlotForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-            const formData = new FormData(editTimetableSlotForm);
-
-            const formAction = editTimetableSlotForm.action;
-
-            fetch(formAction, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                },
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    console.log("Timetable slot updated successfully!");
-                    console.log('Modal instance:', editModal);
-                    editModal.hide();
-                    document.getElementById('edit-timetable-slot-form').reset();
-
-                    updateSubjectList(data.timetableSlots);
-                    generateTimetable(data.timetableSlots);
-                } else {
-                    alert('Failed to update the timetable slot. Please try again.');
-                }
-            })
-            .catch(error => console.error('Error:', error))
-        });
-    }
-});

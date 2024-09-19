@@ -1,26 +1,28 @@
 
 <!-- resources/views/components/add-timetable-item.blade.php -->
-<div class="rsans modal fade" id="addTimetableItemModal" tabindex="-1" aria-labelledby="addTimetableItemModalLabel" aria-hidden="true">
+<div class="rsans modal fade" id="add-timetable-slot-modal" tabindex="-1" aria-labelledby="addTimetableItemModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content p-3">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addTimetableItemModalLabel">Add Subject</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header py-2 d-flex align-items-center">
+                <p class="fw-semibold fs-5 mb-0">
+                    Add Timetable Slot
+                </p>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="add-timetable-item-form" method="POST" action="{{ route('timetable-builder.add') }}">
+            <form id="add-timetable-slot-form" method="POST" action="{{ route('timetable-builder.add') }}">
                 @csrf
                 <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
-                <div class="modal-body text-start">
-                    <div class="mb-3">
-                        <label for="class-subject-code" class="form-label">Code</label>
+                <div class="modal-body px-5">
+                    <div class="form-group mb-3">
+                        <label for="class-subject-code" class="fw-bold form-label">Code</label>
                         <input type="text" class="form-control" id="class-subject-code" name="class_subject_code" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="class-name" class="form-label">Subject name</label>
+                    <div class="form-group mb-3">
+                        <label for="class-name" class="fw-bold form-label">Subject name</label>
                         <input type="text" class="form-control" id="class-name" name="class_name" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="class-category" class="form-label">Category</label>
+                    <div class="form-group mb-3">
+                        <label for="class-category" class="fw-bold form-label">Category</label>
                         <select class="form-select" id="class-category" name="class_category" required>
                             <option selected disabled value="">Choose...</option>
                             <option value="cocurricular">Co-curricular</option>
@@ -29,20 +31,20 @@
                             <option value="tutorial">Tutorial</option>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="class-section" class="form-label">Section</label>
+                    <div class="form-group mb-3">
+                        <label for="class-section" class="fw-bold form-label">Section</label>
                         <input type="number" class="form-control" id="class-section" name="class_section" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="class-lecturer" class="form-label">Lecturer</label>
+                    <div class="form-group mb-3">
+                        <label for="class-lecturer" class="fw-bold form-label">Lecturer</label>
                         <input type="text" class="form-control" id="class-lecturer" name="class_lecturer" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="class-location" class="form-label">Location</label>
+                    <div class="form-group mb-3">
+                        <label for="class-location" class="fw-bold form-label">Location</label>
                         <input type="text" class="form-control" id="class-location" name="class_location" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="day" class="form-label">Day and time</label>
+                    <div class="form-group mb-3">
+                        <label for="day" class="fw-bold form-label">Day and time</label>
                         <div class="d-flex">
                             <select class="form-select" id="day" name="class_day" required>
                                 <option selected disabled value="">Choose...</option>
@@ -100,8 +102,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary fw-semibold" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary fw-semibold">Add subject</button>
+                    <button type="button" class="btn btn-secondary fw-semibold me-1 w-20" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary fw-semibold ms-1 w-20">Add</button>
                 </div>
             </form>
         </div>

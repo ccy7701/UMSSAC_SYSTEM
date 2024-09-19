@@ -78,10 +78,11 @@
                                 <div class="col-md-4 text-end pe-0">
                                     <button id="add-subject-button" type="button" class="rsans btn btn-primary fw-bold w-50"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#addTimetableItemModal">Add subject</button>
+                                        data-bs-target="#add-timetable-slot-modal">Add timetable slot</button>
                                 </div>
                                 <x-add-timetable-slot/>
                                 <x-edit-timetable-slot/>
+                                <x-delete-timetable-slot/>
                             </div>
                         </div>
                         <!-- SUBJECTS ADDED TABLE -->
