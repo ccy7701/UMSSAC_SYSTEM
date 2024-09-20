@@ -3,23 +3,18 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\Club;
 use App\Models\Event;
 use Illuminate\Http\Request;
-use App\Services\ClubService;
-use App\Services\EventService;
+use App\Services\ClubAndEventService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
 
 class EventController extends Controller
 {
-    protected $eventService;
-    protected $clubService;
+    protected $clubAndEventService;
 
-    public function __construct(ClubService $clubService, EventService $eventService) {
-        $this->clubService = $clubService;
-        $this->eventService = $eventService;
+    public function __construct(ClubAndEventService $clubAndEventService) {
+        $this->clubAndEventService = $clubAndEventService;
     }
 
     public function fetchEventsFinder(Request $request) {
@@ -32,7 +27,8 @@ class EventController extends Controller
         // Handle GET request as normal (including pagination and filtering)
         $search = $request->input('search', '');
         $filters = $this->getFilters($request);
-        $allEvents = $this->eventService->getAllEvents($filters, $search);
+        // $allEvents = $this->eventService->getAllEvents($filters, $search);
+        $allEvents = $this->clubAndEventService->getAllEvents($filters, $search);
 
         return view('events-finder.view-all-events', [
              'events' => $allEvents,
@@ -56,20 +52,20 @@ class EventController extends Controller
     }
 
     public function fetchEventDetails(Request $request) {
-        return $this->eventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.view-event-details');
+        return $this->clubAndEventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.view-event-details');
     }
 
     public function fetchEventManagePage(Request $request) {
-        return $this->eventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.manage-event-details');
+        return $this->clubAndEventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.manage-event-details');
     }
 
     public function showEventInfoEdit(Request $request) {
-        return $this->eventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.edit.event-info');
+        return $this->clubAndEventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.edit.event-info');
     }
 
     public function showAddEventForm(Request $request) {
         return view('events-finder.add-new-event', [
-            'club' => $this->clubService->getClubDetails($request->club_id),
+            'club' => $this->clubAndEventService->getClubDetails($request->club_id),
         ]);
     }
 
@@ -141,7 +137,7 @@ class EventController extends Controller
     }
 
     public function showEventImagesEdit(Request $request) {
-        return $this->eventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.edit.images');
+        return $this->clubAndEventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.edit.images');
     }
 
     public function addEventImage(Request $request) {

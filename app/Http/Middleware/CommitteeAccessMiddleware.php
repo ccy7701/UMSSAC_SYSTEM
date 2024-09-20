@@ -4,16 +4,16 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Services\ClubService;
+use App\Services\ClubAndEventService;
 use Symfony\Component\HttpFoundation\Response;
 
 class CommitteeAccessMiddleware
 {
-    protected $clubMembersService;
+    protected $clubAndEventService;
 
-    public function __construct(ClubService $clubMembersService)
+    public function __construct(ClubAndEventService $clubAndEventService)
     {
-        $this->clubMembersService = $clubMembersService;
+        $this->clubAndEventService = $clubAndEventService;
     }
 
     /**
@@ -30,7 +30,7 @@ class CommitteeAccessMiddleware
         // If the user is a student (role 1) or faculty member (role 2), check committee membership
         if (in_array($user->account_role, [1, 2])) {
             // Check if the user is part of the club's committee
-            $isCommitteeMember = $this->clubMembersService->checkCommitteeMember($clubId, $user->profile->profile_id);
+            $isCommitteeMember = $this->clubAndEventService->checkCommitteeMember($clubId, $user->profile->profile_id);
 
             // If not a committee member, abort with a 403 Forbidden response
             if (!$isCommitteeMember) {
