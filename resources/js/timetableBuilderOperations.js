@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             // If it is not, then proceed
-            fetch(`/get-slots-by-day/${profileId.toString()}/${classDay.toString()}/${timetableSlotId.toString()}`)
+            fetch(`/get-slots-by-day/${String(profileId)}/${String(classDay)}/${String(timetableSlotId)}`)
                 .then(response => response.json())
                 .then(existingSlots => {
                     if (checkForClash(classStartTime, classEndTime, existingSlots)) {
