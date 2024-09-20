@@ -333,23 +333,43 @@ function generateTimetable(timetableSlots) {
                 const classCell = document.createElement('td');
                 classCell.colSpan = classData.colspan;
                 classCell.innerHTML = `${classData.class_subject_code}<br>${classData.class_location}`;
+
+                // Determine the class category to output in the bootstrap popover
+                let class_category_and_section = "";
+                switch(classData.class_category) {
+                    case 'cocurricular': class_category_and_section = `Cocurricular Section ${classData.class_section}`; break;
+                    case 'lecture': class_category_and_section = `Lecture Section ${classData.class_section}`; break;
+                    case 'labprac': class_category_and_section = `Lab/Practical Group ${classData.class_section}`; break;
+                    case 'tutorial': class_category_and_section = `Tutorial Group ${classData.class_section}`; break;
+                }
+
+                // Add bootstrap popover attributes
+                classCell.setAttribute('data-bs-toggle', 'popover');
+                classCell.setAttribute('data-bs-trigger', 'hover');
+                classCell.setAttribute('data-bs-content', `
+                    <strong>${classData.class_subject_code}</strong><br>
+                    ${classData.class_name}<br>
+                    ${class_category_and_section}<br>
+                    <i class="fas fa-map-marker-alt me-1"></i> ${classData.class_location}
+                `);
+                classCell.setAttribute('data-bs-html', 'true');
     
                 // Add class based on the category
                 switch (classData.class_category) {
                     case 'lecture':
-                        classCell.classList.add('bg-primary', 'text-white');
+                        classCell.classList.add('filled-slot', 'bg-primary', 'text-white');
                         break;
                     case 'labprac':
-                        classCell.classList.add('bg-warning', 'text-dark');
+                        classCell.classList.add('filled-slot', 'bg-warning', 'text-dark');
                         break;
                     case 'tutorial':
-                        classCell.classList.add('bg-info', 'text-white');
+                        classCell.classList.add('filled-slot', 'bg-info', 'text-white');
                         break;
                     case 'cocurricular':
-                        classCell.classList.add('bg-success', 'text-white');
+                        classCell.classList.add('filled-slot', 'bg-success', 'text-white');
                         break;
                     default:
-                        classCell.classList.add('bg-secondary', 'text-white'); // Default category style
+                        classCell.classList.add('filled-slot', 'bg-secondary', 'text-white'); // Default category style
                 }
     
                 row.appendChild(classCell);
@@ -366,6 +386,12 @@ function generateTimetable(timetableSlots) {
         // Append the row to the timetable body
         timetableBody.appendChild(row);
     });
+
+    // Initialise all Bootstrap popovers, after the DOM elements have been created
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.forEach(function (popoverTriggerEl) {
+        new bootstrap.Popover(popoverTriggerEl);
+    });
 }
 
 // Helper function to handle generation on timeslots with existing classes
@@ -380,8 +406,10 @@ function getClassIfExists(timetableSlots, day, hour) {
             return {
                 colspan: colspan,
                 class_subject_code: slot.class_subject_code,
+                class_name: slot.class_name,
                 class_location: slot.class_location,
                 class_category: slot.class_category,
+                class_section: slot.class_section,
             };
         }
     }

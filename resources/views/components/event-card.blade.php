@@ -15,7 +15,7 @@
             <div class="card-text">
                 <div class="row align-items-center">
                     <div class="col-2 text-center">
-                        <i class="fa fa-map-marker"></i>
+                        <i class="fa fa-map-marker-alt"></i>
                     </div>
                     <div class="col-10">
                         {{ $event->event_location }}

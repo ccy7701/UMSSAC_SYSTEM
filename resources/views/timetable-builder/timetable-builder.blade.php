@@ -135,7 +135,7 @@
                                     <tr>
                                         <th>Code</th>
                                         <th>Subject name</th>
-                                        <th>Section</th>
+                                        <th>Section/Group</th>
                                         <th>Lecturer</th>
                                         <th>Day</th>
                                         <th>Time</th>
