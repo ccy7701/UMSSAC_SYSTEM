@@ -26,6 +26,15 @@ class TimetableSlotController extends Controller
         return response()->json($timetableSlot);
     }
 
+    public function getSlotsByDay($profile_id, $class_day) {
+        $timetableSlots = TimetableSlot::where('class_day', $class_day)
+            ->where('profile_id', $profile_id)
+            ->get();
+            // ->get();
+
+        return response()->json($timetableSlots);
+    }
+
     public function addTimetableSlot(Request $request) {
         $validatedData = $this->handleDataValidation($request);
 

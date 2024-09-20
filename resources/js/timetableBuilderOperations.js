@@ -30,40 +30,83 @@ const addTimetableSlotModal = new bootstrap.Modal(addTimetableSlotModalElement);
 const addTimetableSlotForm = document.getElementById('add-timetable-slot-form');
 
 document.addEventListener('DOMContentLoaded', function () {
+    const timetableClashModal = new bootstrap.Modal(document.getElementById('timetable-clash-modal'));
+    const timeErrorModal = new bootstrap.Modal(document.getElementById('time-error-modal'));
+
     if (addTimetableSlotForm) {
         addTimetableSlotForm.addEventListener('submit', function (event) {
             event.preventDefault();
             const formData = new FormData(addTimetableSlotForm);
+            const profileId = formData.get('profile_id');
+            const classDay = formData.get('class_day');
+            const classStartTime = formData.get('class_start_time');
+            const classEndTime = formData.get('class_end_time');
 
-            fetch(addTimetableSlotForm.action, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                },
-                body: formData,
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    console.log("Timetable builder refreshed with newly added data.");
-    
-                    // Close the modal after success
-                    console.log(addTimetableSlotModal);
-                    addTimetableSlotModal.hide();
-                    document.getElementById('add-timetable-slot-form').reset();
+            // Fetch existng timetable slots for the selected day and profile
+            const getSlotsByDayRouteTemplate = window.getSlotsByDayRouteTemplate
+                .replace(':class_day', classDay)
+                .replace(':profile_id', profileId);
 
-                    updateSubjectList(data.timetableSlots);
-                    generateTimetable(data.timetableSlots);
-                } else {
-                    console.error('Error adding timetable slot:', data.message);
-                }
-            })
-            .catch(error => console.error('Error:', error));
+            // First check if the end time is earlier than the start time
+            if (classEndTime <= classStartTime) {
+                addTimetableSlotModal.hide();
+                timeErrorModal.show();
+
+                // After the error modal is closed, show the add timetable modal again
+                const timeErrorModalElement = document.getElementById('time-error-modal');
+                timeErrorModalElement.addEventListener('hidden.bs.modal', function () {
+                    addTimetableSlotModal.show();
+                }, { once: true });
+
+                return;
+            }
+            // If it is not, then proceed
+            fetch(getSlotsByDayRouteTemplate)
+                .then(response => response.json())
+                .then(existingSlots => {
+                    if (checkForClash(classStartTime, classEndTime, existingSlots)) {
+                        // If a clash is detected, show the timetable clash error modal
+                        addTimetableSlotModal.hide();
+                        timetableClashModal.show();
+
+                        // After the clash modal is closed, show the add timetable modal again
+                        const timetableClashModalElement = document.getElementById('timetable-clash-modal');
+                        timetableClashModalElement.addEventListener('hidden.bs.modal', function () {
+                            addTimetableSlotModal.show();
+                        }, { once: true });
+                    } else {
+                        // If no clash, proceed to submit the form to the server
+                        fetch(addTimetableSlotForm.action, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                            },
+                            body: formData,
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! Status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                console.log("Timetable builder refreshed with newly added data.");
+                
+                                // Close the modal after success
+                                console.log(addTimetableSlotModal);
+                                addTimetableSlotModal.hide();
+                                document.getElementById('add-timetable-slot-form').reset();
+            
+                                updateSubjectList(data.timetableSlots);
+                                generateTimetable(data.timetableSlots);
+                            } else {
+                                console.error('Error adding timetable slot:', data.message);
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                    }
+                });
         });
     }
 });
@@ -219,6 +262,18 @@ function convertToAMPM(time) {
     const am_pm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12 || 12;
     return `${hours} ${am_pm}`;
+}
+
+// Helper function to check for timetable timeslot clashes
+function checkForClash(newStartTime, newEndTime, existingSlots) {
+    for (const slot of existingSlots) {
+        if ((newStartTime >= slot.class_start_time && newStartTime < slot.class_end_time) ||
+            (newEndTime > slot.class_start_time && newEndTime <= slot.class_end_time) ||
+            (newStartTime <= slot.class_start_time && newEndTime >= slot.class_end_time)) {
+            return true; // Clash detected
+        }
+    }
+    return false; // No clash
 }
 
 // Helper function to generate the timetable dynamically

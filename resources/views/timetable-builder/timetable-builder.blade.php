@@ -61,6 +61,8 @@
         <script>
             window.getTimetableSlotRouteTemplate = "{{ route('timetable-builder.get', ['timetable_slot_id' => ':timetable_slot_id']) }}";
 
+            window.getSlotsByDayRouteTemplate = "{{ route('timetable-builder.get-slots-by-day', ['class_day' => ':class_day', 'profile_id' => ':profile_id']) }}";
+
             window.editTimetableSlotRouteTemplate = "{{ route('timetable-builder.edit', ['timetable_slot_id' => ':timetable_slot_id']) }}";
 
             window.deleteTimetableSlotRouteTemplate = "{{ route('timetable-builder.delete', ['timetable_slot_id' => ':timetable_slot_id']) }}";
@@ -86,6 +88,44 @@
                                 <x-add-timetable-slot/>
                                 <x-edit-timetable-slot/>
                                 <x-delete-timetable-slot/>
+                                <!-- Timetable clash detected modal -->
+                                <div class="rsans modal fade" id="timetable-clash-modal" tabindex="-1" aria-labelledby="timetableClashModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header py-2 d-flex align-items-center justify-content-center">
+                                                <p class="fw-semibold fs-5 mb-0">
+                                                    Timetable Clash Detected
+                                                </p>
+                                                <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                The selected timetable slot overlaps with one or more existing slots. Please check your input again.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary fw-semibold" data-bs-dismiss="modal">Go back</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Time error modal (for when end time earlier than start time) -->
+                                <div class="rsans modal fade" id="time-error-modal" tabindex="-1" aria-labelledby="timeErrorModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header py-2 d-flex align-items-center justify-content-center">
+                                                <p class="fw-semibold fs-5 mb-0">
+                                                    Time Error Detected
+                                                </p>
+                                                <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                The end time cannot be earlier than the start time. Please check your input again.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary fw-semibold" data-bs-dismiss="modal">Go back</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- SUBJECTS ADDED TABLE -->

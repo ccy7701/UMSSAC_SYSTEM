@@ -30,6 +30,8 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
     Route::get('/get-timetable-slot-data/{timetable_slot_id}', [TimetableSlotController::class, 'getTimetableSlotData'])->name('timetable-builder.get');
 
+    Route::get('/get--slots-by-day/{profile_id}/{class_day}', [TimetableSlotController::class, 'getSlotsByDay'])->name('timetable-builder.get-slots-by-day');
+
     Route::post('/timetable-builder/add', [TimetableSlotController::class, 'addTimetableSlot'])->name('timetable-builder.add');
 
     Route::post('/edit-timetable-slot/{timetable_slot_id}', [TimetableSlotController::class, 'editTimetableSlot'])->name('timetable-builder.edit');
