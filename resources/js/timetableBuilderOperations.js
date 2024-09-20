@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 console.log("Timetable builder refreshed with newly added data.");
                 
                                 // Close the modal after success
-                                console.log(addTimetableSlotModal);
                                 addTimetableSlotModal.hide();
                                 document.getElementById('add-timetable-slot-form').reset();
             
@@ -121,8 +120,6 @@ window.editTimetableSlot = function(timetable_slot_id) {
     const timetableSlotRoute = window.getTimetableSlotRouteTemplate
         .replace(':timetable_slot_id', timetable_slot_id);
 
-    console.log(timetableSlotRoute);
-
     fetch(timetableSlotRoute)
         .then(response => response.json())
         .then(data => {
@@ -140,8 +137,6 @@ window.editTimetableSlot = function(timetable_slot_id) {
 
             const formAction = window.editTimetableSlotRouteTemplate
                 .replace(':timetable_slot_id', timetable_slot_id);
-
-            console.log("NEW_FORM_ACTION", formAction);
 
             document.getElementById('edit-timetable-slot-form').action = formAction;
 
@@ -206,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         })
                         .then(data => {
                             if (data.success) {
-                                console.log("Timetable builder refreshed with newly edited data.");
+                                console.log("Timetable builder refreshed with edited data.");
 
                                 editTimetableSlotModal.hide();
                                 document.getElementById('edit-timetable-slot-form').reset();
@@ -243,15 +238,11 @@ deleteConfirmationModalElement.addEventListener('show.bs.modal', function (event
         .replace(':timetable_slot_id', timetableSlotId)
 
     deleteTimetableSlotForm.action = deleteRoute;
-
-    console.log("Delete Route:", deleteRoute);
 });
 
 deleteConfirmationModalElement.addEventListener('hidden.bs.modal', function () {
     deleteTimetableSlotForm.reset();
     deleteTimetableSlotForm.action = '';
-
-    console.log(deleteTimetableSlotForm.action);
 })
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -417,10 +408,16 @@ function updateSubjectList(timetableSlots) {
                 case 6: class_day = "Saturday"; break;
                 case 7: class_day = "Sunday"; break;
             }
-            console.log("TIMETABLE_SLOT_ID:", slot.timetable_slot_id);
+            let class_category = "";
+            switch(slot.class_category) {
+                case 'cocurricular': class_category = "Cocurricular"; break;
+                case 'lecture': class_category = "Lecture"; break;
+                case 'labprac': class_category = "Lab/Practical"; break;
+                case 'tutorial': class_category = "Tutorial"; break;
+            }
             row.innerHTML = `
                 <td>${slot.class_subject_code}</td>
-                <td>${slot.class_name}</td>
+                <td>${slot.class_name} (${class_category})</td>
                 <td>${slot.class_section}</td>
                 <td>${slot.class_lecturer}</td>
                 <td>${class_day}</td>

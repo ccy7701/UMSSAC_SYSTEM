@@ -11,10 +11,12 @@
             <form id="edit-subject-form" method="POST" action="">
                 @csrf
                 <input type="hidden" id="edit-selected-semester" name="sem_prog_log_id"> <!-- Selected semester will be added here -->
+                <input type="hidden" id="edit-subject-code" name="subject_code">
                 <div class="modal-body px-5">
                     <div class="form-group mb-3">
-                        <label for="edit-subject-code" class="fw-bold form-label">Code</label>
-                        <input type="text" class="form-control" id="edit-subject-code" name="subject_code" required>
+                        <label for="edit-subject-code-readonly" class="fw-bold form-label">Code</label>
+                        <input type="text" class="form-control" id="edit-subject-code-readonly" name="subject_code_readonly" disabled>
+                        <small id="edit-subject-code-help" class="form-text text-muted">To edit the subject code, delete this entry and create a new one.</small>
                     </div>
                     <div class="form-group mb-3">
                         <label for="edit-subject-name" class="fw-bold form-label">Subject Name</label>

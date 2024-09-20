@@ -38,7 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const semProgLogId = this.value;
             console.log('semProgLogId = ', semProgLogId);
             if (semProgLogId) {
-                const url = `${window.fetchSubjectStatsRoute}/${semProgLogId}`;
+                // const url = `${window.fetchSubjectStatsRoute}/${semProgLogId}`;
+                const url = window.fetchBySemProgLogIdRoute
+                    .replace(':sem_prog_log_id', semProgLogId);
                 console.log('Fetching data from:', url);
 
                 fetch(url)
@@ -80,42 +82,71 @@ const addModal = new bootstrap.Modal(addModalElement);
 const addSubjectForm = document.getElementById('add-subject-form');
 
 document.addEventListener('DOMContentLoaded', function () {
+    const duplicateEntryModal = new bootstrap.Modal(document.getElementById('duplicate-entry-modal'));
+
     // Handle Add Subject form submission via AJAX
     if (addSubjectForm) {
         addSubjectForm.addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the default form submission
-            const formData = new FormData(addSubjectForm);  // Gather form data
+            const formData = new FormData(addSubjectForm);
+            const semProgLogId = formData.get('sem_prog_log_id');
+            const subjectCode = formData.get('subject_code');
+
+            // Fetch existing subject_stats_logs for the selected sem_prog_log_id
+            const fetchBySemProgLogIdRoute = window.fetchBySemProgLogIdRoute
+                .replace(':sem_prog_log_id', semProgLogId);
+
+            // First check if a row with the subject code passed from the form already exists
+            fetch(fetchBySemProgLogIdRoute)
+                .then(response => response.json())
+                .then(subjectStatsLogs => {
+                    const subjects = subjectStatsLogs.subjects
+                    if (checkForDuplicate(subjectCode, subjects)) {
+                        // If a duplicate is detected, show the error modal
+                        addModal.hide();
+                        duplicateEntryModal.show();
+
+                        // After the error modal is closed, show the add modal again
+                        const duplicateEntryModalElement = document.getElementById('duplicate-entry-modal');
+                        duplicateEntryModalElement.addEventListener('hidden.bs.modal', function () {
+                            addModal.show();
+                        }, { once: true });
+
+                        return;
+                    } else {
+                        // If no duplicate, proceed to submit the form to the server
+                        fetch(addSubjectForm.action, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content // Add CSRF token
+                            },
+                            body: formData,
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! Status: ${response.status}`);
+                            }
+                            return response.json(); // Attempt to parse JSON
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                console.log('New subject added successfully!');
             
-            fetch(addSubjectForm.action, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content // Add CSRF token
-                },
-                body: formData,
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json(); // Attempt to parse JSON
-            })
-            .then(data => {
-                if (data.success) {
-                    console.log('New subject added successfully!');
-
-                    // Close the modal after success
-                    console.log(addModal);
-                    addModal.hide();
-                    document.getElementById('add-subject-form').reset();
-
-                    // Update CGPA and SGPA and subject list
-                    updateCGPAandSGPA(data.cgpa, data.sgpa);
-                    updateSubjectList(data.subjects);
-                } else {
-                    alert('Failed to add the subject. Please try again.');
-                }
-            })
-            .catch(error => console.error('Error:', error));
+                                // Close the modal after success
+                                console.log(addModal);
+                                addModal.hide();
+                                document.getElementById('add-subject-form').reset();
+            
+                                // Update CGPA and SGPA and subject list
+                                updateCGPAandSGPA(data.cgpa, data.sgpa);
+                                updateSubjectList(data.subjects);
+                            } else {
+                                alert('Failed to add the subject. Please try again.');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                    }
+                });
         })
     }
 });
@@ -136,6 +167,7 @@ window.editSubject = function(sem_prog_log_id, subject_code) {
         .then(data => {
             // Populate modal form fields with fetched data
             document.getElementById('edit-subject-code').value = data.subject_code;
+            document.getElementById('edit-subject-code-readonly').value = data.subject_code;
             document.getElementById('edit-subject-name').value = data.subject_name;
             document.getElementById('edit-subject-credit-hours').value = data.subject_credit_hours;
             document.getElementById('edit-subject-grade').value = data.subject_grade;
@@ -162,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function () {
         editSubjectForm.addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the default form submission
             const formData = new FormData(editSubjectForm);  // Gather form data
-            
             const formAction = editSubjectForm.action; // The action attribute of the form contains the URL for the edit operation
 
             fetch(formAction, {
@@ -266,6 +297,21 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // HELPER FUNCTIONS
+
+// Helper function to check for duplicate on add/edit form submission
+function checkForDuplicate(subjectCode, subjectStatsLogs, currentSubjectCode = null) {
+    for (const log of subjectStatsLogs) {
+        // If editing, skip checcking the current subject_code itself
+        if (currentSubjectCode && log.subject_code === currentSubjectCode) {
+            continue;
+        }
+        // Check for duplicates
+        if (subjectCode === log.subject_code) {
+            return true;
+        }
+    }
+    return false;
+}
 
 // Helper function to update CGPA and SGPA dynamically
 function updateCGPAandSGPA(cgpa, sgpa) {

@@ -80,8 +80,8 @@ class SemesterProgressLogController extends Controller
     // KIV
     public function fetchSubjectStatsLogs($sem_prog_log_id) {
         $semesterProgressLog = SemesterProgressLog::where('sem_prog_log_id', $sem_prog_log_id)->first();
-        $subjectStatsLog = SubjectStatsLog::where('sem_prog_log_id', $sem_prog_log_id)->get();
-    
+        $subjectStatsLogs = SubjectStatsLog::where('sem_prog_log_id', $sem_prog_log_id)->get();
+
         // Calculate CGPA and SGPA for this semester
         $cgpaService = new CGPAService();
         $cgpa = $cgpaService->calculateCGPA(profile()->profile_id, $sem_prog_log_id);
@@ -91,7 +91,7 @@ class SemesterProgressLogController extends Controller
         return response()->json([
             'semester' => $semesterProgressLog ? $semesterProgressLog->semester : null,
             'academic_session' => $semesterProgressLog ? $semesterProgressLog->academic_session : null,
-            'subjects' => $subjectStatsLog,
+            'subjects' => $subjectStatsLogs,
             'cgpa' => $cgpa,
             'sgpa' => $sgpa,
         ]);
