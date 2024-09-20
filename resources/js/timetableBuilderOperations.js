@@ -390,7 +390,8 @@ function generateTimetable(timetableSlots) {
     // Initialise all Bootstrap popovers, after the DOM elements have been created
     const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
     popoverTriggerList.forEach(function (popoverTriggerEl) {
-        new bootstrap.Popover(popoverTriggerEl);
+        let popover = new bootstrap.Popover(popoverTriggerEl);
+        console.log("Popover:", popover);
     });
 }
 
