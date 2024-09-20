@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 class CGPAService
 {
     // Get the grade point based on the letter grade
-    private function getGradePoint($grade) {
+    public function getGradePoint($grade) {
         $gradePoints = [
             'A' => 4.00,
             'A+' => 4.00,   // Cohorts 2022/2023 and beyond only
@@ -26,6 +26,14 @@ class CGPAService
         ];
     
         return $gradePoints[$grade] ?? 0.00;
+    }
+
+    // Recalculate the CGPA and SGPA
+    public function recalculateCGPAandSGPA($profile_id, $sem_prog_log_id) {
+        $cgpa = $this->calculateCGPA($profile_id, $sem_prog_log_id);
+        $sgpa = $this->calculateSGPA($sem_prog_log_id);
+
+        return compact('cgpa', 'sgpa');
     }
 
     // Calculate CGPA up until the selected semester

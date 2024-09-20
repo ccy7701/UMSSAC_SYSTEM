@@ -15,57 +15,49 @@ class TimetableSlotSeeder extends Seeder
     {
         $this->insertSeederData(1, [
             [
-                'subject_code' => 'KK45103',
-                'name' => 'Software Evolution Management',
-                'category' => 'lecture',
-                'section' => 1,
-                'lecturer' => 'Dr. John Doe',
-                'location' => 'DKP 14',
-                'day' => 2,
-                'start_time' => '08:00:00',
-                'end_time' => '10:00:00',
+                'class_subject_code' => 'KK45103',
+                'class_name' => 'Software Evolution Management',
+                'class_category' => 'lecture',
+                'class_section' => 1,
+                'class_lecturer' => 'Dr. John Doe',
+                'class_location' => 'DKP 14',
+                'class_day' => 2,
+                'class_start_time' => '08:00:00',
+                'class_end_time' => '10:00:00',
             ],
             [
-                'subject_code' => 'KK12345',
-                'name' => 'SE Course Tutorial',
-                'category' => 'tutorial',
-                'section' => 1,
-                'lecturer' => 'Dr. Jane Doe',
-                'location' => 'DKP 15',
-                'day' => 3,
-                'start_time' => '10:00:00',
-                'end_time' => '12:00:00',
+                'class_subject_code' => 'KK12345',
+                'class_name' => 'SE Course Tutorial',
+                'class_category' => 'tutorial',
+                'class_section' => 1,
+                'class_lecturer' => 'Dr. Jane Doe',
+                'class_location' => 'DKP 15',
+                'class_day' => 3,
+                'class_start_time' => '10:00:00',
+                'class_end_time' => '12:00:00',
             ],
             [
-                'subject_code' => 'GB30603',
-                'name' => 'Islamic Finance and Banking',
-                'category' => 'lecture',
-                'section' => 1,
-                'lecturer' => 'Dr. Juan Doe',
-                'location' => 'Online',
-                'day' => 5,
-                'start_time' => '14:00:00',
-                'end_time' => '16:00:00',
+                'class_subject_code' => 'GB30603',
+                'class_name' => 'Islamic Finance and Banking',
+                'class_category' => 'lecture',
+                'class_section' => 1,
+                'class_lecturer' => 'Dr. Juan Doe',
+                'class_location' => 'Online',
+                'class_day' => 5,
+                'class_start_time' => '14:00:00',
+                'class_end_time' => '16:00:00',
             ]
         ]);
     }
 
-    public function insertSeederData(int $profileId, array $classData): void
+    public function insertSeederData(int $profileId, array $timetableSlots): void
     {
-        $data = array_map(function ($class) use ($profileId) {
+        $data = array_map(function ($log, $index) use ($profileId) {
             return array_merge([
-                'profile_id' => $profileId,
-                'class_subject_code' => $class['subject_code'],
-                'class_name' => $class['name'],
-                'class_category' => $class['category'],
-                'class_section' => $class['section'],
-                'class_lecturer' => $class['lecturer'],
-                'class_location' => $class['location'],
-                'class_day' => $class['day'],
-                'class_start_time' => $class['start_time'],
-                'class_end_time' => $class['end_time'],
-            ]);
-        }, $classData);
+                'timetable_slot_id' => $index + 1,
+                'profile_id' => $profileId
+            ], $log);
+        }, $timetableSlots, array_keys($timetableSlots));
 
         DB::table('timetable_slot')->insert($data);
     }

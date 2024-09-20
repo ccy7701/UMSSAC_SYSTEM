@@ -20,10 +20,8 @@ class TimetableSlotController extends Controller
         ]);
     }
 
-    public function getTimetableSlotData($profile_id, $class_subject_code) {
-        $timetableSlot = TimetableSlot::where('profile_id', $profile_id)
-            ->where('class_subject_code', $class_subject_code)
-            ->first();
+    public function getTimetableSlotData($timetable_slot_id) {
+        $timetableSlot = TimetableSlot::where('timetable_slot_id', $timetable_slot_id)->first();
 
         return response()->json($timetableSlot);
     }
@@ -42,15 +40,14 @@ class TimetableSlotController extends Controller
         }
     }
 
-    public function editTimetableSlot(Request $request, $profile_id, $class_subject_code) {
+    public function editTimetableSlot(Request $request, $timetable_slot_id) {
         $validatedData = $this->handleDataValidation($request);
 
         // Clash check goes here somewhere...
 
         try {
             $status = DB::table('timetable_slot')
-                ->where('profile_id', $profile_id)
-                ->where('class_subject_code', $class_subject_code)
+                ->where('timetable_slot_id', $timetable_slot_id)
                 ->update([
                     'class_subject_code' => $validatedData['class_subject_code'],
                     'class_name' => $validatedData['class_name'],
@@ -62,25 +59,23 @@ class TimetableSlotController extends Controller
                     'class_end_time' => $validatedData['class_end_time']
                 ]);
 
-            return $this->handleResponse($status, $profile_id);
+            return $this->handleResponse($status, profile()->profile_id);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
 
-    public function deleteTimetableSlot($profile_id, $class_subject_code) {
+    public function deleteTimetableSlot($timetable_slot_id) {
         try {
             Log::info('Attempting to delete timetable slot', [
-                'profile_id' => $profile_id,
-                'class_subject_code' => $class_subject_code
+                'timetable_slot_id' => $timetable_slot_id
             ]);
 
             $status = DB::table('timetable_slot')
-                ->where('profile_id', $profile_id)
-                ->where('class_subject_code', $class_subject_code)
+                ->where('timetable_slot_id', $timetable_slot_id)
                 ->delete();
 
-            return $this->handleResponse($status, $profile_id);
+            return $this->handleResponse($status, profile()->profile_id);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }

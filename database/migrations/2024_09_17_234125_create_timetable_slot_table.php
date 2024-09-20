@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('timetable_slot', function (Blueprint $table) {
+            $table->increments('timetable_slot_id');
             $table->unsignedInteger('profile_id');
             $table->foreign('profile_id')->references('profile_id')->on('profile')->onDelete('cascade');
             $table->string('class_subject_code', 12);

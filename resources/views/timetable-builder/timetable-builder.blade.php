@@ -59,9 +59,12 @@
 
         <!-- Send route templates to external JS -->
         <script>
-            window.getSubjectDataRouteTemplate = "{{ route('timetable-builder.get', ['profile_id' => ':profile_id', 'class_subject_code' => ':class_subject_code']) }}";
-            window.editSubjectRouteTemplate = "{{ route('timetable-builder.edit', ['profile_id' => ':profile_id', 'class_subject_code' => ':class_subject_code']) }}";
-            window.deleteRouteTemplate = "{{ route('timetable-builder.delete', ['profile_id' => ':profile_id', 'class_subject_code' => ':class_subject_code']) }}";
+            window.getTimetableSlotRouteTemplate = "{{ route('timetable-builder.get', ['timetable_slot_id' => ':timetable_slot_id']) }}";
+
+            window.editTimetableSlotRouteTemplate = "{{ route('timetable-builder.edit', ['timetable_slot_id' => ':timetable_slot_id']) }}";
+
+            window.deleteTimetableSlotRouteTemplate = "{{ route('timetable-builder.delete', ['timetable_slot_id' => ':timetable_slot_id']) }}";
+
             window.csrfToken = "{{ csrf_token() }}";
         </script>
 

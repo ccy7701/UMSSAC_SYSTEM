@@ -74,12 +74,13 @@ const editTimetableSlotModalElement = document.getElementById('edit-timetable-sl
 const editTimetableSlotModal = new bootstrap.Modal(editTimetableSlotModalElement);
 const editTimetableSlotForm = document.getElementById('edit-timetable-slot-form');
 
-window.editTimetableSlot = function(profile_id, class_subject_code) {
-    const subjectDataRoute = window.getSubjectDataRouteTemplate
-        .replace(':profile_id', profile_id)
-        .replace(':class_subject_code', class_subject_code);
+window.editTimetableSlot = function(timetable_slot_id) {
+    const timetableSlotRoute = window.getTimetableSlotRouteTemplate
+        .replace(':timetable_slot_id', timetable_slot_id);
 
-    fetch(subjectDataRoute)
+    console.log(timetableSlotRoute);
+
+    fetch(timetableSlotRoute)
         .then(response => response.json())
         .then(data => {
             // Populate modal form fields with fetched data
@@ -93,9 +94,8 @@ window.editTimetableSlot = function(profile_id, class_subject_code) {
             document.getElementById('edit-start-time').value = data.class_start_time;
             document.getElementById('edit-end-time').value = data.class_end_time;
 
-            const formAction = window.editSubjectRouteTemplate
-                .replace(':profile_id', profile_id)
-                .replace(':class_subject_code', class_subject_code);
+            const formAction = window.editTimetableSlotRouteTemplate
+                .replace(':timetable_slot_id', timetable_slot_id);
 
             console.log("NEW_FORM_ACTION", formAction);
 
@@ -155,17 +155,14 @@ const deleteTimetableSlotForm = document.getElementById('delete-timetable-slot-f
 // Update the form fields every time the modal is shown
 deleteConfirmationModalElement.addEventListener('show.bs.modal', function (event) {
     const button = event.relatedTarget;
-    const profileId = button.getAttribute('data-profile-id');
-    const classSubjectCode = button.getAttribute('data-class-subject-code');
+    const timetableSlotId = button.getAttribute('data-timetable-slot-id');
 
     // Populate the form fields with the new data
-    document.getElementById('profile-id').value = profileId;
-    document.getElementById('class-subject-code').value = classSubjectCode;
+    document.getElementById('timetable-slot-id').value = timetableSlotId;
 
     // Update the form action URL dynamically
-    const deleteRoute = window.deleteRouteTemplate
-        .replace(':profile_id', profileId)
-        .replace(':class_subject_code', classSubjectCode);
+    const deleteRoute = window.deleteTimetableSlotRouteTemplate
+        .replace(':timetable_slot_id', timetableSlotId)
 
     deleteTimetableSlotForm.action = deleteRoute;
 
@@ -330,6 +327,7 @@ function updateSubjectList(timetableSlots) {
                 case 6: class_day = "Saturday"; break;
                 case 7: class_day = "Sunday"; break;
             }
+            console.log("TIMETABLE_SLOT_ID:", slot.timetable_slot_id);
             row.innerHTML = `
                 <td>${slot.class_subject_code}</td>
                 <td>${slot.class_name}</td>
@@ -340,20 +338,19 @@ function updateSubjectList(timetableSlots) {
                 <td>${slot.class_location}</td>
                 <td style="width: 1%;">
                     <div class="dropdown">
-                        <button class="subject-row btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton${slot.class_subject_code}" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="subject-row btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton${slot.timetable_slot_id}" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-ellipsis-vertical"></i>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton${slot.class_subject_code}">
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton${slot.timetable_slot_id}">
                             <li>
-                                <a class="dropdown-item" href="javascript:void(0)" onclick="editTimetableSlot(${slot.profile_id}, '${slot.class_subject_code}')"
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="editTimetableSlot(${slot.timetable_slot_id})"
                                 data-bs-target="#edit-timetable-slot-modal">Edit</a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)" class="text-danger dropdown-item"
                                     data-bs-toggle="modal"
                                     data-bs-target="#delete-confirmation-modal"
-                                    data-profile-id="${slot.profile_id}"
-                                    data-class-subject-code="${slot.class_subject_code}">Delete</a>
+                                    data-timetable-slot-id="${slot.timetable_slot_id}">Delete</a>
                             </li>
                         </ul>
                     </div>

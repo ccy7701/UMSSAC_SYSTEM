@@ -9,64 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class SubjectStatsLogController extends Controller
 {
-    private function getGradePoint($grade) {
-        $gradePoints = [
-            'A' => 4.00,
-            'A+' => 4.00,   // Cohorts 2022/2023 and beyond only
-            'A-' => 3.67,
-            'B+' => 3.33,
-            'B' => 3.00,
-            'B-' => 2.67,
-            'C+' => 2.33,
-            'C' => 2.00,
-            'C-' => 1.67,
-            'D+' => 1.33,
-            'D' => 1.00,
-            'E' => 0.00,
-            'X' => 0.00
-        ];
+    protected $cgpaService;
 
-        return $gradePoints[$grade] ?? 0.00;
-    }
-
-    private function validateData($request, $isEdit = false) {
-        // Common validation rules
-        $rules = [
-            'subject_code' => 'required|string|max:7',
-            'subject_name' => 'required|string|max:255',
-            'subject_credit_hours' => 'required|integer|min:1|max:12',
-            'subject_grade' => 'required|string|max:2',
-        ];
-
-        // For addSubject, validate 'sem_prog_log_id' also
-        if (!$isEdit) {
-            $rules['sem_prog_log_id'] = 'required|integer|exists:semester_progress_log,sem_prog_log_id';
-        }
-
-        // Validate the request
-        return $request->validate($rules);
-    }
-
-    private function recalculateCGPAandSGPA($profile_id, $sem_prog_log_id) {
-        $cgpaService = new CGPAService();
-        $cgpa = $cgpaService->calculateCGPA($profile_id, $sem_prog_log_id);
-        $sgpa = $cgpaService->calculateSGPA($sem_prog_log_id);
-
-        return compact('cgpa', 'sgpa');
-    }
-
-    private function handleResponse($status, $sem_prog_log_id, $grades) {
-        if ($status) {
-            // Return JSON response for AJAX handling
-            return response()->json([
-                'success' => true,
-                'cgpa' => $grades['cgpa'],
-                'sgpa' => $grades['sgpa'],
-                'subjects' => SubjectStatsLog::where('sem_prog_log_id', $sem_prog_log_id)->get()
-            ]);
-        } else {
-            return response()->json(['success' => false, 'message' => 'Failed to add new subject. Please try again.']);
-        }
+    public function __construct(CGPAService $cgpaService) {
+        $this->cgpaService = $cgpaService;
     }
 
     // Add a new subject to a selected semester progress log
@@ -80,14 +26,14 @@ class SubjectStatsLogController extends Controller
                 'subject_name' => $validated['subject_name'],
                 'subject_credit_hours' => $validated['subject_credit_hours'],
                 'subject_grade' => $validated['subject_grade'],
-                'subject_grade_point' => $this->getGradePoint($validated['subject_grade']) * $validated['subject_credit_hours'],
+                'subject_grade_point' => $this->cgpaService->getGradePoint($validated['subject_grade']) * $validated['subject_credit_hours'],
             ];
             
             // Insert new record explicitly, ignore potential updates
             $status = DB::table('subject_stats_log')->insert($subjectData);
 
             // Recalculate CGPA and SGPA
-            $grades = $this->recalculateCGPAandSGPA(profile()->profile_id, $validated['sem_prog_log_id']);
+            $grades = $this->cgpaService->recalculateCGPAandSGPA(profile()->profile_id, $validated['sem_prog_log_id']);
 
             return $this->handleResponse($status, $validated['sem_prog_log_id'], $grades);
         } catch (\Exception $e) {
@@ -117,11 +63,11 @@ class SubjectStatsLogController extends Controller
                     'subject_name' => $validatedData['subject_name'],
                     'subject_credit_hours' => $validatedData['subject_credit_hours'],
                     'subject_grade' => $validatedData['subject_grade'],
-                    'subject_grade_point' => $this->getGradePoint($validatedData['subject_grade']) * $validatedData['subject_credit_hours'],
+                    'subject_grade_point' => $this->cgpaService->getGradePoint($validatedData['subject_grade']) * $validatedData['subject_credit_hours'],
                 ]);
 
             // Recalculate CGPA and SGPA
-            $grades = $this->recalculateCGPAandSGPA(profile()->profile_id, $sem_prog_log_id);
+            $grades = $this->cgpaService->recalculateCGPAandSGPA(profile()->profile_id, $sem_prog_log_id);
 
             return $this->handleResponse($status, $sem_prog_log_id, $grades);
         } catch (\Exception $e) {
@@ -139,12 +85,44 @@ class SubjectStatsLogController extends Controller
                 ->delete();
 
             // Recalculate CGPA and SGPA
-            $grades = $this->recalculateCGPAandSGPA(profile()->profile_id, $sem_prog_log_id);
+            $grades = $this->cgpaService->recalculateCGPAandSGPA(profile()->profile_id, $sem_prog_log_id);
 
             return $this->handleResponse($status, $sem_prog_log_id, $grades);
         } catch (\Exception $e) {
             // Return error response if something goes wrong
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    private function validateData($request, $isEdit = false) {
+        // Common validation rules
+        $rules = [
+            'subject_code' => 'required|string|max:7',
+            'subject_name' => 'required|string|max:255',
+            'subject_credit_hours' => 'required|integer|min:1|max:12',
+            'subject_grade' => 'required|string|max:2',
+        ];
+
+        // For addSubject, validate 'sem_prog_log_id' also
+        if (!$isEdit) {
+            $rules['sem_prog_log_id'] = 'required|integer|exists:semester_progress_log,sem_prog_log_id';
+        }
+
+        // Validate the request
+        return $request->validate($rules);
+    }
+
+    private function handleResponse($status, $sem_prog_log_id, $grades) {
+        if ($status) {
+            // Return JSON response for AJAX handling
+            return response()->json([
+                'success' => true,
+                'cgpa' => $grades['cgpa'],
+                'sgpa' => $grades['sgpa'],
+                'subjects' => SubjectStatsLog::where('sem_prog_log_id', $sem_prog_log_id)->get()
+            ]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Failed to add new subject. Please try again.']);
         }
     }
 }

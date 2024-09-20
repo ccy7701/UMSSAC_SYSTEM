@@ -10,8 +10,8 @@ class TimetableSlot extends Model
     use HasFactory;
 
     protected $table = 'timetable_slot';
-    public $incrementing = false;
-    protected $primaryKey = null;
+    // public $incrementing = false;
+    protected $primaryKey = 'timetable_slot_id';
     public $timestamps = false;
 
     protected $fillable = [

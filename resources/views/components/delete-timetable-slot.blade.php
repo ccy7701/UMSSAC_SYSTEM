@@ -14,8 +14,7 @@
             <div class="modal-footer">
                 <form id="delete-timetable-slot-form" method="DELETE" action="">
                     @csrf
-                    <input type="hidden" id="profile-id" name="profile_id" value="">
-                    <input type="hidden" id="class-subject-code" name="class_subject_code" value="">
+                    <input type="hidden" id="timetable-slot-id" name="timetable_slot_id" value="">
                     <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">No, cancel</button>
                     <button type="submit" class="btn btn-danger fw-semibold ms-1">Yes, continue</button>
                 </form>
