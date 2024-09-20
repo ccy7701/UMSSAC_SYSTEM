@@ -26,11 +26,15 @@ class TimetableSlotController extends Controller
         return response()->json($timetableSlot);
     }
 
-    public function getSlotsByDay($profile_id, $class_day) {
-        $timetableSlots = TimetableSlot::where('class_day', $class_day)
-            ->where('profile_id', $profile_id)
-            ->get();
-            // ->get();
+    public function getSlotsByDay($profile_id, $class_day, $exclude_timetable_slot_id = null) {
+        $query = TimetableSlot::where('class_day', $class_day)
+            ->where('profile_id', $profile_id);
+
+        if ($exclude_timetable_slot_id) {
+            $query->where('timetable_slot_id', '!=', $exclude_timetable_slot_id);
+        }
+
+        $timetableSlots = $query->get();
 
         return response()->json($timetableSlots);
     }

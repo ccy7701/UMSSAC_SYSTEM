@@ -10,6 +10,7 @@
             </div>
             <form id="edit-timetable-slot-form" method="POST" action="">
                 @csrf
+                <input type="hidden" id="edit-timetable-slot-id" name="timetable_slot_id" value="">
                 <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
                 <div class="modal-body px-5">
                     <div class="form-group mb-3">

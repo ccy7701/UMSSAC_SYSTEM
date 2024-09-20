@@ -127,6 +127,7 @@ window.editTimetableSlot = function(timetable_slot_id) {
         .then(response => response.json())
         .then(data => {
             // Populate modal form fields with fetched data
+            document.getElementById('edit-timetable-slot-id').value = data.timetable_slot_id;
             document.getElementById('edit-class-subject-code').value = data.class_subject_code;
             document.getElementById('edit-class-name').value = data.class_name;
             document.getElementById('edit-class-category').value = data.class_category;
@@ -151,40 +152,75 @@ window.editTimetableSlot = function(timetable_slot_id) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    const timetableClashModal = new bootstrap.Modal(document.getElementById('timetable-clash-modal'));
+    const timeErrorModal = new bootstrap.Modal(document.getElementById('time-error-modal'));
+
     if (editTimetableSlotForm) {
         editTimetableSlotForm.addEventListener('submit', function (event) {
             event.preventDefault();
             const formData = new FormData(editTimetableSlotForm);
+            const classDay = formData.get('class_day');
+            const classStartTime = formData.get('class_start_time');
+            const classEndTime = formData.get('class_end_time');
+            const profileId = formData.get('profile_id');
+            const timetableSlotId = formData.get('timetable_slot_id');
             const formAction = editTimetableSlotForm.action;
 
-            fetch(formAction, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                },
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    console.log("Timetable slot updated successfully!");
+            // First check if the end time is earlier than the start time
+            if (classEndTime <= classStartTime) {
+                editTimetableSlotModal.hide();
+                timeErrorModal.show();
 
-                    console.log('Modal instance:', editTimetableSlotModal);
-                    editTimetableSlotModal.hide();
-                    document.getElementById('edit-timetable-slot-form').reset();
+                // After the error modal is closed, show the add timetable modal again
+                const timeErrorModalElement = document.getElementById('time-error-modal');
+                timeErrorModalElement.addEventListener('hidden.bs.modal', function () {
+                    editTimetableSlotModal.show();
+                }, { once: true});
 
-                    updateSubjectList(data.timetableSlots);
-                    generateTimetable(data.timetableSlots);
-                } else {
-                    alert('Failed to update the timetable slot. Please try again.');
-                }
-            })
-            .catch(error => console.error('Error:', error))
+                return;
+            }
+            // If it is not, then proceed
+            fetch(`/get-slots-by-day/${profileId}/${classDay}/${timetableSlotId}`)
+                .then(response => response.json())
+                .then(existingSlots => {
+                    if (checkForClash(classStartTime, classEndTime, existingSlots)) {
+                        editTimetableSlotModal.hide();
+                        timetableClashModal.show();
+
+                        const timetableClashModalElement = document.getElementById('timetable-clash-modal');
+                        timetableClashModalElement.addEventListener('hidden.bs.modal', function () {
+                            editTimetableSlotModal.show();
+                        }, { once: true });
+                    } else {
+                        fetch(editTimetableSlotForm.action, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                            },
+                            body: formData,
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! Status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.success) {
+                                console.log("Timetable builder refreshed with newly edited data.");
+
+                                editTimetableSlotModal.hide();
+                                document.getElementById('edit-timetable-slot-form').reset();
+
+                                updateSubjectList(data.timetableSlots);
+                                generateTimetable(data.timetableSlots);
+                            } else {
+                                console.error('Error editing timetable slot:', data.message);
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                    }
+                })
         });
     }
 })
