@@ -164,7 +164,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const classEndTime = formData.get('class_end_time');
             const profileId = formData.get('profile_id');
             const timetableSlotId = formData.get('timetable_slot_id');
-            const formAction = editTimetableSlotForm.action;
 
             // First check if the end time is earlier than the start time
             if (classEndTime <= classStartTime) {
@@ -180,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             // If it is not, then proceed
-            fetch(`/get-slots-by-day/${profileId}/${classDay}/${timetableSlotId}`)
+            fetch(`/get-slots-by-day/${profileId.toString()}/${classDay.toString()}/${timetableSlotId.toString()}`)
                 .then(response => response.json())
                 .then(existingSlots => {
                     if (checkForClash(classStartTime, classEndTime, existingSlots)) {
