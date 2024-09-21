@@ -25,14 +25,14 @@ document.addEventListener('DOMContentLoaded', function () {
     .catch(error => console.error('Error:', error));
 
     document.getElementById('download-timetable').addEventListener('click', function () {
-        var timetableCore = document.getElementById('timetable-core').cloneNode(true);
-        var timetableSubjectsList = document.getElementById('timetable-subjects-list').cloneNode(true);
+        const timetableCore = document.getElementById('timetable-core').cloneNode(true);
+        const timetableSubjectsList = document.getElementById('timetable-subjects-list').cloneNode(true);
 
         // Create a temporary container for combining both elements
-        var tempContainer = document.createElement('div');
+        const tempContainer = document.createElement('div');
 
         // Append a style tag for PDF-specific styles
-        var style = document.createElement('style');
+        const style = document.createElement('style');
         style.textContent = `
             .text-white {
                 color: black !important;
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .get('pdf')
             .then(function (pdf) {
                 // Reduce the page to one page (scale down the content)
-                var totalPages = pdf.internal.getNumberOfPages();
+                const totalPages = pdf.internal.getNumberOfPages();
                 for (let i = 1; i <= totalPages; i++) {
                     pdf.setPage(i);
                     pdf.setFontSize(8);

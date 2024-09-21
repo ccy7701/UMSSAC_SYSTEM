@@ -13,7 +13,7 @@
 <body>
     @vite('resources/js/app.js')
     @vite('resources/js/itemViewToggler.js')
-    <x-topnav/>
+    <x-admin-topnav/>
     <br>
     <div class="container p-3">
 

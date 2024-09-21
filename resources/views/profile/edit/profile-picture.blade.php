@@ -12,7 +12,11 @@
 <body>
     @vite('resources/js/app.js')
     @vite('resources/js/picturePreviewer.js')
-    <x-topnav/>
+    @if (currentAccount()->account_role != 3)
+        <x-topnav/>
+    @else
+        <x-admin-topnav/>
+    @endif
     <br>
     <div class="container p-3">
         <!-- EDIT PROFILE PICTURE FORM -->

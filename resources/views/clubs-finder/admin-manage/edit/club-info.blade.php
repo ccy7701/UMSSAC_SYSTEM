@@ -12,7 +12,7 @@
 
 <body>
     @vite('resources/js/app.js')
-    <x-topnav/>
+    <x-admin-topnav/>
     <x-response-popup
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"

@@ -1,6 +1,7 @@
 $btn-primary-bg: #1064D6;
 $text-muted: #777777;
 $bg-muted: #777777;
+$bg-lightgray: #EAF2FD;
 
 @import 'features';
 @import 'welcome';
@@ -121,4 +122,11 @@ html {
     #topnav-logo {
         width: 100.00% !important;
     }
+}
+
+.bookmark-span {
+    background-color: $bg-lightgray;
+    width: 40px;
+    height: 40px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }

@@ -1,4 +1,4 @@
-<!-- resources/views/components/topnav.blade.php -->
+<!-- resources/views/components/admin-topnav.blade.php -->
 <nav class="navbar navbar-light w-100 m-0" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
     <div class="container-fluid px-5 py-2">
         <div class="col-md-2 col-sm-4 col-6 text-start">
@@ -18,7 +18,7 @@
     </div>
 </nav>
 
-<!-- Offcanvas Navbar -->
+<!-- Offcanvas navbar -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
     <div class="rsans offcanvas-header pb-0">
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
@@ -31,28 +31,14 @@
                     <img src="{{ profile()->profile_picture }}" alt="User profile" class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover; border: 2px solid #AAAAAA;">
                 </div>
                 <strong>{{ currentAccount()->account_full_name }}</strong><br>
-                @if (currentAccount()->account_role == 1)
-                    <small>Student</small><br>
-                    <small>{{ currentAccount()->account_matric_number }}</small>
-                @elseif (currentAccount()->account == 2)
-                    <small>Faculty Member</small><br>
-                    <small>{{ currentAccount()->account_email_address }}</small>
-                @endif
+                <small>Admin</small><br>
+                <small>{{ currentAccount()->account_email_address }}</small>
             </li>
             <li><hr class="divider-gray-300"></li>
             <div class="px-0">
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('profile') }}">Profile</a></li>
-
-                @if (currentAccount()->account_role == 1)
-                    <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Study Partners (WIP)</a></li>
-
-                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('timetable-builder') }}">Timetable Builder</a></li>
-
-                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('progress-tracker') }}">Academic Progress Tracker</a></li>
-                @endif
-
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('events-finder') }}">Events Finder</a></li>
-                <li class="nav-item"><a class="nav-link px-3" href="{{ route('clubs-finder') }}">Clubs Finder</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="{{ route('manage-clubs') }}">Manage Clubs</a></li>
                 <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Bookmarks (WIP)</a></li>
                 <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Calendar (WIP)</a></li>
                 <li class="nav-item">

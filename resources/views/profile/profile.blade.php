@@ -10,7 +10,12 @@
 </head>
 
 <body>
-    <x-topnav/>
+    @vite('resources/js/app.js')
+    @if (currentAccount()->account_role != 3)
+        <x-topnav/>
+    @else
+        <x-admin-topnav/>
+    @endif
     <x-response-popup
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"
