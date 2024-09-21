@@ -136,7 +136,6 @@
         <br>
     </div>
     <x-footer/>
-    @vite('resources/js/app.js')
 </body>
 
 </html>

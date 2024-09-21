@@ -9,7 +9,13 @@
         @else
             <img src="{{ Storage::url($eventImagePaths[0]) }}" class="card-img-top border-bottom" alt="Event card illustration" style="aspect-ratio: 4/4;">
         @endif
-        
+        <!-- FUTURE BOOKMARK COMPONENT -->
+        {{-- <div class="position-absolute top-0 end-0 p-4">
+            <span class="bookmark-span rounded-circle d-flex justify-content-center align-items-center">
+                <i class="fa fa-bookmark text-primary fs-4"></i>
+            </span>
+        </div> --}}
+        <!-- END FUTURE BOOKMARK COMPONENT -->
         <div class="rsans card-body p-3">
             <h5 class="card-title fw-bold">{{ $event->event_name }}</h5>
             <div class="card-text">

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\ClubMembershipController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\RoleAccessMiddleware;
 
 // Routes accessible by admin only (account role 3)
@@ -36,4 +37,10 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
     })->name('manage-clubs.add-new-club');
 
     Route::post('manage-clubs/add-new-club/action', [ClubController::class, 'addNewClub'])->name('manage-clubs.add-new-club.action');
+
+    // CURRENT ROUTE OF FOCUS
+    // Route::get('/all-system-users', [ProfileController::class, 'getAllSystemUsers'])->name('profile.all-system-users');
+    Route::get('/all-system-users', function () {
+        return view('profile.admin.all-system-users');
+    })->name('profile.all-system-users');
 });
