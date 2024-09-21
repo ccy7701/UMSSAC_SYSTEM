@@ -1,4 +1,6 @@
-// TIMETABLE DISPLAY OPERATIONS
+import html2pdf from 'html2pdf.js';
+
+// TIMETABLE DISPLAY AHD DOWNLOAD OPERATIONS
 
 // Fetch timetable data on page load
 document.addEventListener('DOMContentLoaded', function () {
@@ -21,6 +23,58 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
     .catch(error => console.error('Error:', error));
+
+    document.getElementById('download-timetable').addEventListener('click', function () {
+        var timetableCore = document.getElementById('timetable-core').cloneNode(true);
+        var timetableSubjectsList = document.getElementById('timetable-subjects-list').cloneNode(true);
+
+        // Create a temporary container for combining both elements
+        var tempContainer = document.createElement('div');
+
+        // Append a style tag for PDF-specific styles
+        var style = document.createElement('style');
+        style.textContent = `
+            .text-white {
+                color: black !important;
+            }
+            #add-subject-button {
+                display: none;
+            }
+        `;
+
+        // Append the styles and both timetable sections to the temp container
+        tempContainer.appendChild(style);
+        tempContainer.appendChild(timetableCore);
+        tempContainer.appendChild(timetableSubjectsList);
+        
+        // Ensure html2pdf.js is correctly called
+        html2pdf()
+            .from(tempContainer)
+            .set({
+                margin: 20,
+                filename: 'umssacs_timetable.pdf',
+                html2canvas: {
+                    scale: 2,
+                    logging: true
+                },
+                jsPDF: {
+                    orientation: 'landscape',
+                    unit: 'pt',
+                    format: [1123, 794]
+                }
+            })
+            .toPdf()
+            .get('pdf')
+            .then(function (pdf) {
+                // Reduce the page to one page (scale down the content)
+                var totalPages = pdf.internal.getNumberOfPages();
+                for (let i = 1; i <= totalPages; i++) {
+                    pdf.setPage(i);
+                    pdf.setFontSize(8);
+                }
+            })
+            .save();
+    });
 });
 
 // ADD TIMETABLE SLOT MODAL AND FORM OPERATIONS

@@ -32,7 +32,7 @@
                         </select>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="edit-class-section" class="fw-bold form-label">Section</label>
+                        <label for="edit-class-section" class="fw-bold form-label">Section/Group</label>
                         <input type="number" class="form-control" id="edit-class-section" name="class_section" required>
                     </div>
                     <div class="form-group mb-3">

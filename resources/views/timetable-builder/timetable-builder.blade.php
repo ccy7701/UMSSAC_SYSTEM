@@ -15,7 +15,7 @@
     @vite('resources/js/timetableBuilderOperations.js')
     <x-topnav/>
     <br>
-    <div class="container p-3">
+    <div id="timetable" class="container p-3">
 
         <div class="d-flex align-items-center">
             <div class="section-header row w-100">
@@ -28,7 +28,7 @@
         <div class="row align-items-center py-4">
 
             <!-- TIMETABLE CORE -->
-            <table class="timetable rsans table-bordered text-center">
+            <table id="timetable-core" class="timetable rsans table-bordered text-center">
                 <!-- Days of the week (header) -->
                 <thead>
                     <tr>
@@ -70,9 +70,16 @@
             window.csrfToken = "{{ csrf_token() }}";
         </script>
 
+        <!-- Timetable download button -->
+        <div class="row d-flex justify-content-center align-content-center py-3">
+            <button id="download-timetable" type="button" class="rsans btn btn-primary fw-bold w-20">
+                Download timetable
+            </button>
+        </div>
+
         <!-- SUBJECTS ON TIMETABLE OVERVIEW -->
-        <div class="row pb-3 pt-2">
-            <div class=" d-flex justify-content-center align-items-center py-3 w-100 align-self-center">
+        <div id="timetable-subjects-list" class="row pb-3 pt-2">
+            <div class="d-flex justify-content-center align-items-center py-3 w-100 align-self-center">
                 <div class="card shadow-sm w-100 p-3">
                     <div class="card-body">
                         <div class="d-flex align-items-center">

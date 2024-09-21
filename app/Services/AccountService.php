@@ -33,7 +33,6 @@ class AccountService
         ]);
     }
 
-    // KEEP IN VIEW
     public function createUserPreference(Profile $profile) {
         UserPreference::create([
             'profile_id' => $profile->profile_id,
