@@ -3,10 +3,10 @@
 namespace App\Services;
 
 use App\Models\Club;
-use App\Models\ClubMembership;
 use App\Models\Event;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\ClubMembership;
+use Illuminate\Support\Facades\DB;
 
 class ClubAndEventService
 {
@@ -115,8 +115,8 @@ class ClubAndEventService
             ->exists();
     }
 
-    // Get the user's category and search filters
-    public function getFilters(Request $request) {
+    // Get the user's CLUB category and search filters
+    public function getClubFilters(Request $request) {
         // Fetch filters from form submission (may be empty if no checkboxes are selected)
         $filters = $request->input('category_filter', []);
             
@@ -136,13 +136,47 @@ class ClubAndEventService
         return $filters;
     }
 
-    // Flush (clear all) of the user's search filters
+    // Get the user's EVENT category and search filters
+    public function getEventFilters(Request $request) {
+        // Fetch filters from form submission (may be empty if no checkboxes are selected)
+        $filters = [
+            'category_filter' => $request->input('category_filter', []),
+            'event_status' => $request->input('event_status', []),
+        ];
+    
+        // If the form is submitted with no filters, treat it as clearing all filters
+        if ($request->isMethod('post') && empty($filters['category_filter']) && empty($filters['event_status'])) {
+            return [];
+        }
+
+        // If no form submission and no filters, retrieve saved filters from the DB
+        if (empty($filters['category_filter']) && empty($filters['event_status'])) {
+            $savedFilters = DB::table('user_preference')
+                ->where('profile_id', profile()->profile_id)
+                ->value('event_search_filters');
+            $filters = $savedFilters ? json_decode($savedFilters, true) : [];
+        }
+
+        return $filters;
+    }
+
+    // Flush (clear all) of the user's CLUB search filters
     public function flushClubFilters() {
         DB::table('user_preference')
-        ->where('profile_id', profile()->profile_id)
-        ->update([
-            'club_search_filters' => json_encode([]),
-            'updated_at' => now()
-        ]);
+            ->where('profile_id', profile()->profile_id)
+            ->update([
+                'club_search_filters' => json_encode([]),
+                'updated_at' => now()
+            ]);
+    }
+
+    // Flush (clear all) of the user's EVENT search filters
+    public function flushEventFilters() {
+        DB::table('user_preference')
+            ->where('profile_id', profile()->profile_id)
+            ->update([
+                'event_search_filters' => json_encode([]),
+                'updated_at' => now()
+            ]);
     }
 }

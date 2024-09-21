@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Club new image preview
     const newImageInput = document.getElementById('new-image-input');
     const newImageSubmit = document.getElementById('new-image-submit');
-    const newEventImagePreview = document.getElementById('new-event-image-preview');
+    const newImagePreview = document.getElementById('new-image-preview');
     const viewImageModal = document.getElementById('view-image-modal');
     const deleteConfirmationModal = document.getElementById('delete-confirmation-modal');
 
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
          // If a file is selected, update the preview and enable the button
          if (file) {
-             newEventImagePreview.src = URL.createObjectURL(file);
+            newImagePreview.src = URL.createObjectURL(file);
              newImageSubmit.disabled = false;
         } else {
              // Disable the button if no file is selected

@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Services\ClubAndEventService;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
@@ -26,8 +25,7 @@ class EventController extends Controller
 
         // Handle GET request as normal (including pagination and filtering)
         $search = $request->input('search', '');
-        $filters = $this->getFilters($request);
-        // $allEvents = $this->eventService->getAllEvents($filters, $search);
+        $filters = $this->clubAndEventService->getEventFilters($request);
         $allEvents = $this->clubAndEventService->getAllEvents($filters, $search);
 
         return view('events-finder.view-all-events', [
@@ -41,12 +39,7 @@ class EventController extends Controller
 
     public function clearFilterForGeneral() {
         // Clear the filters for the authenticated user's profile
-        DB::table('user_preference')
-            ->where('profile_id', profile()->profile_id)
-            ->update([
-                'event_search_filters' => json_encode([]),
-                'updated_at' => now()
-            ]);
+        $this->clubAndEventService->flushEventFilters();
 
         return redirect()->route('events-finder');
     }
@@ -67,6 +60,10 @@ class EventController extends Controller
         return view('events-finder.add-new-event', [
             'club' => $this->clubAndEventService->getClubDetails($request->club_id),
         ]);
+    }
+    
+    public function showEventImagesEdit(Request $request) {
+        return $this->clubAndEventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.edit.images');
     }
 
     public function addNewEvent(Request $request) {
@@ -136,10 +133,6 @@ class EventController extends Controller
             : back()->withErrors(['error' => 'Failed to update event info. Please try again.']);
     }
 
-    public function showEventImagesEdit(Request $request) {
-        return $this->clubAndEventService->prepareAndRenderEventView($request->query('event_id'), 'events-finder.edit.images');
-    }
-
     public function addEventImage(Request $request) {
         $request->validate([
             'new_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -193,28 +186,5 @@ class EventController extends Controller
         return $status
             ? redirect()->route('committee-manage.manage-details', ['club_id' => $clubId])->with('success', 'Event deleted successfully.')
             : back()->withErrors(['error' => 'Failed to delete event. Please try again.']);
-    }
-
-    private function getFilters(Request $request) {
-        // Fetch filters from form submission (may be empty if no checkboxes are selected)
-        $filters = [
-            'category_filter' => $request->input('category_filter', []),
-            'event_status' => $request->input('event_status', []),
-        ];
-    
-        // If the form is submitted with no filters, treat it as clearing all filters
-        if ($request->isMethod('post') && empty($filters['category_filter']) && empty($filters['event_status'])) {
-            return [];
-        }
-
-        // If no form submission and no filters, retrieve saved filters from the DB
-        if (empty($filters['category_filter']) && empty($filters['event_status'])) {
-            $savedFilters = DB::table('user_preference')
-                ->where('profile_id', profile()->profile_id)
-                ->value('event_search_filters');
-            $filters = $savedFilters ? json_decode($savedFilters, true) : [];
-        }
-
-        return $filters;
     }
 }

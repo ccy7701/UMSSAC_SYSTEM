@@ -12,7 +12,7 @@
 
 <body>
     @vite('resources/js/app.js')
-    @vite('resources/js/clubImageViewer.js')
+    @vite('resources/js/imageViewer.js')
     <x-topnav/>
     <x-response-popup
         messageType="success"
@@ -167,7 +167,7 @@
                                     <div class="row align-items-center justify-content-center">
                                         <div class="col-md-3 align-items-center text-center pb-3">
                                             <div class="card h-100" id="card-club-images-previewer">
-                                                <img id="new-club-image-preview" src="{{ asset('images/no_club_images_default.png') }}" alt="New club illustration preview" class="card-img-top border-bottom" style="aspect-ratio: 4/4; object-fit: cover;">
+                                                <img id="new-image-preview" src="{{ asset('images/no_club_images_default.png') }}" alt="New club illustration preview" class="card-img-top border-bottom" style="aspect-ratio: 4/4; object-fit: cover;">
                                                 <div class="rsans card-body d-flex justify-content-center align-items-center h-100">
                                                     <p class="mb-1">New image preview</p>
                                                 </div>
