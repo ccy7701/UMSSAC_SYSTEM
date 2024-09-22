@@ -1,5 +1,9 @@
 <p align="center"><a href="#" target="_blank"><img src="https://github.com/ccy7701/UMSSAC_SYSTEM/blob/main/public/images/UMSSACS_LOGO_FINAL.png" width="300" alt="UMSSACS Logo"></a></p>
 
+## Current Status
+
+This project is still under development.
+
 ## About UMSSACS
 
 UMSSACS is a web-based system designed to help students keep track of uni life at UMS. From managing academic activities to uncovering events, UMSSACS helps you to stay organised and engaged. This system is a final year project.
