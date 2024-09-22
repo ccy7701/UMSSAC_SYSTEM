@@ -58,9 +58,4 @@ class ProfileController extends Controller
             ? redirect()->route('profile')->with('success', 'General info updated successfully!')
             : back()->withErrors(['profile' => 'Failed to update the general info. Please try again.']);
     }
-
-    // Get all system users (ADMIN)
-    public function getAllSystemUsers() {
-        
-    }
 }

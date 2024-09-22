@@ -7,6 +7,7 @@ use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Models\UserPreference;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class AccountService
 {
@@ -40,5 +41,43 @@ class AccountService
             'event_search_filters' => null,
             'club_search_filters' => null,
         ]);
+    }
+
+    public function prepareSystemUsersData($search = null) {
+        // Fetch system users based on input. If empty, return all users
+        $systemUsers = DB::table('account')
+            ->select(
+                'account.account_id',
+                'account.account_full_name',
+                'account.account_email_address',
+                'account.account_role',
+                'account.account_matric_number',
+                'profile.profile_nickname',
+                'profile.profile_enrolment_session',
+                'profile.profile_faculty',
+                'profile.profile_course',
+                'profile.profile_picture_filepath'
+            )
+            ->join('profile', 'account.account_id', '=', 'profile.account_id')
+            ->whereIn('account.account_role', [1, 2])
+            ->when($search, function($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('account.account_full_name', 'like', "%{$search}%")
+                    ->orWhere('account.account_email_address', 'like', "%{$search}%")
+                    ->orWhere('account.account_matric_number', 'like', "%{$search}%");
+                });
+            })
+            ->paginate(20);
+
+        // Also prepare the user counts by account_role
+        $roleCounts = DB::table('account')
+            ->select('account_role', DB::raw('count(*) as total'))
+            ->groupBy('account_role')
+            ->get();
+
+        return [
+            'systemUsers' => $systemUsers,
+            'roleCounts' => $roleCounts
+        ];
     }
 }
