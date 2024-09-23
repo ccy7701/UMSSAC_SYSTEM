@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>All System Users</title>
     @vite('resources/sass/app.scss')
 </head>
@@ -12,6 +13,7 @@
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     @vite('resources/js/itemViewToggler.js')
+    @vite('resources/js/systemUsersViewToggler.js')
     <x-admin-topnav/>
     <main class="flex-grow-1">
         <br>
@@ -43,26 +45,17 @@
                         </form>
                         <div class="row pb-3">
                             <!-- Left column, users-by-role toggle -->
-                            <div class="col-6 d-flex align-items-center">
-                                <div class="input-group justify-content-start">
-                                    <button id="toggle-students-view" class="rsans btn d-flex justify-content-center align-items-center border toggle-role-btn w-30">
-                                        Students ({{ $roleCounts['students'] }})
-                                    </button>
-                                    <button id="toggle-faculty-members-view" class="rsans btn d-flex justify-content-center align-items-center border toggle-role-btn w-30">
-                                        Faculty Members ({{ $roleCounts['facultyMembers'] }})
-                                    </button>
-                                </div>
-                            </div>
+                            <div class="col-6 d-flex align-items-center"></div>
                             <!-- Right column: View icons -->
                             <div class="col-6 d-flex align-items-center justify-content-end">
                                 <div class="input-group justify-content-end">
                                     <!-- Grid view toggle button -->
                                     <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 1 ? 'active' : '' }}">
-                                        <i class="fa fa-th fs-4 {{ $searchViewPreference == 1 ? 'text-primary' : 'text-muted' }}"></i> <!-- Icon for grid view -->
+                                        <i class="fa fa-th fs-4 {{ $searchViewPreference == 1 ? 'text-primary' : 'text-muted' }}"></i>
                                     </button>
                                     <!-- List view toggle button -->
                                     <button id="toggle-list-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 2 ? 'active' : '' }}">
-                                        <i class="fa fa-list-ul fs-4 {{ $searchViewPreference == 2 ? 'text-primary' : 'text-muted' }}"></i> <!-- Icon for list view -->
+                                        <i class="fa fa-list-ul fs-4 {{ $searchViewPreference == 2 ? 'text-primary' : 'text-muted' }}"></i>
                                     </button>
                                 </div>
                             </div>
@@ -81,9 +74,6 @@
                             <div class="col-12 align-items-center justify-content-start">
                                 <h4 class="rsans fw-bold mb-0">Search filters</h4>
                             </div>
-                            <div>
-
-                            </div>
                         </div>
                         <br>
                         @php
@@ -99,16 +89,30 @@
                         <div class="rsans row">
                             @foreach ($categories as $category)
                                 <div class="col-6 mb-2 px-1">
-                                    <button class="btn border rounded p-2 w-100 text-start">
-                                        {{ $category }} 
-                                        ({{ 
-                                            $category === 'Unspecified' 
-                                            ? $systemUsers->where('profile_faculty', '')->count() 
-                                            : $systemUsers->where('profile_faculty', $category)->count() 
+                                    <button class="btn border rounded p-2 w-100 text-start filter-category" data-category="{{ $category }}">
+                                        {{ $category }}
+                                        ({{
+                                            $category === 'Unspecified'
+                                                ? $systemUsers->where('profile_faculty', '')->count()
+                                                : $systemUsers->where('profile_faculty', $category)->count()
                                         }})
                                     </button>
                                 </div>
                             @endforeach
+                        </div>
+                        <br>
+                        <h5 class="rsans fw-semibold mb-2">Roles</h5>
+                        <div class="rsans row">
+                            <div class="col-12 mb-2 px-1">
+                                <button id="toggle-students-view" class="btn border rounded p-2 w-100 text-start toggle-role-btn" data-account-role="1">
+                                    Students ({{ $roleCounts['students'] }})
+                                </button>
+                            </div>
+                            <div class="col-12 mb-2 px-1">
+                                <button id="toggle-faculty-members-view" class="btn border rounded p-2 w-100 text-start toggle-role-btn" data-account-role="2">
+                                    Faculty members ({{ $roleCounts['facultyMembers'] }})
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -117,11 +121,18 @@
                         <div class="container-fluid">
                             <!-- GRID VIEW (Toggle based on preference) -->
                             <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
-                                <!-- How do you handle this? -->
+                                <!-- Your grid view content goes here -->
                             </div>
                             <!-- LIST VIEW (Toggle based on preference) -->
                             <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
-
+                                @foreach ($systemUsers as $user)
+                                    <x-systemuser-list-item
+                                        :user="$user"
+                                        class="systemuser-list-item"
+                                        data-category="{{ $user->profile_faculty }}"
+                                        data-account-role="{{ $user->account_role }}"
+                                    />
+                                @endforeach
                             </div>
                         </div>
                     </div>
