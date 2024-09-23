@@ -17,7 +17,6 @@
         </div>
     </div>
 </nav>
-
 <!-- Offcanvas Navbar -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
     <div class="rsans offcanvas-header pb-0">
@@ -42,15 +41,13 @@
             <li><hr class="divider-gray-300"></li>
             <div class="px-0">
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('profile') }}">Profile</a></li>
-
                 @if (currentAccount()->account_role == 1)
-                    <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Study Partners (WIP)</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('study-partners-suggester.suggester-form') }}">Study Partners Suggester</a></li>
 
                     <li class="nav-item"><a class="nav-link px-3" href="{{ route('timetable-builder') }}">Timetable Builder</a></li>
 
                     <li class="nav-item"><a class="nav-link px-3" href="{{ route('progress-tracker') }}">Academic Progress Tracker</a></li>
                 @endif
-
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('events-finder') }}">Events Finder</a></li>
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('clubs-finder') }}">Clubs Finder</a></li>
                 <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Bookmarks (WIP)</a></li>
