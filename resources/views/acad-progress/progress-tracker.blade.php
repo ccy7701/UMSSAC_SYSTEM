@@ -10,7 +10,7 @@
     @vite('resources/sass/app.scss')
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     @vite('resources/js/semesterDropdown.js')
     @vite('resources/js/tooltips.js')
@@ -22,7 +22,7 @@
         iconClass="text-success fa-regular fa-circle-check"
         title="Success!"/>
     <br>
-    <div class="container p-3">
+    <div class="container p-3 flex-grow-1">
 
         <div class="d-flex align-items-center">
             <div class="section-header row w-100">

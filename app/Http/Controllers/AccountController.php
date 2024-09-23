@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
+    protected $accountService;
+
+    public function __construct(AccountService $accountService) {
+        $this->accountService = $accountService;
+    }
+
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
             'account_full_name' => 'required|string|max:255',
@@ -24,10 +30,9 @@ class AccountController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $accountService = new AccountService();
-        $account = $accountService->createAccount($request);
-        $profile = $accountService->createProfile($request, $account);
-        $accountService->createUserPreference($profile);
+        $account = $this->accountService->createAccount($request);
+        $profile = $this->accountService->createProfile($request, $account);
+        $this->accountService->createUserPreference($profile);
         
         Auth::login($account);
 
@@ -75,5 +80,25 @@ class AccountController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');
+    }
+
+    // Get all system users (ADMIN)
+    public function getAllSystemUsers(Request $request) {
+        // Handle POST request for filtering
+        if ($request->isMethod('post')) {
+            return redirect()->route('profile.all-system-users', $request->all());
+        }
+    
+        // Handle GET request as normal (including pagination and filtering)
+        $search = $request->input('search', '');
+        $data = $this->accountService->prepareSystemUsersData($search);
+    
+        return view('admin.all-system-users', [
+            'systemUsers' => $data['systemUsers'],
+            'totalUsersCount' => $data['systemUsers']->total(),
+            'roleCounts' => $data['roleCounts'],
+            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
+            'search' => $search
+        ]);
     }
 }

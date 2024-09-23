@@ -20,9 +20,7 @@
     @endif
     <br>
     <div class="container p-3">
-        
         <div class="d-flex align-items-center">
-
             <!-- TOP SECTION -->
             <div class="section-header row w-100">
                 <div class="col-12 text-center">
@@ -73,12 +71,9 @@
                 </div>
             </div>
         </div>
-
         <!-- BODY OF CONTENT -->
         <div class="container-fluid align-items-center py-4">
-
             <div class="row">
-
                 <!-- LEFT SECTIONS FOR FILTERS -->
                 <div class="col-md-3 border p-3">
                     <div class="row">
@@ -145,9 +140,7 @@
                     </form>
                     <!-- End filters -->
                     <!-- KEEP IN VIEW! Event status filters -->
-                    
                 </div>
-
                 <!-- RIGHT SECTION FOR EVENT CARDS GRID OR LIST -->
                 <div class="col-md-9 px-3 py-0">
                     <div class="container-fluid">
@@ -177,13 +170,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
     <x-footer/>
 </body>
 
