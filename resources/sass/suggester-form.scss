@@ -1,0 +1,43 @@
+$btn-primary-bg: #1064D6;
+
+// General radio button styling
+.custom-radio .form-check-input {
+    border-radius: 50%;
+    border: 2px solid $btn-primary-bg;
+    transition: transform 0.2s ease;
+    appearance: none; /* Remove default radio button styling */
+    background-color: transparent;
+}
+
+// Radio button size progression
+.xs-radio {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.sm-radio {
+    width: 26px !important;
+    height: 26px !important;
+}
+
+.md-radio {
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.lg-radio {
+    width: 38px !important;
+    height: 38px !important;
+}
+
+.xl-radio {
+    width: 44px !important;
+    height: 44px !important;
+}
+
+// Checked state with a fill
+.custom-radio .form-check-input:checked {
+    background-color: $btn-primary-bg;
+    border-color: $btn-primary-bg;
+    transform: scale(1.15);
+}

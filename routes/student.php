@@ -37,4 +37,9 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::post('/edit-timetable-slot/{timetable_slot_id}', [TimetableSlotController::class, 'editTimetableSlot'])->name('timetable-builder.edit');
 
     Route::delete('/delete-timetable-slot/{timetable_slot_id}', [TimetableSlotController::class, 'deleteTimetableSlot'])->name('timetable-builder.delete');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/study-partners-suggester/suggester-form', function () {
+        return view('study-partners-suggester.suggester-form');
+    })->name('study-partners-suggester.suggester-form');
 });

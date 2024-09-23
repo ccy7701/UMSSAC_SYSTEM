@@ -38,12 +38,9 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
 
     Route::post('manage-clubs/add-new-club/action', [ClubController::class, 'addNewClub'])->name('manage-clubs.add-new-club.action');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/all-system-users', [AccountController::class, 'fetchAllSystemUsers'])->name('admin.all-system-users');
 
-    // CURRENT ROUTE OF FOCUS
     Route::post('/all-system-users/filter', [AccountController::class, 'fetchAllSystemUsers'])->name('admin.all-system-users.filter');
 
-    // CURRENT ROUTE OF FOCUS
     Route::post('/all-system-users/clear-all', [AccountController::class, 'clearFilters'])->name('admin.all-system-users.clear-filter');
 });
