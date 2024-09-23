@@ -125,6 +125,9 @@
                                 <x-member-card :member="$member"/>
                             </div>
                         @endforeach
+                        <div class="rsans d-flex justify-content-center">
+                            {{ $clubMembers->links('pagination::bootstrap-4') }}
+                        </div>
                     </div>
                 </div>
                 <!-- END EDIT MEMBER ACCESS LEVEL SECTION -->
@@ -170,6 +173,9 @@
                                         <x-manage-event-card :event="$event"/>
                                     </div>
                                 @endforeach
+                                <div class="rsans d-flex justify-content-center">
+                                    {{ $clubEvents->links('pagination::bootstrap-4') }}
+                                </div>
                             @else
                                 <div class="col-lg-4 col-md-6">
                                     <div class="rsans card d-flex justify-content-center align-items-center h-100">
@@ -202,6 +208,9 @@
                                         </div>
                                     </div>
                                 @endforeach
+                                <div class="rsans d-flex justify-content-center">
+                                    {{ $clubEvents->links('pagination::bootstrap-4') }}
+                                </div>
                             @else
                                 <div class="row pb-3 w-75">
                                     <div class="col-lg-12">

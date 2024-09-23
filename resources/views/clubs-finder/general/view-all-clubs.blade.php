@@ -130,6 +130,9 @@
                                         <x-club-card :club="$club"/>
                                     </div>
                                 @endforeach
+                                <div class="rsans d-flex justify-content-center">
+                                    {{ $clubs->links('pagination:bootstrap-4') }}
+                                </div>
                             </div>
                             <!-- LIST VIEW (Toggle based on preference) -->
                             <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
@@ -140,6 +143,9 @@
                                         </div>
                                     </div>
                                 @endforeach
+                                <div class="rsans d-flex justify-content-center">
+                                    {{ $clubs->links('pagination:bootstrap-4') }}
+                                </div>
                             </div>
                         </div>
                     </div>

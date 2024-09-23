@@ -24,7 +24,7 @@ class ProfileFactory extends Factory
             'account_id' => Account::factory(),
             'profile_nickname' => $this->faker->name,
             'profile_personal_desc' => $this->faker->paragraph,
-            'profile_enrolment_session' => $this->faker->randomElement(['2021/2022', '2022/2023', '2023/2024']),
+            'profile_enrolment_session' => '',
             'profile_faculty' => 'FKIKK',
             'profile_course' => $this->faker->randomElement(['UH6481001', 'UH6481002', 'UH6481005']),
             'profile_picture_filepath' => '',
