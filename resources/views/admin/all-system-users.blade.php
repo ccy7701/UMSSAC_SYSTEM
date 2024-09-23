@@ -15,10 +15,9 @@
     @vite('resources/js/itemViewToggler.js')
     @vite('resources/js/systemUsersViewToggler.js')
     <x-admin-topnav/>
+    <br>
     <main class="flex-grow-1">
-        <br>
         <div class="container p-3">
-
             <div class="d-flex align-items-center">
                 <!-- TOP SECTION -->
                 <div class="section-header row w-100">
@@ -46,11 +45,9 @@
                     </div>
                 </div>
             </div>
-
             <!-- BODY OF CONTENT -->
             <div class="container-fluid align-items-center py-4">
                 <div class="row">
-
                     <!-- LEFT SECTIONS FOR FILTERS -->
                     <div class="col-md-3 border p-3">
                         <div class="row">
@@ -98,7 +95,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- RIGHT SECTION FOR SYSTEM USER CARDS LIST -->
                     <div class="col-md-9 px-3 py-0">
                         <div class="container-fluid">
@@ -124,10 +120,8 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </main>
     <x-footer/>
