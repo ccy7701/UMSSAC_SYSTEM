@@ -126,12 +126,21 @@
                             <!-- LIST VIEW (Toggle based on preference) -->
                             <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
                                 @foreach ($systemUsers as $user)
-                                    <x-systemuser-list-item
+                                @php
+                                    if ($user->profile_faculty == '') {
+                                        $user->profile_faculty = 'Unspecified';
+                                    }
+                                @endphp
+                                <div class="row pb-3">
+                                    <div class="col-lg-12">
+                                        <x-systemuser-list-item
                                         :user="$user"
                                         class="systemuser-list-item"
                                         data-category="{{ $user->profile_faculty }}"
                                         data-account-role="{{ $user->account_role }}"
                                     />
+                                    </div>
+                                </div>
                                 @endforeach
                             </div>
                         </div>

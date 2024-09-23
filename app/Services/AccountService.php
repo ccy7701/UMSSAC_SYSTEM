@@ -67,6 +67,7 @@ class AccountService
                     ->orWhere('account.account_matric_number', 'like', "%{$search}%");
                 });
             })
+            ->orderBy('account_role', 'desc')
             ->paginate(20);
 
         // Convert paginated result to collection and calculate role counts

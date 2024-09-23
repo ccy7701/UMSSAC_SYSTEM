@@ -82,23 +82,23 @@ class AccountController extends Controller
         return redirect('/');
     }
 
-        // Get all system users (ADMIN)
-        public function getAllSystemUsers(Request $request) {
-            // Handle POST request for filtering
-            if ($request->isMethod('post')) {
-                return redirect()->route('profile.all-system-users', $request->all());
-            }
-    
-            // Handle GET request as normal (including pagination and filtering)
-            $search = $request->input('search', '');
-            $data = $this->accountService->prepareSystemUsersData($search);
-    
-            return view('admin.all-system-users', [
-                'systemUsers' => $data['systemUsers'],
-                'totalUsersCount' => $data['systemUsers']->total(),
-                'roleCounts' => $data['roleCounts'],
-                'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
-                'search' => $search
-            ]);
+    // Get all system users (ADMIN)
+    public function getAllSystemUsers(Request $request) {
+        // Handle POST request for filtering
+        if ($request->isMethod('post')) {
+            return redirect()->route('profile.all-system-users', $request->all());
         }
+    
+        // Handle GET request as normal (including pagination and filtering)
+        $search = $request->input('search', '');
+        $data = $this->accountService->prepareSystemUsersData($search);
+    
+        return view('admin.all-system-users', [
+            'systemUsers' => $data['systemUsers'],
+            'totalUsersCount' => $data['systemUsers']->total(),
+            'roleCounts' => $data['roleCounts'],
+            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
+            'search' => $search
+        ]);
+    }
 }

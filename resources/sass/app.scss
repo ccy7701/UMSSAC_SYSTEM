@@ -107,6 +107,7 @@ html {
     color: text-primary; /* Active state */
 }
 
+#user-profile,
 #user-profile-topnav {
     transition: transform 0.2s ease, border 0.2s ease;
     border: 2px solid #AAAAAA; /* Set an initial transparent border */

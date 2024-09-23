@@ -18,7 +18,13 @@
                 {{ $member->profile->account->account_full_name }}
             @endif
         </p>
-        <p class="fst-italic text-muted mb-0">({{ $member->profile->profile_nickname }})</p>
+        <p class="fst-italic text-muted mb-0">
+            @if ($member->profile->profile_nickname == '')
+                (No nickname)
+            @else
+                ({{ $member->profile->profile_nickname }})
+            @endif
+        </p>
         <span class="d-inline-flex align-items-center text-muted">
             <i class="fa fa-university me-2"></i>
             <p class="mb-0">{{ $member->profile->profile_faculty }}</p>
