@@ -37,7 +37,7 @@
             <li><hr class="divider-gray-300"></li>
             <div class="px-0">
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('profile') }}">Profile</a></li>
-                <li class="nav-item"><a class="nav-link px-3" href="{{ route('profile.all-system-users') }}">All System Users</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="{{ route('admin.all-system-users') }}">All System Users</a></li>
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('events-finder') }}">Events Finder</a></li>
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('manage-clubs') }}">Manage Clubs</a></li>
                 <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Bookmarks (WIP)</a></li>

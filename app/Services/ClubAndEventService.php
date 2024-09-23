@@ -143,11 +143,6 @@ class ClubAndEventService
             'category_filter' => $request->input('category_filter', []),
             'event_status' => $request->input('event_status', []),
         ];
-    
-        // If the form is submitted with no filters, treat it as clearing all filters
-        if ($request->isMethod('post') && empty($filters['category_filter']) && empty($filters['event_status'])) {
-            return [];
-        }
 
         // If no form submission and no filters, retrieve saved filters from the DB
         if (empty($filters['category_filter']) && empty($filters['event_status'])) {

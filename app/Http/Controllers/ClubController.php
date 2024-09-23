@@ -18,6 +18,12 @@ class ClubController extends Controller
     public function fetchClubsFinder(Request $request) {
         // Handle POST request for filtering
         if ($request->isMethod('post')) {
+            $filters = $request->input('category_filter', []);
+            if (empty($filters)) {
+                $this->clubAndEventService->flushClubFilters();
+                return redirect()->route('clubs-finder', $request->all());
+            }
+
             // Redirect to the GET route with query parameters for filters
             return redirect()->route('clubs-finder', $request->all());
         }
@@ -50,6 +56,12 @@ class ClubController extends Controller
 
     public function fetchClubsManager(Request $request) {
         if ($request->isMethod('post')) {
+            $filters = $request->input('category_filter', []);
+            if (empty($filters)) {
+                $this->clubAndEventService->flushClubFilters();
+                return redirect()->route('manage-clubs', $request->all());
+            }
+
             return redirect()->route('manage-clubs', $request->all());
         }
 

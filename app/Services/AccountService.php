@@ -43,9 +43,17 @@ class AccountService
         ]);
     }
 
-    public function prepareSystemUsersData($search = null) {
-        // Fetch system users based on input. If empty, return all users
-        $systemUsers = DB::table('account')
+    public function getAllSystemUsers(array $filters, $search = null) {
+        // Always save the filters, event if empty (to clear the saved filters)
+        DB::table('user_preference')
+            ->where('profile_id', profile()->profile_id)
+            ->update([
+                'users_search_filters' => json_encode($filters),
+                'updated_at' => now()
+            ]);
+
+        // Fetch system users based on the filters (if empty, return all) and search input
+        return Account::join('profile', 'account.account_id', '=', 'profile.account_id')
             ->select(
                 'account.account_id',
                 'account.account_full_name',
@@ -58,28 +66,51 @@ class AccountService
                 'profile.profile_course',
                 'profile.profile_picture_filepath'
             )
-            ->join('profile', 'account.account_id', '=', 'profile.account_id')
-            ->whereIn('account.account_role', [1, 2])
-            ->when($search, function($query, $search) {
+            ->when(!empty($filters), function ($query) use ($filters) {
+                return $query->where(function ($q) use ($filters) {
+                    foreach ($filters as $category) {
+                        // Handle the case where the category is 'Unspecified'
+                        if ($category === 'Unspecified') {
+                            $q->orWhere('profile.profile_faculty', '');
+                        } else {
+                            $q->orWhere('profile.profile_faculty', $category);
+                        }
+                    }
+                });
+            })
+            ->when($search, function ($query) use ($search) {
                 return $query->where(function ($q) use ($search) {
                     $q->where('account.account_full_name', 'like', "%{$search}%")
                     ->orWhere('account.account_email_address', 'like', "%{$search}%")
                     ->orWhere('account.account_matric_number', 'like', "%{$search}%");
                 });
             })
+            ->whereIn('account.account_role', [1, 2])
             ->orderBy('account_role', 'desc')
             ->paginate(20);
+    }
 
-        // Convert paginated result to collection and calculate role counts
-        $systemUsersCollection = collect($systemUsers->items());
-        $roleCounts = [
-            'students' => $systemUsersCollection->where('account_role', 1)->count(),
-            'facultyMembers' => $systemUsersCollection->where('account_role', 2)->count(),
-        ];
+    // Get the admin's USERS category and search filters
+    public function getUsersSearchFilters(Request $request) {
+        $filters = $request->input('category_filter', []);
 
-        return [
-            'systemUsers' => $systemUsers,
-            'roleCounts' => $roleCounts
-        ];
+        if (empty($filters)) {
+            $savedFilters = DB::table('user_preference')
+                ->where('profile_id', profile()->profile_id)
+                ->value('users_search_filters');
+            $filters = $savedFilters ? json_decode($savedFilters, true) : [];
+        }
+
+        return $filters;
+    }
+
+    // Flush (clear all) of the admin's USERS search filters
+    public function flushUsersSearchFilters() {
+        DB::table('user_preference')
+            ->where('profile_id', profile()->profile_id)
+            ->update([
+                'users_search_filters' => json_encode([]),
+                'updated_at' => now()
+            ]);
     }
 }

@@ -131,7 +131,7 @@
                                     </div>
                                 @endforeach
                                 <div class="rsans d-flex justify-content-center">
-                                    {{ $clubs->links('pagination:bootstrap-4') }}
+                                    {{ $clubs->links('pagination::bootstrap-4') }}
                                 </div>
                             </div>
                             <!-- LIST VIEW (Toggle based on preference) -->
@@ -144,7 +144,7 @@
                                     </div>
                                 @endforeach
                                 <div class="rsans d-flex justify-content-center">
-                                    {{ $clubs->links('pagination:bootstrap-4') }}
+                                    {{ $clubs->links('pagination::bootstrap-4') }}
                                 </div>
                             </div>
                         </div>
