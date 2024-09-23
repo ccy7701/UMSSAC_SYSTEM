@@ -19,6 +19,7 @@ class UserPreference extends Model
         'search_view_preference',
         'event_search_filters',
         'club_search_filters',
+        'users_search_filters',
     ];
 
     public function profile() {

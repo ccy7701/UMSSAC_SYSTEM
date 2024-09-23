@@ -19,6 +19,7 @@ class UserPreferenceSeeder extends Seeder
                 'search_view_preference' => 1,
                 'event_search_filters' => null,
                 'club_search_filters' => null,
+                'users_search_filters' => null,
             ]
         ]);
 
@@ -27,6 +28,7 @@ class UserPreferenceSeeder extends Seeder
                 'search_view_preference' => 2,
                 'event_search_filters' => null,
                 'club_search_filters' => null,
+                'users_search_filters' => null,
             ]
         ]);
 
@@ -35,6 +37,7 @@ class UserPreferenceSeeder extends Seeder
                 'search_view_preference' => 1,
                 'event_search_filters' => null,
                 'club_search_filters' => null,
+                'users_search_filters' => null,
             ]
         ]);
     }
