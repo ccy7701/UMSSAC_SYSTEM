@@ -3,11 +3,11 @@
     <div class="row g-0 align-items-center py-2">
         @if (empty($user->profile_picture_filepath))
             <div class="col-md-2 text-center">
-                <img id="user-profile" src="{{ asset('images/no_profile_pic_default.png') }}" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+                <img id="user-profile" src="{{ asset('images/no_profile_pic_default.png') }}" alt="User profile" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
             </div>
         @else
             <div class="col-md-2 text-center">
-                <img id="user-profile" src="{{ Storage::url($user->profile_picture_filepath) }}" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+                <img id="user-profile" src="{{ Storage::url($user->profile_picture_filepath) }}" alt="User profile" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
             </div>
         @endif
         <!-- Content section -->

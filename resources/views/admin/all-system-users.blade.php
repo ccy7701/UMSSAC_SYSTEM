@@ -43,23 +43,6 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="row pb-3">
-                            <!-- Left column, users-by-role toggle -->
-                            <div class="col-6 d-flex align-items-center"></div>
-                            <!-- Right column: View icons -->
-                            <div class="col-6 d-flex align-items-center justify-content-end">
-                                <div class="input-group justify-content-end">
-                                    <!-- Grid view toggle button -->
-                                    <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 1 ? 'active' : '' }}">
-                                        <i class="fa fa-th fs-4 {{ $searchViewPreference == 1 ? 'text-primary' : 'text-muted' }}"></i>
-                                    </button>
-                                    <!-- List view toggle button -->
-                                    <button id="toggle-list-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 2 ? 'active' : '' }}">
-                                        <i class="fa fa-list-ul fs-4 {{ $searchViewPreference == 2 ? 'text-primary' : 'text-muted' }}"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -116,14 +99,10 @@
                         </div>
                     </div>
 
-                    <!-- RIGHT SECTION FOR SYSTEM USER CARDS GRID OR LIST -->
+                    <!-- RIGHT SECTION FOR SYSTEM USER CARDS LIST -->
                     <div class="col-md-9 px-3 py-0">
                         <div class="container-fluid">
-                            <!-- GRID VIEW (Toggle based on preference) -->
-                            <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
-                                <!-- Your grid view content goes here -->
-                            </div>
-                            <!-- LIST VIEW (Toggle based on preference) -->
+                            <!-- LIST VIEW -->
                             <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
                                 @foreach ($systemUsers as $user)
                                 @php
