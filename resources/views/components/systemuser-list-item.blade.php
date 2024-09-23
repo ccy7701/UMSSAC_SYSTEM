@@ -37,7 +37,11 @@
                         <i class="fa fa-university"></i>
                     </div>
                     <div class="col-10">
-                        {{ $user->profile_faculty }}
+                        @if ($user->profile_faculty == '')
+                            Unspecified
+                        @else
+                            {{ $user->profile_faculty }}
+                        @endif
                     </div>
                     <div class="col-1"></div>
                 </div>

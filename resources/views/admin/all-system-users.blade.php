@@ -12,122 +12,104 @@
 
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
-    @vite('resources/js/itemViewToggler.js')
     @vite('resources/js/systemUsersViewToggler.js')
     <x-admin-topnav/>
+    <br>
     <main class="flex-grow-1">
-        <br>
         <div class="container p-3">
-
             <div class="d-flex align-items-center">
                 <!-- TOP SECTION -->
                 <div class="section-header row w-100">
                     <div class="col-12 text-center">
                         <h3 class="rserif fw-bold w-100 mb-1">System users list</h3>
                         <p id="users-count-display" class="rserif fs-4 w-100 mt-0">
-                            @if ($totalUsersCount == 0)
+                            @if ($totalSystemUsersCount == 0)
                                 No users found{{ $search ? ' for search term "' . $search . '"' : '' }}
-                            @elseif ($totalUsersCount == 1)
+                            @elseif ($totalSystemUsersCount == 1)
                                 1 user found{{ $search ? ' for search term "' . $search . '"' : '' }}
                             @else
-                                {{ $totalUsersCount }} users found{{ $search ? ' for search term "' . $search . '"' : '' }}
+                                {{ $totalSystemUsersCount }} users found{{ $search ? ' for search term "' . $search . '"' : '' }}
                             @endif
                         </p>
                         <!-- SEARCH TAB -->
-                        <form class="d-flex justify-content-center" method="GET" action="{{ route('profile.all-system-users') }}">
+                        <form class="d-flex justify-content-center" method="GET" action="{{ route('admin.all-system-users') }}">
                             <div class="mb-4 w-50">
                                 <div class="input-group">
                                     <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-search"></i></span>
-                                    <input type="search" id="users-search" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
+                                    <input type="search" id="system-users-search" name="search" class="rsans form-control" aria-label="search" placeholder="Search...">
                                     <button class="rsans btn btn-primary fw-bold">Search</button>
                                 </div>
                             </div>
                         </form>
+                        <div class="row pb-3"></div>
                     </div>
                 </div>
             </div>
-
             <!-- BODY OF CONTENT -->
             <div class="container-fluid align-items-center py-4">
                 <div class="row">
-
                     <!-- LEFT SECTIONS FOR FILTERS -->
                     <div class="col-md-3 border p-3">
                         <div class="row">
-                            <div class="col-12 align-items-center justify-content-start">
+                            <div class="col-8 d-flex align-items-center justify-content-start">
                                 <h4 class="rsans fw-bold mb-0">Search filters</h4>
                             </div>
-                        </div>
-                        <br>
-                        @php
-                            $categories = [
-                                'ASTIF', 'FIS', 'FKAL', 'FKIKK', 'FKIKAL',
-                                'FKJ', 'FPEP', 'FPL', 'FPP', 'FPSK',
-                                'FPT', 'FSMP', 'FSSA', 'FSSK', 'KKTF',
-                                'KKTM', 'KKTPAR', 'KKAKF', 'KKUSIA', 'NR',
-                                'Unspecified'
-                            ];
-                        @endphp
-                        <h5 class="rsans fw-semibold mb-2">Categories</h5>
-                        <div class="rsans row">
-                            @foreach ($categories as $category)
-                                <div class="col-6 mb-2 px-1">
-                                    <button class="btn border rounded p-2 w-100 text-start filter-category" data-category="{{ $category }}">
-                                        {{ $category }}
-                                        ({{
-                                            $category === 'Unspecified'
-                                                ? $systemUsers->where('profile_faculty', '')->count()
-                                                : $systemUsers->where('profile_faculty', $category)->count()
-                                        }})
-                                    </button>
-                                </div>
-                            @endforeach
-                        </div>
-                        <br>
-                        <h5 class="rsans fw-semibold mb-2">Roles</h5>
-                        <div class="rsans row">
-                            <div class="col-12 mb-2 px-1">
-                                <button id="toggle-students-view" class="btn border rounded p-2 w-100 text-start toggle-role-btn" data-account-role="1">
-                                    Students ({{ $roleCounts['students'] }})
-                                </button>
-                            </div>
-                            <div class="col-12 mb-2 px-1">
-                                <button id="toggle-faculty-members-view" class="btn border rounded p-2 w-100 text-start toggle-role-btn" data-account-role="2">
-                                    Faculty members ({{ $roleCounts['facultyMembers'] }})
-                                </button>
+                            <div class="col-4 d-flex align-items-center justify-content-end">
+                                <form id="clear-filter-form" method="POST" action="{{ route('admin.all-system-users.clear-filter') }}">
+                                    @csrf
+                                    <button class="rsans btn btn-secondary fw-bold px-2">Clear all</button>
+                                </form>
                             </div>
                         </div>
+                        <br>
+                        <form id="filter-form" method="POST" action="{{ route('admin.all-system-users.filter') }}">
+                            @csrf
+                            @php
+                                $categories = [
+                                    'ASTIF', 'FIS', 'FKAL', 'FKIKK', 'FKIKAL',
+                                    'FKJ', 'FPEP', 'FPL', 'FPP', 'FPSK',
+                                    'FPT', 'FSMP', 'FSSA', 'FSSK', 'Unspecified'
+                                ];
+                            @endphp
+                            <h5 class="rsans fw-semibold mb-2">Categories</h5>
+                            <div class="rsans row">
+                                @foreach ($categories as $category)
+                                    <div class="col-6 mb-2 px-1">
+                                        <div class="p-2 border rounded">
+                                            <div class="form-check w-50">
+                                                <input class="form-check-input" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" value="{{ $category }}" {{ in_array($category, $filters) ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="{{ strtolower($category) }}">
+                                                    {{ $category }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="row p-3 d-flex justify-content-center">
+                                <button type="submit" class="rsans btn btn-primary fw-bold w-60">
+                                    Apply filters</button>
+                                </button>
+                            </div>
+                        </form>
                     </div>
-
-                    <!-- RIGHT SECTION FOR SYSTEM USER CARDS LIST -->
+                    <!-- RIGHT SECTION FOR USERS LIST -->
                     <div class="col-md-9 px-3 py-0">
                         <div class="container-fluid">
-                            <!-- LIST VIEW -->
-                            <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
-                                @foreach ($systemUsers as $user)
-                                @php
-                                    if ($user->profile_faculty == '') {
-                                        $user->profile_faculty = 'Unspecified';
-                                    }
-                                @endphp
-                                <div class="row pb-3">
-                                    <div class="col-lg-12">
-                                        <x-systemuser-list-item
-                                        :user="$user"
-                                        class="systemuser-list-item"
-                                        data-category="{{ $user->profile_faculty }}"
-                                        data-account-role="{{ $user->account_role }}"
-                                    />
-                                    </div>
+                            <div id="list-view" class="row list-view">
+                                <div class="rsans d-flex justify-content-center">
+                                    {{ $allSystemUsers->links('pagination::bootstrap-4') }}
                                 </div>
+                                @foreach($allSystemUsers as $user)
+                                    <div class="row pb-3">
+                                        <x-systemuser-list-item :user="$user"/>
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </main>
     <x-footer/>

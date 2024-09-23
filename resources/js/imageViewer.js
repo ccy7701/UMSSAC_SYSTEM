@@ -19,10 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
          // If a file is selected, update the preview and enable the button
          if (file) {
             newImagePreview.src = URL.createObjectURL(file);
-             newImageSubmit.disabled = false;
+            newImageSubmit.disabled = false;
         } else {
-             // Disable the button if no file is selected
-             newImageSubmit.disabled = true;
+            // Disable the button if no file is selected
+            newImageSubmit.disabled = true;
          }
     });
 

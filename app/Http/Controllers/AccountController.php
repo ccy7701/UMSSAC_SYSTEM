@@ -83,22 +83,36 @@ class AccountController extends Controller
     }
 
     // Get all system users (ADMIN)
-    public function getAllSystemUsers(Request $request) {
+    public function fetchAllSystemUsers(Request $request) {
         // Handle POST request for filtering
         if ($request->isMethod('post')) {
-            return redirect()->route('profile.all-system-users', $request->all());
+            // Check if the filters are empty in the POST request
+            $filters = $request->input('category_filter', []);
+            if (empty($filters)) {
+                // Proceed as if flushing the search filters
+                $this->accountService->flushUsersSearchFilters();
+                return redirect()->route('admin.all-system-users', $request->all());
+            }
+
+            return redirect()->route('admin.all-system-users', $request->all());
         }
-    
+
         // Handle GET request as normal (including pagination and filtering)
         $search = $request->input('search', '');
-        $data = $this->accountService->prepareSystemUsersData($search);
-    
+        $filters = $this->accountService->getUsersSearchFilters($request);
+        $allSystemUsers = $this->accountService->getAllSystemUsers($filters, $search);
+
         return view('admin.all-system-users', [
-            'systemUsers' => $data['systemUsers'],
-            'totalUsersCount' => $data['systemUsers']->total(),
-            'roleCounts' => $data['roleCounts'],
-            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
-            'search' => $search
+            'allSystemUsers' => $allSystemUsers,
+            'totalSystemUsersCount' => $allSystemUsers->total(),
+            'filters' => $filters,
+            'search' => $search,
         ]);
+    }
+
+    public function clearFilters() {
+        $this->accountService->flushUsersSearchFilters();
+
+        return redirect()->route('admin.all-system-users');
     }
 }

@@ -19,6 +19,16 @@ class EventController extends Controller
     public function fetchEventsFinder(Request $request) {
         // Handle POST request for filtering
         if ($request->isMethod('post')) {
+            // Check if the filters are empty in the POST request
+            $filters = [
+                'category_filter' => $request->input('category_filter', []),
+                'event_status' => $request->input('event_status', []),
+            ];
+            if (empty($filters['category_filter']) && empty($filters['event_status'])) {
+                // Proceed as if flushing the search filters
+                $this->clubAndEventService->flushEventFilters();
+                return redirect()->route('events-finder', $request->all());
+            }
             // Redirect to the GET route with query parameters for filters
             return redirect()->route('events-finder', $request->all());
         }

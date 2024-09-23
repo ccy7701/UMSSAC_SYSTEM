@@ -19,12 +19,14 @@ class AccountFactory extends Factory
      */
     public function definition()
     {
+        $account_role = $this->faker->randomElement([1, 2]);
+
         return [
             'account_full_name' => $this->faker->name,
             'account_email_address' => $this->faker->unique()->safeEmail,
             'account_password' => bcrypt('password'),
-            'account_role' => 1,
-            'account_matric_number' => $this->faker->unique()->numerify('BX########'),
+            'account_role' => $account_role,
+            'account_matric_number' => $account_role == 1 ? $this->faker->unique()->numerify('BI########') : null,
         ];
     }
 }

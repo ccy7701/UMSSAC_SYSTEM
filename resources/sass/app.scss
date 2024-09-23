@@ -117,17 +117,18 @@ html {
     transform: scale(1.05);
     border: 2px solid $btn-primary-bg; /* Use your SCSS variable here */
 }
-// add media for max-width: 1400px, 1200px, 992px, 768px when needed
-
-@media (max-width: 576px) {
-    #topnav-logo {
-        width: 100.00% !important;
-    }
-}
 
 .bookmark-span {
     background-color: $bg-lightgray;
     width: 40px;
     height: 40px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+// add media for max-width: 1400px, 1200px, 992px, 768px when needed
+
+@media (max-width: 576px) {
+    #topnav-logo {
+        width: 100.00% !important;
+    }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedInteger('search_view_preference')->default(1)->comment('1 - grid_view, 2 - list_view');
             $table->json('event_search_filters')->nullable();
             $table->json('club_search_filters')->nullable();
+            $table->json('users_search_filters')->nullable();
             $table->timestamps();
         });
     }
