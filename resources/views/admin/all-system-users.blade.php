@@ -11,13 +11,13 @@
 
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
+    @vite('resources/js/itemViewToggler.js')
     <x-admin-topnav/>
     <main class="flex-grow-1">
         <br>
         <div class="container p-3">
 
             <div class="d-flex align-items-center">
-                
                 <!-- TOP SECTION -->
                 <div class="section-header row w-100">
                     <div class="col-12 text-center">
@@ -41,11 +41,94 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="row pb-3">
+                            <!-- Left column, users-by-role toggle -->
+                            <div class="col-6 d-flex align-items-center">
+                                <div class="input-group justify-content-start">
+                                    <button id="toggle-students-view" class="rsans btn d-flex justify-content-center align-items-center border toggle-role-btn w-30">
+                                        Students ({{ $roleCounts['students'] }})
+                                    </button>
+                                    <button id="toggle-faculty-members-view" class="rsans btn d-flex justify-content-center align-items-center border toggle-role-btn w-30">
+                                        Faculty Members ({{ $roleCounts['facultyMembers'] }})
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Right column: View icons -->
+                            <div class="col-6 d-flex align-items-center justify-content-end">
+                                <div class="input-group justify-content-end">
+                                    <!-- Grid view toggle button -->
+                                    <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 1 ? 'active' : '' }}">
+                                        <i class="fa fa-th fs-4 {{ $searchViewPreference == 1 ? 'text-primary' : 'text-muted' }}"></i> <!-- Icon for grid view -->
+                                    </button>
+                                    <!-- List view toggle button -->
+                                    <button id="toggle-list-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 2 ? 'active' : '' }}">
+                                        <i class="fa fa-list-ul fs-4 {{ $searchViewPreference == 2 ? 'text-primary' : 'text-muted' }}"></i> <!-- Icon for list view -->
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-    
             </div>
-    
+
+            <!-- BODY OF CONTENT -->
+            <div class="container-fluid align-items-center py-4">
+                <div class="row">
+
+                    <!-- LEFT SECTIONS FOR FILTERS -->
+                    <div class="col-md-3 border p-3">
+                        <div class="row">
+                            <div class="col-12 align-items-center justify-content-start">
+                                <h4 class="rsans fw-bold mb-0">Search filters</h4>
+                            </div>
+                            <div>
+
+                            </div>
+                        </div>
+                        <br>
+                        @php
+                            $categories = [
+                                'ASTIF', 'FIS', 'FKAL', 'FKIKK', 'FKIKAL',
+                                'FKJ', 'FPEP', 'FPL', 'FPP', 'FPSK',
+                                'FPT', 'FSMP', 'FSSA', 'FSSK', 'KKTF',
+                                'KKTM', 'KKTPAR', 'KKAKF', 'KKUSIA', 'NR',
+                                'Unspecified'
+                            ];
+                        @endphp
+                        <h5 class="rsans fw-semibold mb-2">Categories</h5>
+                        <div class="rsans row">
+                            @foreach ($categories as $category)
+                                <div class="col-6 mb-2 px-1">
+                                    <button class="btn border rounded p-2 w-100 text-start">
+                                        {{ $category }} 
+                                        ({{ 
+                                            $category === 'Unspecified' 
+                                            ? $systemUsers->where('profile_faculty', '')->count() 
+                                            : $systemUsers->where('profile_faculty', $category)->count() 
+                                        }})
+                                    </button>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <!-- RIGHT SECTION FOR SYSTEM USER CARDS GRID OR LIST -->
+                    <div class="col-md-9 px-3 py-0">
+                        <div class="container-fluid">
+                            <!-- GRID VIEW (Toggle based on preference) -->
+                            <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
+                                <!-- How do you handle this? -->
+                            </div>
+                            <!-- LIST VIEW (Toggle based on preference) -->
+                            <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </main>
     <x-footer/>

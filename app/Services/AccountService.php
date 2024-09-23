@@ -69,11 +69,12 @@ class AccountService
             })
             ->paginate(20);
 
-        // Also prepare the user counts by account_role
-        $roleCounts = DB::table('account')
-            ->select('account_role', DB::raw('count(*) as total'))
-            ->groupBy('account_role')
-            ->get();
+        // Convert paginated result to collection and calculate role counts
+        $systemUsersCollection = collect($systemUsers->items());
+        $roleCounts = [
+            'students' => $systemUsersCollection->where('account_role', 1)->count(),
+            'facultyMembers' => $systemUsersCollection->where('account_role', 2)->count(),
+        ];
 
         return [
             'systemUsers' => $systemUsers,
