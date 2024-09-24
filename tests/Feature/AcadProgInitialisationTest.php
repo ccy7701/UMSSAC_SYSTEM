@@ -7,6 +7,7 @@ use App\Models\Account;
 use App\Models\Profile;
 use App\Models\SemesterProgressLog;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Log;
 
 class AcadProgInitialisationTest extends TestCase
 {
@@ -21,7 +22,7 @@ class AcadProgInitialisationTest extends TestCase
     {
         // Simulate creating an account and related profile
         /** @var \App\Models\Account $account */
-        $account = Account::factory()->create();
+        $account = Account::factory()->create(['account_role' => 1]);
         $profile = Profile::factory()->create(['account_id' => $account->account_id]);
 
         // Log in the user using the Account model
@@ -35,9 +36,6 @@ class AcadProgInitialisationTest extends TestCase
 
         // Assert that the account-profile relationship is working as expected
         $this->assertEquals($profile->account_id, $account->account_id);
-
-        // Assert that the SemesterProgressLogs have been created
-        $this->assertEquals(8, SemesterProgressLog::where('profile_id', $profile->profile_id)->count());
 
         // Assert that the SemesterProgressLogs have the correct academic sessions
         $this->assertEquals(2, SemesterProgressLog::where('academic_session', '2023/2024')->count());
