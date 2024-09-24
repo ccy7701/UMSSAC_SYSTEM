@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\StudyPartnerSuggesterService;
+use App\Services\StudyPartnersSuggesterService;
 use Illuminate\Http\Request;
 
 class UserTraitsRecordController extends Controller
 {
-    protected $studyPartnerSuggesterService;
+    protected $studyPartnersSuggesterService;
 
-    public function __construct(StudyPartnerSuggesterService $studyPartnerSuggesterService) {
-        $this->studyPartnerSuggesterService = $studyPartnerSuggesterService;
+    public function __construct(StudyPartnersSuggesterService $studyPartnersSuggesterService) {
+        $this->studyPartnersSuggesterService = $studyPartnersSuggesterService;
     }
 
     public function submitSuggesterForm(Request $request) {
-        dump($request);
+        $data = $this->studyPartnersSuggesterService->processSuggesterFormData($request);
+
+        return redirect()->route('study-partners-suggester.suggester-form');
     }
 }

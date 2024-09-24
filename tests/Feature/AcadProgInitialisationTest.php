@@ -20,6 +20,7 @@ class AcadProgInitialisationTest extends TestCase
     public function test_progress_tracker_initialisation(): void
     {
         // Simulate creating an account and related profile
+        /** @var \App\Models\Account $account */
         $account = Account::factory()->create();
         $profile = Profile::factory()->create(['account_id' => $account->account_id]);
 
@@ -35,14 +36,14 @@ class AcadProgInitialisationTest extends TestCase
         // Assert that the account-profile relationship is working as expected
         $this->assertEquals($profile->account_id, $account->account_id);
 
-        // Assert that the database has the new profile_enrolment_session data
-        $this->assertDatabaseHas('profile', [
-            'profile_id' => $profile->profile_id,
-            'profile_enrolment_session' => '2023/2024',
-        ]);
-
         // Assert that the SemesterProgressLogs have been created
         $this->assertEquals(8, SemesterProgressLog::where('profile_id', $profile->profile_id)->count());
+
+        // Assert that the SemesterProgressLogs have the correct academic sessions
+        $this->assertEquals(2, SemesterProgressLog::where('academic_session', '2023/2024')->count());
+        $this->assertEquals(2, SemesterProgressLog::where('academic_session', '2024/2025')->count());
+        $this->assertEquals(2, SemesterProgressLog::where('academic_session', '2025/2026')->count());
+        $this->assertEquals(2, SemesterProgressLog::where('academic_session', '2026/2027')->count());
 
         // Assert that the response is a redirect
         $response->assertStatus(302);

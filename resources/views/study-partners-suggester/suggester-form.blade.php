@@ -96,6 +96,9 @@
                             :label="'Is relaxed, handles stress well'"
                             :name="'relaxed'"/>
                         <x-bfi-radio-group
+                            :label="'Does not have many artistic interests'"
+                            :name="'artistic'"/>
+                        <x-bfi-radio-group
                             :label="'Is outgoing, sociable'"
                             :name="'outgoing'"/>
                         <x-bfi-radio-group
