@@ -5,7 +5,7 @@
         {{ $label }}
     </div>
     <div class="row mt-2 align-items-center justify-content-center">
-        <div class="col-md-3">Very uncomfortable</div>
+        <div class="col-md-3 text-end">Very uncomfortable</div>
         <div class="col-md-6">
             <!-- Radio button group -->
             <div class="d-flex justify-content-between align-items-center">
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">Very comfortable</div>
+        <div class="col-md-3 text-start">Very comfortable</div>
     </div>
 </div>
 <br>

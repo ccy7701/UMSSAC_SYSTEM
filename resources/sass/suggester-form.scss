@@ -10,14 +10,19 @@ $btn-primary-bg: #1064D6;
 }
 
 // Radio button size progression
-.xs-radio {
+.xxs-radio {
     width: 20px !important;
     height: 20px !important;
 }
 
+.xs-radio {
+    width: 24px !important;
+    height: 24px !important;
+}
+
 .sm-radio {
-    width: 26px !important;
-    height: 26px !important;
+    width: 28px !important;
+    height: 28px !important;
 }
 
 .md-radio {
@@ -26,11 +31,16 @@ $btn-primary-bg: #1064D6;
 }
 
 .lg-radio {
-    width: 38px !important;
-    height: 38px !important;
+    width: 36px !important;
+    height: 36px !important;
 }
 
 .xl-radio {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.xxl-radio {
     width: 44px !important;
     height: 44px !important;
 }

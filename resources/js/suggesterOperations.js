@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const nextBFI = document.getElementById("next-step-bfi");
     const previousBFI = document.getElementById("previous-step-bfi");
 
+    const nextSkills = document.getElementById("next-step-skills");
+    const previousSkills = document.getElementById("previous-step-skills");
+
     // Initialize the button states on load
     initialiseStepButtons();
     updateStepVisibility();
@@ -39,6 +42,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
     previousBFI.addEventListener("click", () => {
         if (!previousBFI.disabled) {
+            changeStep("prev");
+            scrollToTop();
+        }
+    });
+
+    // Event listeners for the BFI step navigation
+    nextSkills.addEventListener("click", () => {
+        if (!nextSkills.disabled) {
+            changeStep("next");
+            scrollToTop();
+        }
+    });
+    
+    previousSkills.addEventListener("click", () => {
+        if (!previousSkills.disabled) {
             changeStep("prev");
             scrollToTop();
         }
@@ -101,6 +119,13 @@ document.addEventListener("DOMContentLoaded", function() {
             nextBFI.disabled = !allFilled;
             previousBFI.disabled = currentStepIndex === 0; // Disable "Previous" on first step
         }
+
+        // Handle button states for the Skills step
+        if (currentStep.id === "form-step-skills") {
+            const allFilled = checkRadioGroupsFilled(currentStep);
+            nextSkills.disabled = !allFilled;
+            previousSkills.disabled = currentStepIndex === 0;
+        }
     }
 
     // Function to scroll the page to the top when changing steps
@@ -124,4 +149,5 @@ document.addEventListener("DOMContentLoaded", function() {
     // Attach listeners to radio inputs on both WTC and BFI steps
     attachRadioChangeListeners(document.getElementById('form-step-wtc'));
     attachRadioChangeListeners(document.getElementById('form-step-bfi'));
+    attachRadioChangeListeners(document.getElementById('form-step-skills'));
 });

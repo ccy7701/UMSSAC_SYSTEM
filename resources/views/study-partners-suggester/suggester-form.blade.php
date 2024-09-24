@@ -37,7 +37,7 @@
                     <!-- Step 1: Willingness to Communicate (WTC) -->
                     <div id="form-step-wtc" class="form-step">
                         <div class="rserif row w-100 text-cente justify-content-center align-items-center">
-                            <p class="fs-2 py-3">Rate each activity below based on how comfortable you would be with it.</p>
+                            <p class="fs-2 py-3">I am comfortable with...</p>
                         </div>
                         <x-wtc-radio-group
                             :label="'Presenting to a group of strangers'"
@@ -113,6 +113,45 @@
                             :name="'imaginative'"/>
                         <button type="button" id="previous-step-bfi" class="rsans fw-semibold btn btn-secondary w-20 me-1">Previous</button>
                         <button type="button" id="next-step-bfi" class="rsans fw-semibold btn btn-primary w-20 ms-1" disabled>Next</button>
+                    </div>
+
+                    <!-- Step 3: Skills -->
+                    <div id="form-step-skills" class="form-step d-none">
+                        <div class="rserif row w-100 text-center justify-content-center align-items-center">
+                            <p class="fs-2 py-3">I believe that I...</p>
+                        </div>
+                        <x-skills-radio-group
+                            :label="'Can work with people from different fields of study'"
+                            :name="'interdisciplinary_collaboration'"/>
+                        <x-skills-radio-group
+                            :label="'Am good at communicating online'"
+                            :name="'online_communication'"/>
+                        <x-skills-radio-group
+                            :label="'Am good at solving disagreements'"
+                            :name="'conflict_resolution'"/>
+                        <x-skills-radio-group
+                            :label="'Am organised; good at planning and arranging things'"
+                            :name="'organised'"/>
+                        <x-skills-radio-group
+                            :label="'Am good at problem-solving'"
+                            :name="'problem_solving'"/>
+                        <x-skills-radio-group
+                            :label="'Am tech-savvy'"
+                            :name="'tech_proficiency'"/>
+                        <x-skills-radio-group
+                            :label="'Am creative'"
+                            :name="'creativity'"/>
+                        <x-skills-radio-group
+                            :label="'Am flexible to change'"
+                            :name="'adaptability'"/>
+                        <x-skills-radio-group
+                            :label="'Possess leadership skills - can lead a team'"
+                            :name="'leadership'"/>
+                        <x-skills-radio-group
+                            :label="'Possess teaching skills - can teach things to others'"
+                            :name="'teaching_ability'"/>
+                        <button type="button" id="previous-step-skills" class="rsans fw-semibold btn btn-secondary w-20 me-1" disabled>Previous</button>
+                        <button type="button" id="next-step-skills" class="rsans fw-semibold btn btn-primary w-20 ms-1">Next</button>
                     </div>
 
                 </form>
