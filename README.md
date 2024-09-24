@@ -6,7 +6,7 @@ This project is still under development.
 
 ## About UMSSACS
 
-UMSSACS is a web-based system designed to help students keep track of uni life at UMS. From managing academic activities to uncovering events, UMSSACS helps you to stay organised and engaged. This system is a final year project.
+UMSSACS is a web-based system designed to help students keep track of university life at UMS. From managing academic activities to uncovering events, UMSSACS helps you to stay organised and engaged. This system is a final year project.
 
 ## Benefits Overview: Why use UMSSACS?
 
