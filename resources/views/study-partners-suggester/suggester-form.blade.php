@@ -12,7 +12,7 @@
 
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
-    @vite('resources/js/suggesterForm.js')
+    @vite('resources/js/suggesterOperations.js')
     <x-topnav/>
     <br>
     <main class="flex-grow-1">
@@ -34,23 +34,89 @@
                 <!-- START OF SUGGESTER FORM -->
                 <form id="suggester-multipart-form" class="px-3 justify-content-center align-items-center w-100 text-center">
 
-                    <div class="rserif row w-100 text-center justify-content-center align-items-center">
-                        <p class="fs-2 py-3">I see myself as someone who...</p>
+                    <!-- Step 1: Willingness to Communicate (WTC) -->
+                    <div id="form-step-wtc" class="form-step">
+                        <div class="rserif row w-100 text-cente justify-content-center align-items-center">
+                            <p class="fs-2 py-3">Rate each activity below based on how comfortable you would be with it.</p>
+                        </div>
+                        <x-wtc-radio-group
+                            :label="'Presenting to a group of strangers'"
+                            :name="'stranger_presenting'"/>
+                        <x-wtc-radio-group
+                            :label="'Talking with a colleague while standing in line'"
+                            :name="'colleague_in_line'"/>
+                        <x-wtc-radio-group
+                            :label="'Talking in a large meeting of friends'"
+                            :name="'friend_talking_large'"/>
+                        <x-wtc-radio-group
+                            :label="'Talking in a small group of strangers'"
+                            :name="'stranger_talking_small'"/>
+                        <x-wtc-radio-group
+                            :label="'Talking with a friend while standing in line'"
+                            :name="'friend_in_line'"/>
+                        <x-wtc-radio-group
+                            :label="'Talking in a large meeting of colleagues'"
+                            :name="'colleague_talking_large'"/>
+                        <x-wtc-radio-group
+                            :label="'Talking with a stranger while standing in line'"
+                            :name="'stranger_in_line'"/>
+                        <x-wtc-radio-group
+                            :label="'Presenting to a group of friends'"
+                            :name="'friend_presenting'"/>
+                        <x-wtc-radio-group
+                            :label="'Talking in a small group of colleagues'"
+                            :name="'colleague_talking_small'"/>
+                        <x-wtc-radio-group
+                            :label="'Talking in a large meeting of strangers'"
+                            :name="'stranger_talking_large'"/>
+                        <x-wtc-radio-group
+                            :label="'Talking in a small group of friends'"
+                            :name="'friend_talking_small'"/>
+                        <x-wtc-radio-group
+                            :label="'Presenting to a group of colleagues'"
+                            :name="'colleague_presenting'"/>
+                        <button type="button" id="previous-step-wtc" class="rsans fw-semibold btn btn-secondary w-20 me-1" disabled>Previous</button>
+                        <button type="button" id="next-step-wtc" class="rsans fw-semibold btn btn-primary w-20 ms-1">Next</button>
                     </div>
-                    
-                    <x-custom-radio-group :label="'Is reserved'" :name="'reserved'"/>
-                    <x-custom-radio-group :label="'Is generally trusting'" :name="'trusting'"/>
-                    <x-custom-radio-group :label="'Tends to be lazy'" :name="'lazy'"/>
-                    <x-custom-radio-group :label="'Is relaxed, handles stress well'" :name="'relaxed'"/>
-                    <x-custom-radio-group :label="'Is outgoing, sociable'" :name="'outgoing'"/>
-                    <x-custom-radio-group :label="'Tends to find fault with others'" :name="'fault-finding'"/>
-                    <x-custom-radio-group :label="'Does a thorough job'" :name="'thorough'"/>
-                    <x-custom-radio-group :label="'Gets nervous easily'" :name="'nervous'"/>
-                    <x-custom-radio-group :label="'Has an active imagination'" :name="'imaginative'"/>
+
+                    <!-- Step 2: Personality (BFI-10) -->
+                    <div id="form-step-bfi" class="form-step d-none">
+                        <div class="rserif row w-100 text-center justify-content-center align-items-center">
+                            <p class="fs-2 py-3">I see myself as someone who...</p>
+                        </div>
+                        <x-bfi-radio-group
+                            :label="'Is reserved'"
+                            :name="'reserved'"/>
+                        <x-bfi-radio-group
+                            :label="'Is generally trusting'"
+                            :name="'trusting'"/>
+                        <x-bfi-radio-group
+                            :label="'Tends to be lazy'"
+                            :name="'lazy'"/>
+                        <x-bfi-radio-group
+                            :label="'Is relaxed, handles stress well'"
+                            :name="'relaxed'"/>
+                        <x-bfi-radio-group
+                            :label="'Is outgoing, sociable'"
+                            :name="'outgoing'"/>
+                        <x-bfi-radio-group
+                            :label="'Tends to find fault with others'"
+                            :name="'fault-finding'"/>
+                        <x-bfi-radio-group
+                            :label="'Does a thorough job'"
+                            :name="'thorough'"/>
+                        <x-bfi-radio-group
+                            :label="'Gets nervous easily'"
+                            :name="'nervous'"/>
+                        <x-bfi-radio-group
+                            :label="'Has an active imagination'"
+                            :name="'imaginative'"/>
+                        <button type="button" id="previous-step-bfi" class="rsans fw-semibold btn btn-secondary w-20 me-1">Previous</button>
+                        <button type="button" id="next-step-bfi" class="rsans fw-semibold btn btn-primary w-20 ms-1" disabled>Next</button>
+                    </div>
 
                 </form>
                 <!-- END OF SUGGESTER FORM -->
-
 
             </div>
         </div>
