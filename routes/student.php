@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SemesterProgressLogController;
 use App\Http\Controllers\SubjectStatsLogController;
 use App\Http\Controllers\TimetableSlotController;
+use App\Http\Controllers\UserTraitsRecordController;
 use App\Http\Middleware\RoleAccessMiddleware;
 
 // Routes accessible by student only (account role 1)
@@ -42,4 +43,7 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::get('/study-partners-suggester/suggester-form', function () {
         return view('study-partners-suggester.suggester-form');
     })->name('study-partners-suggester.suggester-form');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/study-partners-suggester/submit-form', [UserTraitsRecordController::class, 'submitSuggesterForm'])->name('study-partners-suggester.suggester-form.submit');
 });
