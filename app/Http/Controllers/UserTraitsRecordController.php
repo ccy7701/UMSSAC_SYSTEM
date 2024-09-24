@@ -13,5 +13,7 @@ class UserTraitsRecordController extends Controller
         $this->studyPartnerSuggesterService = $studyPartnerSuggesterService;
     }
 
-    
+    public function submitSuggesterForm(Request $request) {
+        dump($request);
+    }
 }

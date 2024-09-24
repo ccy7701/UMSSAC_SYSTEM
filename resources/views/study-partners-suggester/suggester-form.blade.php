@@ -30,10 +30,10 @@
             </div>
             <!-- BODY OF CONTENT -->
             <div class="rsans d-flex justify-content-center align-items-center py-3 w-100 align-self-center">
-
                 <!-- START OF SUGGESTER FORM -->
-                <form id="suggester-multipart-form" class="px-3 justify-content-center align-items-center w-100 text-center">
-
+                <form action="{{ route('study-partners-suggester.suggester-form.submit') }}" id="suggester-multipart-form" class="px-3 justify-content-center align-items-center w-100 text-center" method="POST">
+                    @csrf
+                    <input type="hidden" id="profile-id" name="profile_id" value="{{ profile()->profile_id }}">
                     <!-- Step 1: Willingness to Communicate (WTC) -->
                     <div id="form-step-wtc" class="form-step">
                         <div class="rserif row w-100 text-cente justify-content-center align-items-center">
@@ -78,7 +78,6 @@
                         <button type="button" id="previous-step-wtc" class="rsans fw-semibold btn btn-secondary w-20 me-1" disabled>Previous</button>
                         <button type="button" id="next-step-wtc" class="rsans fw-semibold btn btn-primary w-20 ms-1">Next</button>
                     </div>
-
                     <!-- Step 2: Personality (BFI-10) -->
                     <div id="form-step-bfi" class="form-step d-none">
                         <div class="rserif row w-100 text-center justify-content-center align-items-center">
@@ -114,7 +113,6 @@
                         <button type="button" id="previous-step-bfi" class="rsans fw-semibold btn btn-secondary w-20 me-1">Previous</button>
                         <button type="button" id="next-step-bfi" class="rsans fw-semibold btn btn-primary w-20 ms-1" disabled>Next</button>
                     </div>
-
                     <!-- Step 3: Skills -->
                     <div id="form-step-skills" class="form-step d-none">
                         <div class="rserif row w-100 text-center justify-content-center align-items-center">
@@ -153,7 +151,30 @@
                         <button type="button" id="previous-step-skills" class="rsans fw-semibold btn btn-secondary w-20 me-1" disabled>Previous</button>
                         <button type="button" id="next-step-skills" class="rsans fw-semibold btn btn-primary w-20 ms-1">Next</button>
                     </div>
-
+                    <!-- Step 4: Learning style -->
+                    <div id="form-step-learning-style" class="form-step d-none">
+                        <div class="rserif row w-100 text-center justify-content-center align-items-center">
+                            <p class="fs-2 py-3">I prefer receiving and processing information by...</p>
+                            <x-learning-style-radio-group
+                                :label="'Using diagrams, charts and videos. It is easier to remember details when they are presented to me visually.'"
+                                :type="'visual'"
+                                :value="'1'"/>
+                            <x-learning-style-radio-group
+                                :label="'Listening. Lectures, discussions and recordings are effective for me to absorb information.'"
+                                :type="'auditory'"
+                                :value="'2'"/>
+                            <x-learning-style-radio-group
+                                :label="'Using written text. I prefer learning new information through reading and writing things.'"
+                                :type="'reading_writing'"
+                                :value="'3'"/>
+                            <x-learning-style-radio-group
+                                :label="'Hands-on activities. I learn best when I can physically engage with the learning materials.'"
+                                :type="'kinesthetic'"
+                                :value="'4'"/>
+                            <button type="button" id="previous-step-learning-style" class="rsans fw-semibold btn btn-secondary w-20 me-1">Previous</button>
+                            <button type="submit" id="suggester-form-submit" class="rsans fw-semibold btn btn-primary w-20 ms-1">Submit</button>
+                        </div>
+                    </div>
                 </form>
                 <!-- END OF SUGGESTER FORM -->
 

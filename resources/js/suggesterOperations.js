@@ -4,27 +4,23 @@ document.addEventListener("DOMContentLoaded", function() {
     let currentStepIndex = 0;
 
     // Buttons
-    const nextWTC = document.getElementById("next-step-wtc");
     const previousWTC = document.getElementById("previous-step-wtc");
+    const nextWTC = document.getElementById("next-step-wtc");
 
-    const nextBFI = document.getElementById("next-step-bfi");
     const previousBFI = document.getElementById("previous-step-bfi");
+    const nextBFI = document.getElementById("next-step-bfi");
 
-    const nextSkills = document.getElementById("next-step-skills");
     const previousSkills = document.getElementById("previous-step-skills");
+    const nextSkills = document.getElementById("next-step-skills");
+
+    const suggesterFormSubmit = document.getElementById('suggester-form-submit');
+    const previousLearningStyle = document.getElementById('previous-step-learning-style');
 
     // Initialize the button states on load
     initialiseStepButtons();
     updateStepVisibility();
 
     // Event listeners for the WTC step navigation
-    nextWTC.addEventListener("click", () => {
-        if (!nextWTC.disabled) {
-            changeStep("next");
-            scrollToTop();
-        }
-    });
-
     previousWTC.addEventListener("click", () => {
         if (!previousWTC.disabled) {
             changeStep("prev");
@@ -32,14 +28,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Event listeners for the BFI step navigation
-    nextBFI.addEventListener("click", () => {
-        if (!nextBFI.disabled) {
+    nextWTC.addEventListener("click", () => {
+        if (!nextWTC.disabled) {
             changeStep("next");
             scrollToTop();
         }
     });
 
+    // Event listeners for the BFI step navigation
     previousBFI.addEventListener("click", () => {
         if (!previousBFI.disabled) {
             changeStep("prev");
@@ -47,20 +43,35 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Event listeners for the BFI step navigation
-    nextSkills.addEventListener("click", () => {
-        if (!nextSkills.disabled) {
+    nextBFI.addEventListener("click", () => {
+        if (!nextBFI.disabled) {
             changeStep("next");
             scrollToTop();
         }
     });
-    
+
+    // Event listeners for the BFI step navigation
     previousSkills.addEventListener("click", () => {
         if (!previousSkills.disabled) {
             changeStep("prev");
             scrollToTop();
         }
     });
+
+    nextSkills.addEventListener("click", () => {
+        if (!nextSkills.disabled) {
+            changeStep("next");
+            scrollToTop();
+        }
+    });
+
+    // Event listener for the Learning Style step navigation
+    previousLearningStyle.addEventListener("click", () => {
+        if (!previousLearningStyle.disabled) {
+            changeStep("prev");
+            scrollToTop();
+        }
+    })
 
     // Function to move between steps
     function changeStep(direction) {
@@ -126,6 +137,13 @@ document.addEventListener("DOMContentLoaded", function() {
             nextSkills.disabled = !allFilled;
             previousSkills.disabled = currentStepIndex === 0;
         }
+
+        // Handle button states for the Learning Style step
+        if (currentStep.id === "form-step-learning-style") {
+            const allFilled = checkRadioGroupsFilled(currentStep);
+            suggesterFormSubmit.disabled = !allFilled;
+            previousLearningStyle.disabled = currentStepIndex === 0;
+        }
     }
 
     // Function to scroll the page to the top when changing steps
@@ -150,4 +168,5 @@ document.addEventListener("DOMContentLoaded", function() {
     attachRadioChangeListeners(document.getElementById('form-step-wtc'));
     attachRadioChangeListeners(document.getElementById('form-step-bfi'));
     attachRadioChangeListeners(document.getElementById('form-step-skills'));
+    attachRadioChangeListeners(document.getElementById('form-step-learning-style'));
 });
