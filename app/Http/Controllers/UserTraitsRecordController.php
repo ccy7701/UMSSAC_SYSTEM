@@ -14,7 +14,7 @@ class UserTraitsRecordController extends Controller
     }
 
     public function submitSuggesterForm(Request $request) {
-        $data = $this->studyPartnersSuggesterService->processSuggesterFormData($request);
+        $this->studyPartnersSuggesterService->processSuggesterFormData($request);
 
         return redirect()->route('study-partners-suggester.suggester-form');
     }

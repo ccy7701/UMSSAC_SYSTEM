@@ -6,6 +6,17 @@ use Illuminate\Http\Request;
 class StudyPartnersSuggesterService
 {
     public function processSuggesterFormData(Request $request) {
+        // WTC portion of the form
+        $wtc = [
+            $request->only([
+                'stranger_presenting', 'colleague_in_line', 'friend_talking_large',
+                'stranger_talking_small', 'friend_in_line', 'colleague_talking_large',
+                'stranger_in_line', 'friend_presenting', 'colleague_talking_small',
+                'stranger_talking_large', 'friend_talking_small', 'colleague_presenting',
+            ])
+        ];
+        $wtcData = $this->calculateWTCScores($wtc);
+
         // Personality portion of the form
         $bfiData = [
             $request->only([
@@ -16,6 +27,31 @@ class StudyPartnersSuggesterService
         $personalityData = $this->calculatePersonalityScores($bfiData);
     }
 
+    // Calculate Willingnes to Communicate (WTC) scores using the WTC provided formulae
+    public function calculateWTCScores($wtc) {
+        $groupDiscussion = number_format(($wtc['stranger_talking_small'] + $wtc['colleague_talking_small'] + $wtc['friend_talking_small']) / 3, 2);
+        $meetings = number_format(($wtc['friend_talking_large'] + $wtc['colleague_talking_large'] + $wtc['stranger_talking_large']) / 3, 2);
+        $interpersonalConversation = number_format(($wtc['colleague_in_line'] + $wtc['friend_in_line'] + $wtc['stranger_in_line']) / 3, 2);
+        $publicSpeaking = number_format(($wtc['stranger_presenting'] + $wtc['friend_presenting'] + $wtc['colleague_presenting']) / 3, 2);
+        
+        $stranger = number_format(($wtc['stranger_presenting'] + $wtc['stranger_talking_small'] + $wtc['stranger_in_line'] + $wtc['stranger_talking_large']) / 4, 2);
+        $colleague = number_format(($wtc['colleague_in_line'] + $wtc['colleague_talking_large'] + $wtc['colleague_talking_small'] + $wtc['colleague_presenting']) / 4, 2);
+        $friend = number_format(($wtc['friend_talking_large'] + $wtc['friend_in_line'] + $wtc['friend_presenting'] + $wtc['friend_talking_small']) / 4, 2);
+
+        $wtcSum = number_format(($stranger + $colleague + $friend) / 3, 2);
+
+        return [
+            'groupDiscussion' => $groupDiscussion,
+            'meetings' => $meetings,
+            'interpersonalConversation' => $interpersonalConversation,
+            'publicSpeaking' => $publicSpeaking,
+            'stranger' => $stranger,
+            'colleague' => $colleague,
+            'friend' => $friend,
+            'wtcSum' => $wtcSum,
+        ];
+    }
+
     // Calculate personality scores using the BFI-10 provided formulae
     public function calculatePersonalityScores($bfiData) {
         $extraversion = (6 - $bfiData['reserved']) + $bfiData['outgoing'];
@@ -24,14 +60,12 @@ class StudyPartnersSuggesterService
         $neuroticism = (6 - $bfiData['relaxed']) + $bfiData['nervous'];
         $openness = (6 - $bfiData['artistic']) + $bfiData['imaginative'];
 
-        $personalityScores = [
+        return [
             'extraversion' => $extraversion,
             'agreeableness' => $agreeableness,
             'conscientiousness' => $conscientiousness,
             'neuroticism' => $neuroticism,
             'openness' => $openness,
         ];
-
-        return $personalityScores;
     }
 }
