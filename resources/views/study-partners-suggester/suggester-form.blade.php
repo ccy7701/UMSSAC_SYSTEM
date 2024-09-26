@@ -12,7 +12,7 @@
 
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
-    @vite('resources/js/suggesterOperations.js')
+    @vite('resources/js/suggesterFormOperations.js')
     <x-topnav/>
     <br>
     <main class="flex-grow-1">
@@ -180,7 +180,6 @@
                     </div>
                 </form>
                 <!-- END OF SUGGESTER FORM -->
-
             </div>
         </div>
     </main>

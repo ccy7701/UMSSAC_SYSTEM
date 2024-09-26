@@ -23,9 +23,6 @@ class StudyPartnersSuggesterController extends Controller
         if (!$userTraitsRecord) {
             return redirect()->route('study-partners-suggester.suggester-form');
         } else {
-            dump("userTraitsRecord FOUND!");
-            dump($userTraitsRecord);
-            dd("ENTER --> study-partners-suggester.suggester-results");
             return redirect()->route('study-partners-suggester.suggester-results');
         }
     }
