@@ -23,19 +23,14 @@
                     <div class="col-12 text-center">
                         <h3 class="rserif fw-bold w-100 mb-1">Suggested for you</h3>
                         <p class="rserif fs-4 w-100 mt-0">
-                            Here are ten potential study partners most similar to your characteristics.
+                            Here are ten potential study partners most similar to your characteristics
                         </p>
                     </div>
                 </div>
             </div>
             <!-- BODY OF CONTENT -->
-            <div class="rsans justify-content-center align-items-center py-3 align-self-center">
-                @for ($i = 1; $i <= 10; $i++)
-                    <div class="row pb-3">
-                        <x-suggested-sp-list-item
-                            :index="$i"/>
-                    </div>
-                @endfor
+            <div id="content-body" class="rsans justify-content-center align-items-center py-3 align-self-center">
+                <!-- LOOPING COMPONENT GOES HERE -->
             </div>
         </div>
     </main>

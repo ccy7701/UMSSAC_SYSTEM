@@ -37,8 +37,11 @@ class StudyPartnersSuggesterController extends Controller
 
     public function getSuggestedStudyPartners() {
         // Call the service to get recommended study partners
-        $recommendations = $this->studyPartnersSuggesterService->getStudyPartnerSuggestions();
+        $suggestedStudyPartners = $this->studyPartnersSuggesterService->getStudyPartnerSuggestions();
 
-        return 0;
+        return response()->json([
+            'success' => true,
+            'suggestedStudyPartners' => $suggestedStudyPartners
+        ]);
     }
 }

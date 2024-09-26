@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\UserTraitsRecord;
+use App\Models\Profile;
+use Illuminate\Support\Facades\Storage;
 
 class StudyPartnersSuggesterService
 {
@@ -127,10 +129,13 @@ class StudyPartnersSuggesterService
 
         // Call the Python RE here and pass to it the UserTraitsRecord
         $recommendations = $this->callRecommenderEngine($userTraitsRecord);
+        
+        // Retrieve the profiles associated with the recommendations
+        $profileIdArray = array_column($recommendations, 'profile_id');
+        $profiles = Profile::whereIn('profile_id', $profileIdArray)->get();
 
-        dd($recommendations);
-
-        return $recommendations;
+        // Combine the profiles with the similarity scores, then return
+        return $this->combineProfilesWithSimilarity($profiles, $recommendations);
     }
 
     // Call the Python RE webservice
@@ -146,5 +151,40 @@ class StudyPartnersSuggesterService
         ]);
 
         return $response->json();
+    }
+
+    // Combine the profiles with the similarity scores
+    private function combineProfilesWithSimilarity($profiles, $recommendations) {
+        $recommendationMap = [];
+        foreach($recommendations as $recommendation) {
+            $recommendationMap[$recommendation['profile_id']] = $recommendation['similarity'];
+        }
+
+        // Combine the profile data with the corresponding similarity score
+        return $profiles->map(function($profile) use ($recommendationMap) {
+            // Process the profile picture filepath, matric number, faculty, nickname and full name before return
+            $profile->profile_picture_filepath = $profile->profile_picture_filepath
+                ? Storage::url($profile->profile_picture_filepath)
+                : asset('images/no_club_images_default.png');
+
+            $profile->account_full_name = $profile->account->account_full_name;
+
+            $profile->profile_nickname = $profile->profile_nickname
+                ? $profile->profile_nickname
+                : 'No nickname';
+
+            $profile->profile_faculty = $profile->faculty
+                ? $profile->faculty
+                : 'Unspecified';
+
+            $profile->account_matric_number = $profile->account->account_matric_number;
+
+            $profile->account_email_address = $profile->account->account_email_address;
+
+            return [
+                'profile' => $profile,
+                'similarity' => $recommendationMap[$profile->profile_id] ?? null,
+            ];
+        });
     }
 }

@@ -11,7 +11,7 @@
                 <span class="d-inline-flex align-items-center">
                     <p class="card-title fw-bold fs-5 mb-0 me-1">account_full_name</p>
                     <p class="fst-italic text-muted mb-0 ms-1">
-                        (profile_nickname)
+                        profile_nickname
                     </p>
                 </span>
                 <div class="row align-self-center text-muted">
