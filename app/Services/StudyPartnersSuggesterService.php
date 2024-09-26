@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 class StudyPartnersSuggesterService
 {
-    public function processSuggesterFormData(Request $request) {
+    public function handleSuggesterFormData(Request $request) {
         // WTC portion of the form
         $wtc = $request->only([
             'stranger_presenting', 'colleague_in_line', 'friend_talking_large',
@@ -18,7 +18,7 @@ class StudyPartnersSuggesterService
         // Personality portion of the form
         $bfiData = $request->only([
             'reserved', 'trusting', 'lazy', 'relaxed', 'artistic',
-            'outgoing', 'fault-finding', 'thorough', 'nervous', 'imaginative'
+            'outgoing', 'fault_finding', 'thorough', 'nervous', 'imaginative'
         ]);
         $personalityData = $this->calculatePersonalityScores($bfiData);
 
@@ -71,7 +71,7 @@ class StudyPartnersSuggesterService
     // Calculate personality scores using the BFI-10 provided formulae
     public function calculatePersonalityScores(array $bfiData) {
         $extraversion = (6 - $bfiData['reserved']) + $bfiData['outgoing'];
-        $agreeableness = $bfiData['trusting'] + (6 - $bfiData['fault-finding']);
+        $agreeableness = $bfiData['trusting'] + (6 - $bfiData['fault_finding']);
         $conscientiousness = (6 - $bfiData['lazy']) + $bfiData['thorough'];
         $neuroticism = (6 - $bfiData['relaxed']) + $bfiData['nervous'];
         $openness = (6 - $bfiData['artistic']) + $bfiData['imaginative'];

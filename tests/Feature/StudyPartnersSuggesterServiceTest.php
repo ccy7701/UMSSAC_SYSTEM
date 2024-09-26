@@ -30,10 +30,10 @@ class StudyPartnersSuggesterServiceTest extends TestCase
         $spsService = new StudyPartnersSuggesterService();
         $wtcData = $spsService->calculateWTCScores($wtc);
         $expectedData = [
-            'groupDiscussion' => 3.33,
+            'group_discussion' => 3.33,
             'meetings' => 2.67,
-            'interpersonalConversation' => 3.00,
-            'publicSpeaking' => 3.67,
+            'interpersonal_conversation' => 3.00,
+            'public_speaking' => 3.67,
             'stranger' => 1.75,
             'colleague' => 3.00,
             'friend' => 4.75,
@@ -51,7 +51,7 @@ class StudyPartnersSuggesterServiceTest extends TestCase
             'relaxed' => 2,
             'artistic' => 3,
             'outgoing' => 2,
-            'fault-finding' => 2,
+            'fault_finding' => 2,
             'thorough' => 4,
             'nervous' => 4,
             'imaginative' => 3
