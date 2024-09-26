@@ -103,7 +103,7 @@
                             :name="'outgoing'"/>
                         <x-bfi-radio-group
                             :label="'Tends to find fault with others'"
-                            :name="'fault-finding'"/>
+                            :name="'fault_finding'"/>
                         <x-bfi-radio-group
                             :label="'Does a thorough job'"
                             :name="'thorough'"/>

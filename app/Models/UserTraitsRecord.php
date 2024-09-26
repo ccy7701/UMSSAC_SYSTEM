@@ -15,8 +15,8 @@ class UserTraitsRecord extends Model
 
     protected $fillable = [
         'profile_id',
-        'personality_data',
         'wtc_data',
+        'personality_data',
         'skills_data',
         'learning_style'
     ];
