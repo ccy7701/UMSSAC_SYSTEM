@@ -56,5 +56,5 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     })->name('study-partners-suggester.suggester-results');
 
     // CURRENT ROUTE OF FOCUS
-    Route::get('/study-partners-suggester/suggester-results/fetch', [StudyPartnersSuggesterController::class, 'fetchSuggesterResults'])->name('study-partners-suggester.suggester-results.fetch');
+    Route::get('/study-partners-suggester/suggester-results/get', [StudyPartnersSuggesterController::class, 'getSuggestedStudyPartners'])->name('study-partners-suggester.suggester-results.get');
 });

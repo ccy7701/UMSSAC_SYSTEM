@@ -34,4 +34,11 @@ class StudyPartnersSuggesterController extends Controller
             ? redirect()->route('study-partners-suggester.suggester-results')->with('success', 'Your details have been saved successfully!')
             : back()->withErrors(['error' => 'Failed to save details. Please try again.']);
     }
+
+    public function getSuggestedStudyPartners() {
+        // Call the service to get recommended study partners
+        $recommendations = $this->studyPartnersSuggesterService->getStudyPartnerSuggestions();
+
+        return 0;
+    }
 }

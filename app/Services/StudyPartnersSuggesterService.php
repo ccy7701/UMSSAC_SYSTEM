@@ -3,8 +3,9 @@
 namespace App\Services;
 
 use Carbon\Carbon;
-use App\Models\UserTraitsRecord;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use App\Models\UserTraitsRecord;
 
 class StudyPartnersSuggesterService
 {
@@ -32,6 +33,7 @@ class StudyPartnersSuggesterService
             'creativity', 'adaptability',
             'leadership', 'teaching_ability'
         );
+        $skillsData = array_map('intval', $skillsData);
 
         // Learning style portion of the form
         $learningStyle = $request->input('learning_style');
@@ -90,14 +92,14 @@ class StudyPartnersSuggesterService
         $wtcSum = number_format(($stranger + $colleague + $friend) / 3, 2);
 
         return [
-            'group_discussion' => $groupDiscussion,
-            'meetings' => $meetings,
-            'interpersonal_conversation' => $interpersonalConversation,
-            'public_speaking' => $publicSpeaking,
-            'stranger' => $stranger,
-            'colleague' => $colleague,
-            'friend' => $friend,
-            'wtcSum' => $wtcSum,
+            'group_discussion' => floatval($groupDiscussion),
+            'meetings' => floatval($meetings),
+            'interpersonal_conversation' => floatval($interpersonalConversation),
+            'public_speaking' => floatval($publicSpeaking),
+            'stranger' => floatval($stranger),
+            'colleague' => floatval($colleague),
+            'friend' => floatval($friend),
+            'wtcSum' => floatval($wtcSum),
         ];
     }
 
@@ -116,5 +118,33 @@ class StudyPartnersSuggesterService
             'neuroticism' => $neuroticism,
             'openness' => $openness,
         ];
+    }
+
+    // Handle getting the study partners suggestions
+    public function getStudyPartnerSuggestions() {
+        // Fetch this student's UserTraitsRecord
+        $userTraitsRecord = UserTraitsRecord::where('profile_id', profile()->profile_id)->first();
+
+        // Call the Python RE here and pass to it the UserTraitsRecord
+        $recommendations = $this->callRecommenderEngine($userTraitsRecord);
+
+        dd($recommendations);
+
+        return $recommendations;
+    }
+
+    // Call the Python RE webservice
+    private function callRecommenderEngine($userTraitsRecord) {
+        $response = Http::post('http://localhost:5000/recommendationEngine', [
+            'user_traits_record' => [
+                'profile_id' => $userTraitsRecord->profile_id,
+                'wtc_data' => json_decode($userTraitsRecord->wtc_data, true),
+                'personality_data' => json_decode($userTraitsRecord->personality_data, true),
+                'skills_data' => json_decode($userTraitsRecord->skills_data, true),
+                'learning_style' => $userTraitsRecord->learning_style
+            ]
+        ]);
+
+        return $response->json();
     }
 }
