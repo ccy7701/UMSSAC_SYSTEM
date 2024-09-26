@@ -3,8 +3,11 @@
 namespace App\Services;
 
 use Carbon\Carbon;
-use App\Models\UserTraitsRecord;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use App\Models\UserTraitsRecord;
+use App\Models\Profile;
+use Illuminate\Support\Facades\Storage;
 
 class StudyPartnersSuggesterService
 {
@@ -32,6 +35,7 @@ class StudyPartnersSuggesterService
             'creativity', 'adaptability',
             'leadership', 'teaching_ability'
         );
+        $skillsData = array_map('intval', $skillsData);
 
         // Learning style portion of the form
         $learningStyle = $request->input('learning_style');
@@ -90,14 +94,14 @@ class StudyPartnersSuggesterService
         $wtcSum = number_format(($stranger + $colleague + $friend) / 3, 2);
 
         return [
-            'group_discussion' => $groupDiscussion,
-            'meetings' => $meetings,
-            'interpersonal_conversation' => $interpersonalConversation,
-            'public_speaking' => $publicSpeaking,
-            'stranger' => $stranger,
-            'colleague' => $colleague,
-            'friend' => $friend,
-            'wtcSum' => $wtcSum,
+            'group_discussion' => floatval($groupDiscussion),
+            'meetings' => floatval($meetings),
+            'interpersonal_conversation' => floatval($interpersonalConversation),
+            'public_speaking' => floatval($publicSpeaking),
+            'stranger' => floatval($stranger),
+            'colleague' => floatval($colleague),
+            'friend' => floatval($friend),
+            'wtcSum' => floatval($wtcSum),
         ];
     }
 
@@ -116,5 +120,71 @@ class StudyPartnersSuggesterService
             'neuroticism' => $neuroticism,
             'openness' => $openness,
         ];
+    }
+
+    // Handle getting the study partners suggestions
+    public function getStudyPartnerSuggestions() {
+        // Fetch this student's UserTraitsRecord
+        $userTraitsRecord = UserTraitsRecord::where('profile_id', profile()->profile_id)->first();
+
+        // Call the Python RE here and pass to it the UserTraitsRecord
+        $recommendations = $this->callRecommenderEngine($userTraitsRecord);
+        
+        // Retrieve the profiles associated with the recommendations
+        $profileIdArray = array_column($recommendations, 'profile_id');
+        $profiles = Profile::whereIn('profile_id', $profileIdArray)->get();
+
+        // Combine the profiles with the similarity scores, then return
+        return $this->combineProfilesWithSimilarity($profiles, $recommendations);
+    }
+
+    // Call the Python RE webservice
+    private function callRecommenderEngine($userTraitsRecord) {
+        $response = Http::post('http://localhost:5000/recommendationEngine', [
+            'user_traits_record' => [
+                'profile_id' => $userTraitsRecord->profile_id,
+                'wtc_data' => json_decode($userTraitsRecord->wtc_data, true),
+                'personality_data' => json_decode($userTraitsRecord->personality_data, true),
+                'skills_data' => json_decode($userTraitsRecord->skills_data, true),
+                'learning_style' => $userTraitsRecord->learning_style
+            ]
+        ]);
+
+        return $response->json();
+    }
+
+    // Combine the profiles with the similarity scores
+    private function combineProfilesWithSimilarity($profiles, $recommendations) {
+        $recommendationMap = [];
+        foreach($recommendations as $recommendation) {
+            $recommendationMap[$recommendation['profile_id']] = $recommendation['similarity'];
+        }
+
+        // Combine the profile data with the corresponding similarity score
+        return $profiles->map(function($profile) use ($recommendationMap) {
+            // Process the profile picture filepath, matric number, faculty, nickname and full name before return
+            $profile->profile_picture_filepath = $profile->profile_picture_filepath
+                ? Storage::url($profile->profile_picture_filepath)
+                : asset('images/no_club_images_default.png');
+
+            $profile->account_full_name = $profile->account->account_full_name;
+
+            $profile->profile_nickname = $profile->profile_nickname
+                ? $profile->profile_nickname
+                : 'No nickname';
+
+            $profile->profile_faculty = $profile->faculty
+                ? $profile->faculty
+                : 'Unspecified';
+
+            $profile->account_matric_number = $profile->account->account_matric_number;
+
+            $profile->account_email_address = $profile->account->account_email_address;
+
+            return [
+                'profile' => $profile,
+                'similarity' => $recommendationMap[$profile->profile_id] ?? null,
+            ];
+        });
     }
 }

@@ -23,9 +23,6 @@ class StudyPartnersSuggesterController extends Controller
         if (!$userTraitsRecord) {
             return redirect()->route('study-partners-suggester.suggester-form');
         } else {
-            dump("userTraitsRecord FOUND!");
-            dump($userTraitsRecord);
-            dd("ENTER --> study-partners-suggester.suggester-results");
             return redirect()->route('study-partners-suggester.suggester-results');
         }
     }
@@ -36,5 +33,15 @@ class StudyPartnersSuggesterController extends Controller
         return $status
             ? redirect()->route('study-partners-suggester.suggester-results')->with('success', 'Your details have been saved successfully!')
             : back()->withErrors(['error' => 'Failed to save details. Please try again.']);
+    }
+
+    public function getSuggestedStudyPartners() {
+        // Call the service to get recommended study partners
+        $suggestedStudyPartners = $this->studyPartnersSuggesterService->getStudyPartnerSuggestions();
+
+        return response()->json([
+            'success' => true,
+            'suggestedStudyPartners' => $suggestedStudyPartners
+        ]);
     }
 }
