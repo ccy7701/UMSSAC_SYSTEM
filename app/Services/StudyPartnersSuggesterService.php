@@ -1,46 +1,79 @@
 <?php
 
 namespace App\Services;
+
+use Carbon\Carbon;
+use App\Models\UserTraitsRecord;
 use Illuminate\Http\Request;
 
 class StudyPartnersSuggesterService
 {
     public function handleSuggesterFormData(Request $request) {
         // WTC portion of the form
-        $wtc = $request->only([
-            'stranger_presenting', 'colleague_in_line', 'friend_talking_large',
+        $wtc = $request->only('stranger_presenting', 'colleague_in_line', 'friend_talking_large',
             'stranger_talking_small', 'friend_in_line', 'colleague_talking_large',
             'stranger_in_line', 'friend_presenting', 'colleague_talking_small',
-            'stranger_talking_large', 'friend_talking_small', 'colleague_presenting',
-        ]);
+            'stranger_talking_large', 'friend_talking_small', 'colleague_presenting'
+        );
         $wtcData = $this->calculateWTCScores($wtc);
 
         // Personality portion of the form
-        $bfiData = $request->only([
+        $bfiData = $request->only(
             'reserved', 'trusting', 'lazy', 'relaxed', 'artistic',
             'outgoing', 'fault_finding', 'thorough', 'nervous', 'imaginative'
-        ]);
+        );
         $personalityData = $this->calculatePersonalityScores($bfiData);
 
         // Skills portion of the form
-        $skillsData = [
-            $request->only([
-                'interdisciplinary_collaboration', 'online_communication',
-                'conflict_resolution', 'organised',
-                'problem_solving', 'tech_proficiency',
-                'creativity', 'adaptability',
-                'leadership', 'teaching_ability'
-            ])
-        ];
+        $skillsData = $request->only(
+            'interdisciplinary_collaboration', 'online_communication',
+            'conflict_resolution', 'organised',
+            'problem_solving', 'tech_proficiency',
+            'creativity', 'adaptability',
+            'leadership', 'teaching_ability'
+        );
 
         // Learning style portion of the form
-        $learningStyle = $request->only('learning_style');
+        $learningStyle = $request->input('learning_style');
 
         // Package the processed data into the proper formats
-        dump($wtcData);
-        dump($personalityData);
-        dump($skillsData);
-        dd($learningStyle);
+        $data = [
+            'wtc_data' => json_encode($wtcData),
+            'personality_data' => json_encode($personalityData),
+            'skills_data' => json_encode($skillsData),
+            'learning_style' => $learningStyle
+        ];
+
+        return $this->submitUserTraitsRecord($data);
+    }
+
+    
+    public function submitUserTraitsRecord($data) {
+        $profileId = profile()->profile_id;
+
+        $userTraitsRecord = UserTraitsRecord::where('profile_id', $profileId)->first();
+
+        if ($userTraitsRecord) {
+            // If a record exists, update it
+            return $userTraitsRecord->update([
+                'wtc_data' => $data['wtc_data'],
+                'personality_data' => $data['personality_data'],
+                'skills_data' => $data['skills_data'],
+                'learning_style' => $data['learning_style'],
+                'updated_at' => Carbon::now()
+            ]);
+        } else {
+            // If no record exists, create a new one
+            return UserTraitsRecord::create([
+                'profile_id' => $profileId,
+                'wtc_data' => $data['wtc_data'],
+                'personality_data' => $data['personality_data'],
+                'skills_data' => $data['skills_data'],
+                'learning_style' => $data['learning_style'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
     }
 
     // Calculate Willingnes to Communicate (WTC) scores using the WTC provided formulae

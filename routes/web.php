@@ -7,10 +7,10 @@ use App\Http\Controllers\ClubMembershipController;
 use App\Http\Middleware\RoleAccessMiddleware;
 use App\Http\Middleware\CommitteeAccessMiddleware;
 
-require_once __DIR__.'/guest.php';
-require_once __DIR__.'/allauth.php';
-require_once __DIR__.'/admin.php';
-require_once __DIR__.'/student.php';
+require __DIR__.'/guest.php';
+require __DIR__.'/allauth.php';
+require __DIR__.'/admin.php';
+require __DIR__.'/student.php';
 
 // Routes accessible by facultyMember only (account role 2)
 // Route::middleware(['auth', RoleAccessMiddleware::class.':2'])->group(function ())

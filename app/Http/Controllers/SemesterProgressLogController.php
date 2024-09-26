@@ -35,8 +35,6 @@ class SemesterProgressLogController extends Controller
             $academicSession = $academicYear .'/'. ($academicYear + 1);
             $semester = ($semesterCount % 2) + 1;
 
-            Log::info("Creating SemesterProgressLog for Profile ID: {$profileId}, Semester: {$semester}, Academic Session: {$academicSession}");
-
             // Create the SemesterProgressLog entry
             $status = SemesterProgressLog::create([
                 'profile_id' => $profileId,

@@ -51,5 +51,10 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::post('/study-partners-suggester/submit-form', [StudyPartnersSuggesterController::class, 'submitSuggesterForm'])->name('study-partners-suggester.suggester-form.submit');
 
     // CURRENT ROUTE OF FOCUS
-    Route::get('/study-partners-suggester/suggester-results', [StudyPartnersSuggesterController::class, 'fetchSuggesterResults'])->name('study-partners-suggester.suggester-results');
+    Route::get('/study-partners-suggester/suggester-results', function () {
+        return view('study-partners-suggester.suggester-results');
+    })->name('study-partners-suggester.suggester-results');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/study-partners-suggester/suggester-results/fetch', [StudyPartnersSuggesterController::class, 'fetchSuggesterResults'])->name('study-partners-suggester.suggester-results.fetch');
 });

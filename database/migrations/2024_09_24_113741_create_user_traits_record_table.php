@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('profile_id')->references('profile_id')->on('profile')->onDelete('cascade');
             $table->json('wtc_data')->nullable();
             $table->json('personality_data')->nullable();
-            $table->json('skill_data')->nullable();
+            $table->json('skills_data')->nullable();
             $table->unsignedInteger('learning_style')->comment('1 - visual, 2 - auditory, 3 - reading/writing, 4 - kinesthetic');
             $table->timestamps();
         });

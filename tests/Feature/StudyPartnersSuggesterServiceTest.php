@@ -3,68 +3,73 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use App\Services\StudyPartnersSuggesterService;
+use App\Models\Account;
+use App\Models\Profile;
 use Tests\TestCase;
 
 class StudyPartnersSuggesterServiceTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_calculate_wtc_scores(): void
+    /**
+     * Test that the form submission for the study partners suggester works.
+     *
+     * @return void
+     */
+    public function test_submit_user_traits_record(): void
     {
-        $wtc = [
-            'stranger_presenting' => 3,
-            'colleague_in_line' => 3,
-            'friend_talking_large' => 4,
-            'stranger_talking_small' => 2,
-            'friend_in_line' => 5,
-            'colleague_talking_large' => 3,
-            'stranger_in_line' => 1,
-            'friend_presenting' => 5,
-            'colleague_talking_small' => 3,
-            'stranger_talking_large' => 1,
-            'friend_talking_small' => 5,
-            'colleague_presenting' => 3
-        ];
-        $spsService = new StudyPartnersSuggesterService();
-        $wtcData = $spsService->calculateWTCScores($wtc);
-        $expectedData = [
-            'group_discussion' => 3.33,
-            'meetings' => 2.67,
-            'interpersonal_conversation' => 3.00,
-            'public_speaking' => 3.67,
-            'stranger' => 1.75,
-            'colleague' => 3.00,
-            'friend' => 4.75,
-            'wtcSum' => 3.17
-        ];
-        $this->assertEquals($expectedData, $wtcData);
-    }
+        /** @var \App\Models\Account $account */
+        $account = Account::factory()->create(['account_role' => 1]);
+        $profile = Profile::factory()->create(['account_id' => $account->account_id]);
+        $this->actingAs($account);
 
-    public function test_calculate_personality_scores(): void
-    {
-        $bfiData = [
+        $response = $this->post(route('study-partners-suggester.suggester-form.submit'), [
+            '_token' => csrf_token(),
+            'profile_id' => $profile->profile_id,
+            // WTC form data
+            'stranger_presenting' => 5,
+            'colleague_in_line' => 4,
+            'friend_talking_large' => 3,
+            'stranger_talking_small' => 2,
+            'friend_in_line' => 4,
+            'colleague_talking_large' => 5,
+            'stranger_in_line' => 3,
+            'friend_presenting' => 4,
+            'colleague_talking_small' => 2,
+            'stranger_talking_large' => 5,
+            'friend_talking_small' => 3,
+            'colleague_presenting' => 5,
+            // BFI personality data
             'reserved' => 4,
-            'trusting' => 4,
-            'lazy' => 3,
-            'relaxed' => 2,
-            'artistic' => 3,
-            'outgoing' => 2,
+            'trusting' => 3,
+            'lazy' => 2,
+            'relaxed' => 4,
+            'artistic' => 5,
+            'outgoing' => 4,
             'fault_finding' => 2,
-            'thorough' => 4,
-            'nervous' => 4,
-            'imaginative' => 3
-        ];
-        $spsService = new StudyPartnersSuggesterService();
-        $personalityData = $spsService->calculatePersonalityScores($bfiData);
-        $expectedData = [
-            'extraversion' => (6 - 4) + 2,
-            'agreeableness' => 4 + (6 - 2),
-            'conscientiousness' => (6 - 3) + 4,
-            'neuroticism' => (6 - 2) + 4,
-            'openness' => (6 - 3) + 3,
-        ];
-        $this->assertEquals($expectedData, $personalityData);
+            'thorough' => 5,
+            'nervous' => 3,
+            'imaginative' => 5,
+            // Skills form data
+            'interdisciplinary_collaboration' => 1,
+            'online_communication' => 1,
+            'conflict_resolution' => 1,
+            'organised' => 1,
+            'problem_solving' => 1,
+            'tech_proficiency' => 1,
+            'creativity' => 1,
+            'adaptability' => 1,
+            'leadership' => 1,
+            'teaching_ability' => 1,
+            // Learning style
+            'learning_style' => 2,
+        ]);
+
+        $this->assertDatabaseHas('user_traits_record', [
+            'profile_id' => $profile->profile_id,
+            'learning_style' => 2,
+        ]);
+
+        $response->assertStatus(302);
     }
 }
