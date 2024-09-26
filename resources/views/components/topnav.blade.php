@@ -42,7 +42,7 @@
             <div class="px-0">
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('profile') }}">Profile</a></li>
                 @if (currentAccount()->account_role == 1)
-                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('study-partners-suggester.suggester-form') }}">Study Partners Suggester</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('study-partners-suggester') }}">Study Partners Suggester</a></li>
 
                     <li class="nav-item"><a class="nav-link px-3" href="{{ route('timetable-builder') }}">Timetable Builder</a></li>
 

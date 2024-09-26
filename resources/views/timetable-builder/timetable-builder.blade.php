@@ -55,7 +55,7 @@
             </div>
             <!-- Send route templates to external JS -->
             <script>
-                window.getTimetableSlotRouteTemplate = "{{ route('timetable-builder.get', ['timetable_slot_id' => ':timetable_slot_id']) }}";
+                window.getTimetableSlotRouteTemplate = "{{ route('timetable-builder.get-slot-data', ['timetable_slot_id' => ':timetable_slot_id']) }}";
     
                 window.getSlotsByDayRouteTemplate = "{{ route('timetable-builder.get-slots-by-day', ['class_day' => ':class_day', 'profile_id' => ':profile_id']) }}";
     

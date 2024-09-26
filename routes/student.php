@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SemesterProgressLogController;
 use App\Http\Controllers\SubjectStatsLogController;
 use App\Http\Controllers\TimetableSlotController;
-use App\Http\Controllers\UserTraitsRecordController;
+use App\Http\Controllers\StudyPartnersSuggesterController;
 use App\Http\Middleware\RoleAccessMiddleware;
 
 // Routes accessible by student only (account role 1)
@@ -29,7 +29,7 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
     Route::get('/timetable-builder/initialise', [TimetableSlotController::class, 'initialiseTimetable'])->name('timetable-builder.initialise');
 
-    Route::get('/get-timetable-slot-data/{timetable_slot_id}', [TimetableSlotController::class, 'getTimetableSlotData'])->name('timetable-builder.get');
+    Route::get('/get-timetable-slot-data/{timetable_slot_id}', [TimetableSlotController::class, 'getTimetableSlotData'])->name('timetable-builder.get-slot-data');
 
     Route::get('/get-slots-by-day/{profile_id}/{class_day}/{exclude_slot_id?}', [TimetableSlotController::class, 'getSlotsByDay'])->name('timetable-builder.get-slots-by-day');
 
@@ -40,10 +40,21 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::delete('/delete-timetable-slot/{timetable_slot_id}', [TimetableSlotController::class, 'deleteTimetableSlot'])->name('timetable-builder.delete');
 
     // CURRENT ROUTE OF FOCUS
+    Route::get('/study-partners-suggester', [StudyPartnersSuggesterController::class, 'initialiseSuggester'])->name('study-partners-suggester');
+
+    // CURRENT ROUTE OF FOCUS
     Route::get('/study-partners-suggester/suggester-form', function () {
         return view('study-partners-suggester.suggester-form');
     })->name('study-partners-suggester.suggester-form');
 
     // CURRENT ROUTE OF FOCUS
-    Route::post('/study-partners-suggester/submit-form', [UserTraitsRecordController::class, 'submitSuggesterForm'])->name('study-partners-suggester.suggester-form.submit');
+    Route::post('/study-partners-suggester/submit-form', [StudyPartnersSuggesterController::class, 'submitSuggesterForm'])->name('study-partners-suggester.suggester-form.submit');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/study-partners-suggester/suggester-results', function () {
+        return view('study-partners-suggester.suggester-results');
+    })->name('study-partners-suggester.suggester-results');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/study-partners-suggester/suggester-results/fetch', [StudyPartnersSuggesterController::class, 'fetchSuggesterResults'])->name('study-partners-suggester.suggester-results.fetch');
 });
