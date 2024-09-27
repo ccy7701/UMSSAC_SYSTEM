@@ -33,7 +33,7 @@ class AccountSeeder extends Seeder
         $this->insertSeederData(18, 'Lee Jian Hao', 'jianhao.lee21@ums.ac.my', '$2y$12$28aRpKg/apOIqUEaBkokye9w1w9VX4RaEiGaafps5JBzwgGiGJ3Ny', 1, 'BI21210010');
     }
 
-    private function insertSeederData($accountId, $accountFullName, $accountEmailAddress, $accountPassword, $accountRole, $accountMatricNumber): void 
+    private function insertSeederData($accountId, $accountFullName, $accountEmailAddress, $accountPassword, $accountRole, $accountMatricNumber): void
     {
         $data = [
             'account_id' => $accountId,
