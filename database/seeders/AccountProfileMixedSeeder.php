@@ -15,7 +15,7 @@ class AccountProfileMixedSeeder extends Seeder
     public function run(): void
     {
         Account::factory()
-            ->count(40)
+            ->count(20)
             ->create()
             ->each(function ($account) {
                 Profile::factory()
