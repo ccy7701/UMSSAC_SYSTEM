@@ -52,35 +52,6 @@ class StudyPartnersSuggesterService
         return $this->submitUserTraitsRecord($data);
     }
 
-    
-    public function submitUserTraitsRecord($data) {
-        $profileId = $data['profile_id'];
-
-        $userTraitsRecord = UserTraitsRecord::where('profile_id', $profileId)->first();
-
-        if ($userTraitsRecord) {
-            // If a record exists, update it
-            return $userTraitsRecord->update([
-                'wtc_data' => $data['wtc_data'],
-                'personality_data' => $data['personality_data'],
-                'skills_data' => $data['skills_data'],
-                'learning_style' => $data['learning_style'],
-                'updated_at' => Carbon::now()
-            ]);
-        } else {
-            // If no record exists, create a new one
-            return UserTraitsRecord::create([
-                'profile_id' => $profileId,
-                'wtc_data' => $data['wtc_data'],
-                'personality_data' => $data['personality_data'],
-                'skills_data' => $data['skills_data'],
-                'learning_style' => $data['learning_style'],
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
-        }
-    }
-
     // Calculate Willingnes to Communicate (WTC) scores using the WTC provided formulae
     public function calculateWTCScores(array $wtc) {
         $groupDiscussion = number_format(($wtc['stranger_talking_small'] + $wtc['colleague_talking_small'] + $wtc['friend_talking_small']) / 3, 2);
@@ -123,6 +94,34 @@ class StudyPartnersSuggesterService
         ];
     }
 
+    public function submitUserTraitsRecord($data) {
+        $profileId = $data['profile_id'];
+
+        $userTraitsRecord = UserTraitsRecord::where('profile_id', $profileId)->first();
+
+        if ($userTraitsRecord) {
+            // If a record exists, update it
+            return $userTraitsRecord->update([
+                'wtc_data' => $data['wtc_data'],
+                'personality_data' => $data['personality_data'],
+                'skills_data' => $data['skills_data'],
+                'learning_style' => $data['learning_style'],
+                'updated_at' => Carbon::now()
+            ]);
+        } else {
+            // If no record exists, create a new one
+            return UserTraitsRecord::create([
+                'profile_id' => $profileId,
+                'wtc_data' => $data['wtc_data'],
+                'personality_data' => $data['personality_data'],
+                'skills_data' => $data['skills_data'],
+                'learning_style' => $data['learning_style'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+    }
+
     // Handle getting the study partners suggestions
     public function getStudyPartnerSuggestions() {
         // Fetch this student's UserTraitsRecord
@@ -131,7 +130,7 @@ class StudyPartnersSuggesterService
         // Get the UserTraitsRecords of other students to compare against
         $otherStudentsTraitsRecords = UserTraitsRecord::where('profile_id', '!=', $ownTraitsRecord->profile_id)->get();
 
-        // Call the Python RE here and pass to it the UserTraitsRecord
+        // Call the Python RE here and pass the data to it
         $recommendations = $this->callRecommenderEngine($ownTraitsRecord, $otherStudentsTraitsRecords);
         
         // Sort the recommendations by similarity score in descending order
@@ -141,49 +140,6 @@ class StudyPartnersSuggesterService
 
         // Combine the profiles with the similarity scores, then return the recommendations
         return $this->combineProfilesWithSimilarity($recommendations);
-    }
-
-    // Combine the profiles with the similarity scores
-    private function combineProfilesWithSimilarity($recommendations) {
-        // Retrieve the profiles associated with the recommendations
-        $profileIdArray = array_column($recommendations, 'profile_id');
-        $profiles = Profile::whereIn('profile_id', $profileIdArray)->get();
-
-        // Map the recommendations to their profile IDs
-        $recommendationMap = [];
-        foreach($recommendations as $recommendation) {
-            $recommendationMap[$recommendation['profile_id']] = $recommendation['similarity'];
-        }
-
-        // Combine the profile data with the corresponding similarity score
-        $combinedResults = $profiles->map(function($profile) use ($recommendationMap) {
-            // Process the profile picture filepath, matric number, faculty, nickname, and full name before return
-            $profile->profile_picture_filepath = $profile->profile_picture_filepath
-                ? Storage::url($profile->profile_picture_filepath)
-                : asset('images/no_club_images_default.png');
-
-            $profile->account_full_name = $profile->account->account_full_name;
-
-            $profile->profile_nickname = $profile->profile_nickname
-                ? $profile->profile_nickname
-                : 'No nickname';
-
-            $profile->profile_faculty = $profile->faculty
-                ? $profile->faculty
-                : 'Unspecified';
-
-            $profile->account_matric_number = $profile->account->account_matric_number;
-
-            $profile->account_email_address = $profile->account->account_email_address;
-
-            return [
-                'profile' => $profile,
-                'similarity' => $recommendationMap[$profile->profile_id] ?? null,
-            ];
-        });
-
-        // Sort the combined data, then return it
-        return $combinedResults->sortByDesc('similarity')->values();
     }
 
     // Call the Python RE webservice
@@ -210,5 +166,52 @@ class StudyPartnersSuggesterService
         ]);
 
         return $response->json();
+    }
+
+    // Combine the profiles with the similarity scores
+    private function combineProfilesWithSimilarity($recommendations) {
+        // Retrieve the profiles associated with the recommendations
+        $profileIdArray = array_column($recommendations, 'profile_id');
+        $profiles = Profile::whereIn('profile_id', $profileIdArray)->get();
+
+        // Map the recommendations to their profile IDs
+        $recommendationMap = [];
+        foreach($recommendations as $recommendation) {
+            $recommendationMap[$recommendation['profile_id']] = $recommendation['similarity'];
+        }
+
+        // Process the data before return
+        $combinedResults = $profiles->map(function($profile) use ($recommendationMap) {
+            
+            $profile->profile_picture_filepath = $profile->profile_picture_filepath
+                ? Storage::url($profile->profile_picture_filepath)
+                : asset('images/no_club_images_default.png');
+
+            $profile->account_full_name = $profile->account->account_full_name;
+
+            $profile->profile_nickname = $profile->profile_nickname
+                ? $profile->profile_nickname
+                : 'No nickname';
+
+            $profile->profile_faculty = $profile->faculty
+                ? $profile->faculty
+                : 'Unspecified';
+
+            $profile->account_matric_number = $profile->account->account_matric_number;
+
+            $profile->account_email_address = $profile->account->account_email_address;
+
+            $profile->profile_personal_desc = $profile->profile_personal_desc
+                ? $profile->profile_personal_desc
+                : 'No personal description written yet';
+
+            return [
+                'profile' => $profile,
+                'similarity' => $recommendationMap[$profile->profile_id] ?? null,
+            ];
+        });
+
+        // Sort the combined data, then return it
+        return $combinedResults->sortByDesc('similarity')->values();
     }
 }

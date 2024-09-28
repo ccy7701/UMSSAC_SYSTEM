@@ -97,9 +97,10 @@ function generateSuggestedStudyPartnersList(data) {
                         <hr class="divider-gray-300 mb-4">
                         <div class="container px-2">
                             <ul class="list-unstyled">
-                                <li><strong>Full information 1:</strong> INDEX_${index}_INFO_1</li>
-                                <li><strong>Full information 2:</strong> INDEX_${index}_INFO_2</li>
-                                <li><strong>Full information 3:</strong> INDEX_${index}_INFO_3</li>
+                                <li>
+                                    <strong>Personal description:</strong><br>
+                                    ${studyPartner.profile.profile_personal_desc}
+                                </li>
                             </ul>
                         </div>
                     </div>
