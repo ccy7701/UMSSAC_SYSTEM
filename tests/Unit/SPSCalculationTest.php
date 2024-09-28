@@ -36,7 +36,7 @@ class SPSCalculationTest extends TestCase
             'stranger' => 1.75,
             'colleague' => 3.00,
             'friend' => 4.75,
-            'wtcSum' => 3.17
+            'wtc_sum' => 3.17
         ];
         $this->assertEquals($expectedWtcData, $wtcData);
     }

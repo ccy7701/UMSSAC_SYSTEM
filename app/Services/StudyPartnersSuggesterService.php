@@ -42,6 +42,7 @@ class StudyPartnersSuggesterService
 
         // Package the processed data into the proper formats
         $data = [
+            'profile_id' => $request->profile_id,
             'wtc_data' => json_encode($wtcData),
             'personality_data' => json_encode($personalityData),
             'skills_data' => json_encode($skillsData),
@@ -53,7 +54,7 @@ class StudyPartnersSuggesterService
 
     
     public function submitUserTraitsRecord($data) {
-        $profileId = profile()->profile_id;
+        $profileId = $data['profile_id'];
 
         $userTraitsRecord = UserTraitsRecord::where('profile_id', $profileId)->first();
 
@@ -101,7 +102,7 @@ class StudyPartnersSuggesterService
             'stranger' => floatval($stranger),
             'colleague' => floatval($colleague),
             'friend' => floatval($friend),
-            'wtcSum' => floatval($wtcSum),
+            'wtc_sum' => floatval($wtcSum),
         ];
     }
 
