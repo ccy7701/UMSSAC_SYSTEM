@@ -90,7 +90,7 @@
                             @php
                                 $categories = [
                                     'ASTIF', 'FIS', 'FKAL', 'FKIKK', 'FKIKAL',
-                                    'FKJ', 'FPEP', 'FPL', 'FPP', 'FPSK',
+                                    'FKJ', 'FPEP', 'FPKS', 'FPL', 'FPPS', 'FPSK',
                                     'FPT', 'FSMP', 'FSSA', 'FSSK', 'KKTF',
                                     'KKTM', 'KKTPAR', 'KKAKF', 'KKUSIA', 'NR',
                                     'General'

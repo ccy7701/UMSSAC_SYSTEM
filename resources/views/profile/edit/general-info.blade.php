@@ -104,14 +104,17 @@
                                 <option value="FKIKAL">FKIKAL</option>
                                 <option value="FKJ">FKJ</option>
                                 <option value="FPEP">FPEP</option>
+                                <option value="FPKS">FPKS</option>
                                 <option value="FPL">FPL</option>
-                                <option value="FPP">FPP</option>
+                                <option value="FPP">FPP (former)</option>
+                                <option value="FPPS">FPPS</option>
                                 <option value="FPSK">FPSK</optino>
                                 <option value="FPT">FPT</option>
                                 <option value="FSMP">FSMP</option>
                                 <option value="FSSA">FSSA</option>
                                 <option value="FSSK">FSSK</option>
                             </select>
+                            <div id="faculty-note" class="rsans form-text">Note: Select "FPP (former)" for courses not listed under FPKS or FPPS.</div>
                         </div>
                         <div class="form-group mb-3">
                             <label for="course" class="rsans fw-bold form-label">Course</label>

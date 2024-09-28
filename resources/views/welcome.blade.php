@@ -10,6 +10,7 @@
 </head>
 
 <body class="welcome-body">
+    @vite('resources/js/app.js')
     <div class="container p-3">
         <div class="row align-items-center">
             <!-- Logo section -->
@@ -38,21 +39,31 @@
 
     <div class="image-carousel px-sm-5">
         <div class="carousel-track">
-            <img src="{{ asset('placeholder-images/system_users.png') }}" alt="System users placeholder illustration" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/study_partner_suggester.png') }}" alt="Study partner suggester placeholder illustration" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/study_partner_list.png') }}" alt="Study partner list placeholder illustration" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/bookmarked_events.png') }}" alt="Bookmarked events placeholder illustration" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/acad_prog_tracker.png') }}" alt="Academic progress tracker placeholder illustration" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/timetable_builder.png') }}" alt="Timetable builder placeholder illustration" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/system_users.png') }}" alt="System users placeholder illustration" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/study_partner_suggester.png') }}" alt="Study partner suggester placeholder illustration" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/study_partner_list.png') }}" alt="Study partner list placeholder illustration" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/bookmarked_events.png') }}" alt="Bookmarked events placeholder illustration" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/acad_prog_tracker.png') }}" alt="Academic progress tracker placeholder illustration" class="img-fluid mx-3">
-            <img src="{{ asset('placeholder-images/timetable_builder.png') }}" alt="Timetable builder placeholder illustration" class="img-fluid mx-3">
+            <img src="{{ asset('images/study_partner_suggester.png') }}" alt="Study partner suggester placeholder illustration" class="img-fluid mx-3 border shadow">
+
+            <img src="{{ asset('placeholder-images/study_partner_list.png') }}" alt="Study partner list placeholder illustration" class="img-fluid mx-3 border shadow">
+
+            <img src="{{ asset('placeholder-images/bookmarked_events.png') }}" alt="Bookmarked events placeholder illustration" class="img-fluid mx-3 border shadow">
+
+            <img src="{{ asset('images/acad_prog_tracker.png') }}" alt="Academic progress tracker placeholder illustration" class="img-fluid mx-3 border shadow">
+
+            <img src="{{ asset('images/timetable_builder.png') }}" alt="Timetable builder placeholder illustration" class="img-fluid mx-3 border shadow">
+
+            <img src="{{ asset('images/system_users.png') }}" alt="System users placeholder illustration" class="img-fluid mx-3 border shadow">
+
+            <img src="{{ asset('images/study_partner_suggester.png') }}" alt="Study partner suggester placeholder illustration" class="img-fluid mx-3 border shadow">
+
+            <img src="{{ asset('placeholder-images/study_partner_list.png') }}" alt="Study partner list placeholder illustration" class="img-fluid mx-3 border shadow">
+
+            <img src="{{ asset('placeholder-images/bookmarked_events.png') }}" alt="Bookmarked events placeholder illustration" class="img-fluid mx-3 border shadow">
+
+            <img src="{{ asset('images/acad_prog_tracker.png') }}" alt="Academic progress tracker placeholder illustration" class="img-fluid mx-3 border shadow">
+
+            <img src="{{ asset('images/timetable_builder.png') }}" alt="Timetable builder placeholder illustration" class="img-fluid mx-3 border shadow">
+
+            <img src="{{ asset('images/system_users.png') }}" alt="System users placeholder illustration" class="img-fluid mx-3 border shadow">
         </div>
     </div>
-    @vite('resources/js/app.js')
 </body>
 
 </html>

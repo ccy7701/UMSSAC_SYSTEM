@@ -67,7 +67,7 @@
                             @php
                                 $categories = [
                                     'ASTIF', 'FIS', 'FKAL', 'FKIKK', 'FKIKAL',
-                                    'FKJ', 'FPEP', 'FPL', 'FPP', 'FPSK',
+                                    'FKJ', 'FPEP', 'FPKS', 'FPL', 'FPP', 'FPPS', 'FPSK',
                                     'FPT', 'FSMP', 'FSSA', 'FSSK', 'Unspecified'
                                 ];
                             @endphp
