@@ -61,8 +61,9 @@
                                         <option value="FKIKAL">FKIKAL</option>
                                         <option value="FKJ">FKJ</option>
                                         <option value="FPEP">FPEP</option>
+                                        <option value="FPKS">FPKS</option>
                                         <option value="FPL">FPL</option>
-                                        <option value="FPP">FPP</option>
+                                        <option value="FPPS">FPPS</option>
                                         <option value="FPSK">FPSK</option>
                                         <option value="FPT">FPT</option>
                                         <option value="FSMP">FSMP</option>

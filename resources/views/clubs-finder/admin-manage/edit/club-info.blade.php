@@ -84,8 +84,9 @@
                                     <option value="FKIKAL" {{ $club->club_category == 'FKIKAL' ? 'selected' : '' }}>FKIKAL</option>
                                     <option value="FKJ" {{ $club->club_category == 'FKJ' ? 'selected' : '' }}>FKJ</option>
                                     <option value="FPEP" {{ $club->club_category == 'FPEP' ? 'selected' : '' }}>FPEP</option>
+                                    <option value="FPKS" {{ $club->club_category == 'FPKS' ? 'selected' : '' }}>FPKS</option>
                                     <option value="FPL" {{ $club->club_category == 'FPL' ? 'selected' : '' }}>FPL</option>
-                                    <option value="FPP" {{ $club->club_category == 'FPP' ? 'selected' : '' }}>FPP</option>
+                                    <option value="FPPS" {{ $club->club_category == 'FPPS' ? 'selected' : '' }}>FPPS</option>
                                     <option value="FPSK" {{ $club->club_category == 'FPSK' ? 'selected' : '' }}>FPSK</option>
                                     <option value="FPT" {{ $club->club_category == 'FPT' ? 'selected' : '' }}>FPT</option>
                                     <option value="FSMP" {{ $club->club_category == 'FSMP' ? 'selected' : '' }}>FSMP</option>

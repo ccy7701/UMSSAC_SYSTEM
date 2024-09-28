@@ -50,16 +50,20 @@
         {"course_code": "UH6621002", "course_name": "Livestock Production"}
     ],
     "FPP": [
+        {"course_code": "UH6145003", "course_name": "Education with Science"},
+        {"course_code": "UH6311001", "course_name": "Industrial and Organizational Psychology"},
+        {"course_code": "UH6311003", "course_name": "Counselling Psychology"},
+        {"course_code": "UH6311004", "course_name": "Child and Family Psychology"}
+    ],
+    "FPPS": [
         {"course_code": "UH6145001", "course_name": "Teaching English as a Second Language"},
         {"course_code": "UH6145002", "course_name": "Early Childhood Education"},
-        {"course_code": "UH6145003", "course_name": "Education with Science"},
         {"course_code": "UH6145006", "course_name": "Education with Honors (History)"},
-        {"course_code": "UH6311001", "course_name": "Industrial and Organizational Psychology"},
-        {"course_code": "UH6311002", "course_name": "Youth and Community Development"},
-        {"course_code": "UH6311003", "course_name": "Counselling Psychology"},
-        {"course_code": "UH6311004", "course_name": "Child and Family Psychology"},
-        {"course_code": "UH6762001", "course_name": "Social Work"},
         {"course_code": "UH6813001", "course_name": "Sports Science"}
+    ],
+    "FPKS": [
+        {"course_code": "UH6311002", "course_name": "Youth and Community Development"},
+        {"course_code": "UH6762001", "course_name": "Social Work"}
     ],
     "FPSK": [
         {"course_code": "UH6721001", "course_name": "Doctor of Medicine"},
