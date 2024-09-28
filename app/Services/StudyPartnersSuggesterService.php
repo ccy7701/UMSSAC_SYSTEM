@@ -126,44 +126,38 @@ class StudyPartnersSuggesterService
     // Handle getting the study partners suggestions
     public function getStudyPartnerSuggestions() {
         // Fetch this student's UserTraitsRecord
-        $userTraitsRecord = UserTraitsRecord::where('profile_id', profile()->profile_id)->first();
+        $ownTraitsRecord = UserTraitsRecord::where('profile_id', profile()->profile_id)->first();
+
+        // Get the UserTraitsRecords of other students to compare against
+        $otherStudentsTraitsRecords = UserTraitsRecord::where('profile_id', '!=', $ownTraitsRecord->profile_id)->get();
 
         // Call the Python RE here and pass to it the UserTraitsRecord
-        $recommendations = $this->callRecommenderEngine($userTraitsRecord);
+        $recommendations = $this->callRecommenderEngine($ownTraitsRecord, $otherStudentsTraitsRecords);
         
+        // Sort the recommendations by similarity score in descending order
+        usort($recommendations, function ($first, $second) {
+            return $first['similarity'] <=> $second['similarity'];
+        });
+
+        // Combine the profiles with the similarity scores, then return the recommendations
+        return $this->combineProfilesWithSimilarity($recommendations);
+    }
+
+    // Combine the profiles with the similarity scores
+    private function combineProfilesWithSimilarity($recommendations) {
         // Retrieve the profiles associated with the recommendations
         $profileIdArray = array_column($recommendations, 'profile_id');
         $profiles = Profile::whereIn('profile_id', $profileIdArray)->get();
 
-        // Combine the profiles with the similarity scores, then return
-        return $this->combineProfilesWithSimilarity($profiles, $recommendations);
-    }
-
-    // Call the Python RE webservice
-    private function callRecommenderEngine($userTraitsRecord) {
-        $response = Http::post('http://localhost:5000/recommendationEngine', [
-            'user_traits_record' => [
-                'profile_id' => $userTraitsRecord->profile_id,
-                'wtc_data' => json_decode($userTraitsRecord->wtc_data, true),
-                'personality_data' => json_decode($userTraitsRecord->personality_data, true),
-                'skills_data' => json_decode($userTraitsRecord->skills_data, true),
-                'learning_style' => $userTraitsRecord->learning_style
-            ]
-        ]);
-
-        return $response->json();
-    }
-
-    // Combine the profiles with the similarity scores
-    private function combineProfilesWithSimilarity($profiles, $recommendations) {
+        // Map the recommendations to their profile IDs
         $recommendationMap = [];
         foreach($recommendations as $recommendation) {
             $recommendationMap[$recommendation['profile_id']] = $recommendation['similarity'];
         }
 
         // Combine the profile data with the corresponding similarity score
-        return $profiles->map(function($profile) use ($recommendationMap) {
-            // Process the profile picture filepath, matric number, faculty, nickname and full name before return
+        $combinedResults = $profiles->map(function($profile) use ($recommendationMap) {
+            // Process the profile picture filepath, matric number, faculty, nickname, and full name before return
             $profile->profile_picture_filepath = $profile->profile_picture_filepath
                 ? Storage::url($profile->profile_picture_filepath)
                 : asset('images/no_club_images_default.png');
@@ -187,5 +181,34 @@ class StudyPartnersSuggesterService
                 'similarity' => $recommendationMap[$profile->profile_id] ?? null,
             ];
         });
+
+        // Sort the combined data, then return it
+        return $combinedResults->sortByDesc('similarity')->values();
+    }
+
+    // Call the Python RE webservice
+    private function callRecommenderEngine($ownTraitsRecord, $otherStudentsTraitsRecords) {
+        $otherStudentsTraitsRecordsArray = $otherStudentsTraitsRecords->map(function ($record) {
+            return [
+                'profile_id' => $record->profile_id,
+                'wtc_data' => json_decode($record->wtc_data, true),
+                'personality_data' => json_decode($record->personality_data, true),
+                'skills_data' => json_decode($record->skills_data, true),
+                'learning_style' => $record->learning_style,
+            ];
+        })->toArray();
+
+        $response = Http::post('http://localhost:5000/recommendationEngine', [
+            'user_traits_record' => [
+                'profile_id' => $ownTraitsRecord->profile_id,
+                'wtc_data' => json_decode($ownTraitsRecord->wtc_data, true),
+                'personality_data' => json_decode($ownTraitsRecord->personality_data, true),
+                'skills_data' => json_decode($ownTraitsRecord->skills_data, true),
+                'learning_style' => $ownTraitsRecord->learning_style
+            ],
+            'other_students_traits_records' => $otherStudentsTraitsRecordsArray
+        ]);
+
+        return $response->json();
     }
 }
