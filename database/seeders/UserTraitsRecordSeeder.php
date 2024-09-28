@@ -44,105 +44,105 @@ class UserTraitsRecordSeeder extends Seeder
         // All rows of data in compact form
         $entries = [
             [
-                'profile_id' => 4,
+                4,
                 'wtcData' => [3, 3, 3, 2, 4, 3, 1, 4, 3, 3, 4, 4],
                 'personalityData' => [5, 4, 2, 4, 4, 2, 2, 4, 3, 4],
                 'skillsData' => [6, 4, 5, 5, 5, 5, 5, 6, 4, 5],
                 'learning_style' => 4,
             ],
             [
-                'profile_id' => 5,
+                5,
                 'wtcData' => [3, 5, 3, 4, 3, 4, 4, 3, 5, 3, 3, 4],
                 'personalityData' => [3, 5, 2, 5, 3, 4, 2, 5, 3, 4],
                 'skillsData' => [6, 4, 5, 5, 5, 5, 5, 6, 4, 5],
                 'learning_style' => 1,
             ],
             [
-                'profile_id' => 6,
+                6,
                 'wtcData' => [1, 5, 5, 2, 5, 4, 4, 5, 5, 1, 5, 2],
                 'personalityData' => [3, 3, 4, 4, 3, 3, 1, 3, 4, 4],
                 'skillsData' => [6, 4, 3, 3, 5, 5, 5, 6, 4, 3],
                 'learning_style' => 1
             ],
             [
-                'profile_id' => 7,
+                7,
                 'wtcData' => [3, 4, 4, 4, 5, 3, 4, 4, 4, 3, 5, 3],
                 'personalityData' => [3, 4, 4, 4, 3, 2, 3, 3, 3, 4],
                 'skillsData' => [6, 4, 3, 3, 5, 3, 5, 6, 4, 3],
                 'learning_style' => 4
             ],
             [
-                'profile_id' => 8,
+                8,
                 'wtcData' => [2, 3, 5, 2, 5, 3, 2, 5, 3, 2, 5, 3],
                 'personalityData' => [3, 5, 5, 2, 3, 3, 3, 3, 5, 4],
                 'skillsData' => [6, 4, 3, 3, 3, 3, 3, 2, 4, 3],
                 'learning_style' => 4
             ],
             [
-                'profile_id' => 9,
+                9,
                 'wtcData' => [3, 3, 3, 3, 3, 3, 3, 4, 4, 1, 4, 4],
                 'personalityData' => [4, 4, 4, 2, 4, 2, 3, 4, 4, 5],
                 'skillsData' => [2, 4, 5, 5, 5, 3, 5, 6, 4, 3],
                 'learning_style' => 3
             ],
             [
-                'profile_id' => 10,
+                10,
                 'wtcData' => [4, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5],
                 'personalityData' => [2, 5, 4, 5, 4, 5, 2, 5, 1, 5],
                 'skillsData' => [6, 4, 3, 5, 5, 5, 5, 6, 4, 5],
                 'learning_style' => 1
             ],
             [
-                'profile_id' => 11,
+                11,
                 'wtcData' => [2, 3, 4, 3, 5, 2, 3, 3, 4, 2, 4, 2],
                 'personalityData' => [3, 4, 5, 4, 4, 2, 3, 2, 3, 5],
                 'skillsData' => [2, 4, 3, 3, 3, 3, 5, 6, 4, 3],
                 'learning_style' => 3
             ],
             [
-                'profile_id' => 12,
+                12,
                 'wtcData' => [2, 5, 5, 4, 5, 5, 3, 5, 5, 3, 5, 5],
                 'personalityData' => [4, 4, 1, 3, 3, 3, 2, 5, 3, 5],
                 'skillsData' => [6, 4, 5, 5, 5, 3, 5, 6, 4, 5],
                 'learning_style' => 4
             ],
             [
-                'profile_id' => 13,
+                13,
                 'wtcData' => [2, 4, 3, 3, 3, 3, 3, 3, 5, 2, 3, 3],
                 'personalityData' => [3, 4, 2, 4, 2, 4, 1, 3, 2, 3],
                 'skillsData' => [6, 4, 5, 5, 3, 3, 3, 6, 4, 5],
                 'learning_style' => 4
             ],
             [
-                'profile_id' => 14,
+                14,
                 'wtcData' => [5, 5, 5, 4, 5, 5, 5, 5, 5, 4, 5, 5],
                 'personalityData' => [4, 5, 4, 3, 4, 3, 4, 5, 5, 5],
                 'skillsData' => [6, 4, 3, 5, 5, 3, 5, 6, 4, 5],
                 'learning_style' => 4
             ],
             [
-                'profile_id' => 15,
+                15,
                 'wtcData' => [2, 3, 4, 2, 5, 2, 3, 5, 3, 2, 5, 2],
                 'personalityData' => [4, 4, 5, 3, 5, 2, 2, 3, 4, 5],
                 'skillsData' => [6, 4, 5, 5, 5, 3, 3, 6, 4, 5],
                 'learning_style' => 4
             ],
             [
-                'profile_id' => 16,
+                16,
                 'wtcData' => [2, 4, 5, 2, 5, 4, 2, 5, 4, 2, 5, 2],
                 'personalityData' => [3, 4, 4, 2, 3, 3, 2, 2, 4, 5],
                 'skillsData' => [6, 4, 3, 3, 3, 5, 5, 6, 4, 5],
                 'learning_style' => 4
             ],
             [
-                'profile_id' => 17,
+                17,
                 'wtcData' => [2, 3, 4, 2, 4, 4, 2, 4, 4, 2, 4, 4],
                 'personalityData' => [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
                 'skillsData' => [6, 4, 3, 5, 5, 3, 3, 2, 4, 3],
                 'learning_style' => 2
             ],
             [
-                'profile_id' => 18,
+                18,
                 'wtcData' => [1, 3, 5, 3, 4, 3, 2, 3, 4, 2, 5, 2],
                 'personalityData' => [3, 4, 4, 3, 5, 3, 4, 3, 5, 4],
                 'skillsData' => [2, 4, 3, 5, 5, 5, 3, 6, 4, 5],
@@ -152,7 +152,7 @@ class UserTraitsRecordSeeder extends Seeder
 
         foreach ($entries as $entry) {
             $data = [
-                'profile_id' => $entry['profile_id'],
+                'profile_id' => $entry[0],
                 ...array_combine($wtcData, $entry['wtcData']),
                 ...array_combine($personalityData, $entry['personalityData']),
                 ...array_combine($skillsData, $entry['skillsData']),
