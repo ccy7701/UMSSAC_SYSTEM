@@ -13,37 +13,38 @@ class ProfileSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('profile')->insert([
-            [
-                'profile_id' => 1,
-                'account_id' => 1,
-                'profile_nickname' => 'ccy7701',
-                'profile_personal_desc' => 'TEST',
-                'profile_enrolment_session' => '2021/2022',
-                'profile_faculty' => 'FKIKK',
-                'profile_course' => 'UH6481001',
-                'profile_picture_filepath' => 'profile-pictures/k3FiGAVKLvPMMNdSuApI1sO3vGxTVU9n7sy80KX2.png',
-            ],
-            [
-                'profile_id' => 2,
-                'account_id' => 2,
-                'profile_nickname' => 'SeeleOfBelobog',
-                'profile_personal_desc' => '',
-                'profile_enrolment_session' => null,
-                'profile_faculty' => 'FKIKK',
-                'profile_course' => 'UH6481005',
-                'profile_picture_filepath' => 'profile-pictures/jBfzQnwQjc80jr66lGwDpJCxXdjoGy1SXzKqpi3G.png',
-            ],
-            [
-                'profile_id' => 3,
-                'account_id' => 3,
-                'profile_nickname' => '',
-                'profile_personal_desc' => '',
-                'profile_enrolment_session' => null,
-                'profile_faculty' => '',
-                'profile_course' => '',
-                'profile_picture_filepath' => '',
-            ],
-        ]);
+        $this->insertSeederData(1, 'ccy7701', 'TEST', '2021/2022', 'FKIKK', 'UH6481001', 'profile-pictures/k3FiGAVKLvPMMNdSuApI1sO3vGxTVU9n7sy80KX2.png');
+        $this->insertSeederData(2, 'SeeleOfBelobog', '', null, 'FKIKK', 'UH6481005', 'profile-pictures/jBfzQnwQjc80jr66lGwDpJCxXdjoGy1SXzKqpi3G.png');
+        $this->insertSeederData(3, '', '', null, 'FKIKK', 'UH6481001', '');
+        $this->insertSeederData(4, '', '', '', 'FPP', '', 'profile-pictures/iD44oMYJ0g2xPOyY55s0DTpEYKsLGDblq1z34VED.png');
+        $this->insertSeederData(5, '', '', '', 'FKIKK', '', 'profile-pictures/s6GoLyKZie2QzN8LHgLuf74i8SstzeluZu3Gj0eo.png');
+        $this->insertSeederData(6, '', '', '', 'FKIKK', '', 'profile-pictures/mtn3LKUBdT44hFM8HYsJ45gnKhU8tyKJQiHyAqvC.png');
+        $this->insertSeederData(7, '', '', '', 'FKIKK', '', 'profile-pictures/eJgwJnOj7y0CYqShoNmBAGrzxxkG8XEkuF7sEI3M.png');
+        $this->insertSeederData(8, '', '', '', 'FKIKK', '', 'profile-pictures/1ayZVLkowZDfyqUoeDs9HRNOp1tuHhTW4dzJCEU4.png');
+        $this->insertSeederData(9, '', '', '', 'FPP', '', 'profile-pictures/zakZo1brRb52JPGLrAHLz32K2aAKJCQpFJuz4VIZ.png');
+        $this->insertSeederData(10, '', '', '', 'FPP', '', 'profile-pictures/2tGyjOjbVNTa4WLd6dRDQESoaMsVnsg9YumCATZT.png');
+        $this->insertSeederData(11, '', '', '', 'FSSA', '', 'profile-pictures/ToTeQKEpdBIbGTpL1HyzgFnm1uf8lj5jtqlZePLd.png');
+        $this->insertSeederData(12, '', '', '', 'FPP', '', 'profile-pictures/CD66wWkNG1twZinbD4FhRObDAnIfA13YQoQx4Ws9.png');
+        $this->insertSeederData(13, '', '', '', 'FPP', '', 'profile-pictures/KLL2PY7sFW5hf56zI8sEIp5ddgwcSP3R8DkMBcy2.png');
+        $this->insertSeederData(14, '', '', '', 'FPP', '', 'profile-pictures/o4JO26uQqKDUhxa6Tnqzi0pXTesneAeGEXeI8Z7L.png');
+        $this->insertSeederData(15, '', '', '', 'FKIKK', '', 'profile-pictures/X6ISq7LZdQ6Cxkxc7HLTA8M6XKZ7AALBpyX2ipU9.png');
+        $this->insertSeederData(16, '', '', '', 'FKIKK', '', 'profile-pictures/u5BpwV29k90E6t032jx7RVYLE3C5HudVqWXpInfO.png');
+        $this->insertSeederData(17, '', '', '', 'FKIKK', '', 'profile-pictures/ae6O9YJU32d1W9tpz2qE6AYvkwyY5NwlSktmlU9D.png');
+        $this->insertSeederData(18, '', '', '', 'FKIKK', '', 'profile-pictures/qHx9icJ18lKVKZ9lLKX8DzSRHJ7DzwICXuUU5BPC.png');
+    }
+
+    private function insertSeederData($accountId, $profileNickname, $profilePersonalDesc, $profileEnrolmentSession, $profileFaculty, $profileCourse, $profilePictureFilepath) {
+        $data = [
+            'profile_id' => $accountId, // For the seeder, the assumption is the value of profileID and accountID are the same
+            'account_id' => $accountId,
+            'profile_nickname' => $profileNickname,
+            'profile_personal_desc' => $profilePersonalDesc,
+            'profile_enrolment_session' => $profileEnrolmentSession,
+            'profile_faculty' => $profileFaculty,
+            'profile_course' => $profileCourse,
+            'profile_picture_filepath' => $profilePictureFilepath,
+        ];
+
+        DB::table('profile')->insert($data);
     }
 }

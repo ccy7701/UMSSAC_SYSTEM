@@ -26,48 +26,77 @@ class StudyPartnersSuggesterServiceTest extends TestCase
         $response = $this->post(route('study-partners-suggester.suggester-form.submit'), [
             '_token' => csrf_token(),
             'profile_id' => $profile->profile_id,
-            // WTC form data
-            'stranger_presenting' => 5,
-            'colleague_in_line' => 4,
+            // WTC traits
+            'stranger_presenting' => 3,
+            'colleague_in_line' => 3,
             'friend_talking_large' => 3,
             'stranger_talking_small' => 2,
             'friend_in_line' => 4,
-            'colleague_talking_large' => 5,
-            'stranger_in_line' => 3,
+            'colleague_talking_large' => 3,
+            'stranger_in_line' => 1,
             'friend_presenting' => 4,
-            'colleague_talking_small' => 2,
-            'stranger_talking_large' => 5,
-            'friend_talking_small' => 3,
-            'colleague_presenting' => 5,
-            // BFI personality data
-            'reserved' => 4,
-            'trusting' => 3,
+            'colleague_talking_small' => 3,
+            'stranger_talking_large' => 3,
+            'friend_talking_small' => 4,
+            'colleague_presenting' => 4,
+            // Personality traits
+            'reserved' => 5,
+            'trusting' => 4,
             'lazy' => 2,
             'relaxed' => 4,
-            'artistic' => 5,
-            'outgoing' => 4,
+            'artistic' => 4,
+            'outgoing' => 2,
             'fault_finding' => 2,
-            'thorough' => 5,
+            'thorough' => 4,
             'nervous' => 3,
-            'imaginative' => 5,
-            // Skills form data
-            'interdisciplinary_collaboration' => 1,
-            'online_communication' => 1,
-            'conflict_resolution' => 1,
-            'organised' => 1,
-            'problem_solving' => 1,
-            'tech_proficiency' => 1,
-            'creativity' => 1,
-            'adaptability' => 1,
-            'leadership' => 1,
-            'teaching_ability' => 1,
+            'imaginative' => 4,
+            // Skills
+            'interdisciplinary_collaboration' => 6,
+            'online_communication' => 4,
+            'conflict_resolution' => 5,
+            'organised' => 5,
+            'problem_solving' => 5,
+            'tech_proficiency' => 5,
+            'creativity' => 5,
+            'adaptability' => 6,
+            'leadership' => 4,
+            'teaching_ability' => 5,
             // Learning style
-            'learning_style' => 2,
+            'learning_style' => 4,
         ]);
 
         $this->assertDatabaseHas('user_traits_record', [
             'profile_id' => $profile->profile_id,
-            'learning_style' => 2,
+            'wtc_data' => json_encode([
+                'group_discussion' => 3.00,
+                'meetings' => 3.00,
+                'interpersonal_conversation' => 2.67,
+                'public_speaking' => 3.67,
+                'stranger' => 2.25,
+                'colleague' => 3.25,
+                'friend' => 3.75,
+                'wtc_sum' => 3.08
+            ]),
+            'personality_data' => json_encode([
+                'extraversion' => 3,
+                'agreeableness' => 8,
+                'conscientiousness' => 8,
+                'neuroticism' => 5,
+                'openness' => 6
+            ]),
+            'skills_data' => json_encode([
+                'interdisciplinary_collaboration' => 6,
+                'online_communication' => 4,
+                'conflict_resolution' => 5,
+                'organised' => 5,
+                'problem_solving' => 5,
+                'tech_proficiency' => 5,
+                'creativity' => 5,
+                'adaptability' => 6,
+                'leadership' => 4,
+                'teaching_ability' => 5,
+            ]),
+            'learning_style' => 4
         ]);
 
         $response->assertStatus(302);
