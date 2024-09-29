@@ -1,0 +1,36 @@
+#initialiser-fill-form {
+    width: 50%;
+}
+
+#subcard-col-left {
+    text-align: start;
+}
+
+#subcard-col-right {
+    text-align: end;
+}
+
+#add-subject-button {
+    width: 60.00%;
+}
+
+.tooltip-inner {
+    font-family: 'Roboto Sans', sans-serif;
+}
+
+@media (max-width: 992px) {
+    #subcard-col-left,
+    #subcard-col-right {
+        text-align: center;
+    }
+    #add-subject-button {
+        width: 40.00%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    #initialiser-fill-form {
+        width: 100%;
+    }
+}

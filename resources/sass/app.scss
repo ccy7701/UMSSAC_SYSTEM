@@ -5,7 +5,7 @@ $bg-lightgray: #EAF2FD;
 
 @import 'guest/features';
 @import 'guest/welcome';
-
+@import 'acad-progress';
 @import 'cards';
 @import 'timetable';
 @import 'suggester-form';
@@ -35,6 +35,9 @@ html {
 }
 .w-80 {
     width: 80%;
+}
+.w-90 {
+    width: 90%;
 }
 
 .rsans {
@@ -117,9 +120,6 @@ html {
 }
 
 
-.tooltip-inner {
-    font-family: 'Roboto Sans', sans-serif;
-}
 
 .subject-row.dropdown-toggle::after {
     display: none;
