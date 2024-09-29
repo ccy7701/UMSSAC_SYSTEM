@@ -1,7 +1,8 @@
 .welcome-body {
     background-color: #EAF2FD;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-y: auto;
+    position: relative;
 }
 
 .welcome-nav {
@@ -19,6 +20,8 @@
 .image-carousel {
     overflow: hidden;
     white-space: nowrap;
+    position: relative;
+    padding-bottom: 70px;
 }
 
 .carousel-track {
@@ -42,29 +45,27 @@
     }
 }
 
-// add media for max-width: 1400px when needed
-
 @media (max-width: 1200px) {
     .welcome-title {
-        font-size: 4.0rem;
+        font-size: 4rem;
     }
     .welcome-subtitle {
         font-size: 2.25rem;
     }
     .carousel-track img {
-        width: 50.00%;
+        width: 40%;
     }
 }
 
 @media (max-width: 992px) {
     .welcome-title {
-        font-size: 3.0rem;
+        font-size: 3rem;
     }
     .welcome-subtitle {
-        font-size: 2.0rem;
+        font-size: 2rem;
     }
     .carousel-track img {
-        width: 50.00%;
+        width: 40%;
     }
 }
 
@@ -76,18 +77,26 @@
         font-size: 1.5rem;
     }
     .carousel-track img {
-        width: 50.00%;
+        width: 50%;
     }
 }
 
 @media (max-width: 576px) {
     .welcome-website-logo {
-        width: 50.00%;
+        width: 50%;
     }
     .welcome-nav {
         text-align: center;
     }
     .carousel-track img {
-        width: 75.00%;
+        width: 75%;
+    }
+}
+
+// Mobile-landscape-specific adjustments
+@media (max-width: 768px) and (orientation: landscape) {
+    .welcome-body {
+        overflow-y: scroll;
+        height: 100vh;
     }
 }
