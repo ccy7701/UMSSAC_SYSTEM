@@ -131,7 +131,6 @@
                         window.deleteRouteTemplate = "{{ route('subject-stats-log.delete', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
                         window.csrfToken = "{{ csrf_token() }}";
                     </script>
-        
                     <!-- RESULTS OVERVIEW SECTION -->
                     <div class="row-container justify-content-center align-items-center align-self-center py-3">
                         <div class="card shadow-sm p-3">

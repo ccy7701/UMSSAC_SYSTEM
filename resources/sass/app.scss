@@ -3,8 +3,8 @@ $text-muted: #777777;
 $bg-muted: #777777;
 $bg-lightgray: #EAF2FD;
 
-@import 'guest/features';
-@import 'guest/welcome';
+@import 'features';
+@import 'welcome';
 @import 'acad-progress';
 @import 'cards';
 @import 'timetable';
@@ -118,8 +118,6 @@ html {
 .col-right-alt {
     text-align: right;
 }
-
-
 
 .subject-row.dropdown-toggle::after {
     display: none;

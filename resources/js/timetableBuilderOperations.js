@@ -84,8 +84,8 @@ const addTimetableSlotModal = new bootstrap.Modal(addTimetableSlotModalElement);
 const addTimetableSlotForm = document.getElementById('add-timetable-slot-form');
 
 document.addEventListener('DOMContentLoaded', function () {
-    const timetableClashModal = new bootstrap.Modal(document.getElementById('timetable-clash-modal'));
-    const timeErrorModal = new bootstrap.Modal(document.getElementById('time-error-modal'));
+    const timetableClashModalAdd = new bootstrap.Modal(document.getElementById('timetable-clash-modal-add'));
+    const timeErrorModalAdd = new bootstrap.Modal(document.getElementById('time-error-modal-add'));
 
     if (addTimetableSlotForm) {
         addTimetableSlotForm.addEventListener('submit', function (event) {
@@ -104,10 +104,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // First check if the end time is earlier than the start time
             if (classEndTime <= classStartTime) {
                 addTimetableSlotModal.hide();
-                timeErrorModal.show();
+                timeErrorModalAdd.show();
 
                 // After the error modal is closed, show the add timetable modal again
-                const timeErrorModalElement = document.getElementById('time-error-modal');
+                const timeErrorModalElement = document.getElementById('time-error-modal-add');
                 timeErrorModalElement.addEventListener('hidden.bs.modal', function () {
                     addTimetableSlotModal.show();
                 }, { once: true });
@@ -121,10 +121,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (checkForClash(classStartTime, classEndTime, existingSlots)) {
                         // If a clash is detected, show the timetable clash error modal
                         addTimetableSlotModal.hide();
-                        timetableClashModal.show();
+                        timetableClashModalAdd.show();
 
                         // After the clash modal is closed, show the add timetable modal again
-                        const timetableClashModalElement = document.getElementById('timetable-clash-modal');
+                        const timetableClashModalElement = document.getElementById('timetable-clash-modal-add');
                         timetableClashModalElement.addEventListener('hidden.bs.modal', function () {
                             addTimetableSlotModal.show();
                         }, { once: true });
@@ -201,8 +201,8 @@ window.editTimetableSlot = function(timetable_slot_id) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    const timetableClashModal = new bootstrap.Modal(document.getElementById('timetable-clash-modal'));
-    const timeErrorModal = new bootstrap.Modal(document.getElementById('time-error-modal'));
+    const timetableClashModalEdit = new bootstrap.Modal(document.getElementById('timetable-clash-modal-edit'));
+    const timeErrorModalEdit = new bootstrap.Modal(document.getElementById('time-error-modal-edit'));
 
     if (editTimetableSlotForm) {
         editTimetableSlotForm.addEventListener('submit', function (event) {
@@ -217,10 +217,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // First check if the end time is earlier than the start time
             if (classEndTime <= classStartTime) {
                 editTimetableSlotModal.hide();
-                timeErrorModal.show();
+                timeErrorModalEdit.show();
 
                 // After the error modal is closed, show the add timetable modal again
-                const timeErrorModalElement = document.getElementById('time-error-modal');
+                const timeErrorModalElement = document.getElementById('time-error-modal-edit');
                 timeErrorModalElement.addEventListener('hidden.bs.modal', function () {
                     editTimetableSlotModal.show();
                 }, { once: true});
@@ -233,9 +233,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(existingSlots => {
                     if (checkForClash(classStartTime, classEndTime, existingSlots)) {
                         editTimetableSlotModal.hide();
-                        timetableClashModal.show();
+                        timetableClashModalEdit.show();
 
-                        const timetableClashModalElement = document.getElementById('timetable-clash-modal');
+                        const timetableClashModalElement = document.getElementById('timetable-clash-modal-edit');
                         timetableClashModalElement.addEventListener('hidden.bs.modal', function () {
                             editTimetableSlotModal.show();
                         }, { once: true });

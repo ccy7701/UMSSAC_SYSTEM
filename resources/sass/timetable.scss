@@ -7,6 +7,7 @@
 
 .timetable th, .timetable td {
     height: 60px;
+    width: 80px;
 }
 
 .filled-slot {
@@ -21,4 +22,46 @@
 
 .popover-body {
     font-family: 'Roboto Sans', sans-serif;
+}
+
+#download-timetable {
+    width: 25%;
+}
+
+#subcard-col-left {
+    text-align: start;
+}
+
+#subcard-col-right {
+    text-align: end;
+}
+
+#add-subject-button {
+    width: 60.00%;
+}
+
+#day, #start-time, #end-time,
+#edit-day, #edit-start-time, #edit-end-time {
+    width: 40.00%;
+}
+
+@media (max-width: 992px) {
+    #subcard-col-left,
+    #subcard-col-right {
+        text-align: center;
+    }
+    #add-subject-button {
+        width: 40.00%;
+        text-align: center;
+    }
+    #day, #start-time, #end-time,
+    #edit-day, #edit-start-time, #edit-end-time {
+        width: 100.00%;
+    }
+}
+
+@media (max-width: 768px) {
+    #download-timetable {
+        width: 75%;
+    }
 }

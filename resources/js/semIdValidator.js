@@ -21,4 +21,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Apply the function to the form(s)
     handleSubjectForm('add-subject-form');
     handleSubjectForm('edit-subject-form');
-})
+});

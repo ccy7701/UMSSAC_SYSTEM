@@ -43,8 +43,6 @@ class TimetableSlotController extends Controller
     public function addTimetableSlot(Request $request) {
         $validatedData = $this->handleDataValidation($request);
 
-        // Clash check goes here somewhere...
-
         try {
             $status = DB::table('timetable_slot')->insert($validatedData);
 
@@ -56,8 +54,6 @@ class TimetableSlotController extends Controller
 
     public function editTimetableSlot(Request $request, $timetable_slot_id) {
         $validatedData = $this->handleDataValidation($request);
-
-        // Clash check goes here somewhere...
 
         try {
             $status = DB::table('timetable_slot')
