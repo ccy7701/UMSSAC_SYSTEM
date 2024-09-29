@@ -49,6 +49,14 @@ html {
     font-family: 'Roboto Slab', serif;
 }
 
+#footer-left {
+    font-size: 2em;
+}
+
+#footer-right {
+    font-size: 1em;
+}
+
 .btn-primary {
     background-color: $btn-primary-bg;
 }
@@ -135,5 +143,11 @@ html {
 @media (max-width: 576px) {
     #topnav-logo {
         width: 100.00% !important;
+    }
+    #footer-left {
+        font-size: 1em;
+    }
+    #footer-right {
+        font-size: 0.55em;
     }
 }
