@@ -86,6 +86,37 @@ html {
     border-bottom: 1px solid #E0E0E0;
 }
 
+.section-button {
+    width: 25.00%;
+}
+
+.section-button-short {
+    width: 25.00%;
+}
+
+.row-container {
+    width: 90.00%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-standard {
+    width: 60.00%;
+}
+
+.form-container {
+    width: 75.00%;
+}
+
+.col-left-alt {
+    text-align: left;
+}
+
+.col-right-alt {
+    text-align: right;
+}
+
+
 .tooltip-inner {
     font-family: 'Roboto Sans', sans-serif;
 }
@@ -140,14 +171,51 @@ html {
 
 // add media for max-width: 1400px, 1200px, 992px, 768px when needed
 
-@media (max-width: 576px) {
+@media (max-width: 992px) {
     #topnav-logo {
         width: 100.00% !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .section-button {
+        width: 100.00%;
+    }
+    .section-button-short {
+        width: 50.00%;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-profile-text {
+        text-align: center;
+    }
+    .col-left-alt,
+    .col-right-alt {
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    #topnav-logo {
+        width: 75.00% !important;
     }
     #footer-left {
         font-size: 1em;
     }
     #footer-right {
         font-size: 0.55em;
+    }
+    .section-button {
+        width: 100.00%;
+    }
+    .row-container {
+        width: 100.00%;
+    }
+    .form-standard {
+        width: 90.00%;
+    }
+    .form-container {
+        width: 90.00%;
     }
 }
