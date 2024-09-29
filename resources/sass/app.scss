@@ -5,6 +5,7 @@ $bg-lightgray: #EAF2FD;
 
 @import 'features';
 @import 'welcome';
+@import 'acad-progress';
 @import 'cards';
 @import 'timetable';
 @import 'suggester-form';
@@ -12,11 +13,14 @@ $bg-lightgray: #EAF2FD;
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Roboto+Slab:wght@100;300;400;700;900&family=Roboto+Serif:wght@100;300;400;700;900&display=swap');
 
+/**
+* System-wide CSS below this line
+*/
 html {
     font-size: 16px;
 }
 
-// Some custom width utilities
+// Custom width utilities
 .w-20 {
     width: 20%;
 }
@@ -32,6 +36,9 @@ html {
 .w-80 {
     width: 80%;
 }
+.w-90 {
+    width: 90%;
+}
 
 .rsans {
     font-family: 'Roboto', sans-serif;
@@ -43,6 +50,14 @@ html {
 
 .rslab {
     font-family: 'Roboto Slab', serif;
+}
+
+#footer-left {
+    font-size: 2em;
+}
+
+#footer-right {
+    font-size: 1em;
 }
 
 .btn-primary {
@@ -74,8 +89,34 @@ html {
     border-bottom: 1px solid #E0E0E0;
 }
 
-.tooltip-inner {
-    font-family: 'Roboto Sans', sans-serif;
+.section-button {
+    width: 25.00%;
+}
+
+.section-button-short {
+    width: 25.00%;
+}
+
+.row-container {
+    width: 90.00%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-standard {
+    width: 60.00%;
+}
+
+.form-container {
+    width: 75.00%;
+}
+
+.col-left-alt {
+    text-align: left;
+}
+
+.col-right-alt {
+    text-align: right;
 }
 
 .subject-row.dropdown-toggle::after {
@@ -95,28 +136,28 @@ html {
 .toggle-view-btn:focus, 
 .toggle-view-btn:active, 
 .toggle-view-btn:hover {
-    background-color: transparent !important; /* Prevent blue background on hover */
-    box-shadow: none !important; /* Remove any focus/active shadow */
+    background-color: transparent !important;
+    box-shadow: none !important;
 }
 
 /* Only the icons should change color based on the state */
 .toggle-view-btn i {
-    color: text-muted; /* Default state */
+    color: text-muted;
 }
 
 .toggle-view-btn.active i {
-    color: text-primary; /* Active state */
+    color: text-primary;
 }
 
 #user-profile,
 #user-profile-topnav {
     transition: transform 0.2s ease, border 0.2s ease;
-    border: 2px solid #AAAAAA; /* Set an initial transparent border */
+    border: 2px solid #AAAAAA;
 }
 
 #user-profile-topnav:hover {
     transform: scale(1.05);
-    border: 2px solid $btn-primary-bg; /* Use your SCSS variable here */
+    border: 2px solid $btn-primary-bg;
 }
 
 .bookmark-span {
@@ -128,8 +169,51 @@ html {
 
 // add media for max-width: 1400px, 1200px, 992px, 768px when needed
 
-@media (max-width: 576px) {
+@media (max-width: 992px) {
     #topnav-logo {
         width: 100.00% !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .section-button {
+        width: 100.00%;
+    }
+    .section-button-short {
+        width: 50.00%;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-profile-text {
+        text-align: center;
+    }
+    .col-left-alt,
+    .col-right-alt {
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    #topnav-logo {
+        width: 75.00% !important;
+    }
+    #footer-left {
+        font-size: 1em;
+    }
+    #footer-right {
+        font-size: 0.55em;
+    }
+    .section-button {
+        width: 100.00%;
+    }
+    .row-container {
+        width: 100.00%;
+    }
+    .form-standard {
+        width: 90.00%;
+    }
+    .form-container {
+        width: 90.00%;
     }
 }
