@@ -1,6 +1,6 @@
 <!-- resources/views/components/learning-style-radio-group.blade.php -->
 @props(['label', 'type', 'value'])
-<div class="rserif form-group w-100 fs-4 py-2 mb-4">
+<div class="rsans form-group w-100 fs-5 py-2 mb-4">
     <div class="row align-items-center justify-content-center">
         <div class="col-md-2 d-flex justify-content-center align-items-center">
             <div class="form-check custom-radio mb-1">
