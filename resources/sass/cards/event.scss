@@ -1,0 +1,31 @@
+$btn-primary-bg: #1064D6;
+
+.add-event-card,
+.add-event-list-item,
+.add-event-image-card {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.add-event-card:hover,
+.add-event-list-item:hover,
+.add-event-image-card:hover {
+    cursor: pointer;
+    background-color: $btn-primary-bg;
+    transform: scale(1.01);
+}
+
+.add-event-card .card-body,
+.add-event-list-item .card-body,
+.add-event-image-card .card-body {
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.add-event-card:hover .card-body i,
+.add-event-card:hover .card-body h5,
+.add-event-list-item:hover .card-body i,
+.add-event-list-item:hover .card-body h5,
+.add-event-image-card:hover .card-body i,
+.add-event-image-card:hover .card-body h5 {
+    transform: scale(1.1);
+    color: white;
+}

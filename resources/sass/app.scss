@@ -6,21 +6,17 @@ $bg-lightgray: #EAF2FD;
 @import 'features';
 @import 'welcome';
 @import 'acad-progress';
-@import 'cards';
+@import 'cards/all-cards';
 @import 'timetable';
 @import 'suggester-form';
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Roboto+Slab:wght@100;300;400;700;900&family=Roboto+Serif:wght@100;300;400;700;900&display=swap');
 
-/**
-* System-wide CSS below this line
-*/
 html {
     font-size: 16px;
 }
 
-// Custom width utilities
 .w-20 {
     width: 20%;
 }
@@ -133,6 +129,10 @@ html {
     background-color: transparent !important;
 }
 
+.search-tab {
+    width: 50.00%;
+}
+
 .toggle-view-btn:focus, 
 .toggle-view-btn:active, 
 .toggle-view-btn:hover {
@@ -181,6 +181,9 @@ html {
     }
     .section-button-short {
         width: 50.00%;
+    }
+    .search-tab {
+        width: 100.00%;
     }
 }
 
