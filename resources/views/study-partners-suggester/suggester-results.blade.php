@@ -16,20 +16,22 @@
     <x-topnav/>
     <br>
     <main class="flex-grow-1">
-        <div class="container p-3">
-            <div class="d-flex align-items-center">
-                <!-- TOP SECTION -->
-                <div class="section-header row w-100">
+        <!-- PAGE HEADER -->
+        <div class="row-container">
+            <div class="align-items-center px-3">
+                <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
                     <div class="col-12 text-center">
-                        <h3 class="rserif fw-bold w-100 mb-1">Suggested for you</h3>
+                        <h3 class="rserif fw-bold py-2 mb-0">Suggested for you</h3>
                         <p class="rserif fs-4 w-100 mt-0">
-                            Here are ten potential study partners most similar to your characteristics
+                            Here are ten potential study partners most similar to your characteristics.
                         </p>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row-container">
             <!-- BODY OF CONTENT -->
-            <div id="content-body" class="rsans justify-content-center align-items-center py-3 align-self-center">
+            <div id="content-body" class="rsans justify-content-center align-items-center py-3 px-5 align-self-center">
                 <!-- LOOPING COMPONENT GOES HERE -->
             </div>
         </div>

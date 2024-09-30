@@ -35,7 +35,7 @@ function generateSuggestedStudyPartnersList(data) {
         row.classList.add('row', 'pb-3');
         row.innerHTML = `
             <div class="rsans card suggested-sp-list-item h-100" id="suggested-sp-list-item-${index}">
-                <div class="row g-0 align-items-center py-2">
+                <div class="row g-0 align-items-center pb-2 pt-md-2 pt-3">
                     <div class="col-md-2 text-center">
                         <img id="user-profile" src="${studyPartner.profile.profile_picture_filepath}" alt="User profile" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
                     </div>
@@ -94,7 +94,7 @@ function generateSuggestedStudyPartnersList(data) {
                     </div>
                     <!-- Collapsed section -->
                     <div id="details-${index}" class="collapse">
-                        <hr class="divider-gray-300 mb-4">
+                        <hr class="divider-gray-300 mb-4 mt-2">
                         <div class="container px-2">
                             <ul class="list-unstyled">
                                 <li>
