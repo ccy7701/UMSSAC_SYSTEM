@@ -1,0 +1,43 @@
+#systemuser-list-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#systemuser-list-item:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.user-tag {
+    width: 100.00%;
+}
+
+#filter-clear {
+    width: 100.00%;
+}
+
+@media (max-width: 992px) {
+    .user-tag {
+        width: 25.00%;
+    }
+    #list-view {
+        margin-top: 1em;
+    }
+    #filter-clear {
+        width: 50.00%;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-tag {
+        width: 50.00%;
+    }
+    #filter-clear {
+        width: 75.00%;
+    }
+}
+
+@media (max-width: 576px) {
+    #filter-clear {
+        width: 50.00%;
+    }
+}
