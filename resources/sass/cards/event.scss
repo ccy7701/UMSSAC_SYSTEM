@@ -1,5 +1,16 @@
 $btn-primary-bg: #1064D6;
 
+#card-event-images,
+#card-event-images-previewer {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#card-event-images:hover,
+#card-event-images-previewer:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .add-event-card,
 .add-event-list-item,
 .add-event-image-card {
