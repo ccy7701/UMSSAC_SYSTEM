@@ -160,6 +160,16 @@ html {
     border: 2px solid $btn-primary-bg;
 }
 
+.pagination .page-item .page-link {
+    color: $btn-primary-bg;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: $btn-primary-bg;
+    border-color: $btn-primary-bg;
+    color: white;
+}
+
 .bookmark-span {
     background-color: $bg-lightgray;
     width: 40px;

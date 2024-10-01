@@ -133,23 +133,27 @@
                 <div class="col-lg-9 col-12 px-0">
                     <!-- GRID VIEW (Toggle based on preference) -->
                     <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
-                        <div class="rsans d-flex justify-content-center">
-                            {{ $clubs->links('pagination::bootstrap-4') }}
+                        <div class="rsans row d-flex justify-content-center">
+                            <div class="col-auto">
+                                {{ $clubs->links('pagination::bootstrap-4') }}
+                            </div>
                         </div>
                         <div class="row pb-3 px-md-3 px-sm-0">
-                            @foreach($clubs as $club)
-                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
-                                <x-club-card :club="$club"/>
-                            </div>
-                        @endforeach
+                            @foreach ($clubs as $club)
+                                <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
+                                    <x-club-card :club="$club"/>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                     <!-- LIST VIEW (Toggle based on preference) -->
                     <div id="list-view" class="row list-view ms-2 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
-                        <div class="rsans d-flex justify-content-center">
-                            {{ $clubs->links('pagination::bootstrap-4') }}
+                        <div class="rsans row d-flex justify-content-center">
+                            <div class="col-auto">
+                                {{ $clubs->links('pagination::bootstrap-4') }}
+                            </div>
                         </div>
-                        @foreach($clubs as $club)
+                        @foreach ($clubs as $club)
                             <div class="row pb-3">
                                 <x-club-list-item :club="$club"/>
                             </div>

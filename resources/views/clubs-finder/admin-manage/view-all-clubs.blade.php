@@ -69,7 +69,6 @@
                 </div>
             </div>
         </div>
-
         <!-- BODY OF CONTENT -->
         <div class="row-container container-fluid align-items-center my-3 py-3 px-4">
             <div class="rsans row">
