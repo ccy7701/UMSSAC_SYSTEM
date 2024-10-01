@@ -160,6 +160,16 @@ html {
     border: 2px solid $btn-primary-bg;
 }
 
+.pagination .page-item .page-link {
+    color: $btn-primary-bg;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: $btn-primary-bg;
+    border-color: $btn-primary-bg;
+    color: white;
+}
+
 .bookmark-span {
     background-color: $bg-lightgray;
     width: 40px;
@@ -169,13 +179,25 @@ html {
 
 // add media for max-width: 1400px, 1200px, 992px, 768px when needed
 
-@media (max-width: 992px) {
-    #topnav-logo {
-        width: 100.00% !important;
+@media (max-width: 1200px) {
+    #footer-left {
+        font-size: 1.75em;
+    }
+    #footer-right {
+        font-size: 0.95em;
     }
 }
 
 @media (max-width: 992px) {
+    #topnav-logo {
+        width: 100.00% !important;
+    }
+    #footer-left {
+        font-size: 1.50em;
+    }
+    #footer-right {
+        font-size: 0.85em;
+    }
     .section-button {
         width: 100.00%;
     }

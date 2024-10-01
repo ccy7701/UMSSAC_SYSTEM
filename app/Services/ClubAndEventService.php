@@ -30,7 +30,7 @@ class ClubAndEventService
                     ->where('club_name', 'like', "%{$search}%")
                     ->orWhere('club_description', 'like', "%{$search}%");
             })
-            ->paginate(9);
+            ->paginate(12);
     }
 
     // Prepare all data for the specific club
@@ -62,7 +62,7 @@ class ClubAndEventService
 
     // Get all the events of the specific club
     public function getEventsForClub($club_id) {
-        return Event::where('club_id', $club_id)->paginate(9);
+        return Event::where('club_id', $club_id)->paginate(12);
     }
 
     // Get all club events for all clubs
@@ -90,7 +90,7 @@ class ClubAndEventService
                 });
             })
             ->select('event.*')
-            ->paginate(9);
+            ->paginate(12);
     }
 
     // Prepare all the data to be sent to the view based on request

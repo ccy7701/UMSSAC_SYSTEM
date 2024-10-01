@@ -1,5 +1,5 @@
 <!-- resources/views/components/manage-club-card.blade.php -->
-<div class="card" id="card-manage">
+<div class="card h-100" id="club-card-manage">
     @php
         $clubImagePaths = json_decode($club->club_image_paths, true);
     @endphp
@@ -11,7 +11,11 @@
         @endif
     </div>
     <div class="rsans card-body p-3">
-        <h5 class="card-title fw-bold">{{ $club->club_name }}</h5>
+        <h5 class="card-title fw-bold">
+            <span class="d-inline-block text-truncate" style="width: 100%;">
+                {{ $club->club_name }}
+            </span>
+        </h5>
         <div class="card-text">
             <div class="row align-items-center">
                 <div class="col-1">
@@ -25,7 +29,7 @@
         </div>
     </div>
     <!-- Hidden buttons for edit and view to be revealed on hover -->
-    <div class="card-manage-overlay d-flex flex-column justify-content-center align-items-center">
+    <div class="overlay d-flex flex-column justify-content-center align-items-center">
         <div class="py-2 w-75">
             <a href="{{ route('admin-manage.manage-details', ['club_id' => $club->club_id]) }}" class="rsans btn btn-primary fw-semibold w-100">Manage club details</a>
         </div>

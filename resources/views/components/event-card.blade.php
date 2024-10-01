@@ -1,6 +1,6 @@
 <!-- resources/views/components/event-card.blade.php -->
 <a href="{{ route('events-finder.fetch-event-details', ['event_id' => $event->event_id]) }}" class="text-decoration-none">
-    <div class="card h-100" id="card-standard">
+    <div class="card h-100" id="event-card-standard">
         @php
             $eventImagePaths = json_decode($event->event_image_paths, true);
         @endphp
@@ -17,13 +17,17 @@
         </div> --}}
         <!-- END FUTURE BOOKMARK COMPONENT -->
         <div class="rsans card-body p-3">
-            <h5 class="card-title fw-bold">{{ $event->event_name }}</h5>
+            <h5 class="card-title fw-bold">
+                <span class="d-inline-block text-truncate" style="width: 100%;">
+                    {{ $event->event_name }}
+                </span>
+            </h5>
             <div class="card-text">
                 <div class="row align-items-center">
                     <div class="col-2 text-center">
                         <i class="fa fa-map-marker-alt"></i>
                     </div>
-                    <div class="col-10">
+                    <div class="col-10 text-truncate">
                         {{ $event->event_location }}
                     </div>
                 </div>
@@ -31,7 +35,7 @@
                     <div class="col-2 text-center">
                         <i class="fa fa-calendar"></i>
                     </div>
-                    <div class="col-10">
+                    <div class="col-10 text-truncate">
                         {{ \Carbon\Carbon::parse($event->event_datetime)->format('Y-m-d h:i A') }}
                     </div>
                 </div>
@@ -39,7 +43,7 @@
                     <div class="col-2 text-center">
                         <i class="fa fa-users"></i>
                     </div>
-                    <div class="col-10">
+                    <div class="col-10 text-truncate">
                         {{ $event->club->club_name }}
                     </div>
                 </div>
@@ -47,7 +51,7 @@
                     <div class="col-2 text-center">
                         <i class="fa fa-university"></i>
                     </div>
-                    <div class="col-10">
+                    <div class="col-10 text-truncate">
                         {{ $event->club->club_category }}
                     </div>
                 </div>

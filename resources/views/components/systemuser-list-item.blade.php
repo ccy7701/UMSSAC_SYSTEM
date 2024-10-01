@@ -14,7 +14,7 @@
             @endif
         </div>
         <!-- Content section -->
-        <div class="col-md-10 text-start justify-content-center align-items-center">
+        <div class="col-lg-10 text-start justify-content-center align-items-center">
             <div class="card-body">
                 <div class="row align-items-center d-flex">
                     <div class="col-lg-auto col-12">

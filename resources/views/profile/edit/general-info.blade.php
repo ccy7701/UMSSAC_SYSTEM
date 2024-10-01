@@ -26,10 +26,10 @@
             <div class="row-container">
                 <div class="align-items-center px-3">
                     <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
-                        <div class="col-lg-6 col-md-4 col-4 text-start mt-2">
-                            <h3 class="rserif fw-bold w-100">General</h3>
+                        <div class="col-left-alt col-lg-6 col-md-4 col-12 mt-2">
+                            <h3 class="rserif fw-bold w-100">Edit general info</h3>
                         </div>
-                        <div class="col-lg-6 col-md-8 col-8 text-end align-self-center">
+                        <div class="col-right-alt col-lg-6 col-md-8 col-12 align-self-center">
                             <a href="{{ route('profile') }}" class="rsans text-decoration-none text-dark fw-bold px-3">Cancel</a>
                             <button type="submit" class="section-button-short rsans btn btn-primary fw-bold px-3">Save</button>
                         </div>

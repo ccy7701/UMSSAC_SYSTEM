@@ -16,39 +16,3 @@ $btn-primary-bg: #1064D6;
     transform: scale(1.01);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
-#card-manage,
-#list-item-manage {
-    position: relative;
-    overflow: hidden;
-}
-
-.card-manage-overlay,
-.list-item-manage-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: none;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-#card-manage:hover .card-manage-overlay,
-#list-item-manage:hover .list-item-manage-overlay {
-    display: flex; /* Show buttons on hover */
-    opacity: 1;
-}
-
-.card-manage-overlay .btn,
-.list-item-manage-overlay .btn {
-    z-index: 1;
-    transition: transform 0.2s ease;
-}
-
-#card-manage:hover .btn
-#list-item-manage:hover .btn {
-    transform: scale(1.1);
-}

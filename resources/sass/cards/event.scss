@@ -1,5 +1,16 @@
 $btn-primary-bg: #1064D6;
 
+#card-event-images,
+#card-event-images-previewer {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#card-event-images:hover,
+#card-event-images-previewer:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .add-event-card,
 .add-event-list-item,
 .add-event-image-card {
@@ -28,4 +39,59 @@ $btn-primary-bg: #1064D6;
 .add-event-image-card:hover .card-body h5 {
     transform: scale(1.1);
     color: white;
+}
+
+#event-breadcrumb {
+    display: flex;
+}
+
+#event-view-toggle {
+    display: flex;
+}
+
+#event-action-buttons {
+    display: flex;
+    justify-content: end;
+}
+
+#event-card-standard {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#event-card-standard:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#event-list-item-standard {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#event-list-item-standard:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 992px) {
+    #event-breadcrumb {
+        display: none;
+    }
+    #event-action-buttons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    #event-card-standard h5 {
+        font-size: 1.25em;
+    }
+    #event-card-standard {
+        font-size: 0.70em;
+    } 
+    #event-list-item-standard h5 {
+        font-size: 1.25em;
+    }
+    #event-list-item-standard {
+        font-size: 0.70em;
+    }
 }

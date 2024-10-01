@@ -105,8 +105,10 @@
                 <!-- RIGHT SECTIONS FOR USERS LIST -->
                 <div class="col-lg-9 col-12 px-3">
                     <div id="list-view" class="row list-view ms-2">
-                        <div class="rsans d-flex justify-content-center">
-                            {{ $allSystemUsers->links('pagination::bootstrap-4') }}
+                        <div class="rsans row d-flex justify-content-center border">
+                            <div class="col-auto">
+                                {{ $allSystemUsers->links('pagination::bootstrap-4') }}
+                            </div>
                         </div>
                         @foreach ($allSystemUsers as $user)
                             <div class="row pb-3">
