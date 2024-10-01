@@ -44,7 +44,7 @@
                         <!-- BREADCRUMB NAV -->
                         <div class="row pb-3">
                             <!-- Left Column: Breadcrumb -->
-                            <div class="col-6 d-flex align-items-center">
+                            <div id="club-breadcrumb" class="col-lg-8 align-items-center">
                                 <nav aria-label="breadcrumb">
                                     <ol class="rsans breadcrumb mb-0" style="--bs-breadcrumb-divider: '>';">
                                         <li class="breadcrumb-item active"><a href="{{ route('manage-clubs') }}">All Clubs</a></li>
@@ -52,7 +52,7 @@
                                 </nav>
                             </div>
                             <!-- Right Column: View Icons -->
-                            <div class="col-6 d-flex align-items-center justify-content-end">
+                            <div id="club-view-toggle" class="col-lg-4 col-md-12 col-12 align-items-center justify-content-end">
                                 <div class="input-group justify-content-end">
                                     <!-- Grid view toggle button -->
                                     <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 1 ? 'active' : '' }}">
@@ -128,14 +128,8 @@
                         </form>
                     </div>
                 </div>
-
-
-
                 <!-- RIGHT SECTION FOR CLUB CARDS GRID OR LIST -->
                 <div class="col-lg-9 col-12 px-0">
-
-
-
                     <!-- GRID VIEW (Toggle based on preference) -->
                     <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                         <div class="rsans d-flex justify-content-center">
@@ -161,10 +155,6 @@
                             @endforeach
                         </div>
                     </div>
-
-
-
-
                     <!-- LIST VIEW (Toggle based on preference) -->
                     <div id="list-view" class="row list-view ms-2 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
                         <div class="rsans d-flex justify-content-center">
@@ -186,16 +176,8 @@
                                 <x-manage-club-list-item :club="$club"/>
                             </div>
                         @endforeach
-
                     </div>
                 </div>
-
-
-
-
-
-
-
             </div>
         </div>
     </main>
