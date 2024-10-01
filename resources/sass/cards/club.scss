@@ -126,9 +126,17 @@
     display: flex;
 }
 
+#club-action-buttons {
+    display: flex;
+    justify-content: end;
+}
+
 @media (max-width: 992px) {
     #club-breadcrumb {
         display: none;
+    }
+    #club-action-buttons {
+        justify-content: center;
     }
 }
 

@@ -29,3 +29,25 @@ $btn-primary-bg: #1064D6;
     transform: scale(1.1);
     color: white;
 }
+
+#event-breadcrumb {
+    display: flex;
+}
+
+#event-view-toggle {
+    display: flex;
+}
+
+#event-action-buttons {
+    display: flex;
+    justify-content: end;
+}
+
+@media (max-width: 992px) {
+    #event-breadcrumb {
+        display: none;
+    }
+    #event-action-buttons {
+        justify-content: center;
+    }
+}
