@@ -136,9 +136,6 @@
                 
                 <!-- RIGHT SECTION FOR CLUB CARDS GRID OR LIST -->
                 <div class="col-lg-9 col-12 px-0">
-
-
-
                     <!-- GRID VIEW (Toggle based on preference) -->
                     <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                         <div class="rsans d-flex justify-content-center">
@@ -152,10 +149,6 @@
                         @endforeach
                         </div>
                     </div>
-
-
-
-                    
                     <!-- LIST VIEW (Toggle based on preference) -->
                     <div id="list-view" class="row list-view ms-2 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
                         <div class="rsans d-flex justify-content-center">
@@ -167,16 +160,10 @@
                             </div>
                         @endforeach
                     </div>
-
-
-
                 </div>
 
 
-
-
-
-
+                
             </div>
         </div>
     </main>

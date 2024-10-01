@@ -1,6 +1,6 @@
 <!-- resources/views/components/admin-topnav.blade.php -->
 <nav class="navbar navbar-light w-100 m-0" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
-    <div class="container-fluid px-5 py-2">
+    <div class="container-fluid px-lg-5 px-md-4 py-2">
         <div class="col-md-2 col-sm-4 col-6 text-start">
             <a class="navbar-brand" href="{{ route('profile') }}">
                 <img id="topnav-logo" src="{{ asset('images/umssacs_logo_final.png') }}" alt="UMSSACS logo" class="topnav-website-logo img-fluid w-75">

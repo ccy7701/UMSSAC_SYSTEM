@@ -31,7 +31,7 @@
         <br><br>
         <div class="container px-6 mx-6">
             <h1 class="rserif welcome-title fw-bold text-center">Enrich your student<br>life with UMSSACS</h1>
-            <p class="rserif welcome-subtitle text-center">UMSSACS is designed to help you keep track of your uni life.</p>
+            <p class="rserif welcome-subtitle text-center">UMSSACS is designed to help you keep track of your uni life</p>
         </div>
         <br><br>
         <div class="image-carousel px-sm-5">

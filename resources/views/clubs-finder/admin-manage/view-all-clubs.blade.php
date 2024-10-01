@@ -16,10 +16,10 @@
     <x-admin-topnav/>
     <br>
     <main class="flex-grow-1">
-        <div class="container p-3">
-            <div class="d-flex align-items-center">
-                <!-- TOP SECTION -->
-                <div class="section-header row w-100">
+        <!-- PAGE HEADER -->
+        <div class="row-container">
+            <div class="align-items-center px-3">
+                <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
                     <div class="col-12 text-center">
                         <h3 class="rserif fw-bold w-100 mb-1">Manage clubs</h3>
                         <p id="club-count-display" class="rserif fs-4 w-100 mt-0">
@@ -33,7 +33,7 @@
                         </p>
                         <!-- SEARCH TAB -->
                         <form class="d-flex justify-content-center" method="GET" action="{{ route('manage-clubs') }}">
-                            <div class="mb-4 w-50">
+                            <div class="search-tab mb-4">
                                 <div class="input-group">
                                     <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-search"></i></span>
                                     <input type="search" id="club-search" name="search" class="rsans form-control" aria-label="search" placeholder="Search...">
@@ -68,19 +68,30 @@
                     </div>
                 </div>
             </div>
-            <!-- BODY OF CONTENT -->
-            <div class="container-fluid align-items-center py-4">
-                <div class="row">
-                    <!-- LEFT SECTIONS FOR FILTERS -->
-                    <div class="col-md-3 border p-3">
+        </div>
+
+        <!-- BODY OF CONTENT -->
+        <div class="row-container container-fluid align-items-center my-3 py-3 px-4">
+            <div class="rsans row">
+                <!-- LEFT SECTIONS FOR FILTERS -->
+                <div class="col-lg-3 col-12 border p-3 mb-3">
+                    <div class="d-flex justify-content-center">
+                        <!-- Toggle button visible below 992px -->
+                        <button id="filter-toggle-btn" class="btn btn-muted d-lg-none mb-2 border w-50" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#filter-collapse" aria-expanded="false" aria-controls="filter-collapse">
+                            <span id="filter-btn-text">Show Filters</span>
+                            <i id="filter-btn-icon" class="fa fa-chevron-down ms-1 chevron-icon"></i>
+                        </button>
+                    </div>
+                    <div class="collapse d-lg-block" id="filter-collapse">
                         <div class="row">
-                            <div class="col-8 d-flex align-items-center justify-content-start">
+                            <div class="col-xl-8 col-lg-6 col-6 d-flex align-items-center justify-content-start">
                                 <h4 class="rsans fw-bold mb-0">Search filters</h4>
                             </div>
-                            <div class="col-4 d-flex align-items-center justify-content-end">
-                                <form id="clear-filter-form" method="POST" action="{{ route('manage-clubs.clear-filter') }}">
+                            <div class="col-xl-4 col-lg-6 col-6 d-flex align-items-center justify-content-end">
+                                <form id="clear-filter-form" method="POST" action="{{ route('manage-clubs.clear-filter') }}" class="w-100 d-flex justify-content-end">
                                     @csrf
-                                    <button class="rsans btn btn-secondary fw-bold px-2">Clear all</button>
+                                    <button id="filter-clear" class="rsans btn btn-secondary fw-bold px-2">Clear all</button>
                                 </form>
                             </div>
                         </div>
@@ -116,61 +127,75 @@
                             </div>
                         </form>
                     </div>
-                    <!-- RIGHT SECTION FOR CLUB CARDS GRID OR LIST -->
-                    <div class="col-md-9 px-3 py-0">
-                        <div class="container-fluid">
-                            <!-- GRID VIEW (Toggle based on preference) -->
-                            <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
-                                <!-- Add new club card -->
-                                <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
-                                    <a href="{{ route('manage-clubs.add-new-club') }}" class="text-decoration-none w-100">
-                                        <div class="rsans card add-club-card d-flex justify-content-center align-items-center h-100">
-                                            <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-                                                <i class="fa fa-plus-circle fa-3x mb-2"></i>
-                                                <h5 class="card-title fw-bold">Add new club</h5>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- Existing clubs' cards -->
-                                @foreach($clubs as $club)
-                                    <div class="col-lg-4 col-md-6 mb-4">
-                                        <x-manage-club-card :club="$club"/>
-                                    </div>
-                                @endforeach
-                                <div class="rsans d-flex justify-content-center">
-                                    {{ $clubs->links('pagination::bootstrap-4') }}
-                                </div>
-                            </div>
-                            <!-- LIST VIEW (Toggle based on preference) -->
-                            <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
-                                <!-- Add new club list item -->
-                                <div class="row pb-3">
-                                    <div class="col-lg-12">
-                                        <a href="{{ route('manage-clubs.add-new-club') }}" class="text-decoration-none w-100">
-                                            <div class="rsans card add-club-list-item" id="list-item-manage">
-                                                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-                                                    <i class="fa fa-plus-circle fa-3x pt-2 pb-1"></i>
-                                                    <h5 class="card-title fw-bold pt-1 pb-0">Add new club</5>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                @foreach($clubs as $club)
-                                    <div class="row pb-3">
-                                        <div class="col-lg-12">
-                                            <x-manage-club-list-item :club="$club"/>
+                </div>
+
+
+
+                <!-- RIGHT SECTION FOR CLUB CARDS GRID OR LIST -->
+                <div class="col-lg-9 col-12 px-0">
+
+
+
+                    <!-- GRID VIEW (Toggle based on preference) -->
+                    <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
+                        <div class="rsans d-flex justify-content-center">
+                            {{ $clubs->links('pagination::bootstrap-4') }}
+                        </div>
+                        <div class="row pb-3 px-md-3 px-sm-0">
+                            <!-- Add new club card -->
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
+                                <a href="{{ route('manage-clubs.add-new-club') }}" class="text-decoration-none w-100">
+                                    <div class="rsans card add-club-card d-flex justify-content-center align-items-center h-100">
+                                        <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                            <i class="fa fa-plus-circle fa-3x mb-2"></i>
+                                            <h5 class="card-title fw-bold">Add new club</h5>
                                         </div>
                                     </div>
-                                @endforeach
-                                <div class="rsans d-flex justify-content-center">
-                                    {{ $clubs->links('pagination::bootstrap-4') }}
-                                </div>
+                                </a>
                             </div>
+                            <!-- Existing clubs' cards -->
+                            @foreach ($clubs as $club)
+                                <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
+                                    <x-manage-club-card :club="$club"/>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
+
+
+
+
+                    <!-- LIST VIEW (Toggle based on preference) -->
+                    <div id="list-view" class="row list-view ms-2 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
+                        <div class="rsans d-flex justify-content-center">
+                            {{ $clubs->links('pagination::bootstrap-4') }}
+                        </div>
+                        <!-- Add new club list item -->
+                        <div class="row pb-3">
+                            <a href="{{ route('manage-clubs.add-new-club') }}" class="text-decoration-none w-100 px-3">
+                                <div class="rsans card add-club-list-item" id="list-item-manage">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                        <i class="fa fa-plus-circle fa-3x pt-2 pb-1"></i>
+                                        <h5 class="card-title fw-bold pt-1 pb-0">Add new club</5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        @foreach($clubs as $club)
+                            <div class="row pb-3">
+                                <x-manage-club-list-item :club="$club"/>
+                            </div>
+                        @endforeach
+
+                    </div>
                 </div>
+
+
+
+
+
+
+
             </div>
         </div>
     </main>

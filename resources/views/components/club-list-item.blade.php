@@ -1,6 +1,6 @@
 <!-- resources/views/components/club-list-item.blade.php -->
-<a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}" class="text-decoration-none">
-    <div class="card" id="list-item-standard">
+<a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}" class="text-decoration-none px-3">
+    <div class="card" id="club-list-item-standard">
         <div class="row g-0 align-items-center">
             @php
                 $clubImagePaths = json_decode($club->club_image_paths, true);
