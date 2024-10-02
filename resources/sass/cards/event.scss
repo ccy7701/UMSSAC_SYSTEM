@@ -171,6 +171,13 @@ $btn-primary-bg: #1064D6;
     width: 20.00%;
 }
 
+#event-images-carousel {
+    width: 30.00%;
+    .carousel-item img {
+        border-radius: 12px;
+    }
+}
+
 @media (max-width: 992px) {
     #event-breadcrumb {
         display: none;
@@ -183,6 +190,12 @@ $btn-primary-bg: #1064D6;
     }
     #btn-event-delete {
         width: 35.00%;
+    }
+    #btn-manage-event-compact {
+        font-size: 0.90em;
+    }
+    #event-images-carousel {
+        width: 50.00%;
     }
 }
 
@@ -227,6 +240,9 @@ $btn-primary-bg: #1064D6;
         }
     }
     #btn-event-delete {
+        width: 75.00%;
+    }
+    #event-images-carousel {
         width: 75.00%;
     }
 }

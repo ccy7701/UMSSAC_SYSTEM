@@ -113,6 +113,7 @@ html {
 
 .col-right-alt {
     text-align: right;
+    justify-content: end;
 }
 
 .subject-row.dropdown-toggle::after {
@@ -170,14 +171,7 @@ html {
     color: white;
 }
 
-.bookmark-span {
-    background-color: $bg-lightgray;
-    width: 40px;
-    height: 40px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-// add media for max-width: 1400px, 1200px, 992px, 768px when needed
+// add media for max-width: 1400px when needed
 
 @media (max-width: 1200px) {
     #footer-left {
@@ -216,9 +210,12 @@ html {
     .user-profile-text {
         text-align: center;
     }
-    .col-left-alt,
+    .col-left-alt {
+        text-align: center;
+    }
     .col-right-alt {
         text-align: center;
+        justify-content: center;
     }
 }
 
