@@ -4,15 +4,20 @@
 
 $btn-primary-bg: #1064D6;
 
-#list-item-standard,
-#card-standard {
+#list-item-standard {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
-#list-item-standard:hover,
-#card-standard:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+#card-standard {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
 #card-member {
@@ -21,7 +26,7 @@ $btn-primary-bg: #1064D6;
         transform: scale(1.01);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-    img {
+    #user-profile {
         width: 100px;
         height: 100px;
         object-fit: cover;
@@ -46,15 +51,20 @@ $btn-primary-bg: #1064D6;
 
 @media (max-width: 576px) {
     #card-member {
+        #membership-type-standard {
+            .input-group-text, .form-select {
+                font-size: 0.75em;
+            }
+        }
+        #user-profile {
+            width: 80px;
+            height: 80px;
+        }
         p {
             font-size: 0.75em;
         }
         i {
             font-size: 0.75em;
-        }
-        img {
-            width: 80px;
-            height: 80px;
         }
     }
 }

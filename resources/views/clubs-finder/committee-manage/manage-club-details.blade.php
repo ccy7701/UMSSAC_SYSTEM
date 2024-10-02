@@ -132,7 +132,7 @@
         <div class="row-container">
             <div class="align-items-center w-100 px-3">
                 @if ($clubMembers->isNotEmpty())
-                    <div id="member-grid-view" class="row px-3 grid-view mt-3">
+                    <div id="member-grid-view" class="row grid-view px-3 mt-3">
                         <div class="rsans row d-flex justify-content-center">
                             <div class="col-auto">
                                 {{ $clubMembers->links('pagination::bootstrap-4') }}

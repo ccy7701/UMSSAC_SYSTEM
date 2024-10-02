@@ -77,6 +77,10 @@ $btn-primary-bg: #1064D6;
     display: flex;
 }
 
+#event-breadcrumb-alt {
+    display: none;
+}
+
 #event-view-toggle {
     display: flex;
 }
@@ -163,12 +167,22 @@ $btn-primary-bg: #1064D6;
     }
 }
 
+#btn-event-delete {
+    width: 20.00%;
+}
+
 @media (max-width: 992px) {
     #event-breadcrumb {
         display: none;
     }
     #event-action-buttons {
         justify-content: center;
+    }
+    #event-breadcrumb-alt {
+        display: flex;
+    }
+    #btn-event-delete {
+        width: 35.00%;
     }
 }
 
@@ -206,5 +220,13 @@ $btn-primary-bg: #1064D6;
         .card-body h5 {
             font-size: 1.25em;
         }
+    }
+    #event-breadcrumb-alt {
+        nav, p {
+            font-size: 0.80em;
+        }
+    }
+    #btn-event-delete {
+        width: 75.00%;
     }
 }

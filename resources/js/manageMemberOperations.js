@@ -24,10 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Attach event listener to all save buttons
     document.querySelectorAll('[id^="edit-access-level-submit-"]').forEach(function(button) {
         button.addEventListener('click', function() {
-            const profileId = this.getAttribute('data-profile-id'); // Get the profile_id from the button's data attribute
-            const selectElement = document.querySelector(`#membership-select-${profileId}`); // Find the corresponding select element
-            const selectedRole = selectElement.value; // Get the selected membership type
-            const memberName = selectElement.closest('.card-body').querySelector('p.fw-bold').innerText; // Get the member's name
+            const profileId = this.getAttribute('data-profile-id');
+            const selectElement = document.querySelector(`#membership-select-standard-${profileId}, #membership-select-${profileId}`);
+            const selectedRole = selectElement.value;
+            const memberName = selectElement.closest('.card-body').querySelector('p.fw-bold').innerText;
+
+            console.log(selectElement);
 
             // Fill the hidden form fields in the modal
             const form = document.getElementById('edit-access-level-form');
