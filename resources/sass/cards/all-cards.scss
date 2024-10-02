@@ -5,14 +5,56 @@
 $btn-primary-bg: #1064D6;
 
 #list-item-standard,
-#card-standard,
-#card-member {
+#card-standard {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #list-item-standard:hover,
-#card-standard:hover,
-#card-member:hover {
+#card-standard:hover {
     transform: scale(1.01);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#card-member {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border: 2px solid #AAAAAA;
+    }
+}
+
+@media (max-width: 1200px) {
+    #card-member {
+        p {
+            font-size: 0.90em;
+        }
+        i {
+            font-size: 0.90em;
+        }
+        img {
+            width: 90px;
+            height: 90px;
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    #card-member {
+        p {
+            font-size: 0.75em;
+        }
+        i {
+            font-size: 0.75em;
+        }
+        img {
+            width: 80px;
+            height: 80px;
+        }
+    }
 }

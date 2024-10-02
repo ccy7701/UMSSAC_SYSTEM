@@ -122,6 +122,10 @@
     display: flex;
 }
 
+#club-breadcrumb-alt {
+    display: none;
+}
+
 #club-view-toggle {
     display: flex;
 }
@@ -138,6 +142,9 @@
     #club-action-buttons {
         justify-content: center;
     }
+    #club-breadcrumb-alt {
+        display: flex;
+    }
 }
 
 @media (max-width: 576px) {
@@ -152,5 +159,10 @@
     }
     #club-list-item-manage:hover .overlay .overlay-btn a {
         font-size: 0.80em;
+    }
+    #club-breadcrumb-alt {
+        nav, p {
+            font-size: 0.80em;
+        }
     }
 }

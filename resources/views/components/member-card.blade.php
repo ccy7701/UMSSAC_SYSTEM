@@ -10,7 +10,7 @@
                 <p class="fw-bold mb-0">Committee</p>
             </div>
         @endif
-        <img src="{{ $member->profile->profile_picture }}" alt="User profile" class="rounded-circle mb-2" style="width: 100px; height: 100px; object-fit: cover; border: 2px solid #AAAAAA;">
+        <img src="{{ $member->profile->profile_picture }}" alt="User profile" class="rounded-circle mb-2" style="">
         <p class="fw-bold mb-0">
             @if($member->profile_id == profile()->profile_id)
                 You
