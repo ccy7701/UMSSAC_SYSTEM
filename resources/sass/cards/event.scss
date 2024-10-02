@@ -72,6 +72,67 @@ $btn-primary-bg: #1064D6;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+#event-card-manage {
+    position: relative;
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: none;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+
+        .btn {
+            z-index: 1;
+            transition: transform 0.2s ease;
+        }
+
+        &:hover {
+            display: flex;
+            opacity: 1;
+        }
+    }
+}
+
+#event-list-item-manage {
+    position: relative;
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: none;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+
+        .btn {
+            z-index: 1;
+            transition: transform 0.2s ease;
+            width: 40.00%;
+
+            a {
+                width: 100.00%
+            }
+        }
+
+        &:hover {
+            display: flex;
+            opacity: 1;
+        }
+    }
+}
+
 @media (max-width: 992px) {
     #event-breadcrumb {
         display: none;
@@ -82,16 +143,38 @@ $btn-primary-bg: #1064D6;
 }
 
 @media (max-width: 576px) {
-    #event-card-standard h5 {
-        font-size: 1.25em;
+    #event-card-manage {
+        font-size: 0.70em;
+        .card-body h5 {
+            font-size: 1.25em;
+        }
     }
     #event-card-standard {
         font-size: 0.70em;
-    } 
-    #event-list-item-standard h5 {
-        font-size: 1.25em;
+        .card-body h5 {
+            font-size: 1.25em;
+        }
+    }
+    #event-list-item-manage {
+        font-size: 0.70em;
+        .card-body h5 {
+            font-size: 1.25em;
+        }
+        .overlay {
+            .overlay-btn {
+                a {
+                    font-size: 1.10em;
+                }
+                &:hover {
+                    width: 40.00%;
+                }
+            }
+        }
     }
     #event-list-item-standard {
         font-size: 0.70em;
+        .card-body h5 {
+            font-size: 1.25em;
+        }
     }
 }

@@ -27,10 +27,10 @@
                 <!-- Breadcrumb links -->
                 <div class="col-6 d-flex align-items-center">
                     <nav aria-label="breadcrumb">
-                        <ol class="rsans breadcrumb" style="--bs-breadcrumb-divider: '>'; margin-bottom: 0;"> <!-- Ensure no extra margin -->
+                        <ol class="rsans breadcrumb" style="--bs-breadcrumb-divider: '>'; margin-bottom: 0;">
                             <li class="breadcrumb-item"><a href="{{ route('manage-clubs') }}">All Clubs</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a></li>
-                            <li class="breadcrumb-item active">Manage Details</li>
+                            <li class="breadcrumb-item active">Manage Club Details</li>
                         </ol>
                     </nav>
                 </div>
@@ -116,7 +116,7 @@
                 @endif
             </div>
         </div>
-        <!-- MEMBER ACCESS LEVEL SECTION -->
+        <!-- MEMBERS AND ACCESS LEVELS SECTION -->
         <div class="row-container">
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
@@ -187,9 +187,6 @@
                                 <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
                                     <x-event-card :event="$event"/>
                                 </div>
-                                <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
-                                    <x-event-card :event="$event"/>
-                                </div>
                             @endforeach
                         </div>
                     @else
@@ -205,9 +202,6 @@
                             </div>
                         </div>
                         @foreach ($clubEvents as $event)
-                            <div class="row mb-3">
-                                <x-event-list-item :event="$event"/>
-                            </div>
                             <div class="row mb-3">
                                 <x-event-list-item :event="$event"/>
                             </div>

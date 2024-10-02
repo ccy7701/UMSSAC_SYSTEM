@@ -20,145 +20,173 @@
         title="Success!"/>
     <br>
     <main class="flex-grow-1">
-        <div class="container p-3">
-            <!-- TOP SECTION -->
-            <div class="d-flex align-items-center">
-                <div class="row w-100">
-                    <div class="col-12 text-center">
-                        <!-- BREADCRUMB NAV -->
-                        <div class="row pb-3">
-                            <div class="col-6 align-items-center">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="rsans breadcrumb" style="--bs-breadcrumb-divider: '>';">
-                                        <li class="breadcrumb-item"><a href="{{ route('clubs-finder') }}">All Clubs</a></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a></li>
-                                        <li class="breadcrumb-item active">Manage Club Details</li>
-                                    </ol>
-                                </nav>
+        <!-- PAGE HEADER -->
+        <div class="row-container">
+            <!-- BREADCRUMB NAV -->
+            <div id="club-breadcrumb" class="row">
+                <!-- Breadcrumb links -->
+                <div class="col-6 d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="rsans breadcrumb" style="--bs-breadcrumb-divider: '>'; margin-bottom: 0;">
+                            <li class="breadcrumb-item"><a href="{{ route('clubs-finder') }}">All Clubs</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a></li>
+                            <li class="breadcrumb-item active">Manage Club Details</li>
+                        </ol>
+                    </nav>
+                </div>
+                <!-- Last updated and go back button -->
+                <div class="col-6 d-flex justify-content-end align-items-center">
+                    <p class="rsans mb-0 me-3">Last updated: {{ \Carbon\Carbon::parse($club->updated_at)->format('Y-m-d h:i A') }}</p>
+                    <a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}" class="rsans btn btn-secondary fw-semibold w-25 text-center">Go back</a>
+                </div>
+            </div>
+            <div id="club-breadcrumb-alt" class="row w-100 mx-0">
+                <div id="club-breadcrumb-alt" class="col-4 align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="rsans breadcrumb" style="--bs-breadcrumb-divider: '<';">
+                            <li class="breadcrumb-item"></li>
+                            <li class="breadcrumb-item"><a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}">Go back</a></li>
+                        </ol>
+                    </nav>
+                </div>
+                <div id="club-breadcrumb-alt" class="col-8 d-flex justify-content-end">
+                    <p class="rsans mb-0 me-1 justify-content-end">Last updated: {{ \Carbon\Carbon::parse($club->updated_at)->format('Y-m-d h:i A') }}</p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <!-- BODY OF CONTENT -->
+        <!-- CLUB INFO SECTION -->
+        <div class="row-container">
+            <div class="align-items-center px-3">
+                <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
+                    <div class="col-lg-6 col-8 text-start mt-2">
+                        <h3 class="rserif fw-bold w-100">Club info</h3>
+                    </div>
+                    <div class="col-lg-6 col-4 text-end align-self-center">
+                        <a href="{{ route('committee-manage.edit-club-info', ['club_id' => $club->club_id]) }}" class="section-button rsans btn btn-primary fw-bold px-3">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-container d-flex justify-content-center align-items-center py-3">
+            <form class="form-standard px-3">
+                <div class="form-group mb-3">
+                    <label for="club-name" class="rsans fw-bold form-label">Club name</label>
+                    <input type="text" id="club-name" name="club_name" class="rsans form-control" value="{{ $club->club_name }}" readonly>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="club-category" class="rsans fw-bold form-label">Category</label>
+                    <input type="text" id="club-category" name="club_category" class="rsans form-control w-50" value="{{ $club->club_category }}" readonly>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="club-description" class="rsans fw-bold form-label">Description</label>
+                    <textarea id="club-description" name="club_description" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024" readonly>{{ $club->club_description }}</textarea>
+                </div>
+            </form>
+        </div>
+        <!-- CLUB IMAGES SECTION -->
+        <div class="row-container">
+            <div class="align-items-center px-3">
+                <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
+                    <div class="col-lg-6 col-8 text-start mt-2">
+                        <h3 class="rserif fw-bold w-100">Club images</h3>
+                    </div>
+                    <div class="col-lg-6 col-4 text-end align-self-center">
+                        <a href="{{ route('committee-manage.edit-images', ['club_id' => $club->club_id]) }}" class="section-button rsans btn btn-primary fw-bold px-3">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-container d-flex align-items-center">
+            <div class="align-items-center w-100 px-3">
+                @php
+                    $clubImagePaths = json_decode($club->club_image_paths, true);
+                @endphp
+                @if (!empty($clubImagePaths))
+                    <div class="row py-4">
+                        @foreach ($clubImagePaths as $imagePath)
+                            <div class="col-xl-2 col-md-3 col-sm-4 col-6 mb-4">
+                                <img src="{{ Storage::url($imagePath) }}" alt="Club illustration" class="img-fluid border" style="aspect-ratio: 4/4; object-fit: cover;">
                             </div>
-                            <div class="col-6 d-flex justify-content-end align-items-center">
-                                <p class="rsans mb-0 me-3 align-self-center">Last updated: {{ \Carbon\Carbon::parse($club->updated_at)->format('Y-m-d h:i A') }}</p>
-                                <a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}" class="rsans btn btn-secondary fw-semibold w-25">Go back</a>
+                        @endforeach
+                    </div>
+                @else
+                    <p class="rsans text-center w-100 py-4">No images added yet</p>
+                @endif
+            </div>
+        </div>
+        <!-- MEMBERS AND ACCESS LEVELS SECTION -->
+        <div class="row-container">
+            <div class="align-items-center px-3">
+                <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
+                    <div class="col-lg-6 col-8 text-start mt-2">
+                        <h3 class="rserif fw-bold w-100">Members and access levels</h3>
+                    </div>
+                    <div class="col-lg-6 col-4 text-end align-self-center">
+                        <a href="{{ route('committee-manage.edit-member-access', ['club_id' => $club->club_id]) }}" class="section-button rsans btn btn-primary fw-bold px-3">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-container">
+            <div class="align-items-center w-100 px-3">
+                @if ($clubMembers->isNotEmpty())
+                    <div id="member-grid-view" class="row px-3 grid-view mt-3">
+                        <div class="rsans row d-flex justify-content-center">
+                            <div class="col-auto">
+                                {{ $clubMembers->links('pagination::bootstrap-4') }}
                             </div>
+                        </div>
+                        @foreach ($clubMembers as $member)
+                            <div class="col-lg-3 col-md-4 col-6 py-2">
+                                <x-member-card :member="$member"/>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <p class="rsans text-center w-100 py-4">No members in this club yet</p>
+                @endif
+            </div>
+        </div>
+        <br>
+        <!-- EVENTS SECTION -->
+        <div class="row-container">
+            <div class="align-items-center px-3">
+                <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
+                    <div class="col-lg-6 col-8 text-start mt-2">
+                        <h3 class="rserif fw-bold w-100">Events</h3>
+                    </div>
+                    <div class="col-lg-6 col-4 text-end align-self-center">
+                        <div class="input-group justify-content-end me-2">
+                            <!-- Grid view toggle button -->
+                            <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 1 ? 'active' : '' }}">
+                                <i class="fa fa-th fs-4 {{ $searchViewPreference == 1 ? 'text-primary' : 'text-muted' }}"></i>
+                            </button>
+                            <!-- List view toggle button -->
+                            <button id="toggle-list-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 2 ? 'active' : '' }}">
+                                <i class="fa fa-list-ul fs-4 {{ $searchViewPreference == 2 ? 'text-primary' : 'text-muted' }}"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- BODY OF CONTENT -->
-            <div class="container-fluid align-items-center py-4">
-                <!-- EDIT CLUB INFO SECTION -->
-                <form>
-                    <div class="d-flex align-items-center">
-                        <div class="section-header row w-100">
-                            <div class="col-md-6 text-start">
-                                <h3 class="rserif fw-bold w-100 py-2">Club info</h3>
-                            </div>
-                            <div class="col-md-6 text-end">
-                                <a href="{{ route('committee-manage.edit-club-info', ['club_id' => $club->club_id]) }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
+        </div>
+        <div class="row-container">
+            <div class="align-items-center w-100 px-3">
+                <!-- GRID VIEW (Toggle based on preference) -->
+                <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }} mt-3">
+                    @if ($clubEvents->isNotEmpty())
+                        <div class="rsans row d-flex justify-content-center">
+                            <div class="col-auto">
+                                {{ $clubEvents->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
-                    </div>
-                    <div class="d-flex justify-content-center align-items-center py-3 w-100 align-self-center">
-                        <div class="container px-3 w-75">
-                            <div class="form-group mb-3">
-                                <label for="club-name" class="rsans fw-bold form-label">Club name</label>
-                                <input type="text" id="club-name" name="club_name" class="rsans form-control" value="{{ $club->club_name }}" readonly>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="club-category" class="rsans fw-bold form-label">Category</label>
-                                <input type="text" id="club-category" name="club_category" class="rsans form-control w-50" value="{{ $club->club_category }}" readonly>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="club-description" class="rsans fw-bold form-label">Description</label>
-                                <textarea id="club-description" name="club_description" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024" readonly>{{ $club->club_description }}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                </form>
-                <!-- END EDIT CLUB INFO SECTION -->
-                <!-- EDIT CLUB IMAGES SECTION -->
-                <div class="d-flex align-items-center">
-                    <div class="section-header row w-100">
-                        <div class="col-md-6 text-start">
-                            <h3 class="rserif fw-bold w-100 py-2">Club images</h3>
-                        </div>
-                        <div class="col-md-6 text-end">
-                            <a href="{{ route('committee-manage.edit-images', ['club_id' => $club->club_id]) }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-start align-items-center py-4 w-100 align-self-center">
-                    @php
-                        $clubImagePaths = json_decode($club->club_image_paths, true);
-                    @endphp
-                    @if (empty($clubImagePaths))
-                        <div class="position-relative me-4">
-                            <p class="rsans">No images added yet</p>
-                        </div>
-                    @else
-                        @foreach ($clubImagePaths as $imagePath)
-                            <!-- Display the image -->
-                            <div class="position-relative me-4">
-                                <img src="{{ Storage::url($imagePath) }}" alt="Club illustration" class="img-fluid border" style="width: 128px; height: 128px; object-fit: cover;">
-                            </div>
-                        @endforeach
-                    @endif
-                </div>
-                <br>
-                <!-- END EDIT CLUB IMAGES SECTION -->
-                <!-- EDIT MEMBER ACCESS LEVEL SECTION -->
-                <div class="d-flex align-items-center">
-                    <div class="section-header row w-100">
-                        <div class="col-md-6 text-start">
-                            <h3 class="rserif fw-bold w-100 py-2">Members and access levels</h3>
-                        </div>
-                        <div class="col-md-6 text-end">
-                            <a href="{{ route('committee-manage.edit-member-access', ['club_id' => $club->club_id]) }}" class="rsans btn btn-primary fw-bold px-3 mx-2 w-25">Edit</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="container px-3 py-4">
-                    <div id="member-grid-view" class="row grid-view">
-                        @foreach ($clubMembers as $member)
-                            <div class="col-lg-3 col-md-4 py-2">
-                                <x-member-card :member="$member"/>
-                            </div>
-                        @endforeach
-                        <div class="rsans d-flex justify-content-center">
-                            {{ $clubMembers->links('pagination::bootstrap-4') }}
-                        </div>
-                    </div>
-                </div>
-                <!-- END EDIT MEMBER ACCESS LEVEL SECTION -->
-                <!-- EDIT EVENTS SECTION -->
-                <div class="d-flex align-items-center">
-                    <div class="section-header row w-100">
-                        <div class="col-md-6 text-start">
-                            <h3 class="rserif fw-bold w-100 py-2">Events</h3>
-                        </div>
-                        <div class="col-md-6 d-flex align-items-center justify-content-end mb-2">
-                            <div class="input-group justify-content-end me-2">
-                                <!-- Grid view toggle button -->
-                                <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 1 ? 'active' : '' }}">
-                                    <i class="fa fa-th fs-4 {{ $searchViewPreference == 1 ? 'text-primary' : 'text-muted' }}"></i>
-                                </button>
-                                <!-- List view toggle button -->
-                                <button id="toggle-list-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 2 ? 'active' : '' }}">
-                                    <i class="fa fa-list-ul fs-4 {{ $searchViewPreference == 2 ? 'text-primary' : 'text-muted' }}"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container px-3 py-4">
-                    <div class="col-md-12 px-3 py-0">
-                        <!-- GRID VIEW (Toggle based on preference) -->
-                        <div id="grid-view" class="row grid-view {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
+                        <div class="row pb-3 px-md-3 px-sm-0">
                             <!-- Add new club card -->
-                            <div class="col-lg-3 col-md-4">
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
                                 <a href="{{ route('event-manage.add-new-event', ['club_id' => $club->club_id]) }}" class="text-decoration-none w-100">
-                                    <div class="rsans card add-event-card d-flex justify-content-center align-items-center h-100">
+                                    <div class="rsans card add-event-card d-flex justify-content-center align-items-center h-100" id="event-card-manage">
                                         <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                                             <i class="fa fa-plus-circle fa-3x mb-2"></i>
                                             <h5 class="card-titel fw-bold">Add new event</5>
@@ -166,66 +194,50 @@
                                     </div>
                                 </a>
                             </div>
-                            @if ($clubEvents->isNotEmpty())
-                                @foreach ($clubEvents as $event)
-                                    <div class="col-lg-3 col-md-4">
-                                        {{-- <x-event-card :event="$event"/> --}}
-                                        <x-manage-event-card :event="$event"/>
-                                    </div>
-                                @endforeach
-                                <div class="rsans d-flex justify-content-center">
-                                    {{ $clubEvents->links('pagination::bootstrap-4') }}
+                            @foreach ($clubEvents as $event)
+                                <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
+                                    <x-manage-event-card :event="$event"/>
                                 </div>
-                            @else
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="rsans card d-flex justify-content-center align-items-center h-100">
-                                        <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-                                            No events recorded yet
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
+                            @endforeach
                         </div>
-                        <!-- LIST VIEW (Toggle based on preference) -->
-                        <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }} justify-content-center">
-                            <div class="row pb-3 w-75">
-                                <div class="col-lg-12">
-                                    <a href="{{ route('event-manage.add-new-event', ['club_id' => $club->club_id]) }}" class="text-decoration-none w-100">
-                                        <div class="rsans card add-event-list-item" id="list-item-manage">
-                                            <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-                                                <i class="fa fa-plus-circle fa-3x pt-2 pb-1"></i>
-                                                <h5 class="card-title fw-bold pt-1 pb-0">Add new event</h5>
-                                            </div>
-                                        </div>
-                                    </a>
+                    @else
+                        <div class="col-lg-4 col-md-6">
+                            <div class="rsans card d-flex justify-content-center align-items-center h-100">
+                                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                    No events recorded yet
                                 </div>
                             </div>
-                            @if ($clubEvents->isNotEmpty())
-                                @foreach ($clubEvents as $event)
-                                    <div class="row pb-3 w-75">
-                                        <div class="col-lg-12">
-                                            <x-manage-event-list-item :event="$event"/>
-                                        </div>
-                                    </div>
-                                @endforeach
-                                <div class="rsans d-flex justify-content-center">
-                                    {{ $clubEvents->links('pagination::bootstrap-4') }}
-                                </div>
-                            @else
-                                <div class="row pb-3 w-75">
-                                    <div class="col-lg-12">
-                                        <div class="rsans card d-flex justify-content-center align-items-center">
-                                            <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-                                                No events recorded yet
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
                         </div>
-                    </div>
+                    @endif
                 </div>
-                <!-- END EDIT EVENTS SECTION -->
+                <!-- LIST VIEW (Toggle based on preference) -->
+                <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }} justify-content-center mt-3">
+                    @if ($clubEvents->isNotEmpty())
+                        <div class="rsans row d-flex justify-content-center">
+                            <div class="col-auto">
+                                {{ $clubEvents->links('pagination::bootstrap-4') }}
+                            </div>
+                        </div>
+                        <!-- Add new event list item -->
+                        <div class="row pb-3">
+                            <a href="{{ route('event-manage.add-new-event', ['club_id' => $club->club_id]) }}" class="text-decoration-none w-100 px-3">
+                                <div class="rsans card add-event-list-item" id="event-list-item-manage">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                        <i class="fa fa-plus-circle fa-3x pt-2 pb-1"></i>
+                                        <h5 class="card-title fw-bold pt-1 pb-0">Add new event</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        @foreach ($clubEvents as $event)
+                            <div class="row mb-3">
+                                <x-manage-event-list-item :event="$event"/>
+                            </div>
+                        @endforeach
+                    @else
+                        <p class="rsans">No events recorded yet</p>
+                    @endif
+                </div>
             </div>
         </div>
     </main>
