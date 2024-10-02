@@ -173,7 +173,7 @@
                                         <!-- Preview of to-be-uploaded file -->
                                         <div class="row align-items-center justify-content-center">
                                             <div class="col-xl-3 col-lg-4 col-md-6 col-6 align-items-center text-center pb-3">
-                                                <div class="card h-100" id="card-event-images-previewer">
+                                                <div class="card h-100" id="card-event-image-previewer">
                                                     <img id="new-image-preview" src="{{ asset('images/no_event_images_default.png') }}" alt="New event illustration preview" class="card-img-top border-bottom" style="aspect-ratio: 4/4; object-fit: cover;">
                                                     <div class="rsans card-body d-flex justify-content-center align-items-center h-100">
                                                         <p class="mb-1">New image preview</p>
