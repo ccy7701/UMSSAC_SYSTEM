@@ -1,5 +1,5 @@
 <!-- resources/views/components/manage-event-card.blade.php -->
-<div class="card h-100" id="card-manage">
+<div class="card h-100" id="event-card-manage">
     @php
         $eventImagePaths = json_decode($event->event_image_paths, true);
     @endphp
@@ -8,15 +8,18 @@
     @else
         <img src="{{ Storage::url($eventImagePaths[0]) }}" class="card-img-top border-bottom" alt="Event card illustration" style="aspect-ratio: 4/4;">
     @endif
-
     <div class="rsans card-body p-3">
-        <h5 class="card-title fw-bold">{{ $event->event_name }}</h5>
+        <h5 class="card-title fw-bold">
+            <span class="d-inline-block text-truncate" style="width: 100%;">
+                {{ $event->event_name }}
+            </span>
+        </h5>
         <div class="card-text">
             <div class="row align-items-center">
                 <div class="col-2 text-center">
                     <i class="fa fa-map-marker"></i>
                 </div>
-                <div class="col-10">
+                <div class="col-10 text-truncate">
                     {{ $event->event_location }}
                 </div>
             </div>
@@ -24,7 +27,7 @@
                 <div class="col-2 text-center">
                     <i class="fa fa-calendar"></i>
                 </div>
-                <div class="col-10">
+                <div class="col-10 text-truncate">
                     {{ \Carbon\Carbon::parse($event->event_datetime)->format('Y-m-d h:i A') }}
                 </div>
             </div>
@@ -32,7 +35,7 @@
                 <div class="col-2 text-center">
                     <i class="fa fa-users"></i>
                 </div>
-                <div class="col-10">
+                <div class="col-10 text-truncate">
                     {{ $event->club->club_name }}
                 </div>
             </div>
@@ -40,14 +43,14 @@
                 <div class="col-2 text-center">
                     <i class="fa fa-university"></i>
                 </div>
-                <div class="col-10">
+                <div class="col-10 text-truncate">
                     {{ $event->club->club_category }}
                 </div>
             </div>
         </div>
     </div>
     <!-- Hidden buttons for edit and view to be revealed on hover -->
-    <div class="card-manage-overlay d-flex flex-column justify-content-center align-items-center">
+    <div class="overlay d-flex flex-column justify-content-center align-items-center">
         <div class="py-2 w-75">
             <a href="{{ route('events-finder.manage-details', [
                 'event_id' => $event->event_id,

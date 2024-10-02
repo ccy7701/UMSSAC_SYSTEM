@@ -20,83 +20,86 @@
         title="Success!"/>
     <br>
     <main class="flex-grow-1">
-        <div class="container p-3">
-            <!-- TOP SECTION -->
-            <div class="d-flex align-items-center">
-                <div class="row w-100">
-                    <div class="col-12 text-center">
-                        <!-- BREADCRUMB NAV -->
-                        <div class="row pb-3">
-                            <div class="col-8 align-items-center">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="rsans breadcrumb" style="--bs-breadcrumb-divider: '>';">
-                                        <li class="breadcrumb-item"><a href="{{ route('manage-clubs') }}">All Clubs</a></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('admin-manage.manage-details', ['club_id' => $club->club_id]) }}">Manage Details</a></li>
-                                        <li class="breadcrumb-item active">Edit Members and Access Levels
-                                    </ol>
-                                </nav>
-                            </div>
-                            <div class="col-4"></div>
-                        </div>
+        <div class="row-container">
+            <!-- BREADCRUMB NAV -->
+            <div id="club-breadcrumb" class="row pb-3">
+                <div id="club-breadcrumb" class="col-auto align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="rsans breadcrumb" style="--bs-breadcrumb-divider: '>';">
+                            <li class="breadcrumb-item"><a href="{{ route('manage-clubs') }}">All Clubs</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin-manage.manage-details', ['club_id' => $club->club_id]) }}">Manage Details</a></li>
+                            <li class="breadcrumb-item active">Edit Members and Access Levels
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="row-container">
+            <div class="align-items-center px-3">
+                <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
+                    <div class="col-left-alt col-lg-6 col-md-6 col-12 mt-2">
+                        <h3 class="rserif fw-bold w-100">Edit members and access levels</h3>
+                    </div>
+                    <div class="col-right-alt col-lg-6 col-md-6 col-12 align-items-center">
+                        <a href="{{ route('admin-manage.manage-details', ['club_id' => $club->club_id]) }}" class="section-button-short rsans btn btn-secondary fw-bold px-3">Go back</a>
                     </div>
                 </div>
             </div>
-            <!-- BODY OF CONTENT -->
-            <div class="container-fluid align-items-center py-4">
-                <div class="d-flex align-items-center">
-                    <div class="section-header row w-100">
-                        <div class="col-md-6 text-start">
-                            <h3 class="rserif fw-bold w-100 py-2">Members and access levels</h3>
-                        </div>
-                        <div class="col-md-6 text-end">
-                            <a href="{{ route('admin-manage.manage-details', ['club_id' => $club->club_id]) }}" class="rsans btn btn-secondary fw-bold px-3 mx-2 w-25">Go back</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="container px-3 py-4">
-                    <div id="member-grid-view" class="row grid-view">
-                        @if ($clubMembers->isNotEmpty())
-                            @foreach ($clubMembers as $member)
-                                <div class="col-lg-3 col-md-4 py-2">
-                                    <x-manage-member-card
-                                        :member="$member"
-                                        :club="$club"
-                                    />
-                                </div>
-                            @endforeach
-                        @else
-                            <p class="rsans px-0">No members in this club yet</p>
-                        @endif
-                        <!-- Edit confirmation modal -->
-                        <div class="rsans modal fade" id="edit-confirmation-modal" tabindex="-1" aria-labelledby="editConfirmationModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header py-2 d-flex align-items-center justify-content-center">
-                                        <p class="fw-semibold fs-5 mb-0">
-                                            Edit confirmation
-                                        </p>
-                                        <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to change access level for (user)?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <form id="edit-access-level-form" method="POST" action="{{ route('admin-manage.edit-member-access.action', ['club_id' => $club->club_id]) }}">
-                                            @csrf
-                                            <input type="hidden" name="profile_id">
-                                            <input type="hidden" name="new_membership_type">
-                                            <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">No, cancel</button>
-                                            <button type="submit" class="btn btn-primary fw-semibold ms-1">Yes, continue</button>
-                                        </form>
-                                    </div>
-                                </div>
+        </div>
+        @if ($errors->any())
+            <br>
+            <div class="rsans alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    {!! $error !!}
+                    <br>
+                @endforeach
+            </div>
+        @endif
+        <!-- BODY OF CONTENT -->
+        <div class="row-container">
+            <div class="align-items-center w-100 px-3">
+                <div id="member-grid-view" class="row grid-view px-3 mt-3">
+                    @if ($clubMembers->isNotEmpty())
+                        @foreach ($clubMembers as $member)
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 align-items-center text-center">
+                                <x-manage-member-card
+                                    :member="$member"
+                                    :club="$club"/>
                             </div>
+                        @endforeach
+                    @else
+                        <p class="rsans text-center w-100 py-4">No members in this club yet</p>
+                    @endif
+                </div>
+            </div>
+            <!-- Edit confirmation modal -->
+            <div class="rsans modal fade" id="edit-confirmation-modal" tabindex="-1" aria-labelledby="editConfirmationModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header py-2 d-flex align-items-center justify-content-center">
+                            <p class="fw-semibold fs-5 mb-0">
+                                Edit confirmation
+                            </p>
+                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to change access level for (user)?
+                        </div>
+                        <div class="modal-footer">
+                            <form id="edit-access-level-form" method="POST" action="{{ route('admin-manage.edit-member-access.action', ['club_id' => $club->club_id]) }}">
+                                @csrf
+                                <input type="hidden" name="profile_id">
+                                <input type="hidden" name="new_membership_type">
+                                <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">No, cancel</button>
+                                <button type="submit" class="btn btn-primary fw-semibold ms-1">Yes, continue</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <br><br>
     </main>
     <x-footer/>
 </body>

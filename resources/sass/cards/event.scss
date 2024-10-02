@@ -1,48 +1,84 @@
 $btn-primary-bg: #1064D6;
 
-#card-event-images,
-#card-event-images-previewer {
+#card-event-images {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
-#card-event-images:hover,
-#card-event-images-previewer:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+#card-event-image-previewer {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
-.add-event-card,
-.add-event-list-item,
+.add-event-card {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    &:hover {
+        cursor: pointer;
+        background-color: $btn-primary-bg;
+        transform: scale(1.01);
+        .card-body {
+            i, h5 {
+                transform: scale(1.1);
+                color: white;
+                transition: transform 0.2s ease, color 0.2s ease;
+            }
+        }
+    }
+    .card-body {
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
+}
+
+.add-event-list-item {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    &:hover {
+        cursor: pointer;
+        background-color: $btn-primary-bg;
+        transform: scale(1.01);
+        .card-body {
+            i, h5 {
+                transform: scale(1.1);
+                color: white;
+                transition: transform 0.2s ease, color 0.2s ease;
+            }
+        }
+    }
+    .card-body {
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
+}
+
 .add-event-image-card {
     transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.add-event-card:hover,
-.add-event-list-item:hover,
-.add-event-image-card:hover {
-    cursor: pointer;
-    background-color: $btn-primary-bg;
-    transform: scale(1.01);
-}
-
-.add-event-card .card-body,
-.add-event-list-item .card-body,
-.add-event-image-card .card-body {
-    transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.add-event-card:hover .card-body i,
-.add-event-card:hover .card-body h5,
-.add-event-list-item:hover .card-body i,
-.add-event-list-item:hover .card-body h5,
-.add-event-image-card:hover .card-body i,
-.add-event-image-card:hover .card-body h5 {
-    transform: scale(1.1);
-    color: white;
+    &:hover {
+        cursor: pointer;
+        background-color: $btn-primary-bg;
+        transform: scale(1.01);
+        .card-body {
+            i, h5 {
+                transform: scale(1.1);
+                color: white;
+                transition: transform 0.2s ease, color 0.2s ease;
+            }
+        }
+    }
+    .card-body {
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
 }
 
 #event-breadcrumb {
     display: flex;
+}
+
+#event-breadcrumb-alt {
+    display: none;
 }
 
 #event-view-toggle {
@@ -56,20 +92,90 @@ $btn-primary-bg: #1064D6;
 
 #event-card-standard {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-#event-card-standard:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
 #event-list-item-standard {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
-#event-list-item-standard:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+#event-card-manage {
+    position: relative;
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: none;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+
+        .btn {
+            z-index: 1;
+            transition: transform 0.2s ease;
+        }
+
+        &:hover {
+            display: flex;
+            opacity: 1;
+        }
+    }
+}
+
+#event-list-item-manage {
+    position: relative;
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: none;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+
+        .btn {
+            z-index: 1;
+            transition: transform 0.2s ease;
+            width: 40.00%;
+
+            a {
+                width: 100.00%
+            }
+        }
+
+        &:hover {
+            display: flex;
+            opacity: 1;
+        }
+    }
+}
+
+#btn-event-delete {
+    width: 20.00%;
+}
+
+#event-images-carousel {
+    width: 30.00%;
+    .carousel-item img {
+        border-radius: 12px;
+    }
 }
 
 @media (max-width: 992px) {
@@ -79,19 +185,64 @@ $btn-primary-bg: #1064D6;
     #event-action-buttons {
         justify-content: center;
     }
+    #event-breadcrumb-alt {
+        display: flex;
+    }
+    #btn-event-delete {
+        width: 35.00%;
+    }
+    #btn-manage-event-compact {
+        font-size: 0.90em;
+    }
+    #event-images-carousel {
+        width: 50.00%;
+    }
 }
 
 @media (max-width: 576px) {
-    #event-card-standard h5 {
-        font-size: 1.25em;
+    #event-card-manage {
+        font-size: 0.70em;
+        .card-body h5 {
+            font-size: 1.25em;
+        }
     }
     #event-card-standard {
         font-size: 0.70em;
-    } 
-    #event-list-item-standard h5 {
-        font-size: 1.25em;
+        .card-body h5 {
+            font-size: 1.25em;
+        }
+    }
+    #event-list-item-manage {
+        font-size: 0.70em;
+        .card-body h5 {
+            font-size: 1.25em;
+        }
+        .overlay {
+            .overlay-btn {
+                a {
+                    font-size: 1.10em;
+                }
+                &:hover {
+                    width: 40.00%;
+                }
+            }
+        }
     }
     #event-list-item-standard {
         font-size: 0.70em;
+        .card-body h5 {
+            font-size: 1.25em;
+        }
+    }
+    #event-breadcrumb-alt {
+        nav, p {
+            font-size: 0.80em;
+        }
+    }
+    #btn-event-delete {
+        width: 75.00%;
+    }
+    #event-images-carousel {
+        width: 75.00%;
     }
 }

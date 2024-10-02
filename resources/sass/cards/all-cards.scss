@@ -4,15 +4,67 @@
 
 $btn-primary-bg: #1064D6;
 
-#list-item-standard,
-#card-standard,
-#card-member {
+#list-item-standard {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
-#list-item-standard:hover,
-#card-standard:hover,
-#card-member:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+#card-standard {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
+
+#card-member {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    #user-profile {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border: 2px solid #AAAAAA;
+    }
+}
+
+@media (max-width: 1200px) {
+    #card-member {
+        p {
+            font-size: 0.90em;
+        }
+        i {
+            font-size: 0.90em;
+        }
+        img {
+            width: 90px;
+            height: 90px;
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    #card-member {
+        #membership-type-standard {
+            .input-group-text, .form-select {
+                font-size: 0.75em;
+            }
+        }
+        #user-profile {
+            width: 80px;
+            height: 80px;
+        }
+        p {
+            font-size: 0.75em;
+        }
+        i {
+            font-size: 0.75em;
+        }
+    }
 }
