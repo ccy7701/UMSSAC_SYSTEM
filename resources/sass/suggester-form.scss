@@ -70,9 +70,16 @@ $btn-primary-bg: #1064D6;
     transform: rotate(180deg);
 }
 
+.progress {
+    width: 30.00%;
+}
+
 @media (max-width: 1200px) {
     .form-step {
         width: 75.00%;
+    }
+    .progress {
+        width: 50.00%;
     }
 }
 
@@ -115,6 +122,9 @@ $btn-primary-bg: #1064D6;
     }
     .form-step {
         width: 80.00%;
+    }
+    .progress {
+        width: 100.00%;
     }
 }
 

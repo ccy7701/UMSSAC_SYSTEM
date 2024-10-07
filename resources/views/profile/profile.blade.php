@@ -55,7 +55,7 @@
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
                     <div class="col-lg-6 col-8 text-start mt-2">
-                        <h3 class="rserif fw-bold w-100">General</h3>
+                        <h3 class="rserif fw-bold w-100">General info</h3>
                     </div>
                     <div class="col-lg-6 col-4 text-end align-self-center">
                         <a href="{{ route('profile.edit.general-info') }}" class="section-button rsans btn btn-primary fw-bold px-3">Edit</a>
@@ -71,9 +71,9 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="nickname" class="rsans fw-bold form-label">Nickname</label>
-                    <input type="text" id="nickname" name="profile_nickname" class="rsans form-control" value="{{ profile()->profile_nickname != '' ? profile()->profile_nickname : 'No nickname' }}" readonly>
+                    <input type="text" id="nickname" name="profile_nickname" class="rsans form-control" value="{{ profile()->profile_nickname != '' ? profile()->profile_nickname : 'Not filled yet' }}" readonly>
                 </div>
-                @if(currentAccount()->account_role == 1)
+                @if (currentAccount()->account_role == 1)
                     <div class="form-group mb-3">
                         <label for="matric-number" class="rsans fw-bold form-label">Matric number</label>
                         <input type="text" id="matric-number" name="account_matric_number" class="rsans form-control" value="{{ currentAccount()->account_matric_number }}" readonly>
@@ -83,29 +83,32 @@
                         <input type="text" id="enrolment-session" name="profile_enrolment_session" class="rsans form-control w-50" value="{{ profile()->profile_enrolment_session != '' ? profile()->profile_enrolment_session : 'Not filled yet' }}" readonly>
                     </div>
                 @endif
-                <div class="form-group mb-3">
-                    <label for="faculty" class="rsans fw-bold form-label">Faculty</label>
-                    <input type="text" id="faculty" name="profile_faculty" class="rsans form-control w-50" value="{{ profile()->profile_faculty }}" readonly>
-                </div>
-                @php
-                    $facultyCourses = json_decode(file_get_contents(public_path('resources/data/faculties_and_courses.json')), true);
-                    $selectedFaculty = profile()->profile_faculty;
-                    $selectedCourseCode = profile()->profile_course;
-                    $courseName = '';
 
-                    if (isset($facultyCourses[$selectedFaculty])) {
-                        foreach ($facultyCourses[$selectedFaculty] as $course) {
-                            if ($course['course_code'] === $selectedCourseCode) {
-                                $courseName = $course['course_name'];
-                                break;
+                @if (currentAccount()->account_role != 3)
+                    <div class="form-group mb-3">
+                        <label for="faculty" class="rsans fw-bold form-label">Faculty</label>
+                        <input type="text" id="faculty" name="profile_faculty" class="rsans form-control w-50" value="{{ profile()->profile_faculty != '' ? profile()->profile_faculty : 'Not filled yet' }}" readonly>
+                    </div>
+                    @php
+                        $facultyCourses = json_decode(file_get_contents(public_path('resources/data/faculties_and_courses.json')), true);
+                        $selectedFaculty = profile()->profile_faculty;
+                        $selectedCourseCode = profile()->profile_course;
+                        $courseName = '';
+
+                        if (isset($facultyCourses[$selectedFaculty])) {
+                            foreach ($facultyCourses[$selectedFaculty] as $course) {
+                                if ($course['course_code'] === $selectedCourseCode) {
+                                    $courseName = $course['course_name'];
+                                    break;
+                                }
                             }
                         }
-                    }
-                @endphp
-                <div class="form-group mb-3">
-                    <label for="course" class="rsans fw-bold form-label">Course</label>
-                    <input type="text" id="course" name="profile_course" class="rsans form-control" value="{{ profile()->profile_course != '' ? profile()->profile_course : 'Not filled yet' }} {{ $courseName }}" readonly>
-                </div>
+                    @endphp
+                    <div class="form-group mb-3">
+                        <label for="course" class="rsans fw-bold form-label">Course</label>
+                        <input type="text" id="course" name="profile_course" class="rsans form-control" value="{{ profile()->profile_course != '' ? profile()->profile_course : 'Not filled yet' }} {{ $courseName }}" readonly>
+                    </div>
+                @endif
                 <div class="form-group mb-3">
                     <label for="personal-desc" class="rsans fw-bold form-label">Personal description</label>
                     <textarea id="personal-desc" name="profile_personal_desc" class="rsans form-control" rows="5" style="resize: none;" readonly>{{ profile()->profile_personal_desc ? profile()->profile_personal_desc : 'Not filled yet' }}</textarea>

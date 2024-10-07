@@ -49,7 +49,7 @@
         <div class="row-container container-fluid align-items-center my-3 py-3 px-4">
             <div class="rsans row">
                 <!-- LEFT SECTIONS FOR FILTERS -->
-                <div class="col-lg-3 col-12 border p-3">
+                <div class="col-xl-2 col-lg-3 col-12 border p-3">
                     <div class="d-flex justify-content-center">
                         <!-- Toggle Button visible below 992px -->
                         <button id="filter-toggle-btn" class="btn btn-muted d-lg-none mb-2 border w-50" type="button" data-bs-toggle="collapse" data-bs-target="#filter-collapse" aria-expanded="false" aria-controls="filter-collapse">
@@ -103,7 +103,7 @@
                     </div>
                 </div>
                 <!-- RIGHT SECTIONS FOR USERS LIST -->
-                <div class="col-lg-9 col-12 px-3">
+                <div class="col-xl-10 col-lg-9 col-12 px-3">
                     <div id="list-view" class="row list-view ms-2">
                         <div class="rsans row d-flex justify-content-center">
                             <div class="col-auto">
