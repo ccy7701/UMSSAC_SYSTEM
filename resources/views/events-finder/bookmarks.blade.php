@@ -35,6 +35,16 @@
                                 {{ $totalBookmarks }} bookmarks found
                             @endif
                         </p>
+                        <!-- SEARCH TAB -->
+                        <form class="d-flex justify-content-center" method="GET" action="{{ route('events-finder.bookmarks') }}">
+                            <div class="search-tab mb-4">
+                                <div class="input-group">
+                                    <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-search"></i></span>
+                                    <input type="search" id="event-search" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
+                                    <button class="rsans btn btn-primary fw-bold">Search</button>
+                                </div>
+                            </div>
+                        </form>
                         <div class="row pb-3">
                             <div id="club-view-toggle" class="col-12 align-items-center justify-content-end">
                                 <div class="input-group justify-content-end">

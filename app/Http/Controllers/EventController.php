@@ -231,6 +231,8 @@ class EventController extends Controller
     }
 
     public function fetchUserEventBookmarks(Request $request) {
-        return $this->bookmarkService->prepareAndRenderBookmarksView(profile()->profile_id, 'events-finder.bookmarks');
+        $search = $request->input('search', '');
+
+        return $this->bookmarkService->prepareAndRenderBookmarksView($search, profile()->profile_id, 'events-finder.bookmarks');
     }
 }
