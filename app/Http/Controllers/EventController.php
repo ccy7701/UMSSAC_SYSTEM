@@ -6,16 +6,18 @@ use Carbon\Carbon;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\EventBookmark;
-use Illuminate\Support\Facades\DB;
 use App\Services\ClubAndEventService;
+use App\Services\BookmarkService;
 use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
     protected $clubAndEventService;
+    protected $bookmarkService;
 
-    public function __construct(ClubAndEventService $clubAndEventService) {
+    public function __construct(ClubAndEventService $clubAndEventService, BookmarkService $bookmarkService) {
         $this->clubAndEventService = $clubAndEventService;
+        $this->bookmarkService = $bookmarkService;
     }
 
     public function fetchEventsFinder(Request $request) {
@@ -226,5 +228,9 @@ class EventController extends Controller
 
             return redirect($route)->with('bookmark-create', 'Event bookmark created successfully.');
         }
+    }
+
+    public function fetchUserEventBookmarks(Request $request) {
+        return $this->bookmarkService->prepareAndRenderBookmarksView(profile()->profile_id, 'events-finder.bookmarks');
     }
 }
