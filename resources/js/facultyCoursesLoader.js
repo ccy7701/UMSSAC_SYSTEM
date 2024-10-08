@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
             let selectedFaculty = document.querySelector('meta[name="profile-faculty"]').getAttribute('content');
             let selectedCourse = document.querySelector('meta[name="profile-course"]').getAttribute('content');
             
+            const courseDropdown = document.getElementById('course');
+            if (!selectedFaculty) {
+                courseDropdown.innerHTML = '<option selected disabled value="">Select a faculty first</option>';
+            }
+
             if (selectedFaculty) {
                 const facultyDropdown = document.getElementById('faculty');
                 facultyDropdown.value = selectedFaculty;
@@ -42,6 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 courseDropdown.appendChild(option);
             });
+        } else {
+            courseDropdown.innerHTML = '<option selected disabled value="">Select a faculty first</option>';
         }
     }
 });

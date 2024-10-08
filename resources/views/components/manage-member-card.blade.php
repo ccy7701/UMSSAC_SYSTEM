@@ -31,6 +31,17 @@
                 <i class="fa fa-university me-2"></i>
                 <p class="mb-0">{{ $member->profile->profile_faculty }}</p>
             </div>
+            @if ($member->profile->account->account_role == 1)
+                <span class="d-inline-flex align-items-center text-muted">
+                    <i class="fa fa-id-badge me-2"></i>
+                    <p class="mb-0">Student: {{ $member->profile->account->account_matric_number }}</p>
+                </span>
+            @else
+                <span class="d-inline-flex align-items-center text-muted">
+                    <i class="fa fa-id-badge me-2"></i>
+                    <p class="mb-0">Faculty Member</p>
+                </span>
+            @endif
             <div class="d-inline-flex align-items-center text-muted">
                 <i class="fa fa-envelope me-2"></i>
                 <p class="mb-0">{{ $member->profile->account->account_email_address }}</p>

@@ -133,7 +133,7 @@
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
                     <div class="col-12">
-                        <h3 class="rserif fw-bold w-100">Members</h3>
+                        <h3 class="rserif fw-bold w-100">Members ({{ $clubMembersCount }})</h3>
                     </div>
                 </div>
             </div>

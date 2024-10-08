@@ -25,6 +25,9 @@
                         <p class="rserif fs-4 w-100 mt-0">
                             Fill in the details below and we'll suggest study partners suitable for you.
                         </p>
+                        <div class="progress my-3 mx-auto" style="height: 20px;">
+                            <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                        </div>
                     </div>
                 </div>
             </div>

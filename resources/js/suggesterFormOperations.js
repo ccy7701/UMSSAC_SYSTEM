@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const steps = Array.from(document.querySelectorAll(".form-step"));
     let currentStepIndex = 0;
 
+    // Progress bar
+    const progressBar = document.getElementById('progress-bar');
+
     // Buttons
     const previousWTC = document.getElementById("previous-step-wtc");
     const nextWTC = document.getElementById("next-step-wtc");
@@ -50,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Event listeners for the BFI step navigation
+    // Event listeners for the Skills step navigation
     previousSkills.addEventListener("click", () => {
         if (!previousSkills.disabled) {
             changeStep("prev");
@@ -73,6 +76,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     })
 
+    // Function to update the progress bar
+    function updateProgressBar() {
+        const progressPercentage = (((currentStepIndex) / steps.length) * 100) + 20;
+        progressBar.style.width = progressPercentage + '%';
+        progressBar.setAttribute('aria-valuenow', progressPercentage);
+        progressBar.innerText = Math.round(progressPercentage) + '%';
+    }
+
     // Function to move between steps
     function changeStep(direction) {
         let currentStep = steps[currentStepIndex];
@@ -85,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         updateStepVisibility();
+        updateProgressBar(); // Update progress bar on step change
     }
 
     // Function to show the correct step and adjust button states
@@ -100,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Enable or disable buttons based on the current step
         initialiseStepButtons();
+        updateProgressBar(); // Update progress bar when visibility is updated
     }
 
     // Function to check if all radio groups in a step are filled
@@ -164,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Attach listeners to radio inputs on both WTC and BFI steps
+    // Attach listeners to radio inputs on all form steps
     attachRadioChangeListeners(document.getElementById('form-step-wtc'));
     attachRadioChangeListeners(document.getElementById('form-step-bfi'));
     attachRadioChangeListeners(document.getElementById('form-step-skills'));

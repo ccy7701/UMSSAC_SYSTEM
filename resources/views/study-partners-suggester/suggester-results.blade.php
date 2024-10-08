@@ -35,6 +35,29 @@
                 <!-- LOOPING COMPONENT GOES HERE -->
             </div>
         </div>
+        <!-- REDO SUGGESTER FORM -->
+        <div class="row-container">
+            <div class="align-items-center px-3">
+                <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
+                    <div class="col-12">
+                        <h3 class="rserif fw-bold w-100">Redo the form</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-container d-flex justify-content-center align-items-center py-3">
+            <div class="row w-75">
+                <div class="rsans card text-center p-0">
+                    <div class="card-body align-items-center justify-content-center">
+                        <p class="card-text">
+                            Click the button below to redo the study partner suggester form. Once you complete the form, your previous submission will be updated.
+                        </p>
+                        <a href="{{ route('study-partners-suggester.suggester-form') }}" class="section-button-short rsans btn btn-primary fw-semibold text-center">Redo the form</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
     </main>
     <x-footer/>
 </body>

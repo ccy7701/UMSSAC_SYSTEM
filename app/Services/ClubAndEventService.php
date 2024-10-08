@@ -38,6 +38,7 @@ class ClubAndEventService
         return [
             'club' => $this->getClubDetails($clubId),
             'clubMembers' => $this->getClubMembers($clubId),
+            'clubMembersCount' => $this->getClubMembersCount($clubId),
             'clubEvents' => $this->getEventsForClub($clubId),
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
             'isCommitteeMember' => $this->checkCommitteeMember($clubId, profile()->profile_id)
@@ -58,6 +59,11 @@ class ClubAndEventService
             ->orderByRaw("CASE WHEN profile_id = ? THEN 0 ELSE 1 END", [$currentProfileId])
             ->orderBy('membership_type', 'desc')
             ->paginate(8);
+    }
+
+    // Get the count of members of the specific club
+    public function getClubMembersCount($clubId) {
+        return ClubMembership::where('club_id', $clubId)->count();
     }
 
     // Get all the events of the specific club
