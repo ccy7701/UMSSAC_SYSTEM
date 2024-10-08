@@ -92,6 +92,13 @@ $btn-primary-bg: #1064D6;
 
 #event-card-standard {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    .bookmark-span {
+        background-color: #CFE2FB;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
     &:hover {
         transform: scale(1.01);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -100,6 +107,13 @@ $btn-primary-bg: #1064D6;
 
 #event-list-item-standard {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    .bookmark-span {
+        background-color: #CFE2FB;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
     &:hover {
         transform: scale(1.01);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -197,6 +211,31 @@ $btn-primary-bg: #1064D6;
     #event-images-carousel {
         width: 50.00%;
     }
+    #event-list-item-standard {
+        .bookmark-span {
+            background-color: #CFE2FB;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            i {
+                font-size: 1.60em !important;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    #event-list-item-standard {
+        .bookmark-span {
+            background-color: #CFE2FB;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            i {
+                font-size: 1.50em !important;
+            }
+        }
+    }
 }
 
 @media (max-width: 576px) {
@@ -210,6 +249,12 @@ $btn-primary-bg: #1064D6;
         font-size: 0.70em;
         .card-body h5 {
             font-size: 1.25em;
+        }
+        .bookmark-span {
+            background-color: #CFE2FB;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
         }
     }
     #event-list-item-manage {
@@ -230,6 +275,12 @@ $btn-primary-bg: #1064D6;
     }
     #event-list-item-standard {
         font-size: 0.70em;
+        .bookmark-span {
+            background-color: #CFE2FB;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
         .card-body h5 {
             font-size: 1.25em;
         }

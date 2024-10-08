@@ -6,12 +6,17 @@
                 $eventImagePaths = json_decode($event->event_image_paths, true);
             @endphp
             <!-- Image section -->
-            <div class="col-xl-2 col-lg-3 col-md-3 col-4">
+            <div class="col-xl-2 col-lg-3 col-md-3 col-4 position-relative">
                 @if (empty($eventImagePaths))
                     <img src="{{ asset('images/no_event_images_default.png') }}" class="img-fluid rounded-start border-end" alt="No event illustration default" style="aspect-ratio: 4/4; object-fit: cover; width: 100%; height: auto;">
                 @else
                     <img src="{{ Storage::url($eventImagePaths[0]) }}" class="img-fluid rounded-start border-end" alt="Event list item illustration" style="aspect-ratio: 4/4; object-fit: cover; width: 100%; height: auto;">
                 @endif
+                <div class="bookmark position-absolute top-0 end-0 p-2">
+                    <span class="bookmark-span rounded-circle d-inline-flex justify-content-center align-items-center">
+                        <i class="fa fa-bookmark text-primary fs-4"></i>
+                    </span>
+                </div>
             </div>
             <!-- Content section -->
             <div class="col-xl-10 col-lg-9 col-md-9 col-8">

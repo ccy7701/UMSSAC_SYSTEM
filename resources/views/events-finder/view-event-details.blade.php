@@ -17,6 +17,14 @@
         <x-admin-topnav/>
     @endif
     <x-response-popup
+        messageType="bookmark-create"
+        iconClass=""
+        title="Bookmark created."/>
+    <x-response-popup
+        messageType="bookmark-delete"
+        iconClass=""
+        title="Bookmark deleted."/>
+    <x-response-popup
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"
         title="Success!"/>
@@ -116,7 +124,23 @@
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
                     <div class="col-left-alt col-lg-6 col-md-6 col-12 mt-2">
-                        <h3 class="rserif fw-bold w-100">{{ $event->event_name }}</h3>
+                        <h3 class="rserif fw-bold w-100">
+                            {{ $event->event_name }}
+                            <!-- EVENT BOOKMARK -->
+                            <form class="d-inline-flex" method="POST" action="{{ route('events-finder.bookmarks.toggle') }}">
+                                @csrf
+                                <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
+                                <input type="hidden" name="event_id" value="{{ $event->event_id }}">
+                                <input type="hidden" name="club_id" value="{{ $club->club_id }}">
+                                <button class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none">
+                                    @if ($isBookmarked)
+                                        &nbsp;<i class="fa-solid fa-bookmark text-primary"></i>
+                                    @else
+                                        &nbsp;<i class="fa-regular fa-bookmark text-primary"></i>
+                                    @endif
+                                </button>
+                            </form>
+                        </h3>
                     </div>
                     <div class="col-right-alt col-lg-6 col-md-6 col-12 mt-xl-2 mt-sm-0 d-flex align-items-center">
                         <i class="fa fa-users text-muted mb-2 me-3"></i>

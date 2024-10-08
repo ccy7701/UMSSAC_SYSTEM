@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Models\EventBookmark;
 use App\Services\ClubAndEventService;
+use App\Services\BookmarkService;
 use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
     protected $clubAndEventService;
+    protected $bookmarkService;
 
-    public function __construct(ClubAndEventService $clubAndEventService) {
+    public function __construct(ClubAndEventService $clubAndEventService, BookmarkService $bookmarkService) {
         $this->clubAndEventService = $clubAndEventService;
+        $this->bookmarkService = $bookmarkService;
     }
 
     public function fetchEventsFinder(Request $request) {
@@ -196,5 +200,39 @@ class EventController extends Controller
         return $status
             ? redirect()->route('committee-manage.manage-details', ['club_id' => $clubId])->with('success', 'Event deleted successfully.')
             : back()->withErrors(['error' => 'Failed to delete event. Please try again.']);
+    }
+
+    public function toggleEventBookmark(Request $request) {
+        $route = route('events-finder.fetch-event-details', ['event_id' => $request->event_id, 'club_id' => $request->club_id]);
+
+        // Check if the event bookmark exists
+        $bookmark = EventBookmark::where('event_id', $request->event_id)
+            ->where('profile_id', $request->profile_id)
+            ->first();
+    
+        if ($bookmark) {
+            // If the bookmark exists, delete it
+            EventBookmark::where('event_id', $request->event_id)
+                ->where('profile_id', $request->profile_id)
+                ->delete();
+
+            return redirect($route)->with('bookmark-delete', 'Event bookmark deleted successfully.');
+        } else {
+            // If the bookmark does not exist, create it
+            EventBookmark::create([
+                'event_id' => $request->event_id,
+                'profile_id' => $request->profile_id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            return redirect($route)->with('bookmark-create', 'Event bookmark created successfully.');
+        }
+    }
+
+    public function fetchUserEventBookmarks(Request $request) {
+        $search = $request->input('search', '');
+
+        return $this->bookmarkService->prepareAndRenderBookmarksView($search, profile()->profile_id, 'events-finder.bookmarks');
     }
 }
