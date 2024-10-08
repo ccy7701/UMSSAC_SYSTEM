@@ -42,6 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/events-finder/bookmarks', function () {
         return view('events-finder.bookmarks');
     })->name('events-finder.bookmarks');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/events-finder/bookmarks/toggle', [EventController::class, 'toggleEventBookmark'])->name('events-finder.bookmarks.toggle');
     
     Route::post('/update-search-view-preference', [UserPreferenceController::class, 'updateItemViewPreference']);
 

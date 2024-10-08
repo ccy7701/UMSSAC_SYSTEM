@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Club;
 use App\Models\Event;
+use App\Models\EventBookmark;
 use Illuminate\Http\Request;
 use App\Models\ClubMembership;
 use Illuminate\Support\Facades\DB;
@@ -103,12 +104,15 @@ class ClubAndEventService
     public function prepareAndRenderEventView($eventId, $viewName) {
         $event = Event::findOrFail($eventId);
         $club = Club::findOrFail($event->club_id);
-
+        $bookmark = EventBookmark::where('event_id', $eventId)
+            ->where('profile_id', profile()->profile_id)
+            ->first();
         $isCommitteeMember = $this->checkCommitteeMember($club->club_id, profile()->profile_id);
         
         return view($viewName, [
             'event' => $event,
             'club' => $club,
+            'isBookmarked' => $bookmark ? 1 : 0,
             'isCommitteeMember' => $isCommitteeMember
         ]);
     }

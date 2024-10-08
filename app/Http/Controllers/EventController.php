@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Models\EventBookmark;
+use Illuminate\Support\Facades\DB;
 use App\Services\ClubAndEventService;
 use Illuminate\Support\Facades\Storage;
 
@@ -196,5 +198,33 @@ class EventController extends Controller
         return $status
             ? redirect()->route('committee-manage.manage-details', ['club_id' => $clubId])->with('success', 'Event deleted successfully.')
             : back()->withErrors(['error' => 'Failed to delete event. Please try again.']);
+    }
+
+    public function toggleEventBookmark(Request $request) {
+        $route = route('events-finder.fetch-event-details', ['event_id' => $request->event_id, 'club_id' => $request->club_id]);
+
+        // Check if the event bookmark exists
+        $bookmark = EventBookmark::where('event_id', $request->event_id)
+            ->where('profile_id', $request->profile_id)
+            ->first();
+    
+        if ($bookmark) {
+            // If the bookmark exists, delete it
+            EventBookmark::where('event_id', $request->event_id)
+                ->where('profile_id', $request->profile_id)
+                ->delete();
+
+            return redirect($route)->with('bookmark-delete', 'Event bookmark deleted successfully.');
+        } else {
+            // If the bookmark does not exist, create it
+            EventBookmark::create([
+                'event_id' => $request->event_id,
+                'profile_id' => $request->profile_id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            return redirect($route)->with('bookmark-create', 'Event bookmark created successfully.');
+        }
     }
 }
