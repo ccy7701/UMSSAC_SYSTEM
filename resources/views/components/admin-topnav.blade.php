@@ -34,14 +34,36 @@
                 <small>Admin</small><br>
                 <small>{{ currentAccount()->account_email_address }}</small>
             </li>
-            <li><hr class="divider-gray-300"></li>
+            <hr class="divider-gray-300 py-0 mt-3 mb-0">
+
             <div class="px-0">
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('profile') }}">Profile</a></li>
+                <hr class="divider-gray-300 py-0 my-0">
+
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('admin.all-system-users') }}">All System Users</a></li>
-                <li class="nav-item"><a class="nav-link px-3" href="{{ route('events-finder') }}">Events Finder</a></li>
+                <hr class="divider-gray-300 py-0 my-0">
+
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('manage-clubs') }}">Manage Clubs</a></li>
+                <hr class="divider-gray-300 py-0 my-0">
+
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="#" id="events-toggle">
+                        Events
+                        <i class="fa fa-chevron-down chevron-icon ms-1" id="events-chevron"></i>
+                    </a>
+                    <ul class="nav flex-column collapse" id="events-submenu">
+                        <li class="nav-item nav-submenu"><a class="nav-link px-3 text-decoration-none" href="{{ route('events-finder') }}">&emsp;Events Finder</a></li>
+                        <li class="nav-item nav-submenu"><a class="nav-link px-3" href="{{ route('events-finder.bookmarks') }}">&emsp;Bookmarked Events</a></li>
+                    </ul>
+                </li>
+                <hr class="divider-gray-300 py-0 my-0">
+
                 <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Bookmarks (WIP)</a></li>
+                <hr class="divider-gray-300 py-0 my-0">
+
                 <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Calendar (WIP)</a></li>
+                <hr class="divider-gray-300 py-0 my-0">
+
                 <li class="nav-item">
                     <form method="POST" action="{{ route('account.logout') }}">
                         @csrf
@@ -50,6 +72,8 @@
                         </button>
                     </form>
                 </li>
+                <hr class="divider-gray-300 py-0 my-0">
+
             </div>
         </ul>
     </div>

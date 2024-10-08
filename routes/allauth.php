@@ -38,6 +38,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/events-finder/clear-all', [EventController::class, 'clearFilterForGeneral'])->name('events-finder.clear-filter');
 
     Route::get('/events-finder/full-details', [EventController::class, 'fetchEventDetails'])->name('events-finder.fetch-event-details');
+
+    Route::get('/events-finder/bookmarks', function () {
+        return view('events-finder.bookmarks');
+    })->name('events-finder.bookmarks');
     
     Route::post('/update-search-view-preference', [UserPreferenceController::class, 'updateItemViewPreference']);
 

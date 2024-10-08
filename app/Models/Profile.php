@@ -45,6 +45,18 @@ class Profile extends Model
         return $this->hasOne(UserTraitsRecord::class, 'profile_id', 'profile_id');
     }
 
+    public function eventBookmarks() {
+        return $this->hasMany(EventBookmark::class, 'profile_id', 'profile_id');
+    }
+
+    public function ownStudyPartners() {
+        return $this->hasMany(StudyPartner::class, 'profile_id', 'profile_id');
+    }
+
+    public function addedByStudyPartners() {
+        return $this->hasMany(StudyPartner::class, 'study_partner_profile_id', 'profile_id');
+    }
+
     // ACCESSOR: Profile picture filepath
     public function getProfilePictureAttribute() {
         return $this->profile_picture_filepath ? Storage::url($this->profile_picture_filepath) : asset('images/no_profile_pic_default.png');

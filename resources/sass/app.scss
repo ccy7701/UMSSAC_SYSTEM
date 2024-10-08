@@ -1,4 +1,5 @@
 $btn-primary-bg: #1064D6;
+$text-primary: #1064D6;
 $text-muted: #777777;
 $bg-muted: #777777;
 $bg-lightgray: #EAF2FD;
@@ -143,11 +144,11 @@ html {
 
 /* Only the icons should change color based on the state */
 .toggle-view-btn i {
-    color: text-muted;
+    color: $text-muted;
 }
 
 .toggle-view-btn.active i {
-    color: text-primary;
+    color: $text-primary;
 }
 
 #user-profile,
@@ -169,6 +170,14 @@ html {
     background-color: $btn-primary-bg;
     border-color: $btn-primary-bg;
     color: white;
+}
+
+.nav-submenu {
+    background-color: white;
+    a {
+        text-decoration: none;
+        color: $text-muted;
+    }
 }
 
 // add media for max-width: 1400px when needed

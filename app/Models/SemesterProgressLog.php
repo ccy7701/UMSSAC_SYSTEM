@@ -11,7 +11,7 @@ class SemesterProgressLog extends Model
 
     protected $table = 'semester_progress_log';
     protected $primaryKey = 'sem_prog_log_id';
-    public $timestamps = false;     // KIV, will you need this in the future?
+    public $timestamps = false;
 
     protected $fillable = [
         'profile_id',
