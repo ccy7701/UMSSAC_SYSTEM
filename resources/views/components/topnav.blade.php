@@ -52,7 +52,7 @@
                         </a>
                         <ul class="nav flex-column collapse" id="study-partners-submenu">
                             <li class="nav-item nav-submenu"><a class="nav-link px-3 text-decoration-none" href="{{ route('study-partners-suggester') }}">&emsp;Study Partners Suggester</a></li>
-                            <li class="nav-item nav-submenu"><a class="nav-link px-3" href="#">&emsp;Bookmarked Study Partners</a></li>
+                            <li class="nav-item nav-submenu"><a class="nav-link px-3" href="{{ route('study-partners-suggester.bookmarks') }}">&emsp;Bookmarked Study Partners</a></li>
                             <li class="nav-item nav-submenu"><a class="nav-link px-3" href="#">&emsp;Added Study Partners</a></li>
                         </ul>
                     </li>
@@ -73,7 +73,7 @@
                     </a>
                     <ul class="nav flex-column collapse" id="events-submenu">
                         <li class="nav-item nav-submenu"><a class="nav-link px-3 text-decoration-none" href="{{ route('events-finder') }}">&emsp;Events Finder</a></li>
-                        <li class="nav-item nav-submenu"><a class="nav-link px-3" href="#">&emsp;Bookmarked Events</a></li>
+                        <li class="nav-item nav-submenu"><a class="nav-link px-3" href="{{ route('events-finder.bookmarks') }}">&emsp;Bookmarked Events</a></li>
                     </ul>
                 </li>
                 <hr class="divider-gray-300 py-0 my-0">

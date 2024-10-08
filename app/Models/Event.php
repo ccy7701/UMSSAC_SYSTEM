@@ -29,4 +29,8 @@ class Event extends Model
     public function club() {
         return $this->belongsTo(Club::class, 'club_id', 'club_id');
     }
+
+    public function eventBookmark() {
+        return $this->hasMany(EventBookmark::class, 'event_id', 'event_id');
+    }
 }
