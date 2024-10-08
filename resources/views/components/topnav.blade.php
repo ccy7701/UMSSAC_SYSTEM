@@ -38,20 +38,49 @@
                     <small>{{ currentAccount()->account_email_address }}</small>
                 @endif
             </li>
-            <li><hr class="divider-gray-300"></li>
+            <hr class="divider-gray-300 py-0 mt-3 mb-0">
+
             <div class="px-0">
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('profile') }}">Profile</a></li>
+                <hr class="divider-gray-300 py-0 my-0">
+
                 @if (currentAccount()->account_role == 1)
-                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('study-partners-suggester') }}">Study Partners Suggester</a></li>
-
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="#" id="study-partners-toggle">
+                            Study Partners
+                            <i class="fa fa-chevron-down chevron-icon ms-1" id="study-partners-chevron"></i>
+                        </a>
+                        <ul class="nav flex-column collapse" id="study-partners-submenu">
+                            <li class="nav-item nav-submenu"><a class="nav-link px-3 text-decoration-none" href="{{ route('study-partners-suggester') }}">&emsp;Study Partners Suggester</a></li>
+                            <li class="nav-item nav-submenu"><a class="nav-link px-3" href="#">&emsp;Bookmarked Study Partners</a></li>
+                            <li class="nav-item nav-submenu"><a class="nav-link px-3" href="#">&emsp;Added Study Partners</a></li>
+                        </ul>
+                    </li>
+                    <hr class="divider-gray-300 py-0 my-0">
                     <li class="nav-item"><a class="nav-link px-3" href="{{ route('timetable-builder') }}">Timetable Builder</a></li>
-
+                    <hr class="divider-gray-300 py-0 my-0">
                     <li class="nav-item"><a class="nav-link px-3" href="{{ route('progress-tracker') }}">Academic Progress Tracker</a></li>
+                    <hr class="divider-gray-300 py-0 my-0">
                 @endif
-                <li class="nav-item"><a class="nav-link px-3" href="{{ route('events-finder') }}">Events Finder</a></li>
+
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('clubs-finder') }}">Clubs Finder</a></li>
-                <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Bookmarks (WIP)</a></li>
+                <hr class="divider-gray-300 py-0 my-0">
+
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="#" id="events-toggle">
+                        Events
+                        <i class="fa fa-chevron-down chevron-icon ms-1" id="events-chevron"></i>
+                    </a>
+                    <ul class="nav flex-column collapse" id="events-submenu">
+                        <li class="nav-item nav-submenu"><a class="nav-link px-3 text-decoration-none" href="{{ route('events-finder') }}">&emsp;Events Finder</a></li>
+                        <li class="nav-item nav-submenu"><a class="nav-link px-3" href="#">&emsp;Bookmarked Events</a></li>
+                    </ul>
+                </li>
+                <hr class="divider-gray-300 py-0 my-0">
+
                 <li class="nav-item"><a class="nav-link px-3 text-black-50" href="#">Calendar (WIP)</a></li>
+                <hr class="divider-gray-300 py-0 my-0">
+
                 <li class="nav-item">
                     <form method="POST" action="{{ route('account.logout') }}">
                         @csrf
@@ -60,6 +89,8 @@
                         </button>
                     </form>
                 </li>
+                <hr class="divider-gray-300 py-0 my-0">
+
             </div>
         </ul>
     </div>

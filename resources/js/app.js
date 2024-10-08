@@ -22,3 +22,41 @@ document.addEventListener("DOMContentLoaded", function() {
         filterBtnIcon.classList.remove('rotate-chevron');
     });
 });
+
+// Study Partners submenu dropdown
+document.addEventListener('DOMContentLoaded', function () {
+    const studyPartnersToggleLink = document.getElementById('study-partners-toggle');
+    const studyPartnersSubmenu = document.getElementById('study-partners-submenu');
+    const studyPartnersChevronIcon = document.getElementById('study-partners-chevron');
+
+    studyPartnersToggleLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        
+        if (studyPartnersSubmenu.classList.contains('collapse')) {
+            studyPartnersSubmenu.classList.remove('collapse');
+            studyPartnersChevronIcon.classList.add('rotate-chevron');
+        } else {
+            studyPartnersSubmenu.classList.add('collapse');
+            studyPartnersChevronIcon.classList.remove('rotate-chevron');
+        }
+    });
+});
+
+// Events submenu dropdown
+document.addEventListener('DOMContentLoaded', function () {
+    const eventsToggleLink = document.getElementById('events-toggle');
+    const eventsSubmenu = document.getElementById('events-submenu');
+    const eventsChevronIcon = document.getElementById('events-chevron');
+
+    eventsToggleLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        
+        if (eventsSubmenu.classList.contains('collapse')) {
+            eventsSubmenu.classList.remove('collapse');
+            eventsChevronIcon.classList.add('rotate-chevron');
+        } else {
+            eventsSubmenu.classList.add('collapse');
+            eventsChevronIcon.classList.remove('rotate-chevron');
+        }
+    });
+});
