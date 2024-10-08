@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to update the progress bar
     function updateProgressBar() {
-        const progressPercentage = ((currentStepIndex) / steps.length) * 100;
+        const progressPercentage = (((currentStepIndex) / steps.length) * 100) + 20;
         progressBar.style.width = progressPercentage + '%';
         progressBar.setAttribute('aria-valuenow', progressPercentage);
         progressBar.innerText = Math.round(progressPercentage) + '%';

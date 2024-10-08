@@ -121,7 +121,7 @@
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
                     <div class="col-lg-6 col-8 text-start mt-2">
-                        <h3 class="rserif fw-bold w-100">Members and access levels</h3>
+                        <h3 class="rserif fw-bold w-100">Members and access levels ({{ $clubMembersCount }})</h3>
                     </div>
                     <div class="col-lg-6 col-4 text-end align-self-center">
                         <a href="{{ route('admin-manage.edit-member-access', ['club_id' => $club->club_id]) }}" class="section-button rsans btn btn-primary fw-bold px-3">Edit</a>

@@ -36,37 +36,39 @@
                     </div>
                 </div>
             </div>
-            @if($errors->any())
-                <br><br><br>
-                <div class="rsans alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <i class="fa fa-circle-exclamation px-2"></i>
-                        {{ $error }}
-                        <br>
-                    @endforeach
-                </div>
-            @endif
             <div class="d-flex justify-content-center align-items-center py-3 w-100 align-self-center">
                 <div class="container form-container px-3">
+                    @if($errors->any())
+                        <br>
+                        <div class="rsans alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                <i class="fa fa-circle-exclamation px-2"></i>
+                                {{ $error }}
+                                <br>
+                            @endforeach
+                        </div>
+                        <br>
+                    @endif
                     <div class="form-group mb-3">
                         <label for="full-name" class="rsans fw-bold form-label">Full name</label>
                         <input type="text" id="full-name" name="account_full_name" class="rsans form-control" value="{{ currentAccount()->account_full_name }}" readonly disabled>
                     </div>
-                    <!-- KIV: Is there a more graceful way to show a placeholder or value? -->
                     <div class="form-group mb-3">
                         <label for="nickname" class="rsans fw-bold form-label">Nickname</label>
-                        <input type="text" id="nickname" name="profile_nickname" class="rsans form-control" value="{{ profile()->profile_nickname }}">
+                        <input type="text" id="nickname" name="profile_nickname" class="rsans form-control" value="{{ profile()->profile_nickname }}" placeholder="Enter nickname">
                     </div>
-                    @if(currentAccount()->account_role == 1)
+                    @if (currentAccount()->account_role == 1)
                         <div class="form-group mb-3">
                             <label for="matric-number" class="rsans fw-bold form-label">Matric number</label>
                             <input type="text" id="matric-number" name="account_matric_number" class="rsans form-control" value="{{ currentAccount()->account_matric_number }}" readonly disabled>
                         </div>
                         <div class="form-group mb-3">
                             <label for="enrolment-session" class="rsans fw-bold form-label">Enrolment session</label>
-                            <input type="text" id="enrolment-session" class="rsans form-control" value="{{ profile()->profile_enrolment_session }}" readonly disabled>
+                            <input type="text" id="enrolment-session" class="rsans form-control" value="{{ profile()->profile_enrolment_session != '' ? profile()->profile_enrolment_session : 'Not filled yet' }}" readonly disabled>
+                            <div id="enrolment-session-note" class="rsans form-text">Note: Use the Academic Progress Tracker to initialise your enrolment session.</div>
                         </div>
                     @endif
+                    @if (currentAccount()->account_role != 3)
                     <div class="form-group mb-3">
                         <label for="faculty" class="rsans fw-bold form-label">Faculty</label>
                         <select id="faculty" class="rsans form-select w-50" name="profile_faculty">
@@ -96,9 +98,10 @@
                             <option select disabled value="">Choose...</option>
                         </select>
                     </div>
+                    @endif
                     <div class="form-group mb-3">
                         <label for="personal-desc" class="rsans fw-bold form-label">Personal description</label>
-                        <textarea id="personal-desc" name="profile_personal_desc" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024">{{ profile()->profile_personal_desc }}</textarea>
+                        <textarea id="personal-desc" name="profile_personal_desc" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024" placeholder="Enter personal description">{{ profile()->profile_personal_desc }}</textarea>
                     </div>
                 </div>
             </div>
