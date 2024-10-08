@@ -207,13 +207,13 @@ class EventController extends Controller
 
         // Check if the event bookmark exists
         $bookmark = EventBookmark::where('event_id', $request->event_id)
-            ->where('profile_id', $request->profile_id)
+            ->where('profile_id', profile()->profile_id)
             ->first();
     
         if ($bookmark) {
             // If the bookmark exists, delete it
             EventBookmark::where('event_id', $request->event_id)
-                ->where('profile_id', $request->profile_id)
+                ->where('profile_id', profile()->profile_id)
                 ->delete();
 
             return redirect($route)->with('bookmark-delete', 'Event bookmark deleted successfully.');
@@ -221,7 +221,7 @@ class EventController extends Controller
             // If the bookmark does not exist, create it
             EventBookmark::create([
                 'event_id' => $request->event_id,
-                'profile_id' => $request->profile_id,
+                'profile_id' => profile()->profile_id,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);

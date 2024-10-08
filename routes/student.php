@@ -62,4 +62,7 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::get('/study-partners-suggester/bookmarks', function () {
         return view('study-partners-suggester.bookmarks');
     })->name('study-partners-suggester.bookmarks');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/study-partners-suggester/bookmarks/toggle', [StudyPartnersSuggesterController::class, 'toggleStudyPartnerBookmark'])->name('study-partners-suggester.bookmarks.toggle');
 });
