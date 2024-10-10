@@ -70,7 +70,7 @@
                     <!-- GRID VIEW (Toggle based on preference) -->
                     <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                         <div class="row pb-3 px-md-3 px-sm-0">
-                            @foreach ($bookmarkedEvents as $bookmark)
+                            @foreach ($bookmarks as $bookmark)
                                 <div class="col-xl-2 col-lg-3 col-md-4 col-6 mb-3 px-2">
                                     <x-event-card :event="$bookmark->event"/>
                                 </div>
@@ -79,7 +79,7 @@
                     </div>
                     <!-- LIST VIEW (Toggle based on preference) -->
                     <div id="list-view" class="row list-view ms-2 {{ $searchViewPreference == 2 ? '' : 'd-none' }} mt-0">
-                        @foreach ($bookmarkedEvents as $bookmark)
+                        @foreach ($bookmarks as $bookmark)
                             <div class="row pb-3">
                                 <x-event-list-item :event="$bookmark->event"/>
                             </div>

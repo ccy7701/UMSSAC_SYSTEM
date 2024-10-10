@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\StudyPartnersSuggesterService;
-use App\Models\UserTraitsRecord;
+use Carbon\Carbon;
+use App\Models\StudyPartner;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use App\Models\UserTraitsRecord;
+use App\Services\BookmarkService;
+use App\Services\StudyPartnersSuggesterService;
 
 class StudyPartnersSuggesterController extends Controller
 {
     protected $studyPartnersSuggesterService;
+    protected $bookmarkService;
 
-    public function __construct(StudyPartnersSuggesterService $studyPartnersSuggesterService) {
+    public function __construct(StudyPartnersSuggesterService $studyPartnersSuggesterService, BookmarkService $bookmarkService) {
+        $this->bookmarkService = $bookmarkService;
         $this->studyPartnersSuggesterService = $studyPartnersSuggesterService;
     }
 
@@ -43,5 +47,42 @@ class StudyPartnersSuggesterController extends Controller
             'success' => true,
             'suggestedStudyPartners' => $suggestedStudyPartners
         ]);
+    }
+
+    public function toggleStudyPartnerBookmark(Request $request) {
+        $route = route('study-partners-suggester.suggester-results');
+
+        // Check if the event bookmark exists
+        $bookmark = $this->studyPartnersSuggesterService->checkIfBookmarkExists($request->study_partner_profile_id);
+
+        if ($bookmark) {
+            // If the bookmark exists, delete it
+            StudyPartner::where('profile_id', profile()->profile_id)
+                ->where('study_partner_profile_id', $request->study_partner_profile_id)
+                ->where('connection_type', 1)
+                ->delete();
+            return redirect($route)->with('bookmark-delete', 'Study partner bookmark deleted successfully.');
+        } else {
+            // If the bookmark does not exist, create it
+            StudyPartner::create([
+                'profile_id' => profile()->profile_id,
+                'study_partner_profile_id' => $request->study_partner_profile_id,
+                'connection_type' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+            return redirect($route)->with('bookmark-create', 'Study partner bookmark created successfully.');
+        }
+    }
+
+    public function fetchUserStudyPartnerBookmarks(Request $request) {
+        $search = $request->input('search', '');
+
+        return $this->bookmarkService->prepareAndRenderBookmarksView(
+            'study_partners',
+            profile()->profile_id,
+            'study-partners-suggester.bookmarks',
+            $search
+        );
     }
 }

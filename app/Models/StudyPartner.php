@@ -25,4 +25,8 @@ class StudyPartner extends Model
     public function profile() {
         return $this->belongsTo(Profile::class, 'profile_id', 'profile_id');
     }
+
+    public function studyPartnerProfile() {
+        return $this->belongsTo(Profile::class, 'study_partner_profile_id', 'profile_id');
+    }
 }
