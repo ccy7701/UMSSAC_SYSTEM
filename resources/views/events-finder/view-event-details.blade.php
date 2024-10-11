@@ -18,12 +18,12 @@
     @endif
     <x-response-popup
         messageType="bookmark-create"
-        iconClass=""
-        title="Bookmark created."/>
+        iconClass="text-primary fa-solid fa-bookmark"
+        title="Event bookmark created."/>
     <x-response-popup
         messageType="bookmark-delete"
-        iconClass=""
-        title="Bookmark deleted."/>
+        iconClass="text-primary fa-regular fa-bookmark"
+        title="Event bookmark deleted."/>
     <x-response-popup
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"
@@ -129,10 +129,9 @@
                             <!-- EVENT BOOKMARK -->
                             <form class="d-inline-flex" method="POST" action="{{ route('events-finder.bookmarks.toggle') }}">
                                 @csrf
-                                <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                 <input type="hidden" name="club_id" value="{{ $club->club_id }}">
-                                <button class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none">
+                                <button type="submit" class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none">
                                     @if ($isBookmarked)
                                         &nbsp;<i class="fa-solid fa-bookmark text-primary"></i>
                                     @else

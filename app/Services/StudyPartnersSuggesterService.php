@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use App\Models\UserTraitsRecord;
+use App\Models\StudyPartner;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Storage;
 
@@ -182,7 +183,6 @@ class StudyPartnersSuggesterService
 
         // Process the data before return
         $combinedResults = $profiles->map(function($profile) use ($recommendationMap) {
-            
             $profile->profile_picture_filepath = $profile->profile_picture_filepath
                 ? Storage::url($profile->profile_picture_filepath)
                 : asset('images/no_club_images_default.png');
@@ -208,10 +208,21 @@ class StudyPartnersSuggesterService
             return [
                 'profile' => $profile,
                 'similarity' => $recommendationMap[$profile->profile_id] ?? null,
+                'bookmarkExists' => $this->checkIfBookmarkExists($profile->profile_id)
             ];
         });
 
         // Sort the combined data, then return it
         return $combinedResults->sortByDesc('similarity')->values();
+    }
+
+    // Check if a study partner bookmark exists
+    private function checkIfBookmarkExists($studyPartnerProfileId) {
+        $bookmark = StudyPartner::where('profile_id', profile()->profile_id)
+            ->where('study_partner_profile_id', $studyPartnerProfileId)
+            ->where('connection_type', 1)
+            ->first();
+
+        return $bookmark ? 1 : 0;
     }
 }

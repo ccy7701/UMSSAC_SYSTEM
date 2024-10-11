@@ -14,6 +14,14 @@
     @vite('resources/js/app.js')
     @vite('resources/js/suggesterResultsOperations.js')
     <x-topnav/>
+    <x-response-popup
+        messageType="bookmark-create"
+        iconClass="text-primary fa-solid fa-bookmark"
+        title="Study partner bookmark created."/>
+    <x-response-popup
+        messageType="bookmark-delete"
+        iconClass="text-primary fa-regular fa-bookmark"
+        title="Study partner bookmark deleted."/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->

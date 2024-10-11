@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\StudyPartnersSuggesterService;
-use App\Models\UserTraitsRecord;
+use Carbon\Carbon;
+use App\Models\StudyPartner;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use App\Models\UserTraitsRecord;
+use App\Services\BookmarkService;
+use App\Services\StudyPartnersSuggesterService;
 
 class StudyPartnersSuggesterController extends Controller
 {
     protected $studyPartnersSuggesterService;
+    protected $bookmarkService;
 
-    public function __construct(StudyPartnersSuggesterService $studyPartnersSuggesterService) {
+    public function __construct(StudyPartnersSuggesterService $studyPartnersSuggesterService, BookmarkService $bookmarkService) {
+        $this->bookmarkService = $bookmarkService;
         $this->studyPartnersSuggesterService = $studyPartnersSuggesterService;
     }
 
@@ -43,5 +47,24 @@ class StudyPartnersSuggesterController extends Controller
             'success' => true,
             'suggestedStudyPartners' => $suggestedStudyPartners
         ]);
+    }
+
+    public function fetchUserStudyPartnerBookmarks(Request $request) {
+        $search = $request->input('search', '');
+
+        return $this->bookmarkService->prepareAndRenderBookmarksView(
+            'study_partners',
+            profile()->profile_id,
+            'study-partners-suggester.bookmarks',
+            $search
+        );
+    }
+
+    public function toggleStudyPartnerBookmark(Request $request) {
+        return $this->bookmarkService->handleToggleStudyPartnerBookmark(
+            $request->operation_page_source,
+            profile()->profile_id,
+            $request->study_partner_profile_id
+        );
     }
 }
