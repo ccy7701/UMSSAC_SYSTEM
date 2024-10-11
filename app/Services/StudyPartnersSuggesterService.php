@@ -183,7 +183,6 @@ class StudyPartnersSuggesterService
 
         // Process the data before return
         $combinedResults = $profiles->map(function($profile) use ($recommendationMap) {
-            
             $profile->profile_picture_filepath = $profile->profile_picture_filepath
                 ? Storage::url($profile->profile_picture_filepath)
                 : asset('images/no_club_images_default.png');
@@ -218,9 +217,9 @@ class StudyPartnersSuggesterService
     }
 
     // Check if a study partner bookmark exists
-    public function checkIfBookmarkExists($profileId) {
+    private function checkIfBookmarkExists($studyPartnerProfileId) {
         $bookmark = StudyPartner::where('profile_id', profile()->profile_id)
-            ->where('study_partner_profile_id', $profileId)
+            ->where('study_partner_profile_id', $studyPartnerProfileId)
             ->where('connection_type', 1)
             ->first();
 

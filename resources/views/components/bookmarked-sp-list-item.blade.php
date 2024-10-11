@@ -11,9 +11,11 @@
                     <p class="fst-italic text-muted mb-0 ms-1">
                         ({{ $bookmark->studyPartnerProfile->profile_nickname != '' ? $bookmark->studyPartnerProfile->profile_nickname : 'No nickname' }})
                     </p>
-                    <form class="d-inline-flex" method="POST" action="#">
+                    <!-- (11/10/24: CONTINUE HERE) -->
+                    <form class="d-inline-flex" method="POST" action="{{ route('study-partners-suggester.bookmarks.toggle') }}">
                         @csrf
                         <input type="hidden" name="study_partner_profile_id" value="{{ $bookmark->study_partner_profile_id }}">
+                        <input type="hidden" name="operation_page_source" value="bookmarks">
                         <button type="submit" class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none">
                             &emsp;<i class="fa-solid fa-bookmark text-primary fs-3"></i>
                         </button>

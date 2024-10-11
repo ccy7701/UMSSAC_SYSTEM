@@ -92,6 +92,7 @@ function generateCardContent(studyPartner) {
                     <form class="d-inline-flex" method="POST" action="/study-partners-suggester/bookmarks/toggle">
                         <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').getAttribute('content')}">
                         <input type="hidden" name="study_partner_profile_id" value="${studyPartner.profile.profile_id}">
+                        <input type="hidden" name="operation_page_source" value="results">
                         <button type="submit" class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none">
                             ${bookmarkDisplay}
                         </button>

@@ -49,32 +49,6 @@ class StudyPartnersSuggesterController extends Controller
         ]);
     }
 
-    public function toggleStudyPartnerBookmark(Request $request) {
-        $route = route('study-partners-suggester.suggester-results');
-
-        // Check if the event bookmark exists
-        $bookmark = $this->studyPartnersSuggesterService->checkIfBookmarkExists($request->study_partner_profile_id);
-
-        if ($bookmark) {
-            // If the bookmark exists, delete it
-            StudyPartner::where('profile_id', profile()->profile_id)
-                ->where('study_partner_profile_id', $request->study_partner_profile_id)
-                ->where('connection_type', 1)
-                ->delete();
-            return redirect($route)->with('bookmark-delete', 'Study partner bookmark deleted successfully.');
-        } else {
-            // If the bookmark does not exist, create it
-            StudyPartner::create([
-                'profile_id' => profile()->profile_id,
-                'study_partner_profile_id' => $request->study_partner_profile_id,
-                'connection_type' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
-            return redirect($route)->with('bookmark-create', 'Study partner bookmark created successfully.');
-        }
-    }
-
     public function fetchUserStudyPartnerBookmarks(Request $request) {
         $search = $request->input('search', '');
 
@@ -83,6 +57,14 @@ class StudyPartnersSuggesterController extends Controller
             profile()->profile_id,
             'study-partners-suggester.bookmarks',
             $search
+        );
+    }
+
+    public function toggleStudyPartnerBookmark(Request $request) {
+        return $this->bookmarkService->handleToggleStudyPartnerBookmark(
+            $request->operation_page_source,
+            profile()->profile_id,
+            $request->study_partner_profile_id
         );
     }
 }
