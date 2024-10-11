@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TimetableSlot;
+use App\Services\TimetableBuilderService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +11,15 @@ use Illuminate\Support\Facades\Log;
 
 class TimetableSlotController extends Controller
 {
-    public function initialiseTimetable() {
+    protected $timetableBuilderService;
+
+    public function __construct(TimetableBuilderService $timetableBuilderService) {
+        $this->timetableBuilderService = $timetableBuilderService;
+    }
+
+    public function initialiseTimetableBuilder() {
+        // $this->timetableBuilderService->getAndUpdateSubjectList();
+
         $timetableSlots = TimetableSlot::where('profile_id', profile()->profile_id)
             ->orderBy('class_day')
             ->get();

@@ -27,7 +27,7 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
         return view('timetable-builder.timetable-builder');
     })->name('timetable-builder');
 
-    Route::get('/timetable-builder/initialise', [TimetableSlotController::class, 'initialiseTimetable'])->name('timetable-builder.initialise');
+    Route::get('/timetable-builder/initialise', [TimetableSlotController::class, 'initialiseTimetableBuilder'])->name('timetable-builder.initialise');
 
     Route::get('/get-timetable-slot-data/{timetable_slot_id}', [TimetableSlotController::class, 'getTimetableSlotData'])->name('timetable-builder.get-slot-data');
 

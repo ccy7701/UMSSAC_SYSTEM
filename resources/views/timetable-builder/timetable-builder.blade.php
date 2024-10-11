@@ -12,7 +12,7 @@
 
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
-    @vite('resources/js/timetableBuilderOperations.js')
+    @vite('resources/js/timetableBuilder/timetableBuilderOperations.js')
     <x-topnav/>
     <br>
     <main class="flex-grow-1">

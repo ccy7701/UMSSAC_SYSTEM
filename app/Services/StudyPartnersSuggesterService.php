@@ -155,7 +155,7 @@ class StudyPartnersSuggesterService
             ];
         })->toArray();
 
-        $response = Http::post('http://localhost:5000/recommendationEngine', [
+        $response = Http::post('http://localhost:5000/recommendation-engine', [
             'user_traits_record' => [
                 'profile_id' => $ownTraitsRecord->profile_id,
                 'wtc_data' => json_decode($ownTraitsRecord->wtc_data, true),

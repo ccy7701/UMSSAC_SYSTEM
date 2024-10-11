@@ -1,4 +1,3 @@
-
 <!-- resources/views/components/add-timetable-item.blade.php -->
 <div class="rsans modal fade" id="add-timetable-slot-modal" tabindex="-1" aria-labelledby="addTimetableItemModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -15,11 +14,12 @@
                 <div class="modal-body px-5">
                     <div class="form-group mb-3">
                         <label for="class-subject-code" class="fw-bold form-label">Code</label>
-                        <input type="text" class="form-control" id="class-subject-code" name="class_subject_code" required>
+                        <input type="text" class="form-control" id="class-subject-code" name="class_subject_code" autocomplete="off" required">
+                        <div id="subject-list" class="list-group mt-2 overflow-y-auto" style="max-height: 200px;"></div>
                     </div>
                     <div class="form-group mb-3">
                         <label for="class-name" class="fw-bold form-label">Subject name</label>
-                        <input type="text" class="form-control" id="class-name" name="class_name" required>
+                        <input type="text" class="form-control" id="class-name" name="class_name" readonly required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="class-category" class="fw-bold form-label">Category</label>
