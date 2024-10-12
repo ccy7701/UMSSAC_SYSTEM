@@ -27,7 +27,10 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
         return view('timetable-builder.timetable-builder');
     })->name('timetable-builder');
 
-    Route::get('/timetable-builder/initialise', [TimetableSlotController::class, 'initialiseTimetable'])->name('timetable-builder.initialise');
+    Route::get('/timetable-builder/initialise', [TimetableSlotController::class, 'initialiseTimetableBuilder'])->name('timetable-builder.initialise');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/timetable-builder/get-subject-details-list', [TimetableSlotController::class, 'getSubjectDetailsList'])->name('timetable-builder.get-subject-details-list');
 
     Route::get('/get-timetable-slot-data/{timetable_slot_id}', [TimetableSlotController::class, 'getTimetableSlotData'])->name('timetable-builder.get-slot-data');
 
@@ -39,28 +42,21 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
     Route::delete('/delete-timetable-slot/{timetable_slot_id}', [TimetableSlotController::class, 'deleteTimetableSlot'])->name('timetable-builder.delete');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/study-partners-suggester', [StudyPartnersSuggesterController::class, 'initialiseSuggester'])->name('study-partners-suggester');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/study-partners-suggester/suggester-form', function () {
         return view('study-partners-suggester.suggester-form');
     })->name('study-partners-suggester.suggester-form');
 
-    // CURRENT ROUTE OF FOCUS
     Route::post('/study-partners-suggester/submit-form', [StudyPartnersSuggesterController::class, 'submitSuggesterForm'])->name('study-partners-suggester.suggester-form.submit');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/study-partners-suggester/suggester-results', function () {
         return view('study-partners-suggester.suggester-results');
     })->name('study-partners-suggester.suggester-results');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/study-partners-suggester/suggester-results/get', [StudyPartnersSuggesterController::class, 'getSuggestedStudyPartners'])->name('study-partners-suggester.suggester-results.get');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/study-partners-suggester/bookmarks', [StudyPartnersSuggesterController::class, 'fetchUserStudyPartnerBookmarks'])->name('study-partners-suggester.bookmarks');
 
-    // CURRENT ROUTE OF FOCUS
     Route::post('/study-partners-suggester/bookmarks/toggle', [StudyPartnersSuggesterController::class, 'toggleStudyPartnerBookmark'])->name('study-partners-suggester.bookmarks.toggle');
 });

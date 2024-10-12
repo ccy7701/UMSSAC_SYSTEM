@@ -9,7 +9,7 @@
                 <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                The end time cannot be earlier than the start time. Please check your input again.
+                The end time cannot be equal to or earlier than the start time. Please check your input again.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary fw-semibold" data-bs-dismiss="modal">Go back</button>

@@ -19,3 +19,4 @@ yarn-error.log
 /.idea
 /.vscode
 .env.testing
+public/resources/data/all_subjects_data.json

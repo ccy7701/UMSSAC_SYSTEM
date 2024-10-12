@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TimetableSlot;
+use App\Services\TimetableBuilderService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +11,15 @@ use Illuminate\Support\Facades\Log;
 
 class TimetableSlotController extends Controller
 {
-    public function initialiseTimetable() {
+    protected $timetableBuilderService;
+
+    public function __construct(TimetableBuilderService $timetableBuilderService) {
+        $this->timetableBuilderService = $timetableBuilderService;
+    }
+
+    public function initialiseTimetableBuilder() {
+        // Leave out: $this->timetableBuilderService->getAndUpdateSubjectList();
+
         $timetableSlots = TimetableSlot::where('profile_id', profile()->profile_id)
             ->orderBy('class_day')
             ->get();
@@ -63,6 +72,7 @@ class TimetableSlotController extends Controller
                     'class_name' => $validatedData['class_name'],
                     'class_category' => $validatedData['class_category'],
                     'class_section' => $validatedData['class_section'],
+                    'class_lecturer' => $validatedData['class_lecturer'],
                     'class_location' => $validatedData['class_location'],
                     'class_day' => $validatedData['class_day'],
                     'class_start_time' => $validatedData['class_start_time'],
@@ -91,7 +101,52 @@ class TimetableSlotController extends Controller
         }
     }
 
+    public function getSubjectDetailsList(Request $request) {
+        // Call the service to get the subject details list
+        $rawList = $this->timetableBuilderService->getDetailsList(urldecode($request->source_link));
+        $subjectDetailsList = $rawList->json();
+
+        return response()->json([
+            'success' => true,
+            'subjectDetailsList' => $subjectDetailsList
+        ]);
+    }
+
     private function handleDataValidation(Request $request) {
+        switch ($request->input('class_day')) {
+            case 'Monday':
+            case '1':
+                $request->merge(['class_day' => 1]);
+                break;
+            case 'Tuesday':
+            case '2':
+                $request->merge(['class_day' => 2]);
+                break;
+            case 'Wednesday':
+            case '3':
+                $request->merge(['class_day' => 3]);
+                break;
+            case 'Thursday':
+            case '4':
+                $request->merge(['class_day' => 4]);
+                break;
+            case 'Friday':
+            case '5':
+                $request->merge(['class_day' => 5]);
+                break;
+            case 'Saturday':
+            case '6':
+                $request->merge(['class_day' => 6]);
+                break;
+            case 'Sunday':
+            case '7':
+                $request->merge(['class_day' => 7]);
+                break;
+            default:
+                $request->merge(['class_day' => -1]);
+                break;
+        }
+
         return $request->validate([
             'profile_id' => 'required|integer|exists:profile,profile_id',
             'class_subject_code' => 'required|string|max:12',

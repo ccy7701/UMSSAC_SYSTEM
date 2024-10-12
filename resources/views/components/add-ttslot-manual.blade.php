@@ -1,15 +1,14 @@
-
-<!-- resources/views/components/add-timetable-item.blade.php -->
-<div class="rsans modal fade" id="add-timetable-slot-modal" tabindex="-1" aria-labelledby="addTimetableItemModalLabel" aria-hidden="true">
+<!-- resources/views/components/add-ttslot-manual.blade.php -->
+<div class="rsans modal fade" id="add-ttslot-manual" tabindex="-1" aria-labelledby="addTimetableSlotManualLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header py-2 d-flex align-items-center">
                 <p class="fw-semibold fs-5 mb-0">
-                    Add Timetable Slot
+                    Add Timetable Slot (Manual)
                 </p>
                 <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="add-timetable-slot-form" method="POST" action="{{ route('timetable-builder.add') }}">
+            <form id="add-ttslot-manual-form" method="POST" action="{{ route('timetable-builder.add') }}">
                 @csrf
                 <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
                 <div class="modal-body px-5">
@@ -96,8 +95,18 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary fw-semibold me-1 w-20" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary fw-semibold ms-1 w-20">Add</button>
+                    <div class="row w-100 px-0">
+                        <div class="col-6 d-flex justify-content-start">
+                            <a href="#" class="text-decoration-none text-dark fw-semibold align-content-center" data-bs-toggle="modal" data-bs-target="#add-ttslot-auto" data-bs-dismiss="modal">
+                                Fill automatically
+                            </a>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary fw-semibold me-1 w-50" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary fw-semibold ms-1 w-50">Add</button>
+                        </div>
+                    </div>
+
                 </div>
             </form>
         </div>
