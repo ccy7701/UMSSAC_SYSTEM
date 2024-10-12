@@ -2,6 +2,25 @@ import html2pdf from 'html2pdf.js';
 
 // HELPER FUNCTIONS
 
+// Helper function to get string of day of the week
+export function dayToString(day) {
+    const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+    return daysOfWeek[day - 1];
+}
+
+export function dayToInt(day) {
+    switch(day) {
+        case 'Monday': return 1;
+        case 'Tuesday': return 2;
+        case 'Wednesday': return 3;
+        case 'Thursday': return 4;
+        case 'Friday': return 5;
+        case 'Saturday': return 6;
+        case 'Sunday': return 7;
+    }
+}
+
 // Helper function to convert to AM/PM format
 export function convertToAMPM(time) {
     let hours = time.split(':');

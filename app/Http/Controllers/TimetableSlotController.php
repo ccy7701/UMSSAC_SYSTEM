@@ -50,6 +50,32 @@ class TimetableSlotController extends Controller
     }
 
     public function addTimetableSlot(Request $request) {
+        if (!is_int($request->input('class_day'))) {
+            switch ($request->input('class_day')) {
+                case 'Monday':
+                    $request->merge(['class_day' => 1]);
+                    break;
+                case 'Tuesday':
+                    $request->merge(['class_day' => 2]);
+                    break;
+                case 'Wednesday':
+                    $request->merge(['class_day' => 3]);
+                    break;
+                case 'Thursday':
+                    $request->merge(['class_day' => 4]);
+                    break;
+                case 'Friday':
+                    $request->merge(['class_day' => 5]);
+                    break;
+                case 'Saturday':
+                    $request->merge(['class_day' => 6]);
+                    break;
+                case 'Sunday':
+                    $request->merge(['class_day' => 7]);
+                    break;
+            }
+        }
+
         $validatedData = $this->handleDataValidation($request);
 
         try {
@@ -72,6 +98,7 @@ class TimetableSlotController extends Controller
                     'class_name' => $validatedData['class_name'],
                     'class_category' => $validatedData['class_category'],
                     'class_section' => $validatedData['class_section'],
+                    'class_lecturer' => $validatedData['class_lecturer'],
                     'class_location' => $validatedData['class_location'],
                     'class_day' => $validatedData['class_day'],
                     'class_start_time' => $validatedData['class_start_time'],
@@ -98,6 +125,17 @@ class TimetableSlotController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
+    }
+
+    public function getSubjectDetailsList(Request $request) {
+        // Call the service to get the subject details list
+        $rawList = $this->timetableBuilderService->getDetailsList(urldecode($request->source_link));
+        $subjectDetailsList = $rawList->json();
+
+        return response()->json([
+            'success' => true,
+            'subjectDetailsList' => $subjectDetailsList
+        ]);
     }
 
     private function handleDataValidation(Request $request) {

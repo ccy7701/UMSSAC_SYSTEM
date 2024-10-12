@@ -33,19 +33,19 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="class-section" class="fw-bold form-label">Section/Group</label>
-                        <input type="number" class="form-control" id="class-section" name="class_section" required>
+                        <input type="number" class="form-control" id="class-section" name="class_section" readonly required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="class-lecturer" class="fw-bold form-label">Lecturer</label>
-                        <input type="text" class="form-control" id="class-lecturer" name="class_lecturer" required>
+                        <input type="text" class="form-control" id="class-lecturer" name="class_lecturer" readonly required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="class-location" class="fw-bold form-label">Location</label>
-                        <input type="text" class="form-control" id="class-location" name="class_location" required>
+                        <input type="text" class="form-control" id="class-location" name="class_location" readonly required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="day" class="fw-bold form-label">Day and time</label>
-                        <select class="form-select" id="day" name="class_day" required>
+                        {{-- <select class="form-select" id="day" name="class_day" readonly required>
                             <option selected disabled value="">Choose...</option>
                             <option value="1">Monday</option>
                             <option value="2">Tuesday</option>
@@ -54,9 +54,10 @@
                             <option value="5">Friday</option>
                             <option value="6">Saturday</option>
                             <option value="7">Sunday</option>
-                        </select>
+                        </select> --}}
+                        <input type="text" class="form-control" id="day" name="class_day" readonly required>
                         <label for="start-time" class="align-self-center p-2">from</label>
-                        <select class="form-select" id="start-time" name="class_start_time" required>
+                        {{-- <select class="form-select" id="start-time" name="class_start_time" readonly required>
                             <option selected disabled value="">Choose...</option>
                             <option value="07:00:00">7:00 AM</option>
                             <option value="08:00:00">8:00 AM</option>
@@ -73,9 +74,10 @@
                             <option value="19:00:00">7:00 PM</option>
                             <option value="20:00:00">8:00 PM</option>
                             <option value="21:00:00">9:00 PM</option>
-                        </select>
+                        </select> --}}
+                        <input type="text" class="form-control" id="start-time" name="class_start_time" readonly required>
                         <label for="end-time" class="align-self-center p-2">to</label>
-                        <select class="form-select" id="end-time" name="class_end_time" required>
+                        {{-- <select class="form-select" id="end-time" name="class_end_time" readonly required>
                             <option selected disabled value="">Choose...</option>
                             <option value="08:00:00">8:00 AM</option>
                             <option value="09:00:00">9:00 AM</option>
@@ -92,7 +94,8 @@
                             <option value="20:00:00">8:00 PM</option>
                             <option value="21:00:00">9:00 PM</option>
                             <option value="22:00:00">10:00 PM</option>
-                        </select>
+                        </select> --}}
+                        <input type="text" class="form-control" id="end-time" name="class_end_time" readonly required>
                     </div>
                 </div>
                 <div class="modal-footer">
