@@ -1,25 +1,24 @@
-<!-- resources/views/components/add-timetable-item.blade.php -->
-<div class="rsans modal fade" id="add-timetable-slot-modal" tabindex="-1" aria-labelledby="addTimetableItemModalLabel" aria-hidden="true">
+<!-- resources/views/components/add-ttslot-manual.blade.php -->
+<div class="rsans modal fade" id="add-ttslot-manual" tabindex="-1" aria-labelledby="addTimetableSlotManualLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header py-2 d-flex align-items-center">
                 <p class="fw-semibold fs-5 mb-0">
-                    Add Timetable Slot
+                    Add Timetable Slot (Manual)
                 </p>
                 <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="add-timetable-slot-form" method="POST" action="{{ route('timetable-builder.add') }}">
+            <form id="add-ttslot-manual-form" method="POST" action="{{ route('timetable-builder.add') }}">
                 @csrf
                 <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
                 <div class="modal-body px-5">
                     <div class="form-group mb-3">
                         <label for="class-subject-code" class="fw-bold form-label">Code</label>
-                        <input type="text" class="form-control" id="class-subject-code" name="class_subject_code" autocomplete="off" required">
-                        <div id="subject-list" class="list-group mt-2 overflow-y-auto" style="max-height: 200px;"></div>
+                        <input type="text" class="form-control" id="class-subject-code" name="class_subject_code" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="class-name" class="fw-bold form-label">Subject name</label>
-                        <input type="text" class="form-control" id="class-name" name="class_name" readonly required>
+                        <input type="text" class="form-control" id="class-name" name="class_name" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="class-category" class="fw-bold form-label">Category</label>
@@ -33,19 +32,19 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="class-section" class="fw-bold form-label">Section/Group</label>
-                        <input type="number" class="form-control" id="class-section" name="class_section" readonly required>
+                        <input type="number" class="form-control" id="class-section" name="class_section" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="class-lecturer" class="fw-bold form-label">Lecturer</label>
-                        <input type="text" class="form-control" id="class-lecturer" name="class_lecturer" readonly required>
+                        <input type="text" class="form-control" id="class-lecturer" name="class_lecturer" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="class-location" class="fw-bold form-label">Location</label>
-                        <input type="text" class="form-control" id="class-location" name="class_location" readonly required>
+                        <input type="text" class="form-control" id="class-location" name="class_location" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="day" class="fw-bold form-label">Day and time</label>
-                        {{-- <select class="form-select" id="day" name="class_day" readonly required>
+                        <select class="form-select" id="day" name="class_day" required>
                             <option selected disabled value="">Choose...</option>
                             <option value="1">Monday</option>
                             <option value="2">Tuesday</option>
@@ -54,10 +53,9 @@
                             <option value="5">Friday</option>
                             <option value="6">Saturday</option>
                             <option value="7">Sunday</option>
-                        </select> --}}
-                        <input type="text" class="form-control" id="day" name="class_day" readonly required>
+                        </select>
                         <label for="start-time" class="align-self-center p-2">from</label>
-                        {{-- <select class="form-select" id="start-time" name="class_start_time" readonly required>
+                        <select class="form-select" id="start-time" name="class_start_time" required>
                             <option selected disabled value="">Choose...</option>
                             <option value="07:00:00">7:00 AM</option>
                             <option value="08:00:00">8:00 AM</option>
@@ -74,10 +72,9 @@
                             <option value="19:00:00">7:00 PM</option>
                             <option value="20:00:00">8:00 PM</option>
                             <option value="21:00:00">9:00 PM</option>
-                        </select> --}}
-                        <input type="text" class="form-control" id="start-time" name="class_start_time" readonly required>
+                        </select>
                         <label for="end-time" class="align-self-center p-2">to</label>
-                        {{-- <select class="form-select" id="end-time" name="class_end_time" readonly required>
+                        <select class="form-select" id="end-time" name="class_end_time" required>
                             <option selected disabled value="">Choose...</option>
                             <option value="08:00:00">8:00 AM</option>
                             <option value="09:00:00">9:00 AM</option>
@@ -94,13 +91,22 @@
                             <option value="20:00:00">8:00 PM</option>
                             <option value="21:00:00">9:00 PM</option>
                             <option value="22:00:00">10:00 PM</option>
-                        </select> --}}
-                        <input type="text" class="form-control" id="end-time" name="class_end_time" readonly required>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary fw-semibold me-1 w-20" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary fw-semibold ms-1 w-20">Add</button>
+                    <div class="row w-100 px-0">
+                        <div class="col-6 d-flex justify-content-start">
+                            <a href="#" class="text-decoration-none text-dark fw-semibold align-content-center" data-bs-toggle="modal" data-bs-target="#add-ttslot-auto" data-bs-dismiss="modal">
+                                Fill automatically
+                            </a>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary fw-semibold me-1 w-50" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary fw-semibold ms-1 w-50">Add</button>
+                        </div>
+                    </div>
+
                 </div>
             </form>
         </div>

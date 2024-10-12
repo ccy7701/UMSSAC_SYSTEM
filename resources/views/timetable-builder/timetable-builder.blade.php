@@ -81,9 +81,10 @@
                         <div id="subcard-col-right" class="col-lg-4 col-12">
                             <button id="add-subject-button" type="button" class="rsans btn btn-primary fw-bold w-50"
                                 data-bs-toggle="modal"
-                                data-bs-target="#add-timetable-slot-modal">Add timetable slot</button>
+                                data-bs-target="#add-ttslot-auto">Add timetable slot</button>
                         </div>
-                        <x-add-timetable-slot/>
+                        <x-add-ttslot-auto/>
+                        <x-add-ttslot-manual/>
                         <x-edit-timetable-slot/>
                         <x-delete-timetable-slot/>
                         <!-- Timetable clash detected modal -->
@@ -99,8 +100,8 @@
                             <thead class="fw-bold">
                                 <tr>
                                     <th>Code</th>
-                                    <th>Subject name</th>
-                                    <th>Section/Group</th>
+                                    <th>Subject Name</th>
+                                    <th>Section</th>
                                     <th>Lecturer</th>
                                     <th>Day</th>
                                     <th>Time</th>

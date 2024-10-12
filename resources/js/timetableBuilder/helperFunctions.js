@@ -1,14 +1,13 @@
 import html2pdf from 'html2pdf.js';
 
-// HELPER FUNCTIONS
-
-// Helper function to get string of day of the week
+// Helper function to convert day int to string
 export function dayToString(day) {
     const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
     return daysOfWeek[day - 1];
 }
 
+// Helper function to convert day string to int
 export function dayToInt(day) {
     switch(day) {
         case 'Monday': return 1;
@@ -21,13 +20,26 @@ export function dayToInt(day) {
     }
 }
 
-// Helper function to convert to AM/PM format
-export function convertToAMPM(time) {
-    let hours = time.split(':');
+// Helper function to convert time to AM/PM format
+export function timeToAMPM(time) {
+    let [hours, minutes, ] = time.split(':');    // The seconds value is ignored
     hours = parseInt(hours, 10);
     const am_pm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12 || 12;
-    return `${hours} ${am_pm}`;
+    return `${hours}:${minutes} ${am_pm}`;
+}
+
+// Helper function to convert time to 24H format
+export function timeTo24Hour(time, minutes = "00", seconds = "00") {
+    let [hour, period] = time.split(' ');
+    hour = parseInt(hour, 10);
+    if (period === 'PM' && hour < 12) {
+        hour += 12;
+    } else if (period === 'AM' && hour === 12) {
+        hour = 0;
+    }
+    const formattedHour = hour.toString().padStart(2, '0');
+    return `${formattedHour}:${minutes}:${seconds}`;
 }
 
 // Helper function to handle generation on timeslots with existing classes
@@ -190,7 +202,7 @@ export function updateSubjectList(timetableSlots) {
                 <td>${slot.class_section}</td>
                 <td>${slot.class_lecturer}</td>
                 <td>${class_day}</td>
-                <td>${convertToAMPM(slot.class_start_time)} - ${convertToAMPM(slot.class_end_time)}</td>
+                <td>${timeToAMPM(slot.class_start_time)} - ${timeToAMPM(slot.class_end_time)}</td>
                 <td>${slot.class_location}</td>
                 <td style="width: 1%;">
                     <div class="dropdown">

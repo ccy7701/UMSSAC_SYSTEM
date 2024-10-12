@@ -15,7 +15,7 @@
                 <div class="modal-body px-5">
                     <div class="form-group mb-3">
                         <label for="edit-class-subject-code" class="form-label">Code</label>
-                        <input type="text" class="form-control" id="edit-class-subject-code" name="class_subject_code" required>
+                        <input type="text" class="form-control" id="edit-class-subject-code" name="class_subject_code" readonly required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="edit-class-name" class="form-label">Subject name</label>

@@ -18,7 +18,7 @@ class TimetableSlotController extends Controller
     }
 
     public function initialiseTimetableBuilder() {
-        // $this->timetableBuilderService->getAndUpdateSubjectList();
+        // Leave out: $this->timetableBuilderService->getAndUpdateSubjectList();
 
         $timetableSlots = TimetableSlot::where('profile_id', profile()->profile_id)
             ->orderBy('class_day')
@@ -50,32 +50,6 @@ class TimetableSlotController extends Controller
     }
 
     public function addTimetableSlot(Request $request) {
-        if (!is_int($request->input('class_day'))) {
-            switch ($request->input('class_day')) {
-                case 'Monday':
-                    $request->merge(['class_day' => 1]);
-                    break;
-                case 'Tuesday':
-                    $request->merge(['class_day' => 2]);
-                    break;
-                case 'Wednesday':
-                    $request->merge(['class_day' => 3]);
-                    break;
-                case 'Thursday':
-                    $request->merge(['class_day' => 4]);
-                    break;
-                case 'Friday':
-                    $request->merge(['class_day' => 5]);
-                    break;
-                case 'Saturday':
-                    $request->merge(['class_day' => 6]);
-                    break;
-                case 'Sunday':
-                    $request->merge(['class_day' => 7]);
-                    break;
-            }
-        }
-
         $validatedData = $this->handleDataValidation($request);
 
         try {
@@ -139,6 +113,40 @@ class TimetableSlotController extends Controller
     }
 
     private function handleDataValidation(Request $request) {
+        switch ($request->input('class_day')) {
+            case 'Monday':
+            case '1':
+                $request->merge(['class_day' => 1]);
+                break;
+            case 'Tuesday':
+            case '2':
+                $request->merge(['class_day' => 2]);
+                break;
+            case 'Wednesday':
+            case '3':
+                $request->merge(['class_day' => 3]);
+                break;
+            case 'Thursday':
+            case '4':
+                $request->merge(['class_day' => 4]);
+                break;
+            case 'Friday':
+            case '5':
+                $request->merge(['class_day' => 5]);
+                break;
+            case 'Saturday':
+            case '6':
+                $request->merge(['class_day' => 6]);
+                break;
+            case 'Sunday':
+            case '7':
+                $request->merge(['class_day' => 7]);
+                break;
+            default:
+                $request->merge(['class_day' => -1]);
+                break;
+        }
+
         return $request->validate([
             'profile_id' => 'required|integer|exists:profile,profile_id',
             'class_subject_code' => 'required|string|max:12',
