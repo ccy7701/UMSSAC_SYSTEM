@@ -29,7 +29,6 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
     Route::get('/timetable-builder/initialise', [TimetableSlotController::class, 'initialiseTimetableBuilder'])->name('timetable-builder.initialise');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/timetable-builder/get-subject-details-list', [TimetableSlotController::class, 'getSubjectDetailsList'])->name('timetable-builder.get-subject-details-list');
 
     Route::get('/get-timetable-slot-data/{timetable_slot_id}', [TimetableSlotController::class, 'getTimetableSlotData'])->name('timetable-builder.get-slot-data');
@@ -56,7 +55,11 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
     Route::get('/study-partners-suggester/suggester-results/get', [StudyPartnersSuggesterController::class, 'getSuggestedStudyPartners'])->name('study-partners-suggester.suggester-results.get');
 
+    // CURRENT ROUTE OF FOCUS
     Route::get('/study-partners-suggester/bookmarks', [StudyPartnersSuggesterController::class, 'fetchUserStudyPartnerBookmarks'])->name('study-partners-suggester.bookmarks');
 
     Route::post('/study-partners-suggester/bookmarks/toggle', [StudyPartnersSuggesterController::class, 'toggleStudyPartnerBookmark'])->name('study-partners-suggester.bookmarks.toggle');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/study-partners-suggester/add-to-list', [StudyPartnersSuggesterController::class, 'addToStudyPartnersList'])->name('study-partners-suggester.add-to-list');
 });

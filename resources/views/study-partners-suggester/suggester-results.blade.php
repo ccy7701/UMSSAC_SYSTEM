@@ -17,11 +17,11 @@
     <x-response-popup
         messageType="bookmark-create"
         iconClass="text-primary fa-solid fa-bookmark"
-        title="Study partner bookmark created."/>
+        title="Bookmark created"/>
     <x-response-popup
         messageType="bookmark-delete"
         iconClass="text-primary fa-regular fa-bookmark"
-        title="Study partner bookmark deleted."/>
+        title="Bookmark deleted"/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->
@@ -31,7 +31,7 @@
                     <div class="col-12 text-center">
                         <h3 class="rserif fw-bold py-2 mb-0">Suggested for you</h3>
                         <p class="rserif fs-4 w-100 mt-0">
-                            Here are ten potential study partners most similar to your characteristics.
+                            Here are ten potential study partners most similar to your characteristics
                         </p>
                     </div>
                 </div>

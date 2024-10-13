@@ -19,7 +19,11 @@
     <x-response-popup
         messageType="bookmark-delete"
         iconClass="text-primary fa-regular fa-bookmark"
-        title="Study partner bookmark deleted."/>
+        title="Bookmark deleted"/>
+    <x-response-popup
+        messageType="added-to-list"
+        iconClass="text-primary fa fa-user-plus"
+        title="Study partner added"/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->

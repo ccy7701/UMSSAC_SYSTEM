@@ -11,7 +11,6 @@
                     <p class="fst-italic text-muted mb-0 ms-1">
                         ({{ $bookmark->studyPartnerProfile->profile_nickname != '' ? $bookmark->studyPartnerProfile->profile_nickname : 'No nickname' }})
                     </p>
-                    <!-- (11/10/24: CONTINUE HERE) -->
                     <form class="d-inline-flex" method="POST" action="{{ route('study-partners-suggester.bookmarks.toggle') }}">
                         @csrf
                         <input type="hidden" name="study_partner_profile_id" value="{{ $bookmark->study_partner_profile_id }}">
@@ -49,7 +48,11 @@
                 </ul>
                 <div class="row">
                     <div class="bookmarks-actions-row d-flex justify-content-center col-12 mb-3 px-0">
-                        <a href="#" class="section-button-short rsans btn btn-primary fw-bold px-3">Add to my list</a>
+                        <form class="w-100 d-flex justify-content-center" method="POST" action="{{ route('study-partners-suggester.add-to-list') }}">
+                            @csrf
+                            <input type="hidden" name="study_partner_profile_id" value="{{ $bookmark->study_partner_profile_id }}">
+                            <button type="submit" class="section-button-short rsans btn btn-primary fw-bold px-3">Add to my list</a>
+                        </form>
                     </div>
                 </div>
             </div>

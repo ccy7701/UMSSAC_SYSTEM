@@ -11,11 +11,7 @@
                         <div class="row text-center p-0">
                             <h4 class="rsans">{{ $title }}</h4>
                             <p class="rsans">
-                                @if (session('success'))
-                                    {{ session('success') ?? 'Process successful.' }}
-                                @elseif (session('leave'))
-                                    {{ session('leave') ?? 'Process successful.' }}
-                                @endif
+                                {{ session($messageType) }}
                             </p>
                         </div>
                     @elseif (session()->has('error'))

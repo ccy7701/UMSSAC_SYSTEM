@@ -13,7 +13,7 @@ class ProfileSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->insertSeederData(1, 'ccy7701', 'TEST', '2021/2022', 'FKIKK', 'UH6481001', 'profile-pictures/k3FiGAVKLvPMMNdSuApI1sO3vGxTVU9n7sy80KX2.png');
+        $this->insertSeederData(1, 'ccy7701', 'TEST', '2021/2022', 'FKIKK', 'UH6481001', 'profile-pictures/8MXKh2qIMqiOa0hV9BAKv815xTmtRlqUgehKwiFE.png');
         $this->insertSeederData(2, 'SeeleOfBelobog', '', null, 'FKIKK', 'UH6481005', 'profile-pictures/jBfzQnwQjc80jr66lGwDpJCxXdjoGy1SXzKqpi3G.png');
         $this->insertSeederData(3, '', '', null, 'FKIKK', 'UH6481001', '');
         $this->insertSeederData(4, '', '', '', 'FPPS', '', 'profile-pictures/iD44oMYJ0g2xPOyY55s0DTpEYKsLGDblq1z34VED.png');

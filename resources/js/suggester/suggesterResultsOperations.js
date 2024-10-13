@@ -76,11 +76,31 @@ function generateCardHeader(studyPartner, index) {
 }
 
 function generateCardContent(studyPartner) {
-    let bookmarkDisplay = '';
-    if (studyPartner.bookmarkExists == 1) {
-        bookmarkDisplay = `&emsp;<i class="fa-solid fa-bookmark text-primary fs-3"></i>`;
-    } else {
-        bookmarkDisplay = `&emsp;<i class="fa-regular fa-bookmark text-primary fs-3"></i>`;
+    let iconDisplay = '';
+
+    switch (studyPartner.connectionType) {
+        case 0: 
+            iconDisplay = `
+                <button type="submit" class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none">
+                    &emsp;<i class="fa-regular fa-bookmark text-primary fs-3"></i>
+                </button>
+            `;
+            break;
+        case 1:
+            iconDisplay = `
+                <button type="submit" class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none">
+                    &emsp;<i class="fa-solid fa-bookmark text-primary fs-3"></i>
+                </button>
+            `;
+            break;
+        case 2:
+            iconDisplay = `
+                <button class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none" disabled>
+                    &emsp;<i class="fa fa-user-plus text-primary fs-5"></i>
+                    <p class="text-primary ms-2 mb-0 align-middle">Added</p>
+                </button>
+            `;
+            break;
     }
 
     return `
@@ -93,9 +113,7 @@ function generateCardContent(studyPartner) {
                         <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').getAttribute('content')}">
                         <input type="hidden" name="study_partner_profile_id" value="${studyPartner.profile.profile_id}">
                         <input type="hidden" name="operation_page_source" value="results">
-                        <button type="submit" class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none">
-                            ${bookmarkDisplay}
-                        </button>
+                        ${iconDisplay}
                     </form>
                 </span>
                 ${generateCardDetails(studyPartner)}
@@ -141,6 +159,18 @@ function generateCardChevron(index) {
 }
 
 function generateCardBody(studyPartner, index) {
+    let suggesterActionsRow = '';
+
+    if (studyPartner.connectionType != 2) {
+        suggesterActionsRow = `
+            <div class="row">
+                <div class="suggester-actions-row d-flex justify-content-center col-12 mb-3 px-0">
+                    <a href="#" class="section-button-short rsans btn btn-primary fw-bold px-3">Add to my list</a>
+                </div>
+            </div>
+        `
+    }
+
     return `
         <div id="details-${index}" class="collapse">
             <hr class="divider-gray-300 mb-4 mt-2">
@@ -148,11 +178,7 @@ function generateCardBody(studyPartner, index) {
                 <ul class="list-unstyled">
                     <li><strong>Personal description:</strong><br>${studyPartner.profile.profile_personal_desc}</li>
                 </ul>
-                <div class="row">
-                    <div class="suggester-actions-row d-flex justify-content-center col-12 mb-3 px-0">
-                        <a href="#" class="section-button-short rsans btn btn-primary fw-bold px-3">Add to my list</a>
-                    </div>
-                </div>
+                ${suggesterActionsRow}
             </div>
         </div>
     `;

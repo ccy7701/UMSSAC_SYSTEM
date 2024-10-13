@@ -208,7 +208,7 @@ class StudyPartnersSuggesterService
             return [
                 'profile' => $profile,
                 'similarity' => $recommendationMap[$profile->profile_id] ?? null,
-                'bookmarkExists' => $this->checkIfBookmarkExists($profile->profile_id)
+                'connectionType' => $this->checkForConnectionType($profile->profile_id)
             ];
         });
 
@@ -216,13 +216,12 @@ class StudyPartnersSuggesterService
         return $combinedResults->sortByDesc('similarity')->values();
     }
 
-    // Check if a study partner bookmark exists
-    private function checkIfBookmarkExists($studyPartnerProfileId) {
+    // Check if a study partner exists, and if it does, check if it is a bookmark or has been added
+    private function checkForConnectionType($studyPartnerProfileId) {
         $bookmark = StudyPartner::where('profile_id', profile()->profile_id)
             ->where('study_partner_profile_id', $studyPartnerProfileId)
-            ->where('connection_type', 1)
             ->first();
 
-        return $bookmark ? 1 : 0;
+        return $bookmark ? $bookmark->connection_type : 0;
     }
 }

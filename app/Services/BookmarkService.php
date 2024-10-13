@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\EventBookmark;
 use App\Models\StudyPartner;
+use App\Models\Profile;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -28,15 +29,17 @@ class BookmarkService
         } elseif ($bookmarkType == 'study_partners') {
             $bookmarks = StudyPartner::where('profile_id', $profileId)
                 ->where('connection_type', 1)
-                ->whereHas('studyPartnerProfile.account', function($query) use ($search) {
-                    if ($search) {
-                        $query->where('account_full_name', 'like', '%' . $search . '%');
-                    }
-                })
-                ->orWhereHas('profile', function($query) use ($search) {
-                    if ($search) {
-                        $query->where('profile_faculty', 'like', '%' . $search . '%');
-                    }
+                ->where(function($query) use ($search) {
+                    $query->whereHas('studyPartnerProfile.account', function($query) use ($search) {
+                        if ($search) {
+                            $query->where('account_full_name', 'like', '%' . $search . '%');
+                        }
+                    })
+                    ->orWhereHas('profile', function($query) use ($search) {
+                        if ($search) {
+                            $query->where('profile_faculty', 'like', '%' . $search . '%');
+                        }
+                    });
                 })
                 ->with([
                     'studyPartnerProfile.account' => function($query) {
@@ -47,6 +50,7 @@ class BookmarkService
                     }
                 ])
                 ->get();
+
             $totalBookmarks = $bookmarks->count();
         }
 
@@ -102,13 +106,24 @@ class BookmarkService
             $bookmark = $this->checkIfBookmarkExists($profileId, $studyPartnerProfileId);
 
             if ($bookmark) {
+                $targetName = $bookmark->studyPartnerProfile->account->account_full_name;
+
                 // If the bookmark exists, delete it
                 StudyPartner::where('profile_id', $profileId)
                     ->where('study_partner_profile_id', $studyPartnerProfileId)
                     ->where('connection_type', 1)
                     ->delete();
-                return redirect()->route('study-partners-suggester.suggester-results')->with('bookmark-delete', 'Study partner bookmark deleted successfully.');
+                return redirect()->route('study-partners-suggester.suggester-results')->with('bookmark-delete', 'Bookmark for ' . $targetName . ' deleted successfully.');
             } else {
+                $profile = Profile::where('profile_id', $studyPartnerProfileId)
+                    ->with([
+                        'account' => function($query) {
+                            $query->select('account_id', 'account_full_name');
+                        }
+                    ])
+                    ->first();
+                $targetName = $profile->account->account_full_name;
+
                 // If the bookmark does not exist, create it
                 StudyPartner::create([
                     'profile_id' => $profileId,
@@ -117,18 +132,40 @@ class BookmarkService
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ]);
-                return redirect()->route('study-partners-suggester.suggester-results')->with('bookmark-create', 'Study partner bookmark created successfully.');
+                return redirect()->route('study-partners-suggester.suggester-results')->with('bookmark-create', 'Bookmark for ' . $targetName . ' created successfully.');
             }
         }
     }
 
+    // Update the study partner to switch from bookmark (1) to added (2)
+    public function updateSPBookmarkToAdd($profileId, $studyPartnerProfileId) {
+        // First fetch the study partner bookmark
+        $bookmark = $this->checkIfBookmarkExists($profileId, $studyPartnerProfileId);
+
+        if ($bookmark) {
+            $targetName = $bookmark->studyPartnerProfile->account->account_full_name;
+
+            DB::table('study_partner')
+                ->where('profile_id', $profileId)
+                ->where('study_partner_profile_id', $studyPartnerProfileId)
+                ->update(['connection_type' => 2]);
+
+            return redirect()->route('study-partners-suggester.bookmarks')->with('added-to-list', $targetName.' has been added to your study partners list.');
+        }
+
+        return back()->withErrors(['error' => 'Failed to add to study partners list. Please try again.']);
+    }
+
     // Check if a study partner bookmark exists
     private function checkIfBookmarkExists($profileId, $studyPartnerProfileId) {
-        $bookmark = StudyPartner::where('profile_id', $profileId)
+        return StudyPartner::where('profile_id', $profileId)
             ->where('study_partner_profile_id', $studyPartnerProfileId)
             ->where('connection_type', 1)
+            ->with([
+                'studyPartnerProfile.account' => function($query) {
+                    $query->select('account_id', 'account_full_name');
+                }
+            ])
             ->first();
-
-        return $bookmark ? 1 : 0;
     }
 }
