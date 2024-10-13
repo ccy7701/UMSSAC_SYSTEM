@@ -35,7 +35,7 @@ class BookmarkService
                             $query->where('account_full_name', 'like', '%' . $search . '%');
                         }
                     })
-                    ->orWhereHas('profile', function($query) use ($search) {
+                    ->orWhereHas('studyPartnerProfile', function($query) use ($search) {
                         if ($search) {
                             $query->where('profile_faculty', 'like', '%' . $search . '%');
                         }
@@ -184,7 +184,7 @@ class BookmarkService
             return $route;
         }
     }
-
+    
     // Check if a study partner bookmark exists
     private function checkIfBookmarkExists($profileId, $studyPartnerProfileId) {
         return StudyPartner::where('profile_id', $profileId)

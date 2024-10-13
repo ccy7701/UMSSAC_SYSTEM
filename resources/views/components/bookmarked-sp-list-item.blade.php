@@ -1,4 +1,4 @@
-<!-- resources/views/components/bookmarked-study-partner-card.blade.php -->
+<!-- resources/views/components/bookmarked-sp-list-item.blade.php -->
 <div class="rsans card bookmarked-sp-list-item h-100" id="bookmarked-sp-list-item-{{ $bookmark->study_partner_profile_id }}">
     <div class="row g-0 align-items-center pb-2 pt-md-2 pt-3">
         <div class="col-md-2 text-center">
@@ -7,7 +7,9 @@
         <div class="col-md-7 text-start justify-content-center align-items-center">
             <div class="card-body">
                 <span class="d-inline-flex align-items-center">
-                    <p class="card-title fw-bold fs-5 mb-0 me-1">{{ $bookmark->studyPartnerProfile->account->account_full_name }}</p>
+                    <p class="card-title fw-bold fs-5 mb-0 me-1">
+                        {{ $bookmark->studyPartnerProfile->account->account_full_name }}
+                    </p>
                     <p class="fst-italic text-muted mb-0 ms-1">
                         ({{ $bookmark->studyPartnerProfile->profile_nickname != '' ? $bookmark->studyPartnerProfile->profile_nickname : 'No nickname' }})
                     </p>
@@ -52,7 +54,7 @@
                             @csrf
                             <input type="hidden" name="operation_page_source" value="bookmarks">
                             <input type="hidden" name="study_partner_profile_id" value="{{ $bookmark->study_partner_profile_id }}">
-                            <button type="submit" class="section-button-short rsans btn btn-primary fw-bold px-3">Add to my list</a>
+                            <button type="submit" class="section-button-short rsans btn btn-primary fw-semibold px-3">Add to my list</button>
                         </form>
                     </div>
                 </div>

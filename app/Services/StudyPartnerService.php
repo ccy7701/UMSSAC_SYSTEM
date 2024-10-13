@@ -125,22 +125,75 @@ class StudyPartnerService
 
     // Handle getting the study partners suggestions
     public function getStudyPartnerSuggestions() {
-        // Fetch this student's UserTraitsRecord
+        // Fetch this student's UserTraitsRecord and that of other students to compare against
         $ownTraitsRecord = UserTraitsRecord::where('profile_id', profile()->profile_id)->first();
-
-        // Get the UserTraitsRecords of other students to compare against
         $otherStudentsTraitsRecords = UserTraitsRecord::where('profile_id', '!=', $ownTraitsRecord->profile_id)->get();
 
         // Call the Python RE here and pass the data to it
         $recommendations = $this->callRecommenderEngine($ownTraitsRecord, $otherStudentsTraitsRecords);
-        
-        // Sort the recommendations by similarity score in descending order
-        usort($recommendations, function ($first, $second) {
-            return $first['similarity'] <=> $second['similarity'];
-        });
 
-        // Combine the profiles with the similarity scores, then return the recommendations
-        return $this->combineProfilesWithSimilarity($recommendations);
+        // Prepare the recommendations data, then return the recommendations
+        return $this->prepareRecommendationsData($recommendations);
+    }
+
+    // Prepare all the details to be sent to the added study partners view based on request type
+    public function prepareAndRenderAddedListView($profileId, $viewName, $search = null) {
+        // First prepare data of SPs the user has added
+        $addedStudyPartners = $this->getStudyPartnersByType(1, $profileId, $search);
+        $allAddedSPProfileIDs = $addedStudyPartners->pluck('study_partner_profile_id')->toArray();
+    
+        // Then prepare data of SPs that have added the user
+        $addedByStudyPartners = $this->getStudyPartnersByType(2, $profileId, $search);
+        $allAddedBySPProfileIDs = $addedByStudyPartners->pluck('profile_id')->toArray();
+
+        // Find the intersection (profiles that exist in both lists)
+        $intersectionArray = array_values(array_intersect($allAddedSPProfileIDs, $allAddedBySPProfileIDs));
+
+        return view($viewName, [
+            'addedStudyPartners' => $addedStudyPartners,
+            'totalAddedSPs' => $addedStudyPartners->count(),
+            'addedByStudyPartners' => $addedByStudyPartners,
+            'totalAddedBySPs' => $addedByStudyPartners->count(),
+            'intersectionArray' => $intersectionArray
+        ]);
+    }
+
+    // Get the study partners by request type; 1 - of SPs the user has added, 2 - of SPs who have added the user
+    private function getStudyPartnersByType($requestType, $profileId, $search) {
+        $source = null;
+        $target = null;
+
+        if ($requestType == 1) {
+            $source = 'profile_id';
+            $target = 'studyPartnerProfile';
+        } else if ($requestType == 2) {
+            $source = 'study_partner_profile_id';
+            $target = 'profile';
+        }
+        
+        return StudyPartner::where($source, $profileId)
+            ->where('connection_type', 2)
+            ->where(function ($query) use ($search, $target) {
+                $query->whereHas("$target.account", function ($query) use ($search) {
+                    if ($search) {
+                        $query->where('account_full_name', 'like', '%' . $search . '%');
+                    }
+                })
+                ->orWhereHas("$target", function ($query) use ($search) {
+                    if ($search) {
+                        $query->where('profile_faculty', 'like', '%'. $search . '%');
+                    }
+                });
+            })
+            ->with([
+                "$target.account" => function ($query) {
+                    $query->select('account_id', 'account_full_name', 'account_email_address', 'account_matric_number');
+                },
+                "$target" => function ($query) {
+                    $query->select('profile_id', 'account_id', 'profile_nickname', 'profile_personal_desc', 'profile_faculty', 'profile_picture_filepath');
+                }
+            ])
+            ->get();
     }
 
     // Call the Python RE webservice
@@ -170,16 +223,13 @@ class StudyPartnerService
     }
 
     // Combine the profiles with the similarity scores
-    private function combineProfilesWithSimilarity($recommendations) {
+    private function prepareRecommendationsData($recommendations) {
         // Retrieve the profiles associated with the recommendations
         $profileIdArray = array_column($recommendations, 'profile_id');
         $profiles = Profile::whereIn('profile_id', $profileIdArray)->get();
 
         // Map the recommendations to their profile IDs
-        $recommendationMap = [];
-        foreach($recommendations as $recommendation) {
-            $recommendationMap[$recommendation['profile_id']] = $recommendation['similarity'];
-        }
+        $recommendationMap = collect($recommendations)->pluck('similarity', 'profile_id');
 
         // Process the data before return
         $combinedResults = $profiles->map(function($profile) use ($recommendationMap) {
@@ -193,8 +243,8 @@ class StudyPartnerService
                 ? $profile->profile_nickname
                 : 'No nickname';
 
-            $profile->profile_faculty = $profile->faculty
-                ? $profile->faculty
+            $profile->profile_faculty = $profile->profile_faculty
+                ? $profile->profile_faculty
                 : 'Unspecified';
 
             $profile->account_matric_number = $profile->account->account_matric_number;

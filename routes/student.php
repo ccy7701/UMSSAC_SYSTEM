@@ -55,11 +55,12 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
     Route::get('/study-partners-suggester/suggester-results/get', [StudyPartnerController::class, 'getSuggestedStudyPartners'])->name('study-partners-suggester.suggester-results.get');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/study-partners-suggester/bookmarks', [StudyPartnerController::class, 'fetchUserStudyPartnerBookmarks'])->name('study-partners-suggester.bookmarks');
 
     Route::post('/study-partners-suggester/bookmarks/toggle', [StudyPartnerController::class, 'toggleStudyPartnerBookmark'])->name('study-partners-suggester.bookmarks.toggle');
 
-    // CURRENT ROUTE OF FOCUS
     Route::post('/study-partners-suggester/add-to-list', [StudyPartnerController::class, 'addToStudyPartnersList'])->name('study-partners-suggester.add-to-list');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/study-partners-suggester/added-list', [StudyPartnerController::class, 'fetchUserAddedStudyPartners'])->name('study-partners-suggester.added-list');
 });

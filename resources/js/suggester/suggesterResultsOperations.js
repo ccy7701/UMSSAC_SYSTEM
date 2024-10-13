@@ -169,7 +169,7 @@ function generateCardBody(studyPartner, index) {
                         <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').getAttribute('content')}">
                         <input type="hidden" name="operation_page_source" value="results">
                         <input type="hidden" name="study_partner_profile_id" value="${studyPartner.profile.profile_id}">
-                        <button type="submit" class="section-button-short rsans btn btn-primary fw-bold px-3">Add to my list</button>
+                        <button type="submit" class="section-button-short rsans btn btn-primary fw-semibold px-3">Add to my list</button>
                     </form>
                 </div>
             </div>

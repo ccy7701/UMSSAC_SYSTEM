@@ -73,4 +73,14 @@ class StudyPartnerController extends Controller
             $request->study_partner_profile_id
         );
     }
+
+    public function fetchUserAddedStudyPartners(Request $request) {
+        $search = $request->input('search', '');
+
+        return $this->studyPartnerService->prepareAndRenderAddedListView(
+            profile()->profile_id,
+            'study-partners-suggester.added-list',
+            $search
+        );
+    }
 }
