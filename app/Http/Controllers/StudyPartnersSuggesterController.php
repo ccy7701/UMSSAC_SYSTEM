@@ -70,6 +70,7 @@ class StudyPartnersSuggesterController extends Controller
 
     public function addToStudyPartnersList(Request $request) {
         return $this->bookmarkService->updateSPBookmarkToAdd(
+            $request->operation_page_source,
             profile()->profile_id,
             $request->study_partner_profile_id
         );

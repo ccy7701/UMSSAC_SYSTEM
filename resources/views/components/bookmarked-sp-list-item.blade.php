@@ -50,6 +50,7 @@
                     <div class="bookmarks-actions-row d-flex justify-content-center col-12 mb-3 px-0">
                         <form class="w-100 d-flex justify-content-center" method="POST" action="{{ route('study-partners-suggester.add-to-list') }}">
                             @csrf
+                            <input type="hidden" name="operation_page_source" value="bookmarks">
                             <input type="hidden" name="study_partner_profile_id" value="{{ $bookmark->study_partner_profile_id }}">
                             <button type="submit" class="section-button-short rsans btn btn-primary fw-bold px-3">Add to my list</a>
                         </form>

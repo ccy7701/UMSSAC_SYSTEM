@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class BookmarkService
 {
     // Prepare all the event bookmarks to be sent to the view based on request
-    public function prepareAndRenderBookmarksView($bookmarkType, $profileId, $viewName, $search = null, ) {
+    public function prepareAndRenderBookmarksView($bookmarkType, $profileId, $viewName, $search = null) {
         $bookmarks = null;
         $totalBookmarks = 0;
 
@@ -99,9 +99,7 @@ class BookmarkService
                 ->where('connection_type', 1)
                 ->delete();
             return redirect()->route('study-partners-suggester.bookmarks')->with('bookmark-delete', 'Study partner bookmark deleted successfully.');
-        }
-
-        if ($operationPageSource == 'results') {
+        } else if ($operationPageSource == 'results') {
             // Check if the study partner bookmark exists
             $bookmark = $this->checkIfBookmarkExists($profileId, $studyPartnerProfileId);
 
@@ -138,19 +136,47 @@ class BookmarkService
     }
 
     // Update the study partner to switch from bookmark (1) to added (2)
-    public function updateSPBookmarkToAdd($profileId, $studyPartnerProfileId) {
+    public function updateSPBookmarkToAdd($operationPageSource, $profileId, $studyPartnerProfileId) {
         // First fetch the study partner bookmark
         $bookmark = $this->checkIfBookmarkExists($profileId, $studyPartnerProfileId);
 
-        if ($bookmark) {
+        // This handles the specific case where a user adds the study partner directly without first bookmarking it prior
+        if (!$bookmark) {
+            $profile = Profile::where('profile_id', $studyPartnerProfileId)
+            ->with([
+                'account' => function($query) {
+                    $query->select('account_id', 'account_full_name');
+                }
+            ])
+            ->first();
+
+            $targetName = $profile->account->account_full_name;
+
+            StudyPartner::create([
+                'profile_id' => $profileId,
+                'study_partner_profile_id' => $studyPartnerProfileId,
+                'connection_type' => 2,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+            return redirect()->route('study-partners-suggester.suggester-results')->with('added-to-list', $targetName.' has been added to your study partners list.');
+        } else {
             $targetName = $bookmark->studyPartnerProfile->account->account_full_name;
 
             DB::table('study_partner')
                 ->where('profile_id', $profileId)
                 ->where('study_partner_profile_id', $studyPartnerProfileId)
-                ->update(['connection_type' => 2]);
+                ->update([
+                    'connection_type' => 2,
+                    'updated_at' => Carbon::now()
+                ]);
 
-            return redirect()->route('study-partners-suggester.bookmarks')->with('added-to-list', $targetName.' has been added to your study partners list.');
+            if ($operationPageSource == 'bookmarks') {
+                return redirect()->route('study-partners-suggester.bookmarks')->with('added-to-list', $targetName.' has been added to your study partners list.');
+            } else if ($operationPageSource == 'results') {
+                return redirect()->route('study-partners-suggester.suggester-results')->with('added-to-list', $targetName.' has been added to your study partners list.');
+            }
         }
 
         return back()->withErrors(['error' => 'Failed to add to study partners list. Please try again.']);
