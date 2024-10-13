@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SemesterProgressLogController;
 use App\Http\Controllers\SubjectStatsLogController;
 use App\Http\Controllers\TimetableSlotController;
-use App\Http\Controllers\StudyPartnersSuggesterController;
+use App\Http\Controllers\StudyPartnerController;
 use App\Http\Middleware\RoleAccessMiddleware;
 
 // Routes accessible by student only (account role 1)
@@ -41,25 +41,25 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
     Route::delete('/delete-timetable-slot/{timetable_slot_id}', [TimetableSlotController::class, 'deleteTimetableSlot'])->name('timetable-builder.delete');
 
-    Route::get('/study-partners-suggester', [StudyPartnersSuggesterController::class, 'initialiseSuggester'])->name('study-partners-suggester');
+    Route::get('/study-partners-suggester', [StudyPartnerController::class, 'initialiseSuggester'])->name('study-partners-suggester');
 
     Route::get('/study-partners-suggester/suggester-form', function () {
         return view('study-partners-suggester.suggester-form');
     })->name('study-partners-suggester.suggester-form');
 
-    Route::post('/study-partners-suggester/submit-form', [StudyPartnersSuggesterController::class, 'submitSuggesterForm'])->name('study-partners-suggester.suggester-form.submit');
+    Route::post('/study-partners-suggester/submit-form', [StudyPartnerController::class, 'submitSuggesterForm'])->name('study-partners-suggester.suggester-form.submit');
 
     Route::get('/study-partners-suggester/suggester-results', function () {
         return view('study-partners-suggester.suggester-results');
     })->name('study-partners-suggester.suggester-results');
 
-    Route::get('/study-partners-suggester/suggester-results/get', [StudyPartnersSuggesterController::class, 'getSuggestedStudyPartners'])->name('study-partners-suggester.suggester-results.get');
+    Route::get('/study-partners-suggester/suggester-results/get', [StudyPartnerController::class, 'getSuggestedStudyPartners'])->name('study-partners-suggester.suggester-results.get');
 
     // CURRENT ROUTE OF FOCUS
-    Route::get('/study-partners-suggester/bookmarks', [StudyPartnersSuggesterController::class, 'fetchUserStudyPartnerBookmarks'])->name('study-partners-suggester.bookmarks');
+    Route::get('/study-partners-suggester/bookmarks', [StudyPartnerController::class, 'fetchUserStudyPartnerBookmarks'])->name('study-partners-suggester.bookmarks');
 
-    Route::post('/study-partners-suggester/bookmarks/toggle', [StudyPartnersSuggesterController::class, 'toggleStudyPartnerBookmark'])->name('study-partners-suggester.bookmarks.toggle');
+    Route::post('/study-partners-suggester/bookmarks/toggle', [StudyPartnerController::class, 'toggleStudyPartnerBookmark'])->name('study-partners-suggester.bookmarks.toggle');
 
     // CURRENT ROUTE OF FOCUS
-    Route::post('/study-partners-suggester/add-to-list', [StudyPartnersSuggesterController::class, 'addToStudyPartnersList'])->name('study-partners-suggester.add-to-list');
+    Route::post('/study-partners-suggester/add-to-list', [StudyPartnerController::class, 'addToStudyPartnersList'])->name('study-partners-suggester.add-to-list');
 });

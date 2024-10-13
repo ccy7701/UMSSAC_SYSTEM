@@ -92,17 +92,19 @@ class BookmarkService
 
     // Toggle creating or deleting the study partner bookmark
     public function handleToggleStudyPartnerBookmark($operationPageSource, $profileId, $studyPartnerProfileId) {
+        // Check if the study partner bookmark exists
+        $bookmark = $this->checkIfBookmarkExists($profileId, $studyPartnerProfileId);
+
         if ($operationPageSource == 'bookmarks') {
+            $targetName = $bookmark->studyPartnerProfile->account->account_full_name;
+
             // If the bookmark exists, delete it
             StudyPartner::where('profile_id', $profileId)
                 ->where('study_partner_profile_id', $studyPartnerProfileId)
                 ->where('connection_type', 1)
                 ->delete();
-            return redirect()->route('study-partners-suggester.bookmarks')->with('bookmark-delete', 'Study partner bookmark deleted successfully.');
-        } else if ($operationPageSource == 'results') {
-            // Check if the study partner bookmark exists
-            $bookmark = $this->checkIfBookmarkExists($profileId, $studyPartnerProfileId);
-
+            return redirect()->route('study-partners-suggester.bookmarks')->with('bookmark-delete', 'Bookmark for ' . $targetName . ' deleted successfully.');
+        } elseif ($operationPageSource == 'results') {
             if ($bookmark) {
                 $targetName = $bookmark->studyPartnerProfile->account->account_full_name;
 
@@ -163,6 +165,7 @@ class BookmarkService
             return redirect()->route('study-partners-suggester.suggester-results')->with('added-to-list', $targetName.' has been added to your study partners list.');
         } else {
             $targetName = $bookmark->studyPartnerProfile->account->account_full_name;
+            $route = null;
 
             DB::table('study_partner')
                 ->where('profile_id', $profileId)
@@ -173,13 +176,13 @@ class BookmarkService
                 ]);
 
             if ($operationPageSource == 'bookmarks') {
-                return redirect()->route('study-partners-suggester.bookmarks')->with('added-to-list', $targetName.' has been added to your study partners list.');
-            } else if ($operationPageSource == 'results') {
-                return redirect()->route('study-partners-suggester.suggester-results')->with('added-to-list', $targetName.' has been added to your study partners list.');
+                $route = redirect()->route('study-partners-suggester.bookmarks')->with('added-to-list', $targetName.' has been added to your study partners list.');
+            } elseif ($operationPageSource == 'results') {
+                $route = redirect()->route('study-partners-suggester.suggester-results')->with('added-to-list', $targetName.' has been added to your study partners list.');
             }
-        }
 
-        return back()->withErrors(['error' => 'Failed to add to study partners list. Please try again.']);
+            return $route;
+        }
     }
 
     // Check if a study partner bookmark exists

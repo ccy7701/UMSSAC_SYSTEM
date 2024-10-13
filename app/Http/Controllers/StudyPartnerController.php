@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\StudyPartner;
 use Illuminate\Http\Request;
 use App\Models\UserTraitsRecord;
 use App\Services\BookmarkService;
-use App\Services\StudyPartnersSuggesterService;
+use App\Services\StudyPartnerService;
 
-class StudyPartnersSuggesterController extends Controller
+class StudyPartnerController extends Controller
 {
-    protected $studyPartnersSuggesterService;
+    protected $studyPartnerService;
     protected $bookmarkService;
 
-    public function __construct(StudyPartnersSuggesterService $studyPartnersSuggesterService, BookmarkService $bookmarkService) {
+    public function __construct(StudyPartnerService $studyPartnerService, BookmarkService $bookmarkService) {
         $this->bookmarkService = $bookmarkService;
-        $this->studyPartnersSuggesterService = $studyPartnersSuggesterService;
+        $this->studyPartnerService = $studyPartnerService;
     }
 
     public function initialiseSuggester() {
@@ -32,7 +30,7 @@ class StudyPartnersSuggesterController extends Controller
     }
 
     public function submitSuggesterForm(Request $request) {
-        $status = $this->studyPartnersSuggesterService->handleSuggesterFormData($request);
+        $status = $this->studyPartnerService->handleSuggesterFormData($request);
 
         return $status
             ? redirect()->route('study-partners-suggester.suggester-results')->with('success', 'Your details have been saved successfully!')
@@ -41,7 +39,7 @@ class StudyPartnersSuggesterController extends Controller
 
     public function getSuggestedStudyPartners() {
         // Call the service to get recommended study partners
-        $suggestedStudyPartners = $this->studyPartnersSuggesterService->getStudyPartnerSuggestions();
+        $suggestedStudyPartners = $this->studyPartnerService->getStudyPartnerSuggestions();
 
         return response()->json([
             'success' => true,

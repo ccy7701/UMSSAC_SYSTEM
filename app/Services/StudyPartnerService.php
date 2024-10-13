@@ -10,7 +10,7 @@ use App\Models\StudyPartner;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Storage;
 
-class StudyPartnersSuggesterService
+class StudyPartnerService
 {
     public function handleSuggesterFormData(Request $request) {
         // WTC portion of the form
