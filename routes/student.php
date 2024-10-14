@@ -9,6 +9,9 @@ use App\Http\Middleware\RoleAccessMiddleware;
 
 // Routes accessible by student only (account role 1)
 Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function () {
+    /*
+    * ACADEMIC PROGRESS TRACKER MODULE ROUTES
+    */
     Route::get('/progress-tracker/{profile_id?}', [SemesterProgressLogController::class, 'showProgressTracker'])->name('progress-tracker');
 
     Route::post('/progress-tracker/initialise/{profile_id}', [SemesterProgressLogController::class, 'initialiseProgressTracker'])->name('progress-tracker.initialise');
@@ -23,6 +26,9 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
     Route::delete('/delete-subject/{sem_prog_log_id}/{subject_code}', [SubjectStatsLogController::class, 'deleteSubject'])->name('subject-stats-log.delete');
     
+    /*
+    * TIMETABLE BUILDER MODULE ROUTES
+    */
     Route::get('/timetable-builder', function () {
         return view('timetable-builder.timetable-builder');
     })->name('timetable-builder');
@@ -41,6 +47,9 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
     Route::delete('/delete-timetable-slot/{timetable_slot_id}', [TimetableSlotController::class, 'deleteTimetableSlot'])->name('timetable-builder.delete');
 
+    /*
+    * STUDY PARTNER SUGGESTER MODULE ROUTES
+    */
     Route::get('/study-partners-suggester', [StudyPartnerController::class, 'initialiseSuggester'])->name('study-partners-suggester');
 
     Route::get('/study-partners-suggester/suggester-form', function () {
@@ -59,12 +68,9 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
     Route::post('/study-partners-suggester/bookmarks/toggle', [StudyPartnerController::class, 'toggleStudyPartnerBookmark'])->name('study-partners-suggester.bookmarks.toggle');
 
-    // CURRENT ROUTE OF FOCUS
     Route::post('/study-partners-suggester/add-to-list', [StudyPartnerController::class, 'addToStudyPartnersList'])->name('study-partners-suggester.add-to-list');
 
-    // CURRENT ROUTE OF FOCUS
     Route::delete('/study-partners-suggester/delete-from-list', [StudyPartnerController::class, 'deleteFromStudyPartnersList'])->name('study-partners-suggester.delete-from-list');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/study-partners-suggester/added-list', [StudyPartnerController::class, 'fetchUserAddedStudyPartners'])->name('study-partners-suggester.added-list');
 });

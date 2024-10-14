@@ -11,48 +11,52 @@ use Carbon\Carbon;
 class BookmarkService
 {
     // Prepare all the event bookmarks to be sent to the view based on request
-    public function prepareAndRenderBookmarksView($bookmarkType, $profileId, $viewName, $search = null) {
-        $bookmarks = null;
-        $totalBookmarks = 0;
+    public function prepareAndRenderEventBookmarksView($profileId, $viewName, $search = null) {
+        $bookmarks = EventBookmark::where('profile_id', $profileId)
+        ->whereHas('event', function($query) use ($search) {
+            if ($search) {
+                $query->where('event_name', 'like', '%' . $search . '%')
+                    ->orWhere('event_location', 'like', '%' . $search . '%');
+            }
+        })
+        ->with(['event.club'])
+        ->get();
+        $totalBookmarks = $bookmarks->count();
 
-        if ($bookmarkType == 'events') {
-            $bookmarks = EventBookmark::where('profile_id', $profileId)
-                ->whereHas('event', function($query) use ($search) {
+        return view($viewName, [
+            'bookmarks' => $bookmarks,
+            'totalBookmarks' => $totalBookmarks,
+            'searchViewPreference' => getUserSearchViewPreference($profileId)
+        ]);
+    }
+
+    // Prepare all the study partner bookmarks to be sent to the view based on request
+    public function prepareAndRenderSPBookmarksView($profileId, $viewName, $search = null) {
+        $bookmarks = StudyPartner::where('profile_id', $profileId)
+            ->where('connection_type', 1)
+            ->where(function($query) use ($search) {
+                $query->whereHas('studyPartnerProfile.account', function($query) use ($search) {
                     if ($search) {
-                        $query->where('event_name', 'like', '%' . $search . '%')
-                            ->orWhere('event_location', 'like', '%' . $search . '%');
+                        $query->where('account_full_name', 'like', '%' . $search . '%');
                     }
                 })
-                ->with(['event.club'])
-                ->get();
-            $totalBookmarks = $bookmarks->count();
-        } elseif ($bookmarkType == 'study_partners') {
-            $bookmarks = StudyPartner::where('profile_id', $profileId)
-                ->where('connection_type', 1)
-                ->where(function($query) use ($search) {
-                    $query->whereHas('studyPartnerProfile.account', function($query) use ($search) {
-                        if ($search) {
-                            $query->where('account_full_name', 'like', '%' . $search . '%');
-                        }
-                    })
-                    ->orWhereHas('studyPartnerProfile', function($query) use ($search) {
-                        if ($search) {
-                            $query->where('profile_faculty', 'like', '%' . $search . '%');
-                        }
-                    });
-                })
-                ->with([
-                    'studyPartnerProfile.account' => function($query) {
-                        $query->select('account_id', 'account_full_name', 'account_email_address', 'account_matric_number');
-                    },
-                    'studyPartnerProfile' => function($query) {
-                        $query->select('profile_id', 'account_id', 'profile_nickname', 'profile_personal_desc', 'profile_faculty', 'profile_picture_filepath');
+                ->orWhereHas('studyPartnerProfile', function($query) use ($search) {
+                    if ($search) {
+                        $query->where('profile_faculty', 'like', '%' . $search . '%');
                     }
-                ])
-                ->get();
+                });
+            })
+            ->with([
+                'studyPartnerProfile.account' => function($query) {
+                    $query->select('account_id', 'account_full_name', 'account_email_address', 'account_matric_number');
+                },
+                'studyPartnerProfile' => function($query) {
+                    $query->select('profile_id', 'account_id', 'profile_nickname', 'profile_personal_desc', 'profile_faculty', 'profile_picture_filepath');
+                }
+            ])
+            ->get();
 
-            $totalBookmarks = $bookmarks->count();
-        }
+        $totalBookmarks = $bookmarks->count();
 
         return view($viewName, [
             'bookmarks' => $bookmarks,
@@ -141,6 +145,7 @@ class BookmarkService
     public function updateSPBookmarkToAdd($operationPageSource, $profileId, $studyPartnerProfileId) {
         // First fetch the study partner bookmark
         $bookmark = $this->checkIfBookmarkExists($profileId, $studyPartnerProfileId);
+        $route = null;
 
         // This handles the specific case where a user adds the study partner directly without first bookmarking it prior
         if (!$bookmark) {
@@ -164,10 +169,12 @@ class BookmarkService
             $message = $targetName.' has been added to your study partners list.';
 
             if ($operationPageSource == 'results') {
-                return redirect()->route('study-partners-suggester.suggester-results')->with('added-to-list', $message);
+                $route =  redirect()->route('study-partners-suggester.suggester-results')->with('added-to-list', $message);
             } elseif ($operationPageSource == 'added') {
-                return redirect()->route('study-partners-suggester.added-list')->with('added-to-list', $message);
+                $route =  redirect()->route('study-partners-suggester.added-list')->with('added-to-list', $message);
             }
+
+            return $route;
         } else {
             DB::table('study_partner')
                 ->where('profile_id', $profileId)
@@ -181,12 +188,14 @@ class BookmarkService
             $message = $targetName.' has been added to your study partners list.';
 
             if ($operationPageSource == 'results') {
-                return redirect()->route('study-partners-suggester.suggester-results')->with('added-to-list', $message);
+                $route =  redirect()->route('study-partners-suggester.suggester-results')->with('added-to-list', $message);
             } elseif ($operationPageSource == 'added') {
-                return redirect()->route('study-partners-suggester.added-list')->with('added-to-list', $message);
+                $route = redirect()->route('study-partners-suggester.added-list')->with('added-to-list', $message);
             } else {
-                return redirect()->route('study-partners-suggester.bookmarks')->with('added-to-list', $message);
+                $route =  redirect()->route('study-partners-suggester.bookmarks')->with('added-to-list', $message);
             }
+
+            return $route;
         }
     }
     

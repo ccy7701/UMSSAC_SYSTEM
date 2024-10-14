@@ -50,8 +50,7 @@ class StudyPartnerController extends Controller
     public function fetchUserStudyPartnerBookmarks(Request $request) {
         $search = $request->input('search', '');
 
-        return $this->bookmarkService->prepareAndRenderBookmarksView(
-            'study_partners',
+        return $this->bookmarkService->prepareAndRenderSPBookmarksView(
             profile()->profile_id,
             'study-partners-suggester.bookmarks',
             $search
