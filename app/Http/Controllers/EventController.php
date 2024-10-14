@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Event;
 use Illuminate\Http\Request;
-use App\Models\EventBookmark;
 use App\Services\ClubAndEventService;
 use App\Services\BookmarkService;
 use Illuminate\Support\Facades\Storage;

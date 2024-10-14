@@ -24,15 +24,15 @@
                 </span>
                 <div class="row align-self-center text-muted">
                     <div class="col-1 text-center"><i class="fa fa-university"></i></div>
-                    <div class="col-10">{{ $bookmark->studyPartnerProfile->profile_faculty }}</div>
+                    <div class="col-11">{{ $bookmark->studyPartnerProfile->profile_faculty }}</div>
                 </div>
                 <div class="row align-items-center text-muted">
                     <div class="col-1 text-center"><i class="fa fa-id-badge"></i></div>
-                    <div class="col-10">{{ $bookmark->studyPartnerProfile->account->account_matric_number }}</div>
+                    <div class="col-11">{{ $bookmark->studyPartnerProfile->account->account_matric_number }}</div>
                 </div>
                 <div class="row align-items-center text-muted">
                     <div class="col-1 text-center"><i class="fa fa-envelope"></i></div>
-                    <div class="col-10">{{ $bookmark->studyPartnerProfile->account->account_email_address }}</div>
+                    <div class="col-11">{{ $bookmark->studyPartnerProfile->account->account_email_address }}</div>
                 </div>
             </div>
         </div>
@@ -45,10 +45,10 @@
         <div id="details-{{ $bookmark->study_partner_profile_id }}" class="collapse">
             <hr class="divider-gray-300 mb-4 mt-2">
             <div class="container px-2">
-                <ul class="list-unstyled">
+                <ul class="list-unstyled mb-4">
                     <li><strong>Personal description:</strong><br>{{ $bookmark->studyPartnerProfile->profile_personal_desc != '' ? $bookmark->studyPartnerProfile->profile_personal_desc : 'No personal description written yet' }}</li>
                 </ul>
-                <div class="row">
+                <div class="row border">
                     <div class="bookmarks-actions-row d-flex justify-content-center col-12 mb-3 px-0">
                         <form class="w-100 d-flex justify-content-center" method="POST" action="{{ route('study-partners-suggester.add-to-list') }}">
                             @csrf

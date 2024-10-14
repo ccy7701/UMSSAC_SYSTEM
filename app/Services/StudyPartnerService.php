@@ -166,7 +166,7 @@ class StudyPartnerService
         if ($requestType == 1) {
             $source = 'profile_id';
             $target = 'studyPartnerProfile';
-        } else if ($requestType == 2) {
+        } elseif ($requestType == 2) {
             $source = 'study_partner_profile_id';
             $target = 'profile';
         }

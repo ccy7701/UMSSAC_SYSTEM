@@ -152,8 +152,6 @@ class BookmarkService
             ])
             ->first();
 
-            $targetName = $profile->account->account_full_name;
-
             StudyPartner::create([
                 'profile_id' => $profileId,
                 'study_partner_profile_id' => $studyPartnerProfileId,
@@ -162,11 +160,15 @@ class BookmarkService
                 'updated_at' => Carbon::now(),
             ]);
 
-            return redirect()->route('study-partners-suggester.suggester-results')->with('added-to-list', $targetName.' has been added to your study partners list.');
-        } else {
-            $targetName = $bookmark->studyPartnerProfile->account->account_full_name;
-            $route = null;
+            $targetName = $profile->account->account_full_name;
+            $message = $targetName.' has been added to your study partners list.';
 
+            if ($operationPageSource == 'results') {
+                return redirect()->route('study-partners-suggester.suggester-results')->with('added-to-list', $message);
+            } elseif ($operationPageSource == 'added') {
+                return redirect()->route('study-partners-suggester.added-list')->with('added-to-list', $message);
+            }
+        } else {
             DB::table('study_partner')
                 ->where('profile_id', $profileId)
                 ->where('study_partner_profile_id', $studyPartnerProfileId)
@@ -175,13 +177,16 @@ class BookmarkService
                     'updated_at' => Carbon::now()
                 ]);
 
-            if ($operationPageSource == 'bookmarks') {
-                $route = redirect()->route('study-partners-suggester.bookmarks')->with('added-to-list', $targetName.' has been added to your study partners list.');
-            } elseif ($operationPageSource == 'results') {
-                $route = redirect()->route('study-partners-suggester.suggester-results')->with('added-to-list', $targetName.' has been added to your study partners list.');
-            }
+            $targetName = $bookmark->studyPartnerProfile->account->account_full_name;
+            $message = $targetName.' has been added to your study partners list.';
 
-            return $route;
+            if ($operationPageSource == 'results') {
+                return redirect()->route('study-partners-suggester.suggester-results')->with('added-to-list', $message);
+            } elseif ($operationPageSource == 'added') {
+                return redirect()->route('study-partners-suggester.added-list')->with('added-to-list', $message);
+            } else {
+                return redirect()->route('study-partners-suggester.bookmarks')->with('added-to-list', $message);
+            }
         }
     }
     

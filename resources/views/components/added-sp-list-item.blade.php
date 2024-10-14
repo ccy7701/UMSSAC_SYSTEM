@@ -27,15 +27,15 @@
                 </span>
                 <div class="row align-self-center text-muted">
                     <div class="col-1 text-center"><i class="fa fa-university"></i></div>
-                    <div class="col-10">{{ $profile->profile_faculty }}</div>
+                    <div class="col-11">{{ $profile->profile_faculty }}</div>
                 </div>
                 <div class="row align-items-center text-muted">
                     <div class="col-1 text-center"><i class="fa fa-id-badge"></i></div>
-                    <div class="col-10">{{ $profile->account->account_matric_number }}</div>
+                    <div class="col-11">{{ $profile->account->account_matric_number }}</div>
                 </div>
                 <div class="row align-items-center text-muted">
                     <div class="col-1 text-center"><i class="fa fa-envelope"></i></div>
-                    <div class="col-10">{{ $profile->account->account_email_address }}</div>
+                    <div class="col-11">{{ $profile->account->account_email_address }}</div>
                 </div>
             </div>
         </div>
@@ -48,25 +48,30 @@
         <div id="details-{{ $record->profile_id }}-{{ $record->study_partner_profile_id }}" class="collapse">
             <hr class="divider-gray-300 mb-4 mt-2">
             <div class="container px-2">
-                <ul class="list-unstyled">
+                <ul class="list-unstyled mb-4">
                     <li><strong>Personal description:</strong><br>{{ $profile->profile_personal_desc != '' ? $profile->profile_personal_desc : 'No personal description written yet' }}</li>
                 </ul>
-                <div class="row">
-                    <div class="added-sps-actions-row d-flex justify-content-center col-12 mb-3 px-0">
-                        @if ($type == 1)
+                @if ($type == 1)
+                    <div class="row">
+                        <div class="added-sps-actions-row d-flex justify-content-center col-12 mb-3 px-0">
                             <form class="w-100 d-flex justify-content-center" method="POST" action="#">
                                 @csrf
-                                <button type="button" class="section-button-short rsans btn btn-danger fw-semibold px-3">Button action text</button>
+                                <button type="button" class="section-button-short rsans btn btn-danger fw-semibold px-3">Remove from list</button>
                             </form>
-                        @elseif ($type == 2 && !in_array($profile->profile_id, $intersectionarray))
-                            <form class="w-100 d-flex justify-content-center" method="POST" action="#">
-                                @csrf
-                                <button type="button" class="section-button-short rsans btn btn-primary fw-semibold px-3">Add to list</button>
-                                <!-- (14/10) CONTINUE HERE! -->
-                            </form>
-                        @endif
+                        </div>
                     </div>
-                </div>
+                @elseif ($type == 2 && !in_array($profile->profile_id, $intersectionarray))
+                    <div class="row">
+                        <div class="added-sps-actions-row d-flex justify-content-center col-12 mb-3 px-0">
+                            <form class="w-100 d-flex justify-content-center" method="POST" action="{{ route('study-partners-suggester.add-to-list') }}">
+                                @csrf
+                                <input type="hidden" name="operation_page_source" value="added">
+                                <input type="hidden" name="study_partner_profile_id" value="{{ $profile->profile_id }}">
+                                <button type="submit" class="section-button-short rsans btn btn-primary fw-semibold px-3">Add to my list</button>
+                            </form>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

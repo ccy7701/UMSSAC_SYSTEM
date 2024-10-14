@@ -55,11 +55,26 @@ $btn-primary-bg: #1064D6;
 
 .suggested-sp-list-item {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
-.suggested-sp-list-item:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.bookmarked-sp-list-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.added-sp-list-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
 .chevron-icon {

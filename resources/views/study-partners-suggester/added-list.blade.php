@@ -12,6 +12,10 @@
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     <x-topnav/>
+    <x-response-popup
+        messageType="added-to-list"
+        iconClass="text-primary fa fa-user-plus"
+        title="Study partner added"/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->
@@ -19,16 +23,7 @@
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
                     <div class="col-12 text-center">
-                        <h3 class="rserif fw-bold w-100 mb-1">Added study partners list</h3>
-                        <p id="added-sp-count-display" class="rserif fs-4 w-100 mt-0">
-                            @if ($totalAddedSPs == 0)
-                                No study partners found (that you have added)
-                            @elseif ($totalAddedSPs == 1)
-                                1 study partner found (that you have added)
-                            @else
-                                {{ $totalAddedSPs }} study partners found (that you have added)
-                            @endif
-                        </p>
+                        <h3 class="rserif fw-bold w-100 mb-3">Added study partners list</h3>
                         <!-- SEARCH TAB -->
                         <form class="d-flex justify-content-center" method="GET" action="{{ route('study-partners-suggester.added-list') }}">
                             <div class="search-tab mb-4">
@@ -47,29 +42,26 @@
         <div class="row-container">
             <div id="content-body" class="rsans justify-content-center align-items-center py-3 px-5 align-self-center">
                 <p class="rsans fs-1">Study partners that I have added ({{ $totalAddedSPs }})</p>
-                <div class="row pb-3">
-                    @foreach ($addedStudyPartners as $record)
-                        <div class="col-12 pb-3">
-                            <x-added-sp-list-item
-                                :record="$record"
-                                :type="1"
-                                :intersectionarray="$intersectionArray"/>
-                        </div>
-                    @endforeach
-                </div>
+                @foreach ($addedStudyPartners as $record)
+                    <div class="row pb-3">
+                        <x-added-sp-list-item
+                        :record="$record"
+                        :type="1"
+                        :intersectionarray="$intersectionArray"/>
+                    </div>
+                @endforeach
                 <p class="rsans fs-1">Study partners that have added me ({{ $totalAddedBySPs }})</p>
-                <div class="row pb-3">
-                    @foreach ($addedByStudyPartners as $record)
-                        <div class="col-12 pb-3">
-                            <x-added-sp-list-item
-                                :record="$record"
-                                :type="2"
-                                :intersectionarray="$intersectionArray"/>
-                        </div>
-                    @endforeach
-                </div>
+                @foreach ($addedByStudyPartners as $record)
+                    <div class="row pb-3">
+                        <x-added-sp-list-item
+                            :record="$record"
+                            :type="2"
+                            :intersectionarray="$intersectionArray"/>
+                    </div>
+                @endforeach
             </div>
         </div>
+        <br><br>
     </main>
     <x-footer/>
 </body>

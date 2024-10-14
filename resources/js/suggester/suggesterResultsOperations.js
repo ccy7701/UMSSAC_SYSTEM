@@ -126,15 +126,15 @@ function generateCardDetails(studyPartner) {
     return `
         <div class="row align-self-center text-muted">
             <div class="col-1 text-center"><i class="fa fa-university"></i></div>
-            <div class="col-10">${studyPartner.profile.profile_faculty}</div>
+            <div class="col-11">${studyPartner.profile.profile_faculty}</div>
         </div>
         <div class="row align-items-center text-muted">
             <div class="col-1 text-center"><i class="fa fa-id-badge"></i></div>
-            <div class="col-10">${studyPartner.profile.account_matric_number}</div>
+            <div class="col-11">${studyPartner.profile.account_matric_number}</div>
         </div>
         <div class="row align-items-center text-muted">
             <div class="col-1 text-center"><i class="fa fa-envelope"></i></div>
-            <div class="col-10">${studyPartner.profile.account_email_address}</div>
+            <div class="col-11">${studyPartner.profile.account_email_address}</div>
         </div>
     `;
 }
@@ -180,7 +180,7 @@ function generateCardBody(studyPartner, index) {
         <div id="details-${index}" class="collapse">
             <hr class="divider-gray-300 mb-4 mt-2">
             <div class="container px-2">
-                <ul class="list-unstyled">
+                <ul class="list-unstyled mb-4">
                     <li><strong>Personal description:</strong><br>${studyPartner.profile.profile_personal_desc}</li>
                 </ul>
                 ${suggesterActionsRow}
