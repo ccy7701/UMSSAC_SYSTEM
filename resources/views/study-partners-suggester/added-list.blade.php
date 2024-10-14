@@ -39,6 +39,19 @@
                                 </div>
                             </div>
                         </form>
+                        <!-- VIEW ICONS -->
+                        <div class="row pb-3 d-flex justify-content-center">
+                            <div id="added-sp-view-toggle" class="rsans input-group d-flex justify-content-center">
+                                <!-- list of SPs added by the user; -->
+                                <button id="toggle-self-view" class="btn d-flex justify-content-center align-items-center fw-semibold w-40 border">
+                                    Added by me ({{ $totalAddedSPs }})
+                                </button>
+                                <!-- list of SPs that have added the user -->
+                                <button id="toggle-others-view" class="btn d-flex justify-content-center align-items-center fw-semibold w-40 border">
+                                    Added by others ({{ $totalAddedBySPs }})
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -46,25 +59,29 @@
         <!-- BODY OF CONTENT -->
         <div class="row-container">
             <div id="content-body" class="rsans justify-content-center align-items-center py-3 px-5 align-self-center">
-                <p class="rsans fs-1">Study partners that I have added ({{ $totalAddedSPs }})</p>
-                @foreach ($addedStudyPartners as $record)
-                    <div class="row pb-3">
-                        <x-added-sp-list-item
-                        :record="$record"
-                        :type="1"
-                        :intersectionarray="$intersectionArray"/>
-                    </div>
-                @endforeach
-                <x-delete-added-sp/>
-                <p class="rsans fs-1">Study partners that have added me ({{ $totalAddedBySPs }})</p>
-                @foreach ($addedByStudyPartners as $record)
-                    <div class="row pb-3">
-                        <x-added-sp-list-item
+                <!-- SPs added by the user -->
+                <div id="self-view">
+                    @foreach ($addedStudyPartners as $record)
+                        <div class="row pb-3">
+                            <x-added-sp-list-item
                             :record="$record"
-                            :type="2"
+                            :type="1"
                             :intersectionarray="$intersectionArray"/>
-                    </div>
-                @endforeach
+                        </div>
+                    @endforeach
+                    <x-delete-added-sp/>
+                </div>
+                <!-- SPs who have added the user -->
+                <div id="others-view">
+                    @foreach ($addedByStudyPartners as $record)
+                        <div class="row pb-3">
+                            <x-added-sp-list-item
+                                :record="$record"
+                                :type="2"
+                                :intersectionarray="$intersectionArray"/>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
         <br><br>

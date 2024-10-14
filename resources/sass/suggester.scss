@@ -89,12 +89,28 @@ $btn-primary-bg: #1064D6;
     width: 30.00%;
 }
 
+#added-sp-view-toggle {
+    width: 50%;
+    button {
+        &.active {
+            background-color: $btn-primary-bg;
+            color: white;
+        }
+    }
+}
+
 @media (max-width: 1200px) {
     .form-step {
         width: 75.00%;
     }
     .progress {
         width: 50.00%;
+    }
+}
+
+@media (max-width: 992px) {
+    #added-sp-view-toggle {
+        width: 80%;
     }
 }
 
@@ -179,5 +195,12 @@ $btn-primary-bg: #1064D6;
     .rg-left,
     .rg-right {
         font-size: 0.65em;
+    }
+    #added-sp-view-toggle {
+        width: 100%;
+    }
+    #toggle-self-view,
+    #toggle-others-view {
+        width: 50% !important;
     }
 }
