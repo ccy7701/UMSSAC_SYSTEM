@@ -11,15 +11,15 @@
 
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
-    @if (currentAccount()->account_role != 3)
-        <x-topnav/>
-    @else
-        <x-admin-topnav/>
-    @endif
+    <x-topnav/>
     <x-response-popup
         messageType="bookmark-delete"
         iconClass="text-primary fa-regular fa-bookmark"
-        title="Study partner bookmark deleted."/>
+        title="Bookmark deleted"/>
+    <x-response-popup
+        messageType="added-to-list"
+        iconClass="text-primary fa fa-user-plus"
+        title="Study partner added"/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->
@@ -42,7 +42,7 @@
                             <div class="search-tab mb-4">
                                 <div class="input-group">
                                     <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-search"></i></span>
-                                    <input type="search" id="event-search" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
+                                    <input type="search" id="bookmarks-search" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
                                     <button class="rsans btn btn-primary fw-bold">Search</button>
                                 </div>
                             </div>
@@ -54,16 +54,14 @@
         <!-- BODY OF CONTENT -->
         <div class="row-container">
             <div id="content-body" class="rsans justify-content-center align-items-center py-3 px-5 align-self-center">
-                <div class="row pb-3">
-                    @foreach ($bookmarks as $bookmark)
-                        <div class="col-12 pb-3">
-                            <x-bookmarked-sp-list-item
-                            :bookmark="$bookmark"/>
-                        </div>
-                    @endforeach
-                </div>
+                @foreach ($bookmarks as $bookmark)
+                    <div class="row pb-3">
+                        <x-bookmarked-sp-list-item :bookmark="$bookmark"/>
+                    </div>
+                @endforeach
             </div>
         </div>
+        <br><br>
     </main>
     <x-footer/>
 </body>

@@ -76,11 +76,31 @@ function generateCardHeader(studyPartner, index) {
 }
 
 function generateCardContent(studyPartner) {
-    let bookmarkDisplay = '';
-    if (studyPartner.bookmarkExists == 1) {
-        bookmarkDisplay = `&emsp;<i class="fa-solid fa-bookmark text-primary fs-3"></i>`;
-    } else {
-        bookmarkDisplay = `&emsp;<i class="fa-regular fa-bookmark text-primary fs-3"></i>`;
+    let iconDisplay = '';
+
+    switch (studyPartner.connectionType) {
+        case 0: 
+            iconDisplay = `
+                <button type="submit" class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none">
+                    &emsp;<i class="fa-regular fa-bookmark text-primary fs-3"></i>
+                </button>
+            `;
+            break;
+        case 1:
+            iconDisplay = `
+                <button type="submit" class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none">
+                    &emsp;<i class="fa-solid fa-bookmark text-primary fs-3"></i>
+                </button>
+            `;
+            break;
+        case 2:
+            iconDisplay = `
+                <button class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none" disabled>
+                    &emsp;<i class="fa fa-user-plus text-primary fs-5"></i>
+                    <p class="text-primary ms-2 mb-0 align-middle">Added</p>
+                </button>
+            `;
+            break;
     }
 
     return `
@@ -93,9 +113,7 @@ function generateCardContent(studyPartner) {
                         <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').getAttribute('content')}">
                         <input type="hidden" name="study_partner_profile_id" value="${studyPartner.profile.profile_id}">
                         <input type="hidden" name="operation_page_source" value="results">
-                        <button type="submit" class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none">
-                            ${bookmarkDisplay}
-                        </button>
+                        ${iconDisplay}
                     </form>
                 </span>
                 ${generateCardDetails(studyPartner)}
@@ -108,15 +126,15 @@ function generateCardDetails(studyPartner) {
     return `
         <div class="row align-self-center text-muted">
             <div class="col-1 text-center"><i class="fa fa-university"></i></div>
-            <div class="col-10">${studyPartner.profile.profile_faculty}</div>
+            <div class="col-11">${studyPartner.profile.profile_faculty}</div>
         </div>
         <div class="row align-items-center text-muted">
             <div class="col-1 text-center"><i class="fa fa-id-badge"></i></div>
-            <div class="col-10">${studyPartner.profile.account_matric_number}</div>
+            <div class="col-11">${studyPartner.profile.account_matric_number}</div>
         </div>
         <div class="row align-items-center text-muted">
             <div class="col-1 text-center"><i class="fa fa-envelope"></i></div>
-            <div class="col-10">${studyPartner.profile.account_email_address}</div>
+            <div class="col-11">${studyPartner.profile.account_email_address}</div>
         </div>
     `;
 }
@@ -141,18 +159,31 @@ function generateCardChevron(index) {
 }
 
 function generateCardBody(studyPartner, index) {
+    let suggesterActionsRow = '';
+
+    if (studyPartner.connectionType != 2) {
+        suggesterActionsRow = `
+            <div class="row">
+                <div class="suggester-actions-row d-flex justify-content-center col-12 mb-3 px-0">
+                    <form class="w-100 d-flex justify-content-center" method="POST" action='/study-partners-suggester/add-to-list'>
+                        <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').getAttribute('content')}">
+                        <input type="hidden" name="operation_page_source" value="results">
+                        <input type="hidden" name="study_partner_profile_id" value="${studyPartner.profile.profile_id}">
+                        <button type="submit" class="section-button-short rsans btn btn-primary fw-semibold px-3">Add to my list</button>
+                    </form>
+                </div>
+            </div>
+        `
+    }
+
     return `
         <div id="details-${index}" class="collapse">
             <hr class="divider-gray-300 mb-4 mt-2">
             <div class="container px-2">
-                <ul class="list-unstyled">
+                <ul class="list-unstyled mb-4">
                     <li><strong>Personal description:</strong><br>${studyPartner.profile.profile_personal_desc}</li>
                 </ul>
-                <div class="row">
-                    <div class="suggester-actions-row d-flex justify-content-center col-12 mb-3 px-0">
-                        <a href="#" class="section-button-short rsans btn btn-primary fw-bold px-3">Add to my list</a>
-                    </div>
-                </div>
+                ${suggesterActionsRow}
             </div>
         </div>
     `;

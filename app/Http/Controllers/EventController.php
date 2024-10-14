@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Event;
 use Illuminate\Http\Request;
-use App\Models\EventBookmark;
 use App\Services\ClubAndEventService;
 use App\Services\BookmarkService;
 use Illuminate\Support\Facades\Storage;
@@ -205,8 +204,7 @@ class EventController extends Controller
     public function fetchUserEventBookmarks(Request $request) {
         $search = $request->input('search', '');
 
-        return $this->bookmarkService->prepareAndRenderBookmarksView(
-            'events',
+        return $this->bookmarkService->prepareAndRenderEventBookmarksView(
             profile()->profile_id,
             'events-finder.bookmarks',
             $search

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Services\CGPAService;
 use App\Models\SubjectStatsLog;
 use App\Models\SemesterProgressLog;
-use Illuminate\Support\Facades\Log;
 
 class SemesterProgressLogController extends Controller
 {

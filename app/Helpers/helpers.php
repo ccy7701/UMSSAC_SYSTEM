@@ -16,7 +16,7 @@ if (!function_exists('profile')) {
 }
 
 if (!function_exists('getUserSearchViewPreference')) {
-    function getUserSearchViewPreference($profile_id) {
-        return UserPreference::where('profile_id', $profile_id)->value('search_view_preference');
+    function getUserSearchViewPreference($profileId) {
+        return UserPreference::where('profile_id', $profileId)->value('search_view_preference');
     }
 }
