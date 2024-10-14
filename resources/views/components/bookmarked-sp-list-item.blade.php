@@ -48,7 +48,7 @@
                 <ul class="list-unstyled mb-4">
                     <li><strong>Personal description:</strong><br>{{ $bookmark->studyPartnerProfile->profile_personal_desc != '' ? $bookmark->studyPartnerProfile->profile_personal_desc : 'No personal description written yet' }}</li>
                 </ul>
-                <div class="row border">
+                <div class="row">
                     <div class="bookmarks-actions-row d-flex justify-content-center col-12 mb-3 px-0">
                         <form class="w-100 d-flex justify-content-center" method="POST" action="{{ route('study-partners-suggester.add-to-list') }}">
                             @csrf

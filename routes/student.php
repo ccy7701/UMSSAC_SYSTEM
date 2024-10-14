@@ -63,5 +63,8 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
     Route::post('/study-partners-suggester/add-to-list', [StudyPartnerController::class, 'addToStudyPartnersList'])->name('study-partners-suggester.add-to-list');
 
     // CURRENT ROUTE OF FOCUS
+    Route::delete('/study-partners-suggester/delete-from-list', [StudyPartnerController::class, 'deleteFromStudyPartnersList'])->name('study-partners-suggester.delete-from-list');
+
+    // CURRENT ROUTE OF FOCUS
     Route::get('/study-partners-suggester/added-list', [StudyPartnerController::class, 'fetchUserAddedStudyPartners'])->name('study-partners-suggester.added-list');
 });

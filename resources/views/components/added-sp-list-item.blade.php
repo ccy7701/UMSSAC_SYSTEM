@@ -54,10 +54,13 @@
                 @if ($type == 1)
                     <div class="row">
                         <div class="added-sps-actions-row d-flex justify-content-center col-12 mb-3 px-0">
-                            <form class="w-100 d-flex justify-content-center" method="POST" action="#">
-                                @csrf
-                                <button type="button" class="section-button-short rsans btn btn-danger fw-semibold px-3">Remove from list</button>
-                            </form>
+                            <button type="button" class="section-button-short rsans btn btn-danger fw-semibold px-3"
+                                data-bs-toggle="modal"
+                                data-bs-target="#delete-sp-confirmation-modal"
+                                data-study-partner-name="{{ $profile->account->account_full_name }}"
+                                data-study-partner-profile-id="{{ $profile->profile_id }}">
+                                Remove from list
+                            </button>
                         </div>
                     </div>
                 @elseif ($type == 2 && !in_array($profile->profile_id, $intersectionarray))

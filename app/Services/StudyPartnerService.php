@@ -9,6 +9,7 @@ use App\Models\UserTraitsRecord;
 use App\Models\StudyPartner;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class StudyPartnerService
 {
@@ -156,6 +157,23 @@ class StudyPartnerService
             'totalAddedBySPs' => $addedByStudyPartners->count(),
             'intersectionArray' => $intersectionArray
         ]);
+    }
+
+    // Handle deleting the study partner from the added SPs list
+    public function handleDeleteStudyPartner($profileId, $studyPartnerProfileId) {
+        $studyPartner = StudyPartner::where('profile_id', $profileId)
+            ->where('study_partner_profile_id', (int) $studyPartnerProfileId)
+            ->firstOrFail();
+        $targetName = $studyPartner->studyPartnerProfile->account->account_full_name;
+
+        $status = DB::table('study_partner')
+            ->where('profile_id', $profileId)
+            ->where('study_partner_profile_id', (int) $studyPartnerProfileId)
+            ->delete();
+
+        return $status
+            ? redirect()->route('study-partners-suggester.added-list')->with('deleted-from-list', $targetName.' has been removed from your study partners list.')
+            : back()->withErrors(['error' => 'Failed to remove study partner from list. Please try again.']);
     }
 
     // Get the study partners by request type; 1 - of SPs the user has added, 2 - of SPs who have added the user

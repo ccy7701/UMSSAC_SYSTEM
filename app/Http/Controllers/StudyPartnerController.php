@@ -74,6 +74,13 @@ class StudyPartnerController extends Controller
         );
     }
 
+    public function deleteFromStudyPartnersList(Request $request) {
+        return $this->studyPartnerService->handleDeleteStudyPartner(
+            profile()->profile_id,
+            $request->study_partner_profile_id
+        );
+    }
+
     public function fetchUserAddedStudyPartners(Request $request) {
         $search = $request->input('search', '');
 

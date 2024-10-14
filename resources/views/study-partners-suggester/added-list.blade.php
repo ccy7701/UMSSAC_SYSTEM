@@ -11,11 +11,16 @@
 
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
+    @vite('resources/js/suggester/addedListOperations.js')
     <x-topnav/>
     <x-response-popup
         messageType="added-to-list"
         iconClass="text-primary fa fa-user-plus"
         title="Study partner added"/>
+    <x-response-popup
+        messageType="deleted-from-list"
+        iconClass="text-secondary fa fa-user-times"
+        title="Study partner removed"/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->
@@ -50,6 +55,7 @@
                         :intersectionarray="$intersectionArray"/>
                     </div>
                 @endforeach
+                <x-delete-added-sp/>
                 <p class="rsans fs-1">Study partners that have added me ({{ $totalAddedBySPs }})</p>
                 @foreach ($addedByStudyPartners as $record)
                     <div class="row pb-3">
