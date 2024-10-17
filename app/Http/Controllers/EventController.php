@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Event;
+use App\Models\EventBookmark;
 use Illuminate\Http\Request;
 use App\Services\ClubAndEventService;
 use App\Services\BookmarkService;
@@ -20,41 +21,11 @@ class EventController extends Controller
     }
 
     public function fetchEventsFinder(Request $request) {
-        // Handle POST request for filtering
-        if ($request->isMethod('post')) {
-            // Check if the filters are empty in the POST request
-            $filters = [
-                'category_filter' => $request->input('category_filter', []),
-                'event_status' => $request->input('event_status', []),
-            ];
-            if (empty($filters['category_filter']) && empty($filters['event_status'])) {
-                // Proceed as if flushing the search filters
-                $this->clubAndEventService->flushEventFilters();
-                return redirect()->route('events-finder', $request->all());
-            }
-            // Redirect to the GET route with query parameters for filters
-            return redirect()->route('events-finder', $request->all());
-        }
-
-        // Handle GET request as normal (including pagination and filtering)
-        $search = $request->input('search', '');
-        $filters = $this->clubAndEventService->getEventFilters($request);
-        $allEvents = $this->clubAndEventService->getAllEvents($filters, $search);
-
-        return view('events-finder.view-all-events', [
-             'events' => $allEvents,
-             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
-             'totalEventCount' => $allEvents->total(),
-             'filters' => $filters,
-             'search' => $search,
-         ]);
+        return $this->clubAndEventService->prepareAndRenderEventsFinderView($request);
     }
 
     public function clearFilterForGeneral() {
-        // Clear the filters for the authenticated user's profile
-        $this->clubAndEventService->flushEventFilters();
-
-        return redirect()->route('events-finder');
+        return $this->clubAndEventService->flushEventFilters('events-finder');
     }
 
     public function fetchEventDetails(Request $request) {
@@ -202,12 +173,10 @@ class EventController extends Controller
     }
 
     public function fetchUserEventBookmarks(Request $request) {
-        $search = $request->input('search', '');
-
         return $this->bookmarkService->prepareAndRenderEventBookmarksView(
             profile()->profile_id,
             'events-finder.bookmarks',
-            $search
+            $request->input('search', '')
         );
     }
 

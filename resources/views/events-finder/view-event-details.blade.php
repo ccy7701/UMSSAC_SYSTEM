@@ -131,13 +131,15 @@
                                 @csrf
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                 <input type="hidden" name="club_id" value="{{ $club->club_id }}">
-                                <button type="submit" class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none">
-                                    @if ($isBookmarked)
-                                        &nbsp;<i class="fa-solid fa-bookmark text-primary"></i>
-                                    @else
-                                        &nbsp;<i class="fa-regular fa-bookmark text-primary"></i>
-                                    @endif
-                                </button>
+                                @if (currentAccount()->account_role != 3)
+                                    <button type="submit" class="bookmark-inline d-inline-flex justify-content-center align-items-center bg-transparent border-0 p-0 text-decoration-none">
+                                        @if ($isBookmarked)
+                                            &nbsp;<i class="fa-solid fa-bookmark text-primary"></i>
+                                        @else
+                                            &nbsp;<i class="fa-regular fa-bookmark text-primary"></i>
+                                        @endif
+                                    </button>
+                                @endif
                             </form>
                         </h3>
                     </div>

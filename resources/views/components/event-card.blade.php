@@ -9,11 +9,13 @@
         @else
             <img src="{{ Storage::url($eventImagePaths[0]) }}" class="card-img-top border-bottom" alt="Event card illustration" style="aspect-ratio: 4/4;">
         @endif
-        <div class="bookmark position-absolute top-0 end-0 p-2">
-            <span class="bookmark-span rounded-circle d-inline-flex justify-content-center align-items-center">
-                <i class="fa fa-bookmark text-primary fs-4"></i>
-            </span>
-        </div>
+        @if (in_array($event->event_id, $intersectionarray))
+            <div class="bookmark position-absolute top-0 end-0 p-2">
+                <span class="bookmark-span rounded-circle d-inline-flex justify-content-center align-items-center">
+                    <i class="fa fa-bookmark text-primary fs-4"></i>
+                </span>
+            </div>
+        @endif
         <div class="rsans card-body p-3">
             <h5 class="card-title fw-bold">
                 <span class="d-inline-block text-truncate" style="width: 100%;">
