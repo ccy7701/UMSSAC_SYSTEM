@@ -76,10 +76,9 @@ html {
 
 .nav-item {
     transition: background-color 0.1s ease;
-}
-
-.nav-item:hover {
-    background-color: #E0E0E0;
+    &:hover {
+        background-color: #E0E0E0;
+    }
 }
 
 .section-header {
@@ -142,7 +141,6 @@ html {
     box-shadow: none !important;
 }
 
-/* Only the icons should change color based on the state */
 .toggle-view-btn i {
     color: $text-muted;
 }
