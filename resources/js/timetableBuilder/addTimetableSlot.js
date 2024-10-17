@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Create a list of suggestions
+    // Create a list of suggested subjects based on input
     function createSuggestionsList(subjectList, filteredSubjects) {
         filteredSubjects.forEach(subject => {
             const item = document.createElement('a');
@@ -60,10 +60,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('class-section').value = '';
                 document.getElementById('class-lecturer').value = '';
                 document.getElementById('class-location').value = '';
-                // THE FIELDS BELOW THROW ERRORS
-                // document.getElementById('class-day').value = '';
-                // document.getElementById('class-start-time').value = '';
-                // document.getElementById('class-end-time').value = '';
+                document.getElementById('class-day').value = '';
+                document.getElementById('class-start-time').value = '';
+                document.getElementById('class-end-time').value = '';
      
                 // Call the webservice to retrive the timetable slot data
                 callSubjectDetailsFetcher(subject);
@@ -72,22 +71,28 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function callSubjectDetailsFetcher(subject) {
-        // Call the subject_details_fetcher Python webservice with subject.href
-        fetch(`/timetable-builder/get-subject-details-list?source_link=${encodeURIComponent(subject.href)}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("(PASS) Response received from webservice");
+    // Call the subject_details_fetcher Python webservice with subject.href
+    async function callSubjectDetailsFetcher(subject) {
+        const classCategorySelect = document.getElementById('class-category');
+        let subjectData = null;
 
-            // Populate class category select with unique occurences
-            const classCategorySelect = document.getElementById('class-category');
-            classCategorySelect.innerHTML = '<option selected disabled value="">Choose...</option>';
-            const uniqueCategories = [...new Set(data.subjectDetailsList.map(slot => slot.class_category))];
+        try {
+            const response = await fetch(`/timetable-builder/get-subject-details-list?source_link=${encodeURIComponent(subject.href)}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            subjectData = await response.json();
+            console.log("(PASS) Response received from webservice");
+        } catch (error) {
+            console.error("(FAIL) AJAX request to webservice failed:", error);
+        }
+
+        // Populate class category select with unique occurences
+        classCategorySelect.innerHTML = '<option selected disabled value="">Choose...</option>';
+        const uniqueCategories = [...new Set(subjectData.subjectDetailsList.map(slot => slot.class_category))];
             uniqueCategories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category;
@@ -102,62 +107,57 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Set up event listener for when a category is selected
             classCategorySelect.addEventListener('change', function() {
-                // Clear all the formfields below it first
-                document.getElementById('class-section').value = '';
-                document.getElementById('class-lecturer').value = '';
-                document.getElementById('class-location').value = '';
-                // THE FIELDS BELOW THROW ERRORS
-                // document.getElementById('class-day').value = '';
-                // document.getElementById('class-start-time').value = '';
-                // document.getElementById('class-end-time').value = '';
+            // Clear all the formfields below it first
+            document.getElementById('class-section').value = '';
+            document.getElementById('class-lecturer').value = '';
+            document.getElementById('class-location').value = '';
+            document.getElementById('class-day').value = '';
+            document.getElementById('class-start-time').value = '';
+            document.getElementById('class-end-time').value = '';
 
-                const selectedCategory = this.value;
-                
-                // Modify class-section to a <select> and populate with available sections
-                const classSectionSelect = document.createElement('select');
-                classSectionSelect.id = 'class-section';
-                classSectionSelect.name = 'class_section';
-                classSectionSelect.classList.add('form-select');
-                classSectionSelect.required = true;
+            const selectedCategory = this.value;
+            
+            // Modify class-section to a <select> and populate with available sections
+            const classSectionSelect = document.createElement('select');
+            classSectionSelect.id = 'class-section';
+            classSectionSelect.name = 'class_section';
+            classSectionSelect.classList.add('form-select');
+            classSectionSelect.required = true;
 
-                const filteredSlots = data.subjectDetailsList.filter(slot => slot.class_category === selectedCategory);
+            const filteredSlots = subjectData.subjectDetailsList.filter(slot => slot.class_category === selectedCategory);
 
-                // Populate the select element with both section and time information
-                classSectionSelect.innerHTML = '<option selected disabled value="">Choose...</option>';
-                filteredSlots.forEach((slot, index) => {
-                    const option = document.createElement('option');
-                    option.value = slot.class_section;
-                    option.id = `slot-${index}`;
-                    option.textContent = `Section ${slot.class_section} (${dayToString(slot.class_day)}, ${timeToAMPM(slot.class_start_time)} - ${timeToAMPM(slot.class_end_time)})`;
-                    classSectionSelect.appendChild(option);
+            // Populate the select element with both section and time information
+            classSectionSelect.innerHTML = '<option selected disabled value="">Choose...</option>';
+            filteredSlots.forEach((slot, index) => {
+                const option = document.createElement('option');
+                option.value = slot.class_section;
+                option.id = `slot-${index}`;
+                option.textContent = `Section ${slot.class_section} (${dayToString(slot.class_day)}, ${timeToAMPM(slot.class_start_time)} - ${timeToAMPM(slot.class_end_time)})`;
+                classSectionSelect.appendChild(option);
 
-                    // Store slot information in a data attribute for easy retrieval
-                    option.dataset.startTime = slot.class_start_time;
-                    option.dataset.endTime = slot.class_end_time;
-                    option.dataset.lecturer = slot.class_lecturer;
-                    option.dataset.location = slot.class_location;
-                    option.dataset.day = slot.class_day;
-                });
-
-                // Replace input field with select field
-                const classSectionInput = document.getElementById('class-section');
-                classSectionInput.replaceWith(classSectionSelect);
-
-                // Add event listener for section selection
-                classSectionSelect.addEventListener('change', function() {
-                    const selectedOption = classSectionSelect.options[classSectionSelect.selectedIndex];  // Get the selected option
-
-                    // Use the data attributes to fill in the remaining fields
-                    document.getElementById('class-lecturer').value = selectedOption.dataset.lecturer;
-                    document.getElementById('class-location').value = selectedOption.dataset.location;
-                    document.getElementById('day').value = dayToString(selectedOption.dataset.day);
-                    document.getElementById('start-time').value = timeToAMPM(selectedOption.dataset.startTime);
-                    document.getElementById('end-time').value = timeToAMPM(selectedOption.dataset.endTime);
-                });
+                // Store slot information in a data attribute for easy retrieval
+                option.dataset.startTime = slot.class_start_time;
+                option.dataset.endTime = slot.class_end_time;
+                option.dataset.lecturer = slot.class_lecturer;
+                option.dataset.location = slot.class_location;
+                option.dataset.day = slot.class_day;
             });
-        })
-        .catch(error => {
-            console.error("(FAIL) AJAX request to webservice failed:", error);
+
+            // Replace input field with select field
+            const classSectionInput = document.getElementById('class-section');
+            classSectionInput.replaceWith(classSectionSelect);
+
+            // Add event listener for section selection
+            classSectionSelect.addEventListener('change', function() {
+                const selectedOption = classSectionSelect.options[classSectionSelect.selectedIndex];  // Get the selected option
+
+                // Use the data attributes to fill in the remaining fields
+                document.getElementById('class-lecturer').value = selectedOption.dataset.lecturer;
+                document.getElementById('class-location').value = selectedOption.dataset.location;
+                document.getElementById('class-day').value = dayToString(selectedOption.dataset.day);
+                document.getElementById('class-start-time').value = timeToAMPM(selectedOption.dataset.startTime);
+                document.getElementById('class-end-time').value = timeToAMPM(selectedOption.dataset.endTime);
+            });
         });
     }
 

@@ -43,8 +43,8 @@
                         <input type="text" class="form-control" id="class-location" name="class_location" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="day" class="fw-bold form-label">Day and time</label>
-                        <select class="form-select" id="day" name="class_day" required>
+                        <label for="class-day" class="fw-bold form-label">Day and time</label>
+                        <select class="form-select" id="class-day" name="class_day" required>
                             <option selected disabled value="">Choose...</option>
                             <option value="1">Monday</option>
                             <option value="2">Tuesday</option>
@@ -54,8 +54,8 @@
                             <option value="6">Saturday</option>
                             <option value="7">Sunday</option>
                         </select>
-                        <label for="start-time" class="align-self-center p-2">from</label>
-                        <select class="form-select" id="start-time" name="class_start_time" required>
+                        <label for="class-start-time" class="align-self-center p-2">from</label>
+                        <select class="form-select" id="class-start-time" name="class_start_time" required>
                             <option selected disabled value="">Choose...</option>
                             <option value="07:00:00">7:00 AM</option>
                             <option value="08:00:00">8:00 AM</option>
@@ -73,8 +73,8 @@
                             <option value="20:00:00">8:00 PM</option>
                             <option value="21:00:00">9:00 PM</option>
                         </select>
-                        <label for="end-time" class="align-self-center p-2">to</label>
-                        <select class="form-select" id="end-time" name="class_end_time" required>
+                        <label for="class-end-time" class="align-self-center p-2">to</label>
+                        <select class="form-select" id="class-end-time" name="class_end_time" required>
                             <option selected disabled value="">Choose...</option>
                             <option value="08:00:00">8:00 AM</option>
                             <option value="09:00:00">9:00 AM</option>

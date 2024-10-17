@@ -28,12 +28,11 @@
     display: flex;
     width: calc(200%);
     animation: welcome-scroll 90s linear infinite;
-}
-
-.carousel-track img {
-    width: 16.66%;
-    flex-shrink: 0;
-    object-fit: cover;
+    img {
+        width: 16.66%;
+        flex-shrink: 0;
+        object-fit: cover;
+    }
 }
 
 @keyframes welcome-scroll {

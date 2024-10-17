@@ -45,11 +45,11 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="day" class="fw-bold form-label">Day and time</label>
-                        <input type="text" class="form-control" id="day" name="class_day" readonly required>
+                        <input type="text" class="form-control" id="class-day" name="class_day" readonly required>
                         <label for="start-time" class="align-self-center p-2">from</label>
-                        <input type="text" class="form-control" id="start-time" name="class_start_time" readonly required>
+                        <input type="text" class="form-control" id="class-start-time" name="class_start_time" readonly required>
                         <label for="end-time" class="align-self-center p-2">to</label>
-                        <input type="text" class="form-control" id="end-time" name="class_end_time" readonly required>
+                        <input type="text" class="form-control" id="class-end-time" name="class_end_time" readonly required>
                     </div>
                 </div>
                 <div class="modal-footer">
