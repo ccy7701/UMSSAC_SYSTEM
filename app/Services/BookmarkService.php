@@ -198,6 +198,11 @@ class BookmarkService
             return $route;
         }
     }
+
+    // Fetch the event_ids of the user's bookmarked events
+    public function getBookmarkedEventIDs() {
+        return EventBookmark::where('profile_id', profile()->profile_id)->pluck('event_id')->toArray();
+    }
     
     // Check if a study partner bookmark exists
     private function checkIfBookmarkExists($profileId, $studyPartnerProfileId) {

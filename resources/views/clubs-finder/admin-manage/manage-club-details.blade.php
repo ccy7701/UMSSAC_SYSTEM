@@ -185,7 +185,9 @@
                         <div class="row pb-3 px-md-3 px-sm-0">
                             @foreach ($clubEvents as $event)
                                 <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
-                                    <x-event-card :event="$event"/>
+                                    <x-event-card
+                                        :event="$event"
+                                        :intersectionarray="$intersectionArray"/>
                                 </div>
                             @endforeach
                         </div>
@@ -203,7 +205,9 @@
                         </div>
                         @foreach ($clubEvents as $event)
                             <div class="row mb-3">
-                                <x-event-list-item :event="$event"/>
+                                <x-event-list-item
+                                    :event="$event"
+                                    :intersectionarray="$intersectionArray"/>
                             </div>
                         @endforeach
                     @else

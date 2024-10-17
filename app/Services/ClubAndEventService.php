@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\DB;
 
 class ClubAndEventService
 {
+    protected $bookmarkService;
+
+    public function __construct(BookmarkService $bookmarkService) {
+        $this->bookmarkService = $bookmarkService;
+    }
+
     // Get all clubs
     public function getAllClubs(array $filters, $search = null) {
         // Always save the filters, even if empty (to clear the saved filters)
@@ -36,11 +42,19 @@ class ClubAndEventService
 
     // Prepare all data for the specific club
     public function prepareClubData($clubId) {
+        $clubEvents = $this->getEventsForClub($clubId);
+
+        // Find intersection between all club eventIDs and bookmarked eventIDs
+        $bookmarkedEventIDs = $this->bookmarkService->getBookmarkedEventIDs();
+        $allClubEventIDs = $clubEvents['eventIDs'];
+        $intersectionArray = array_values(array_intersect($allClubEventIDs, $bookmarkedEventIDs));
+        
         return [
             'club' => $this->getClubDetails($clubId),
             'clubMembers' => $this->getClubMembers($clubId),
             'clubMembersCount' => $this->getClubMembersCount($clubId),
-            'clubEvents' => $this->getEventsForClub($clubId),
+            'clubEvents' => $clubEvents['clubEvents'],
+            'intersectionArray' => $intersectionArray,
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
             'isCommitteeMember' => $this->checkCommitteeMember($clubId, profile()->profile_id)
         ];
@@ -69,7 +83,50 @@ class ClubAndEventService
 
     // Get all the events of the specific club
     public function getEventsForClub($club_id) {
-        return Event::where('club_id', $club_id)->paginate(12);
+        $clubEvents = Event::where('club_id', $club_id)->paginate(12);
+        $eventIDs = $clubEvents->pluck('event_id')->toArray();
+
+        return compact('clubEvents', 'eventIDs');
+    }
+
+    // Prepare all the data to be sent to the events finder view
+    public function prepareAndRenderEventsFinderView(Request $request) {
+        // Handle POST request for filtering
+        if ($request->isMethod('post')) {
+            // Check if the filters are empty in the POST request
+            $filters = [
+                'category_filter' => $request->input('category_filter', []),
+                'event_status' => $request->input('event_status', []),
+            ];
+            if (empty($filters['category_filter']) && empty($filters['event_status'])) {
+                // Proceed as if flushing the search filters
+                return $this->flushEventFilters('events-finder');
+            }
+            // Redirect to the GET route with query parameters for filters
+            return redirect()->route('events-finder', $request->all());
+        }
+
+        // Handle GET request as normal (including pagination and filtering)
+        $search = $request->input('search', '');
+        $filters = $this->getEventFilters($request);
+
+        // Get paginated events and their event_ids
+        $data = $this->getAllEvents($filters, $search);
+        $allEvents = $data['allEvents'];
+
+        // Find intersection between all eventIDs and bookmarked eventIDs
+        $bookmarkedEventIDs = $this->bookmarkService->getBookmarkedEventIDs();
+        $allEventIDs = $data['eventIDs'];
+        $intersectionArray = array_values(array_intersect($allEventIDs, $bookmarkedEventIDs));
+
+        return view('events-finder.view-all-events', [
+             'events' => $allEvents,
+             'intersectionArray' => $intersectionArray,
+             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
+             'totalEventCount' => $allEvents->total(),
+             'filters' => $filters,
+             'search' => $search
+        ]);
     }
 
     // Get all club events for all clubs
@@ -83,7 +140,7 @@ class ClubAndEventService
             ]);
 
         // Fetch events based on the filters (if empty, return all events) and search input
-        return Event::join('club', 'event.club_id', '=', 'club.club_id')
+        $allEvents = Event::join('club', 'event.club_id', '=', 'club.club_id')
             ->when(!empty($filters['category_filter']), function ($query) use ($filters) {
                 return $query->whereIn('club.club_category', $filters['category_filter']);
             })
@@ -98,6 +155,11 @@ class ClubAndEventService
             })
             ->select('event.*')
             ->paginate(12);
+
+        // Get only the event_ids from the paginated events
+        $eventIDs = $allEvents->pluck('event_id')->toArray();
+
+        return compact('allEvents', 'eventIDs');
     }
 
     // Prepare all the data to be sent to the view based on request
@@ -176,12 +238,15 @@ class ClubAndEventService
     }
 
     // Flush (clear all) of the user's EVENT search filters
-    public function flushEventFilters() {
+    public function flushEventFilters($route) {
+        // Clear the filters for the authenticated user's profile
         DB::table('user_preference')
             ->where('profile_id', profile()->profile_id)
             ->update([
                 'event_search_filters' => json_encode([]),
                 'updated_at' => now()
             ]);
+
+        return redirect()->route($route);
     }
 }

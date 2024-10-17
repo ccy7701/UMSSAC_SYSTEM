@@ -17,6 +17,9 @@ require __DIR__.'/student.php';
 
 // Routes accessible by both student and facultyMember (account role 1 and 2)
 Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function () {
+    /*
+    * CLUBS FINDER MODULE ROUTES
+    */
     Route::get('/clubs-finder', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder');
 
     Route::post('/clubs-finder/filter', [ClubController::class, 'fetchClubsFinder'])->name('clubs-finder.filter');
@@ -28,6 +31,13 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
     Route::post('/clubs-finder/join-club', [ClubMembershipController::class, 'joinClub'])->name('clubs-finder.join-club');
 
     Route::post('/clubs-finder/leave-club', [ClubMembershipController::class, 'leaveClub'])->name('clubs-finder.leave-club');
+
+    /*
+    * EVENTS FINDER MODULE ROUTES
+    */
+    Route::get('/events-finder/bookmarks', [EventController::class, 'fetchUserEventBookmarks'])->name('events-finder.bookmarks');
+
+    Route::post('/events-finder/bookmarks/toggle', [EventController::class, 'toggleEventBookmark'])->name('events-finder.bookmarks.toggle');
 
     Route::middleware(CommitteeAccessMiddleware::class)->group(function () {
         Route::get('/committee-manage/full-details/manage', [ClubController::class, 'fetchCommitteeManagePage'])
