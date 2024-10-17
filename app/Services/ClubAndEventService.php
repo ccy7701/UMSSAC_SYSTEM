@@ -17,6 +17,37 @@ class ClubAndEventService
         $this->bookmarkService = $bookmarkService;
     }
 
+    // Prepare all the data to be sent to the clubs finder view
+    public function prepareAndRenderClubsFinderView(Request $request) {
+        $route = currentAccount()->account_role != 3 ? 'clubs-finder' : 'manage-clubs';
+        $viewName = currentAccount()->account_role != 3
+            ? 'clubs-finder.general.view-all-clubs'
+            : 'clubs-finder.admin-manage.view-all-clubs';
+
+        // Handle POST request for filtering
+        if ($request->isMethod('post')) {
+            $filters = $request->input('category_filter', []);
+            if (empty($filters)) {
+                return $this->flushClubFilters($route);
+            }
+
+            // Redirect to the GET route with query parameters for filters
+            return redirect()->route($route, $request->all());
+        }
+
+        $search = $request->input('search', '');
+        $filters = $this->getClubFilters($request);
+        $allClubs = $this->getAllClubs($filters, $search);
+    
+        return view($viewName, [
+            'clubs' => $allClubs,
+            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
+            'totalClubCount' => $allClubs->count(),
+            'filters' => $filters,
+            'search' => $search,
+        ]);
+    }
+
     // Get all clubs
     public function getAllClubs(array $filters, $search = null) {
         // Always save the filters, even if empty (to clear the saved filters)
@@ -228,18 +259,20 @@ class ClubAndEventService
     }
 
     // Flush (clear all) of the user's CLUB search filters
-    public function flushClubFilters() {
+    public function flushClubFilters($route) {
+        // Clear the filters for the authenticated user's profile
         DB::table('user_preference')
             ->where('profile_id', profile()->profile_id)
             ->update([
                 'club_search_filters' => json_encode([]),
                 'updated_at' => now()
             ]);
+
+        return redirect()->route($route);
     }
 
     // Flush (clear all) of the user's EVENT search filters
     public function flushEventFilters($route) {
-        // Clear the filters for the authenticated user's profile
         DB::table('user_preference')
             ->where('profile_id', profile()->profile_id)
             ->update([
