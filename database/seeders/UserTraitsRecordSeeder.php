@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Services\StudyPartnersSuggesterService;
+use App\Services\StudyPartnerService;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Http\Request;
@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\File;
 
 class UserTraitsRecordSeeder extends Seeder
 {
-    protected $studyPartnersSuggesterService;
+    protected $studyPartnerService;
 
-    public function __construct(StudyPartnersSuggesterService $studyPartnersSuggesterService) {
-        $this->studyPartnersSuggesterService = $studyPartnersSuggesterService;
+    public function __construct(StudyPartnerService $studyPartnerService) {
+        $this->studyPartnerService = $studyPartnerService;
     }
 
     /**
@@ -53,8 +53,8 @@ class UserTraitsRecordSeeder extends Seeder
                 'learning_style' => $entry['learning_style'],
             ];
 
-            // Process the data using the StudyPartnersSuggesterService
-            $this->studyPartnersSuggesterService->handleSuggesterFormData(new Request($data));
+            // Process the data using the StudyPartnerService
+            $this->studyPartnerService->handleSuggesterFormData(new Request($data));
         }
     }
 }

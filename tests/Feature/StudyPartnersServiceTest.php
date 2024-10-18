@@ -7,7 +7,7 @@ use App\Models\Account;
 use App\Models\Profile;
 use Tests\TestCase;
 
-class StudyPartnersSuggesterServiceTest extends TestCase
+class StudyPartnersServiceTest extends TestCase
 {
     use RefreshDatabase;
 
