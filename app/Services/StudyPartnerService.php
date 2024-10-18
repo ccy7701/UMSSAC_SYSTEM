@@ -10,6 +10,7 @@ use App\Models\StudyPartner;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class StudyPartnerService
 {
@@ -216,28 +217,35 @@ class StudyPartnerService
 
     // Call the Python RE webservice
     private function callRecommenderEngine($ownTraitsRecord, $otherStudentsTraitsRecords) {
-        $otherStudentsTraitsRecordsArray = $otherStudentsTraitsRecords->map(function ($record) {
-            return [
-                'profile_id' => $record->profile_id,
-                'wtc_data' => json_decode($record->wtc_data, true),
-                'personality_data' => json_decode($record->personality_data, true),
-                'skills_data' => json_decode($record->skills_data, true),
-                'learning_style' => $record->learning_style,
-            ];
-        })->toArray();
+        $url = env('RECOMMENDER_ENGINE_URL', 'http://localhost:5000/recommendation-engine');
 
-        $response = Http::post('http://localhost:5000/recommendation-engine', [
-            'user_traits_record' => [
-                'profile_id' => $ownTraitsRecord->profile_id,
-                'wtc_data' => json_decode($ownTraitsRecord->wtc_data, true),
-                'personality_data' => json_decode($ownTraitsRecord->personality_data, true),
-                'skills_data' => json_decode($ownTraitsRecord->skills_data, true),
-                'learning_style' => $ownTraitsRecord->learning_style
-            ],
-            'other_students_traits_records' => $otherStudentsTraitsRecordsArray
-        ]);
+        try {
+            $otherStudentsTraitsRecordsArray = $otherStudentsTraitsRecords->map(function ($record) {
+                return [
+                    'profile_id' => $record->profile_id,
+                    'wtc_data' => json_decode($record->wtc_data, true),
+                    'personality_data' => json_decode($record->personality_data, true),
+                    'skills_data' => json_decode($record->skills_data, true),
+                    'learning_style' => $record->learning_style,
+                ];
+            })->toArray();
+    
+            $response = Http::post($url, [
+                'user_traits_record' => [
+                    'profile_id' => $ownTraitsRecord->profile_id,
+                    'wtc_data' => json_decode($ownTraitsRecord->wtc_data, true),
+                    'personality_data' => json_decode($ownTraitsRecord->personality_data, true),
+                    'skills_data' => json_decode($ownTraitsRecord->skills_data, true),
+                    'learning_style' => $ownTraitsRecord->learning_style
+                ],
+                'other_students_traits_records' => $otherStudentsTraitsRecordsArray
+            ]);
 
-        return $response->json();
+            return $response->json();
+        } catch (\Exception $e) {
+            Log::error('Recommender engine connection error: ' . $e->getMessage());
+            return response()->json(['error' => 'Failed to connect to recommender engine at port 5000.']);
+        }
     }
 
     // Combine the profiles with the similarity scores
