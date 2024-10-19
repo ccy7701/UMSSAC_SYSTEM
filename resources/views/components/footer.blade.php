@@ -3,6 +3,6 @@
         <p id="footer-left" class="rserif fw-bold my-0">umssacs</p>
     </div>
     <div class="col-6 col-xs-8 text-end align-self-center">
-        <p id="footer-right" class="rserif my-0">Chiew Cheng Yi | BI21110236 | 2024</p>
+        <p id="footer-right" class="rserif my-0">BI21110236 | 2024</p>
     </div>
 </footer>

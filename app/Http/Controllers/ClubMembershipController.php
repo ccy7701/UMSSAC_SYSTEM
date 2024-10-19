@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\ClubAndEventService;
+use App\Services\ClubService;
 use Illuminate\Support\Facades\DB;
 
 class ClubMembershipController extends Controller
 {
-    protected $clubAndEventService;
+    protected $clubService;
 
-    public function __construct(ClubAndEventService $clubAndEventService) {
-        $this->clubAndEventService = $clubAndEventService;
+    public function __construct(ClubService $clubService) {
+        $this->clubService = $clubService;
     }
 
     public function showClubMembersForAdmin(Request $request) {
@@ -95,10 +95,10 @@ class ClubMembershipController extends Controller
 
     private function prepareClubMembershipData($clubId) {
         return [
-            'club' => $this->clubAndEventService->getClubDetails($clubId),
-            'clubMembers' => $this->clubAndEventService->getClubMembers($clubId),
+            'club' => $this->clubService->getClubDetails($clubId),
+            'clubMembers' => $this->clubService->getClubMembers($clubId),
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
-            'isCommitteeMember' => $this->clubAndEventService->checkCommitteeMember($clubId, profile()->profile_id)
+            'isCommitteeMember' => $this->clubService->checkCommitteeMember($clubId, profile()->profile_id)
         ];
     }
 }
