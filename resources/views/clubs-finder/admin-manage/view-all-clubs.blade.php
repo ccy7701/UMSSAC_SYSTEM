@@ -73,7 +73,7 @@
         <div class="row-container container-fluid align-items-center my-3 py-3 px-4">
             <div class="rsans row">
                 <!-- LEFT SECTIONS FOR FILTERS -->
-                <div class="col-xl-2 col-lg-3 col-12 border p-3 mb-3">
+                <div class="col-lg-3 col-12 border p-3 mb-3">
                     <div class="d-flex justify-content-center">
                         <!-- Toggle button visible below 992px -->
                         <button id="filter-toggle-btn" class="btn btn-muted d-lg-none mb-2 border w-50" type="button" data-bs-toggle="collapse"

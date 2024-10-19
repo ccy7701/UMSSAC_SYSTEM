@@ -21,12 +21,13 @@ class BookmarkService
         })
         ->with(['event.club'])
         ->get();
-        $totalBookmarks = $bookmarks->count();
+        $intersectionArray = $bookmarks->pluck('event_id')->toArray();
 
         return view($viewName, [
             'bookmarks' => $bookmarks,
-            'totalBookmarks' => $totalBookmarks,
-            'searchViewPreference' => getUserSearchViewPreference($profileId)
+            'totalBookmarks' => $bookmarks->count(),
+            'searchViewPreference' => getUserSearchViewPreference($profileId),
+            'intersectionArray' => $intersectionArray
         ]);
     }
 

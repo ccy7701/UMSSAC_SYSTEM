@@ -16,7 +16,7 @@
     <x-topnav/>
     <br>
     <main class="flex-grow-1">
-        <form action="{{ route('event-manage.add-new-event.action') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('event-manage.add-new-event.action', ['club_id' => $club->club_id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <!-- PAGE HEADER -->
@@ -121,6 +121,7 @@
                 </div>
             </div>
         </form>
+        <br><br>
     </main>
     <x-footer/>
 </body>

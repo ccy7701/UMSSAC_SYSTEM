@@ -189,7 +189,7 @@
                                     <div class="rsans card add-event-card d-flex justify-content-center align-items-center h-100" id="event-card-manage">
                                         <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                                             <i class="fa fa-plus-circle fa-3x mb-2"></i>
-                                            <h5 class="card-titel fw-bold">Add new event</5>
+                                            <h5 class="card-title fw-bold">Add new event</5>
                                         </div>
                                     </div>
                                 </a>

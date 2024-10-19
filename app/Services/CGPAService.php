@@ -29,20 +29,20 @@ class CGPAService
     }
 
     // Recalculate the CGPA and SGPA
-    public function recalculateCGPAandSGPA($profile_id, $sem_prog_log_id) {
-        $cgpa = $this->calculateCGPA($profile_id, $sem_prog_log_id);
-        $sgpa = $this->calculateSGPA($sem_prog_log_id);
+    public function recalculateCGPAandSGPA($profileId, $semProgLogId) {
+        $cgpa = $this->calculateCGPA($profileId, $semProgLogId);
+        $sgpa = $this->calculateSGPA($semProgLogId);
 
         return compact('cgpa', 'sgpa');
     }
 
     // Calculate CGPA up until the selected semester
-    public function calculateCGPA($profile_id, $sem_prog_log_id) {
+    public function calculateCGPA($profileId, $semProgLogId) {
         // Fetch all subject stats logs up to and including the selected semester
-        $allSubjectStatsLogs = SubjectStatsLog::whereHas('semesterProgressLog', function($query) use ($profile_id, $sem_prog_log_id) {
+        $allSubjectStatsLogs = SubjectStatsLog::whereHas('semesterProgressLog', function($query) use ($profileId, $semProgLogId) {
             $query
-                ->where('profile_id', $profile_id)
-                ->where('sem_prog_log_id', '<=', $sem_prog_log_id);
+                ->where('profile_id', $profileId)
+                ->where('sem_prog_log_id', '<=', $semProgLogId);
         })->get();
     
         $totalCGPs = 0;     // Total cumulative grade points
@@ -58,10 +58,10 @@ class CGPAService
     }
 
     // Calculate SGPA for the selected semester
-    public function calculateSGPA($sem_prog_log_id) {
-        Log::info('SGPA Calculation - sem_prog_log_id:', ['sem_prog_log_id' => $sem_prog_log_id]);  // Debug
+    public function calculateSGPA($semProgLogId) {
+        Log::info('SGPA Calculation - sem_prog_log_id:', ['sem_prog_log_id' => $semProgLogId]);  // Debug
     
-        $currentSemesterSubjects = SubjectStatsLog::where('sem_prog_log_id', $sem_prog_log_id)->get();
+        $currentSemesterSubjects = SubjectStatsLog::where('sem_prog_log_id', $semProgLogId)->get();
     
         Log::info('Subjects for SGPA Calculation:', $currentSemesterSubjects->toArray());  // Debug: Log the subjects fetched for the selected semester
     
