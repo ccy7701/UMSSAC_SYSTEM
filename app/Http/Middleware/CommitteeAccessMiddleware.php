@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Services\ClubService;
-use Symfony\Component\HttpFoundation\Response;
 
 class CommitteeAccessMiddleware
 {

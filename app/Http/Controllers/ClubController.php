@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Club;
 use Illuminate\Http\Request;
 use App\Services\ClubService;
-use Illuminate\Support\Facades\Storage;
 
 class ClubController extends Controller
 {
@@ -92,109 +90,18 @@ class ClubController extends Controller
     }
 
     public function addNewClub(Request $request) {
-        $validatedData = $request->validate([
-            'new_club_name' => 'required|string|max:128',
-            'new_club_category' => 'required|string',
-            'new_club_description' => 'required|string|max:1024',
-            'new_club_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        // Handle the image upload, if present
-        $imagePath = $request->hasFile('new_club_image')
-            ? $request->file('new_club_image')->store('club-images', 'public')
-            : '';
-
-        $club = Club::create([
-            'club_name' => $validatedData['new_club_name'],
-            'club_category' => $validatedData['new_club_category'],
-            'club_description' => $validatedData['new_club_description'],
-            'club_image_paths' => json_encode($imagePath ? [$imagePath] : []),
-        ]);
-
-        return $club
-            ? redirect()->route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id])->with('success', 'New club added successfully!')
-            : back()->withErrors(['error' => 'Failed to add new club. Please try again.']);
+        return $this->clubService->handleAddNewClub($request);
     }
 
     public function updateClubInfo(Request $request) {
-        $validatedData = $request->validate([
-            'club_name' => 'required|string|max:128',
-            'club_category' => 'required|string',
-            'club_description' => 'required|string|max:1024',
-        ]);
-
-        // Fetch the club to update
-        $club = Club::where('club_id', $request->club_id)->firstOrFail();
-
-        // Update the club with the validated data
-        $status = $club->update($validatedData);
-
-        // Get the view based on logged in account's role
-        $route = '';
-        if (currentAccount()->account_role != 3) {
-            $route = route('committee-manage.manage-details', ['club_id' => $club->club_id]);
-        } else {
-            $route = route('admin-manage.manage-details', ['club_id' => $club->club_id]);
-        }
-        
-        return $status
-            ? redirect($route)->with('success', 'Club info updated successfully!')
-            : back()->withErrors(['error' => 'Failed to update club info. Please try again.']);
+        return $this->clubService->handleUpdateClubInfo($request);
     }
 
     public function addClubImage(Request $request) {
-        // Validate if a new image is uploaded
-        $request->validate([
-            'new_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-    
-        $club = Club::findOrFail($request->club_id);
-        $currentImages = json_decode($club->getRawOriginal('club_image_paths'), true) ?? [];
-        $newImagePath = $request->file('new_image')->store('club-images', 'public');
-        $currentImages[] = $newImagePath;
-
-        $club->club_image_paths = json_encode($currentImages); // Save updated image paths as JSON
-        $status = $club->save();
-
-        $route = '';
-        if (currentAccount()->account_role != 3) {
-            $route = route('committee-manage.edit-images', ['club_id' => $club->club_id]);
-        } else {
-            $route = route('admin-manage.edit-images', ['club_id' => $club->club_id]);
-        }
-    
-        // Return with a success or error message
-        return $status
-            ? redirect($route)->with('success', 'Club image added successfully!')
-            : back()->withErrors(['error' => 'Failed to add club image. Please try again.']);
+        return $this->clubService->handleAddClubImage($request);
     }
 
     public function deleteClubImage(Request $request) {
-        $club = Club::findOrFail($request->club_id);
-        $currentImages = json_decode($club->getRawOriginal('club_image_paths'), true) ?? [];
-        $imageToDeleteIndex = $request->input('key');
-        $imagePath = $currentImages[$imageToDeleteIndex] ?? null;
-
-        if ($imagePath) {
-            Storage::delete('public/'.$imagePath);
-        }
-
-        unset($currentImages[$imageToDeleteIndex]);
-        $currentImages = array_values($currentImages);
-
-        $club->club_image_paths = json_encode($currentImages);
-        $status = $club->save();
-
-        $route = '';
-        if (currentAccount()->account_role != 3) {
-            $route = route('committee-manage.edit-images', ['club_id' => $club->club_id]);
-        } else {
-            $route = route('admin-manage.edit-images', ['club_id' => $club->club_id]);
-        }
-    
-        // Return with a success or error message
-        return $status
-            ? redirect($route)->with('success', 'Club image deleted successfully.')
-            : back()->withErrors(['error' => 'Failed to delete club image. Please try again.']);
+        return $this->clubService->handleDeleteClubImage($request);
     }
 }
