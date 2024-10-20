@@ -28,15 +28,16 @@ class ClubService
         if ($request->isMethod('post')) {
             $filters = $request->input('category_filter', []);
             if (empty($filters)) {
-                return $this->flushClubFilters($route);
+                $this->flushClubFilters();
+            } else {
+                $this->updateClubFilters($filters);
             }
-
             // Redirect to the GET route with query parameters for filters
             return redirect()->route($route, $request->all());
         }
 
         $search = $request->input('search', '');
-        $filters = $this->getClubFilters($request);
+        $filters = $this->getClubFilters();
         $allClubs = $this->getAllClubs($filters, $search);
     
         return view($viewName, [
@@ -44,29 +45,42 @@ class ClubService
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
             'totalClubCount' => $allClubs->count(),
             'filters' => $filters,
-            'search' => $search,
+            'search' => $search
         ]);
     }
 
     // Get the user's CLUB category and search filters
-    public function getClubFilters(Request $request) {
-        // Fetch filters from form submission (may be empty if no checkboxes are selected)
-        $filters = $request->input('category_filter', []);
-            
-        // If the form is submitted with no filters, we should treat it as clearing all filters
-        if ($request->isMethod('post') && empty($filters)) {
-            return []; // Explicitly return an empty array if the form is submitted with no filters
-        }
-
-        // If no form submission and no filters, retrieve saved filters from the database
-        if (empty($filters)) {
-            $savedFilters = DB::table('user_preference')
+    public function getClubFilters() {
+        $savedFilters = DB::table('user_preference')
                 ->where('profile_id', profile()->profile_id)
                 ->value('club_search_filters');
-            $filters = $savedFilters ? json_decode($savedFilters, true) : [];
-        }
 
-        return $filters;
+        return $savedFilters ? json_decode($savedFilters, true) : [];
+    }
+
+    // Update the user's club filters
+    public function updateClubFilters(array $filters) {
+        return DB::table('user_preference')
+            ->where('profile_id', profile()->profile_id)
+            ->update([
+                'club_search_filters' => json_encode($filters),
+                'updated_at' => now()
+            ]);
+    }
+
+    // Flush (clear all) of the user's CLUB search filters
+    public function flushClubFilters($route = null) {
+        // Clear the filters for the authenticated user's profile
+        DB::table('user_preference')
+            ->where('profile_id', profile()->profile_id)
+            ->update([
+                'club_search_filters' => json_encode([]),
+                'updated_at' => now()
+            ]);
+
+        if ($route) {
+            return redirect()->route($route);
+        }
     }
 
     // Get all clubs
@@ -92,20 +106,7 @@ class ClubService
             ->paginate(12);
     }
 
-    // Flush (clear all) of the user's CLUB search filters
-    public function flushClubFilters($route) {
-        // Clear the filters for the authenticated user's profile
-        DB::table('user_preference')
-            ->where('profile_id', profile()->profile_id)
-            ->update([
-                'club_search_filters' => json_encode([]),
-                'updated_at' => now()
-            ]);
-
-        return redirect()->route($route);
-    }
-
-        // Prepare all data for the specific club
+    // Prepare all data for the specific club
     public function prepareClubData($clubId) {
         $clubEvents = $this->getEventsForClub($clubId);
 

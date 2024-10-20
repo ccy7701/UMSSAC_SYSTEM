@@ -172,16 +172,14 @@
                 </div>
             </div>
         </div>
-        <div class="row-container">
-            <div class="align-items-center w-100 px-3">
+        <div class="row-container container-fluid align-items-center my-3 py-3 pb-4 pt-xl-4 pt-lg-4 pt-md-0 pt-0 mt-0">
+            <div class="align-items-center w-100 px-0">
+                <div class="col-auto d-flex justify-content-center mt-xl-0 mt-lg-0 mt-md-3 mt-3">
+                    {{ $clubEvents->links('pagination::bootstrap-4') }}
+                </div>
                 <!-- GRID VIEW (Toggle based on preference) -->
-                <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }} mt-3">
+                <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                     @if ($clubEvents->isNotEmpty())
-                        <div class="rsans row d-flex justify-content-center">
-                            <div class="col-auto">
-                                {{ $clubEvents->links('pagination::bootstrap-4') }}
-                            </div>
-                        </div>
                         <div class="row pb-3 px-md-3 px-sm-0">
                             <!-- Add new club card -->
                             <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
@@ -211,18 +209,13 @@
                     @endif
                 </div>
                 <!-- LIST VIEW (Toggle based on preference) -->
-                <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }} justify-content-center mt-3">
+                <div id="list-view" class="row list-view justify-content-start mx-0 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
                     @if ($clubEvents->isNotEmpty())
-                        <div class="rsans row d-flex justify-content-center">
-                            <div class="col-auto">
-                                {{ $clubEvents->links('pagination::bootstrap-4') }}
-                            </div>
-                        </div>
                         <!-- Add new event list item -->
-                        <div class="row pb-3">
-                            <a href="{{ route('event-manage.add-new-event', ['club_id' => $club->club_id]) }}" class="text-decoration-none w-100 px-3">
-                                <div class="rsans card add-event-list-item" id="event-list-item-manage">
-                                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                        <div class="col-xl-6 col-12 mb-3">
+                            <a href="{{ route('event-manage.add-new-event', ['club_id' => $club->club_id]) }}" class="text-decoration-none">
+                                <div class="rsans card h-100 add-event-list-item" id="event-list-item-manage">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center py-lg-3 py-md-5 py-sm-5">
                                         <i class="fa fa-plus-circle fa-3x pt-2 pb-1"></i>
                                         <h5 class="card-title fw-bold pt-1 pb-0">Add new event</h5>
                                     </div>
@@ -230,7 +223,7 @@
                             </a>
                         </div>
                         @foreach ($clubEvents as $event)
-                            <div class="row mb-3">
+                            <div class="col-xl-6 col-12 mb-3">
                                 <x-manage-event-list-item :event="$event"/>
                             </div>
                         @endforeach

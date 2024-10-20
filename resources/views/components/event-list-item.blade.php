@@ -1,12 +1,12 @@
 <!-- resources/views/components/event-list-item.blade.php -->
-<a href="{{ route('events-finder.fetch-event-details', ['event_id' => $event->event_id]) }}" class="text-decoration-none px-3">
+<a href="{{ route('events-finder.fetch-event-details', ['event_id' => $event->event_id]) }}" class="text-decoration-none">
     <div class="card" id="event-list-item-standard">
         <div class="row g-0 align-items-center">
             @php
                 $eventImagePaths = json_decode($event->event_image_paths, true);
             @endphp
             <!-- Image section -->
-            <div class="col-xl-2 col-lg-3 col-md-3 col-4 position-relative">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-4 position-relative">
                 @if (empty($eventImagePaths))
                     <img src="{{ asset('images/no_event_images_default.png') }}" class="img-fluid rounded-start border-end" alt="No event illustration default" style="aspect-ratio: 4/4; object-fit: cover; width: 100%; height: auto;">
                 @else
@@ -21,7 +21,7 @@
                 @endif
             </div>
             <!-- Content section -->
-            <div class="col-xl-10 col-lg-9 col-md-9 col-8">
+            <div class="col-xl-9 col-lg-9 col-md-9 col-8">
                 <div class="rsans card-body py-0 px-3">
                     <h5 class="card-title fw-bold mb-0">
                         <span class="d-inline-block text-truncate" style="width: 100%;">

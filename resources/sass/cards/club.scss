@@ -1,3 +1,7 @@
+#club-filters-compact {
+    display: none;
+}
+
 #card-club-images {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     &:hover {
@@ -168,6 +172,12 @@
 }
 
 @media (max-width: 992px) {
+    #club-filters-compact {
+        display: flex;
+    }
+    #club-filters-standard {
+        display: none;
+    }
     #club-breadcrumb {
         display: none;
     }
