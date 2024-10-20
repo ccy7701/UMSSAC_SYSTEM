@@ -1,11 +1,22 @@
 <!-- resources/views/components/generic-filters-tab.blade.php -->
+@php
+    $filterRoute = null;
+    $clearFilterRoute = null;
+    if (currentAccount()->account_role != 3) {
+        $filterRoute = 'clubs-finder.filter';
+        $clearFilterRoute = 'clubs-finder.clear-filter';
+    } else {
+        $filterRoute = 'manage-clubs.filter';
+        $clearFilterRoute = 'manage-clubs.clear-filter';
+    }
+@endphp
 <div class="offcanvas offcanvas-start px-0" tabindex="-1" id="offcanvas-filter" aria-labelledby="offcanvas-filter-label">
     <div class="rsans offcanvas-header pb-0">
         <h5 class="offcanvas-title" id="offcanvas-navbar-label fw-bold">Search Filters</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="rsans offcanvas-body">
-        <form id="filter-form" method="POST" action="{{ route('clubs-finder.filter') }}">
+        <form id="filter-form" method="POST" action="{{ route($filterRoute) }}">
             @csrf
             @php
                 $categories = [
@@ -34,7 +45,7 @@
                 @endforeach
             </div>
         </form>
-        <form id="clear-filter-form" method="POST" action="{{ route('clubs-finder.clear-filter') }}" style="display: none;">
+        <form id="clear-filter-form" method="POST" action="{{ route($clearFilterRoute) }}" style="display: none;">
             @csrf
         </form>
         <div class="row p-3 d-flex justify-content-center">

@@ -172,16 +172,14 @@
                 </div>
             </div>
         </div>
-        <div class="row-container">
-            <div class="align-items-center w-100 px-3">
+        <div class="row-container container-fluid align-items-center my-3 py-3 pb-4 pt-xl-4 pt-lg-4 pt-md-0 pt-0 mt-0">
+            <div class="align-items-center w-100 px-0">
+                <div class="col-auto d-flex justify-content-center mt-xl-0 mt-lg-0 mt-md-3 mt-3">
+                    {{ $clubEvents->links('pagination::bootstrap-4') }}
+                </div>
                 <!-- GRID VIEW (Toggle based on preference) -->
-                <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }} mt-3">
+                <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                     @if ($clubEvents->isNotEmpty())
-                        <div class="rsans row d-flex justify-content-center">
-                            <div class="col-auto">
-                                {{ $clubEvents->links('pagination::bootstrap-4') }}
-                            </div>
-                        </div>
                         <div class="row pb-3 px-md-3 px-sm-0">
                             @foreach ($clubEvents as $event)
                                 <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
@@ -196,15 +194,10 @@
                     @endif
                 </div>
                 <!-- LIST VIEW (Toggle based on preference) -->
-                <div id="list-view" class="row list-view {{ $searchViewPreference == 2 ? '' : 'd-none' }} justify-content-center mt-3">
+                <div id="list-view" class="row list-view justify-content-start mx-0 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
                     @if ($clubEvents->isNotEmpty())
-                        <div class="rsans row d-flex justify-content-center">
-                            <div class="col-auto">
-                                {{ $clubEvents->links('pagination::bootstrap-4') }}
-                            </div>
-                        </div>
                         @foreach ($clubEvents as $event)
-                            <div class="row mb-3">
+                            <div class="col-xl-6 col-12 mb-3">
                                 <x-event-list-item
                                     :event="$event"
                                     :intersectionarray="$intersectionArray"/>
@@ -216,7 +209,7 @@
                 </div>
             </div>
         </div>
-        <br>
+        <br><br>
     </main>
     <x-footer/>
 </body>
