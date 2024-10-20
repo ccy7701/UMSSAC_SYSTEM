@@ -65,11 +65,11 @@
                                 </div>
                             </div>
                             @php
-                                $categoryStatuses = $filters['category_filter'] ?? [];
+                                $categoryFilters = $filters['category_filter'] ?? [];
                                 $eventStatuses = $filters['event_status'] ?? [];
                             @endphp
-                            <x-event-filters-tab 
-                                :categorystatuses="$categoryStatuses"
+                            <x-event-filters-tab
+                                :categoryfilters="$categoryFilters"
                                 :eventstatuses="$eventStatuses"/>
                             <!-- Right Column: View Icons -->
                             <div id="club-view-toggle" class="col-lg-4 col-md-6 col-6 align-items-center justify-content-end">

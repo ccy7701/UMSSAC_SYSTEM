@@ -1,4 +1,4 @@
-<!-- resources/views/components/filters-tab.blade.php -->
+<!-- resources/views/components/event-filters-tab.blade.php -->
 <div class="offcanvas offcanvas-start px-0" tabindex="-1" id="offcanvas-filter" aria-labelledy="offcanvas-filter-label">
     <div class="rsans offcanvas-header pb-0">
         <h5 class="offcanvas-title" id="offcanvas-navbar-label fw-bold">Search Filters</h5>
@@ -29,7 +29,7 @@
                                         id="{{ strtolower($category) }}"
                                         name="category_filter[]"
                                         value="{{ $category }}"
-                                        {{ in_array($category, $categorystatuses) ? 'checked' : '' }}>
+                                        {{ in_array($category, $categoryfilters) ? 'checked' : '' }}>
                                     <label class="form-check-label flex-grow-1 text-start" for="{{ strtolower($category) }}">
                                         {{ $category }}
                                     </label>
@@ -63,18 +63,15 @@
                     </div>
                 </div>
             </div>
-            <br>
-            <div class="row p-3 d-flex justify-content-center">
-                <span>
-                    <form id="clear-filter-form" method="POST" action="{{ route('events-finder.clear-filter') }}"">
-                        @csrf
-                        <button class="rsans btn btn-secondary fw-bold w-40 me-1">Clear all</button>
-                    </form>
-                    <button type="submit" class="rsans btn btn-primary fw-bold w-40 ms-1">Apply filters</button>
-                </span>
-            </div>
         </form>
-
-
+        <form id="clear-filter-form" method="POST" action="{{ route('events-finder.clear-filter') }}">
+            @csrf
+        </form>
+        <div class="row p-3 d-flex justify-content-center">
+            <span>
+                <button type="submit" form="clear-filter-form" class="rsans btn btn-secondary fw-bold w-40 me-1">Clear all</button>
+                <button type="submit" form="filter-form" class="rsans btn btn-primary fw-bold w-40 ms-1">Apply filters</button>
+            </span>
+        </div>
     </div>
 </div>

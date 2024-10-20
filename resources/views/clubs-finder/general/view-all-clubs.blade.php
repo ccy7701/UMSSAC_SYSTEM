@@ -45,8 +45,9 @@
                                 </div>
                             </div>
                         </form>
+                        <!-- BREADCRUMB -->
                         <div class="row pb-3">
-                            <!-- Left Column: BREADCRUMB NAV -->
+                            <!-- Left Column: Breadcrumb -->
                             <div id="club-breadcrumb" class="col-lg-8 align-items-center">
                                 <nav aria-label="breadcrumb">
                                     <ol class="rsans breadcrumb mb-0" style="--bs-breadcrumb-divider: '>';">
@@ -54,8 +55,21 @@
                                     </ol>
                                 </nav>
                             </div>
+                            <!-- Left Column: Filters popout for smaller displays -->
+                            <div id="club-filters-compact" class="col-6 align-items-center justify-content-start">
+                                <div class="input-group justify-content-start">
+                                    <button id="toggle-offcanvas-filters" class="rsans btn d-flex justify-content-center align-items-center border" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-filter" aria-controls="offcanvas-filter" aria-label="Toggle filters">
+                                        <i class="fa-solid fa-filter fs-4 text-secondary"></i>
+                                        <p class="ms-2 mb-0 text-secondary">Search Filters</p>
+                                    </button>
+                                </div>
+                            </div>
+                            @php
+                                $categoryFilters = $filters ?? [];
+                            @endphp
+                            <x-club-filters-tab :categoryfilters="$categoryFilters"/>
                             <!-- Right Column: View Icons -->
-                            <div id="club-view-toggle" class="col-lg-4 col-md-12 col-12 align-items-center justify-content-end">
+                            <div id="club-view-toggle" class="col-lg-4 col-md-6 col-6 align-items-center justify-content-end">
                                 <div class="input-group justify-content-end">
                                     <!-- Grid view toggle button -->
                                     <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 1 ? 'active' : '' }}">
@@ -73,71 +87,60 @@
             </div>
         </div>
         <!-- BODY OF CONTENT -->
-        <div class="row-container container-fluid align-items-center my-3 py-3 px-4">
+        <div class="row-container container-fluid align-items-center my-3 py-3 pb-4 pt-xl-4 pt-lg-4 pt-md-0 pt-0 mt-0">
             <div class="rsans row">
                 <!-- LEFT SECTIONS FOR FILTERS -->
-                <div class="col-lg-3 col-12 border p-3 mb-3">
-                    <div class="d-flex justify-content-center">
-                        <!-- Toggle button visible below 992px -->
-                        <button id="filter-toggle-btn" class="btn btn-muted d-lg-none mb-2 border w-50" type="button" data-bs-toggle="collapse" data-bs-target="#filter-collapse" aria-expanded="false" aria-controls="filter-collapse">
-                            <span id="filter-btn-text">Show Filters</span>
-                            <i id="filter-btn-icon" class="fa fa-chevron-down ms-1 chevron-icon"></i>
-                        </button>
-                    </div>
-                    <div class="collapse d-lg-block" id="filter-collapse">
-                        <div class="row">
-                            <div class="col-xl-8 col-lg-6 col-6 d-flex align-items-center justify-content-start">
-                                <h4 class="rsans fw-bold mb-0">Search filters</h4>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-6 d-flex align-items-center justify-content-end">
-                                <form id="clear-filter-form" method="POST" action="{{ route('clubs-finder.clear-filter') }}" class="w-100 d-flex justify-content-end">
-                                    @csrf
-                                    <button id="filter-clear" class="rsans btn btn-secondary fw-bold px-2">Clear all</button>
-                                </form>
-                            </div>
+                <div id="club-filters-standard" class="col-lg-3 col-12 border p-3 mb-3">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-6 col-6 d-flex align-items-center justify-content-start">
+                            <h4 class="rsans fw-bold mb-0">Search filters</h4>
                         </div>
-                        <br>
-                        <form id="filter-form" method="POST" action="{{ route('clubs-finder.filter') }}">
-                            @csrf
-                            @php
-                                $categories = [
-                                    'ASTIF', 'FIS', 'FKAL', 'FKIKK', 'FKIKAL',
-                                    'FKJ', 'FPEP', 'FPKS', 'FPL', 'FPPS', 'FPSK',
-                                    'FPT', 'FSMP', 'FSSA', 'FSSK', 'KKTF',
-                                    'KKTM', 'KKTPAR', 'KKAKF', 'KKUSIA', 'NR',
-                                    'General'
-                                ];
-                            @endphp
-                            <h5 class="rsans fw-semibold mb-2">Categories</h5>
-                            <div class="rsans row">
-                                @foreach ($categories as $category)
-                                    <div class="col-6 mb-2 px-1">
-                                        <div class="p-2 border rounded">
-                                            <div class="form-check w-50">
-                                                <input class="form-check-input" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" value="{{ $category }}" {{ in_array($category, $filters) ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="{{ strtolower($category) }}">
-                                                    {{ $category }}
-                                                </label>
-                                            </div>
+                        <div class="col-xl-4 col-lg-6 col-6 d-flex align-items-center justify-content-end">
+                            <form id="clear-filter-form" method="POST" action="{{ route('clubs-finder.clear-filter') }}" class="w-100 d-flex justify-content-end">
+                                @csrf
+                                <button id="filter-clear" class="rsans btn btn-secondary fw-bold px-2">Clear all</button>
+                            </form>
+                        </div>
+                    </div>
+                    <br>
+                    <form id="filter-form" method="POST" action="{{ route('clubs-finder.filter') }}">
+                        @csrf
+                        @php
+                            $categories = [
+                                'ASTIF', 'FIS', 'FKAL', 'FKIKK', 'FKIKAL',
+                                'FKJ', 'FPEP', 'FPKS', 'FPL', 'FPPS', 'FPSK',
+                                'FPT', 'FSMP', 'FSSA', 'FSSK', 'KKTF',
+                                'KKTM', 'KKTPAR', 'KKAKF', 'KKUSIA', 'NR',
+                                'General'
+                            ];
+                        @endphp
+                        <h5 class="rsans fw-semibold mb-2">Categories</h5>
+                        <div class="rsans row">
+                            @foreach ($categories as $category)
+                                <div class="col-6 mb-2 px-1">
+                                    <div class="p-2 border rounded">
+                                        <div class="form-check w-50">
+                                            <input class="form-check-input" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" value="{{ $category }}" {{ in_array($category, $filters) ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="{{ strtolower($category) }}">
+                                                {{ $category }}
+                                            </label>
                                         </div>
                                     </div>
-                                @endforeach
-                            </div>
-                            <div class="row p-3 d-flex justify-content-center">
-                                <button type="submit" class="rsans btn btn-primary fw-bold w-60">Apply filters</button>
-                            </div>
-                        </form>
-                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="row p-3 d-flex justify-content-center">
+                            <button type="submit" class="rsans btn btn-primary fw-bold w-60">Apply filters</button>
+                        </div>
+                    </form>
                 </div>
                 <!-- RIGHT SECTION FOR CLUB CARDS GRID OR LIST -->
                 <div class="col-lg-9 col-12 px-0">
+                    <div class="col-auto d-flex justify-content-center mt-xl-0 mt-lg-0 mt-md-3 mt-3">
+                        {{ $clubs->links('pagination::bootstrap-4') }}
+                    </div>
                     <!-- GRID VIEW (Toggle based on preference) -->
-                    <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
-                        <div class="rsans row d-flex justify-content-center">
-                            <div class="col-auto">
-                                {{ $clubs->links('pagination::bootstrap-4') }}
-                            </div>
-                        </div>
+                    <div id="grid-view" class="row grid-view ms-xl-3 ms-4 me-0 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                         <div class="row pb-3 px-md-3 px-sm-0">
                             @foreach ($clubs as $club)
                                 <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
@@ -147,17 +150,15 @@
                         </div>
                     </div>
                     <!-- LIST VIEW (Toggle based on preference) -->
-                    <div id="list-view" class="row list-view ms-2 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
-                        <div class="rsans row d-flex justify-content-center">
-                            <div class="col-auto">
-                                {{ $clubs->links('pagination::bootstrap-4') }}
-                            </div>
-                        </div>
+                    <div id="list-view" class="row list-view mx-0 px-3 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
                         @foreach ($clubs as $club)
-                            <div class="row pb-3">
+                            <div class="col-xl-6 col-12 mb-3">
                                 <x-club-list-item :club="$club"/>
                             </div>
                         @endforeach
+                    </div>
+                    <div class="col-auto d-flex justify-content-center">
+                        {{ $clubs->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
             </div>
