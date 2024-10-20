@@ -77,6 +77,10 @@ $btn-primary-bg: #1064D6;
     display: flex;
 }
 
+#event-filters-compact {
+    display: none;
+}
+
 #event-breadcrumb-alt {
     display: none;
 }
@@ -194,6 +198,12 @@ $btn-primary-bg: #1064D6;
 
 @media (max-width: 992px) {
     #event-breadcrumb {
+        display: none;
+    }
+    #event-filters-compact {
+        display: flex;
+    }
+    #event-filters-standard {
         display: none;
     }
     #event-action-buttons {

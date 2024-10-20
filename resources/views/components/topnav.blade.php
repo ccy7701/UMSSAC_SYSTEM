@@ -11,16 +11,16 @@
                 <img id="user-profile-topnav" src="{{ profile()->profile_picture }}" alt="User profile" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
             </a>
             <span class="px-2"></span>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar" aria-controls="offcanvas-navbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
     </div>
 </nav>
 <!-- Offcanvas Navbar -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-navbar" aria-labelledby="offcanvas-navbar-label">
     <div class="rsans offcanvas-header pb-0">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+        <h5 class="offcanvas-title" id="offcanvas-navbar-label">Menu</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="rsans offcanvas-body p-0 m-0">
