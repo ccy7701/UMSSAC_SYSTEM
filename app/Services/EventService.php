@@ -38,11 +38,12 @@ class EventService
         }
 
         // Handle GET request as normal (including pagination and filtering)
-        $search = $request->input('search', '');
         $filters = $this->getEventFilters();
+        $sort = $request->input('sort', '');
+        $search = $request->input('search', '');
 
         // Get paginated events and their event_ids
-        $data = $this->getAllEvents($filters, $search);
+        $data = $this->getAllEvents($filters, $sort, $search);
         $allEvents = $data['allEvents'];
 
         // Find intersection between all eventIDs and bookmarked eventIDs
@@ -94,9 +95,9 @@ class EventService
     }
 
     // Get all club events for all clubs
-    public function getAllEvents(array $filters, $search = null) {
+    public function getAllEvents(array $filters, string $sort, $search = null) {
         // Fetch events based on the filters (if empty, return all events) and search input
-        $allEvents = Event::join('club', 'event.club_id', '=', 'club.club_id')
+        $query = Event::join('club', 'event.club_id', '=', 'club.club_id')
             ->when(!empty($filters['category_filter']), function ($query) use ($filters) {
                 return $query->whereIn('club.club_category', $filters['category_filter']);
             })
@@ -108,9 +109,19 @@ class EventService
                     $q->where('event.event_name', 'like', "%{$search}%")
                       ->orWhere('event.event_description', 'like', "%{$search}%");
                 });
-            })
-            ->select('event.*')
-            ->paginate(12);
+            });
+
+        // Apply sorting based on the selected sort option.
+        switch ($sort) {
+            case 'az': $query->orderBy('event.event_name', 'asc'); break;
+            case 'za': $query->orderBy('event.event_name', 'desc'); break;
+            case 'oldest': $query->orderBy('event.event_datetime', 'asc'); break;
+            case 'newest': $query->orderBy('event.event_datetime', 'desc'); break;
+            default: $query->orderBy('event.event_datetime','asc'); break;
+        }
+
+        // Apply pagination after sorting
+        $allEvents = $query->select('event.*')->paginate(12)->withQueryString();
 
         // Get only the event_ids from the paginated events
         $eventIDs = $allEvents->pluck('event_id')->toArray();

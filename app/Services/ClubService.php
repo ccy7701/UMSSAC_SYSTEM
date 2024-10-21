@@ -36,9 +36,11 @@ class ClubService
             return redirect()->route($route, $request->all());
         }
 
-        $search = $request->input('search', '');
         $filters = $this->getClubFilters();
-        $allClubs = $this->getAllClubs($filters, $search);
+        $sort = $request->input('sort', '');
+        $search = $request->input('search', '');
+
+        $allClubs = $this->getAllClubs($filters, $sort, $search);
     
         return view($viewName, [
             'clubs' => $allClubs,
@@ -84,26 +86,28 @@ class ClubService
     }
 
     // Get all clubs
-    public function getAllClubs(array $filters, $search = null) {
-        // Always save the filters, even if empty (to clear the saved filters)
-        DB::table('user_preference')
-            ->where('profile_id', profile()->profile_id)
-            ->update([
-                'club_search_filters' => json_encode($filters),
-                'updated_at' => now()
-            ]);
-        
-        // Fetch clubs based on the filters (if empty, return all clubs) and search input
-        return Club::when(!empty($filters), function ($query) use ($filters) {
-                return $query
-                    ->whereIn('club_category', $filters);
+    public function getAllClubs(array $filters, string $sort, $search = null) {
+
+        $query = Club::when(!empty($filters), function ($query) use ($filters) {
+                return $query->whereIn('club_category', $filters);
             })
             ->when($search, function ($query) use ($search) {
-                return $query
-                    ->where('club_name', 'like', "%{$search}%")
+                return $query->where(function ($q) use ($search) {
+                    $q->where('club_name', 'like', "%{$search}%")
                     ->orWhere('club_description', 'like', "%{$search}%");
-            })
-            ->paginate(12);
+                });
+            });
+
+        switch ($sort) {
+            case 'az': $query->orderBy('club_name', 'asc'); break;
+            case 'za': $query->orderBy('club_name', 'desc'); break;
+            case 'oldest': $query->orderBy('created_at', 'asc'); break;
+            case 'newest': $query->orderBy('created_at', 'desc'); break;
+            default: $query->orderBy('created_at', 'desc'); break;
+        }
+
+        // Fetch clubs based on the filters (if empty, return all clubs) and search input
+        return $query->paginate(12)->withQueryString();
     }
 
     // Prepare all data for the specific club
