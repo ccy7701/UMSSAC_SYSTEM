@@ -13,6 +13,7 @@
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     @vite('resources/js/itemViewToggler.js')
+    @vite('resources/js/clubsFinderSort.js')
     @if (currentAccount()->account_role != 3)
         <x-topnav/>
     @else
@@ -56,11 +57,26 @@
                                 </nav>
                             </div>
                             <!-- Left Column: Filters popout for smaller displays -->
-                            <div id="club-filters-compact" class="col-6 align-items-center justify-content-start">
+                            <div id="club-filters-compact" class="col-xl-6 col-md-6 col-sm-8 col-8 align-items-center justify-content-start">
                                 <div class="input-group justify-content-start">
                                     <button id="toggle-offcanvas-filters" class="rsans btn d-flex justify-content-center align-items-center border" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-filter" aria-controls="offcanvas-filter" aria-label="Toggle filters">
                                         <i class="fa-solid fa-filter fs-4 text-secondary"></i>
-                                        <p class="ms-2 mb-0 text-secondary">Search Filters</p>
+                                        <p class="ms-2 mb-0 text-secondary">Filters</p>
+                                    </button>
+                                    <button id="club-sort-compact" class="rsans btn justify-content-center align-items-center border" data-bs-toggle="modal" data-bs-target="#club-sort-modal" aria-controls="club-sort-modal" aria-label="Club Sort Options">
+                                        <i class="fa-solid fa-sort fs-4 text-secondary"></i>
+                                        <p class="ms-2 mb-0 text-secondary">
+                                            @php
+                                                $activeSort = request()->input('sort', '');
+                                            @endphp
+                                            @switch ($activeSort)
+                                                @case ('az') Name (A-Z) @break
+                                                @case ('za') Name (Z-A) @break
+                                                @case ('oldest') Oldest @break
+                                                @case ('newest') Newest @break
+                                                @default Sort
+                                            @endswitch
+                                        </p>
                                     </button>
                                 </div>
                             </div>
@@ -69,8 +85,14 @@
                             @endphp
                             <x-club-filters-tab :categoryfilters="$categoryFilters"/>
                             <!-- Right Column: View Icons -->
-                            <div id="club-view-toggle" class="col-lg-4 col-md-6 col-6 align-items-center justify-content-end">
+                            <div id="club-view-toggle" class="col-lg-4 col-md-6 col-sm-4 col-4 align-items-center justify-content-end">
                                 <div class="input-group justify-content-end">
+                                    <!-- SORT BUTTON -->
+                                    <button id="club-sort-standard" class="rsans btn justify-content-center align-items-center border" data-bs-toggle="modal" data-bs-target="#club-sort-modal" aria-controls="club-sort-modal" aria-label="Club Sort Options">
+                                        <i class="fa-solid fa-sort fs-4 text-secondary"></i>
+                                        <p class="ms-2 mb-0 text-secondary">Sort</p>
+                                    </button>
+                                    <x-sort-modal :type="'club'"/>
                                     <!-- Grid view toggle button -->
                                     <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 1 ? 'active' : '' }}">
                                         <i class="fa fa-th fs-4 {{ $searchViewPreference == 1 ? 'text-primary' : 'text-muted' }}"></i> <!-- Icon for grid view -->
@@ -88,7 +110,7 @@
         </div>
         <!-- BODY OF CONTENT -->
         <div class="row-container container-fluid align-items-center my-3 py-3 pb-4 pt-xl-4 pt-lg-4 pt-md-0 pt-0 mt-0">
-            <div class="rsans row">
+            <div class="rsans row ms-xl-4 ms-lg-4 ms-md-0">
                 <!-- LEFT SECTIONS FOR FILTERS -->
                 <div id="club-filters-standard" class="col-lg-3 col-12 border p-3 mb-3">
                     <div class="row">
@@ -137,7 +159,7 @@
                 <!-- RIGHT SECTION FOR CLUB CARDS GRID OR LIST -->
                 <div class="col-lg-9 col-12 px-0">
                     <div class="col-auto d-flex justify-content-center mt-xl-0 mt-lg-0 mt-md-3 mt-3">
-                        {{ $clubs->links('pagination::bootstrap-4') }}
+                        {{ $clubs->appends(request()->except('page'))->links('pagination::bootstrap-4') }}
                     </div>
                     <!-- GRID VIEW (Toggle based on preference) -->
                     <div id="grid-view" class="row grid-view ms-xl-3 ms-4 me-0 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
@@ -158,7 +180,7 @@
                         @endforeach
                     </div>
                     <div class="col-auto d-flex justify-content-center">
-                        {{ $clubs->links('pagination::bootstrap-4') }}
+                        {{ $clubs->appends(request()->except('page'))->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
             </div>

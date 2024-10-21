@@ -38,9 +38,9 @@ class EventService
         }
 
         // Handle GET request as normal (including pagination and filtering)
-        $search = $request->input('search', '');
         $filters = $this->getEventFilters();
         $sort = $request->input('sort', '');
+        $search = $request->input('search', '');
 
         // Get paginated events and their event_ids
         $data = $this->getAllEvents($filters, $sort, $search);

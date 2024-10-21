@@ -13,7 +13,7 @@
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     @vite('resources/js/itemViewToggler.js')
-    @vite('resources/js/eventsFinder.js')
+    @vite('resources/js/eventsFinderSort.js')
     @if (currentAccount()->account_role != 3)
         <x-topnav/>
     @else
@@ -63,12 +63,21 @@
                                         <i class="fa-solid fa-filter fs-4 text-secondary"></i>
                                         <p class="ms-2 mb-0 text-secondary">Filters</p>
                                     </button>
-
                                     <button id="event-sort-compact" class="rsans btn justify-content-center align-items-center border" data-bs-toggle="modal" data-bs-target="#event-sort-modal" aria-controls="event-sort-modal" aria-label="Event Sort Options">
                                         <i class="fa-solid fa-sort fs-4 text-secondary"></i>
-                                        <p class="ms-2 mb-0 text-secondary">Sort</p>
+                                        <p class="ms-2 mb-0 text-secondary">
+                                            @php
+                                                $activeSort = request()->input('sort', '');
+                                            @endphp
+                                            @switch ($activeSort)
+                                                @case ('az') Name (A-Z) @break
+                                                @case ('za') Name (Z-A) @break
+                                                @case ('oldest') Oldest @break
+                                                @case ('newest') Newest @break
+                                                @default Sort
+                                            @endswitch
+                                        </p>
                                     </button>
-
                                 </div>
                             </div>
                             @php
@@ -81,54 +90,12 @@
                             <!-- Right Column: View Icons -->
                             <div id="club-view-toggle" class="col-lg-4 col-md-6 col-sm-4 col-4 align-items-center justify-content-end">
                                 <div class="input-group justify-content-end">
-                                    <!-- SORT BUTTON (NEW) -->
+                                    <!-- SORT BUTTON -->
                                     <button id="event-sort-standard" class="rsans btn justify-content-center align-items-center border" data-bs-toggle="modal" data-bs-target="#event-sort-modal" aria-controls="event-sort-modal" aria-label="Event Sort Options">
                                         <i class="fa-solid fa-sort fs-4 text-secondary"></i>
                                         <p class="ms-2 mb-0 text-secondary">Sort</p>
                                     </button>
-                                    <div class="rsans modal fade" id="event-sort-modal" tabindex="-1" aria-labelledby="eventSortModalLabel" aria-hidden="true">
-                                        <div class="modal-sm modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header py-2 d-flex align-items-center">
-                                                    <p class="fw-semibold fs-5 mb-0">
-                                                        Sort Events
-                                                    </p>
-                                                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body ps-4">
-                                                    @php
-                                                        $activeSort = request()->input('sort', '');
-                                                    @endphp
-                                                    <form id="event-sort-form">
-                                                        <div class="form-check text-start">
-                                                            <input class="form-check-input" type="radio" name="sortOption" id="sort-alphabetical-AZ" value="az"
-                                                            {{ $activeSort === 'az' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="sort-alphabetical-AZ">Name (A-Z)</label>
-                                                        </div>
-                                                        <div class="form-check text-start">
-                                                            <input class="form-check-input" type="radio" name="sortOption" id="sort-alphabetical-ZA" value="za"
-                                                            {{ $activeSort === 'za' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="sort-alphabetical-ZA">Name (Z-A)</label>
-                                                        </div>
-                                                        <div class="form-check text-start">
-                                                            <input class="form-check-input" type="radio" name="sortOption" id="sort-oldest" value="oldest"
-                                                            {{ $activeSort === 'oldest' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="sort-oldest">Date (Oldest)</label>
-                                                        </div>
-                                                        <div class="form-check text-start">
-                                                            <input class="form-check-input" type="radio" name="sortOption" id="sort-newest" value="newest"
-                                                            {{ $activeSort === 'newest' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="sort-newest">Date (Newest)</label>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary fw-semibold me-1 w-30" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" form="event-sort-form" class="btn btn-primary fw-semibold ms-1 w-30">Apply</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <x-sort-modal :type="'event'"/>
                                     <!-- Grid view toggle button -->
                                     <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 1 ? 'active' : '' }}">
                                         <i class="fa fa-th fs-4 {{ $searchViewPreference == 1 ? 'text-primary' : 'text-muted' }}"></i>
@@ -146,7 +113,7 @@
         </div>
         <!-- BODY OF CONTENT -->
         <div class="row-container container-fluid align-items-center my-3 py-3 pb-4 pt-xl-4 pt-lg-4 pt-md-0 pt-0 mt-0">
-            <div class="rsans row">
+            <div class="rsans row ms-xl-4 ms-lg-4 ms-xs-0">
                 <!-- LEFT SECTIONS FOR FILTERS -->
                 <div id="event-filters-standard" class="col-lg-3 col-12 border p-3 mb-3">
                     <div class="row">

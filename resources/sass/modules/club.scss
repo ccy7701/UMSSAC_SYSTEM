@@ -150,6 +150,10 @@
     display: none;
 }
 
+#club-sort-standard {
+    display: flex;
+}
+
 #club-view-toggle {
     display: flex;
 }
@@ -172,6 +176,12 @@
 }
 
 @media (max-width: 992px) {
+    #club-sort-standard {
+        display: none;
+    }
+    #club-sort-compact {
+        display: flex;
+    }
     #club-filters-compact {
         display: flex;
     }
