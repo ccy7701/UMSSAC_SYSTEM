@@ -3,6 +3,24 @@ window.bootstrap = bootstrap;
 import './tooltips';
 import './flashModal';
 
+// Filters checkbox click effect
+document.addEventListener('DOMContentLoaded', () => {
+    const clickableWrappers = document.querySelectorAll('.clickable-wrapper');
+
+    clickableWrappers.forEach(wrapper => {
+        wrapper.addEventListener('click', function (event) {
+            const checkbox = this.querySelector('input[type="checkbox"]');
+            
+            // Stop the label's default toggle behavior
+            event.stopPropagation();
+            event.preventDefault();
+
+            // Toggle the checkbox state manually
+            checkbox.checked = !checkbox.checked;
+        });
+    });
+});
+
 // For pages that have the search filters, this block applies
 document.addEventListener("DOMContentLoaded", function() {
     let filterCollapse = document.getElementById("filter-collapse");

@@ -1,3 +1,4 @@
+// Grid and list view toggle operations
 document.getElementById('toggle-grid-view').addEventListener('click', function() {
     toggleView('toggle-grid-view', 'toggle-list-view', '#grid-view', '#list-view');
     updateItemViewPreference(1); // 1 = grid view

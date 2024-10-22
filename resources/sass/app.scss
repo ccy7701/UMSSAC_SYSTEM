@@ -4,12 +4,8 @@ $text-muted: #777777;
 $bg-muted: #777777;
 $bg-lightgray: #EAF2FD;
 
-@import 'features';
-@import 'welcome';
-@import 'acad-progress';
-@import 'cards/all-cards';
-@import 'timetable';
-@import 'suggester';
+@import 'modules';
+@import 'general-cards';
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Roboto+Slab:wght@100;300;400;700;900&family=Roboto+Serif:wght@100;300;400;700;900&display=swap');
@@ -176,6 +172,10 @@ html {
         text-decoration: none;
         color: $text-muted;
     }
+}
+
+.clickable-wrapper label, label input {
+    cursor: pointer;
 }
 
 // add media for max-width: 1400px when needed

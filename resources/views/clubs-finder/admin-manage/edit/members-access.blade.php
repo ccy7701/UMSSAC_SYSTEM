@@ -38,10 +38,10 @@
         <div class="row-container">
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
-                    <div class="col-left-alt col-lg-6 col-md-6 col-12 mt-2">
+                    <div class="col-left-alt col-lg-6 col-md-6 col-12 mt-xl-2 mt-sm-0 mt-0">
                         <h3 class="rserif fw-bold w-100">Edit members and access levels</h3>
                     </div>
-                    <div class="col-right-alt col-lg-6 col-md-6 col-12 align-items-center">
+                    <div class="col-right-alt col-lg-6 col-md-6 col-12 align-items-center mb-xl-0 mb-md-0 mb-sm-3 mb-3">
                         <a href="{{ route('admin-manage.manage-details', ['club_id' => $club->club_id]) }}" class="section-button-short rsans btn btn-secondary fw-bold px-3">Go back</a>
                     </div>
                 </div>
