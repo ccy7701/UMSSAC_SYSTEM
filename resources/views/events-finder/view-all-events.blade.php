@@ -93,7 +93,18 @@
                                     <!-- SORT BUTTON -->
                                     <button id="event-sort-standard" class="rsans btn justify-content-center align-items-center border" data-bs-toggle="modal" data-bs-target="#event-sort-modal" aria-controls="event-sort-modal" aria-label="Event Sort Options">
                                         <i class="fa-solid fa-sort fs-4 text-secondary"></i>
-                                        <p class="ms-2 mb-0 text-secondary">Sort</p>
+                                        <p class="ms-2 mb-0 text-secondary">
+                                            @php
+                                                $activeSort = request()->input('sort', '');
+                                            @endphp
+                                            @switch ($activeSort)
+                                                @case ('az') Name (A-Z) @break
+                                                @case ('za') Name (Z-A) @break
+                                                @case ('oldest') Date (Oldest) @break
+                                                @case ('newest') Date (Newest) @break
+                                                @default Sort
+                                            @endswitch
+                                        </p>
                                     </button>
                                     <x-sort-modal :type="'event'"/>
                                     <!-- Grid view toggle button -->
@@ -144,9 +155,9 @@
                             @foreach ($categories as $category)
                                 <div class="col-6 mb-2 px-1">
                                     <div class="p-2 border rounded">
-                                        <div class="form-check w-50">
-                                            <input class="form-check-input" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" value="{{ $category }}" {{ in_array($category, $filters['category_filter'] ?? []) ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="{{ strtolower($category) }}">
+                                        <div class="form-check w-100 d-flex justify-content-start align-items-center clickable-wrapper">
+                                            <label class="form-check-label flex-grow-1 text-start" for="{{ strtolower($category) }}">
+                                                <input class="form-check-input me-2" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" value="{{ $category }}" {{ in_array($category, $filters['category_filter'] ?? []) ? 'checked' : '' }}>
                                                 {{ $category }}
                                             </label>
                                         </div>
@@ -159,17 +170,21 @@
                         <div class="rsans row">
                             <div class="col-6 mb-2 px-1">
                                 <div class="p-2 border rounded">
-                                    <div class="form-check w-50">
-                                        <input class="form-check-input" type="checkbox" id="incoming" name="event_status[]" value="1" {{ in_array(1, $filters['event_status'] ?? []) ? 'checked' : ''}}>
-                                        <label class="form-check-label" for="incoming">Incoming</label>
+                                    <div class="form-check w-100 d-flex justify-content-start align-items-center clickable-wrapper">
+                                        <label class="form-check-label flex-grow-1 text-start" for="incoming">
+                                            <input class="form-check-input me-2" type="checkbox" id="incoming" name="event_status[]" value="1" {{ in_array(1, $filters['event_status'] ?? []) ? 'checked' : ''}}>
+                                            Incoming
+                                        </label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6 mb-2 px-1">
                                 <div class="p-2 border rounded">
-                                    <div class="form-check w-50">
-                                        <input class="form-check-input" type="checkbox" id="closed" name="event_status[]" value="0" {{ in_array(0, $filters['event_status'] ?? []) ? 'checked' : ''}}>
-                                        <label class="form-check-label" for="closed">Closed</label>
+                                    <div class="form-check w-100 d-flex justify-content-start align-items-center clickable-wrapper">
+                                        <label class="form-check-label flex-grow-1 text-start" for="closed">
+                                            <input class="form-check-input me-2" type="checkbox" id="closed" name="event_status[]" value="0" {{ in_array(0, $filters['event_status'] ?? []) ? 'checked' : ''}}>
+                                            Closed
+                                        </label>
                                     </div>
                                 </div>
                             </div>
