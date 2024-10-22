@@ -143,12 +143,22 @@
                         </h3>
                     </div>
                     <div class="col-right-alt col-lg-6 col-md-6 col-12 mt-xl-2 mt-sm-0 d-flex align-items-center">
-                        <i class="fa fa-users text-muted mb-2 me-3"></i>
-                        @if (currentAccount()->account_role != 3)
-                            <a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}" class="text-decoration-none"><h5 class="rserif fw-bold text-muted">{{ $club->club_name }}</h5></a>
-                        @else
-                            <a href="{{ route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]) }}" class="text-decoration-none"><h5 class="rserif fw-bold text-muted">{{ $club->club_name }}</h5></a>
-                        @endif
+                        @php
+                            $route = null;
+                            if (currentAccount()->account_role != 3) {
+                                $route = route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]);
+                            } else {
+                                $route = route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]);
+                            }
+                        @endphp
+                        <a href="{{ $route }}" class="text-decoration-none mt-md-2">
+                            <h5 class="rserif d-inline-flex align-items-center fw-bold text-muted">
+                                <span>
+                                    <i id="club-icon" class="fa fa-users text-muted mb-0 me-2"></i>
+                                    {{ $club->club_name }}
+                                </span>
+                            </h5>
+                        </a>
                     </div>
                 </div>
             </div>
