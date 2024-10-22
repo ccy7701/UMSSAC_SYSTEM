@@ -23,7 +23,7 @@
                         <div class="p-2 border rounded">
                             <div class="form-check w-100 d-flex justify-content-start align-items-center">
                                 <label class="form-check-label flex-grow-1 text-start" for="{{ strtolower($category) }}">
-                                    <input class="form-check-input me-2" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" 
+                                    <input class="form-check-input me-2" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]"
                                     value="{{ $category }}" {{ in_array($category, $categoryfilters) ? 'checked' : '' }}>
                                     {{ $category }}
                                 </label>

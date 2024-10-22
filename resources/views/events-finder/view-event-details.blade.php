@@ -84,7 +84,6 @@
                 </div>
             </div>
         </div>
-
         <!-- BODY OF CONTENT -->
         <!-- EVENT IMAGES CAROUSEL -->
         <div class="row-container">

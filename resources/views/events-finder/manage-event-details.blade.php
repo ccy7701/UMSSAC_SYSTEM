@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <br>
+        <div class="mt-xl-4 mt-lg-4 mt-md-0"></div>
         <!-- BODY OF CONTENT -->
         <!-- EVENT INFO SECTION -->
         <div class="row-container">
