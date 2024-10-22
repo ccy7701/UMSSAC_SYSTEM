@@ -1,3 +1,15 @@
+#sysusers-filters-compact {
+    display: none;
+}
+
+#sysusers-view-toggle {
+    display: flex;
+}
+
+#sysusers-sort-standard {
+    display: flex;
+}
+
 #systemuser-list-item {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     &:hover {
@@ -15,8 +27,23 @@
 }
 
 @media (max-width: 992px) {
+    #sysusers-filters-compact {
+        display: flex;
+    }
+    #sysusers-filters-standard {
+        display: none;
+    }
+    #sysusers-sort-compact {
+        display: flex;
+    }
+    #sysusers-sort-standard {
+        display: none;
+    }
     .user-tag {
         width: 25.00%;
+    }
+    #sysusers-view-toggle {
+        display: none;
     }
     /*
         Keep in view the following CSS.

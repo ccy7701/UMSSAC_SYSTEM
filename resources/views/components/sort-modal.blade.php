@@ -5,16 +5,25 @@
     $ariaLabel = null;
     $sortFormId = null;
     $modalHeader = null;
-    if ($type === 'event') {
-        $modalId = 'event-sort-modal';
-        $ariaLabel = 'eventSortModalLabel';
-        $sortFormId = 'event-sort-form';
-        $modalHeader = 'Sort Events';
-    } elseif ($type === 'club') {
-        $modalId = 'club-sort-modal';
-        $ariaLabel = 'clubSortModalLabel';
-        $sortFormId = 'club-sort-form';
-        $modalHeader = 'Sort Clubs';
+    switch ($type) {
+        case 'event':
+            $modalId = 'event-sort-modal';
+            $ariaLabel = 'eventSortModalLabel';
+            $sortFormId = 'event-sort-form';
+            $modalHeader = 'Sort Events';
+            break;
+        case 'club':
+            $modalId = 'club-sort-modal';
+            $ariaLabel = 'clubSortModalLabel';
+            $sortFormId = 'club-sort-form';
+            $modalHeader = 'Sort Clubs';
+            break;
+        case 'sysusers':
+            $modalId = 'sysusers-sort-modal';
+            $ariaLabel = 'systemUsersSortModalLabel';
+            $sortFormId = 'sysusers-sort-form';
+            $modalHeader = 'Sort System Users';
+            break;
     }
 @endphp
 <div class="rsans modal fade" id="{{ $modalId }}" tabindex="-1" aria-labelledby="{{ $ariaLabel }}" aria-hidden="true">
@@ -38,16 +47,29 @@
                         {{ $activeSort === 'za' ? 'checked' : '' }}>
                         <label class="form-check-label" for="sort-alphabetical-ZA">Name (Z-A)</label>
                     </div>
-                    <div class="form-check text-start">
-                        <input class="form-check-input" type="radio" name="sortOption" id="sort-oldest" value="oldest"
-                        {{ $activeSort === 'oldest' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="sort-oldest">Date (Oldest)</label>
-                    </div>
-                    <div class="form-check text-start">
-                        <input class="form-check-input" type="radio" name="sortOption" id="sort-newest" value="newest"
-                        {{ $activeSort === 'newest' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="sort-newest">Date (Newest)</label>
-                    </div>
+                    @if ($type !== 'sysusers')
+                        <div class="form-check text-start">
+                            <input class="form-check-input" type="radio" name="sortOption" id="sort-oldest" value="oldest"
+                            {{ $activeSort === 'oldest' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="sort-oldest">Date (Oldest)</label>
+                        </div>
+                        <div class="form-check text-start">
+                            <input class="form-check-input" type="radio" name="sortOption" id="sort-newest" value="newest"
+                            {{ $activeSort === 'newest' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="sort-newest">Date (Newest)</label>
+                        </div>
+                    @else
+                        <div class="form-check text-start">
+                            <input class="form-check-input" type="radio" name="sortOption" id="sort-fm" value="fm"
+                            {{ $activeSort === 'fm' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="sort-fm">Role (faculty members first)</label>
+                        </div>
+                        <div class="form-check text-start">
+                            <input class="form-check-input" type="radio" name="sortOption" id="sort-student" value="student"
+                            {{ $activeSort === 'student' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="sort-student">Role (students first)</label>
+                        </div>
+                    @endif
                 </form>
             </div>
             <div class="modal-footer">

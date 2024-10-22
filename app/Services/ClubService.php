@@ -87,7 +87,6 @@ class ClubService
 
     // Get all clubs
     public function getAllClubs(array $filters, string $sort, $search = null) {
-
         $query = Club::when(!empty($filters), function ($query) use ($filters) {
                 return $query->whereIn('club_category', $filters);
             })

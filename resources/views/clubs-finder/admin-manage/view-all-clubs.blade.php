@@ -99,7 +99,6 @@
                                             @endswitch
                                         </p>
                                     </button>
-                                    <x-sort-modal :type="'club'"/>
                                     <!-- Grid view toggle button -->
                                     <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 1 ? 'active' : '' }}">
                                         <i class="fa fa-th fs-4 {{ $searchViewPreference == 1 ? 'text-primary' : 'text-muted' }}"></i> <!-- Icon for grid view -->
@@ -110,6 +109,7 @@
                                     </button>
                                 </div>
                             </div>
+                            <x-sort-modal :type="'club'"/>
                         </div>
                     </div>
                 </div>

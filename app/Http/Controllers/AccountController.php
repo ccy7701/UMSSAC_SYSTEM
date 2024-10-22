@@ -84,30 +84,7 @@ class AccountController extends Controller
 
     // Get all system users (ADMIN)
     public function fetchAllSystemUsers(Request $request) {
-        // Handle POST request for filtering
-        if ($request->isMethod('post')) {
-            // Check if the filters are empty in the POST request
-            $filters = $request->input('category_filter', []);
-            if (empty($filters)) {
-                // Proceed as if flushing the search filters
-                $this->accountService->flushUsersSearchFilters();
-                return redirect()->route('admin.all-system-users', $request->all());
-            }
-
-            return redirect()->route('admin.all-system-users', $request->all());
-        }
-
-        // Handle GET request as normal (including pagination and filtering)
-        $search = $request->input('search', '');
-        $filters = $this->accountService->getUsersSearchFilters($request);
-        $allSystemUsers = $this->accountService->getAllSystemUsers($filters, $search);
-
-        return view('admin.all-system-users', [
-            'allSystemUsers' => $allSystemUsers,
-            'totalSystemUsersCount' => $allSystemUsers->total(),
-            'filters' => $filters,
-            'search' => $search,
-        ]);
+        return $this->accountService->prepareAndRenderSystemUsersView($request);
     }
 
     public function clearFilters() {
