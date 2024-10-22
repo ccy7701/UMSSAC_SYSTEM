@@ -88,6 +88,12 @@
                 </li>
                 <hr class="divider-gray-300 py-0 my-0">
 
+                <!-- DEVELOPMENT ONLY -->
+                <li class="nav-item text-primary">
+                    <a class="nav-link px-3" href="{{ route('view-user-profile', ['profile_id' => 19]) }}">(DEVELOPMENT) View TESTSTUDENT's profile</a>
+                </li>
+                <hr class="divider-gray-300 py-0 my-0">
+
             </div>
         </ul>
     </div>

@@ -35,12 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/change-password/action', [PasswordResetController::class, 'changePassword'])->name('change-password.action');
 
     // CURRENT ROUTE OF FOCUS
-    // Route::get('/')
+    Route::get('/view-user-profile', [ProfileController::class, 'fetchUserProfile'])->name('view-user-profile');
 
     /*
     * EVENTS FINDER RELATED ROUTES
     */
-
     Route::get('/events-finder', [EventController::class, 'fetchEventsFinder'])->name('events-finder');
 
     Route::post('/events-finder/filter', [EventController::class, 'fetchEventsFinder'])->name('events-finder.filter');

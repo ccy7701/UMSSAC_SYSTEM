@@ -178,6 +178,13 @@ html {
     cursor: pointer;
 }
 
+#user-profile-picture {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 2px solid #AAAAAA;
+}
+
 // add media for max-width: 1400px when needed
 
 @media (max-width: 1200px) {
@@ -227,6 +234,10 @@ html {
 }
 
 @media (max-width: 576px) {
+    #user-profile-picture {
+        width: 150px;
+        height: 150px;
+    }
     #topnav-logo {
         width: 75.00% !important;
     }
