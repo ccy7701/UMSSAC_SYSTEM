@@ -9,27 +9,37 @@ use App\Http\Controllers\UserPreferenceController;
 
 // Routes accessible by all levels of authenticated user
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', function () {
-        return view('profile.profile');
-    })->name('profile');
+    /*
+    * PROFILE MANAGEMENT RELATED ROUTES
+    */
+    Route::get('/my-profile', function () {
+        return view('profile.my-profile');
+    })->name('my-profile');
 
-    Route::get('/profile/edit-profile-picture', function () {
+    Route::get('/my-profile/edit-profile-picture', function () {
         return view('profile.edit.profile-picture');
     })->name('profile.edit.profile-picture');
 
-    Route::post('/profile/edit-profile-picture/action', [ProfileController::class, 'updateProfilePicture'])->name('profile.edit.profile-picture.action');
+    Route::post('/my-profile/edit-profile-picture/action', [ProfileController::class, 'updateProfilePicture'])->name('profile.edit.profile-picture.action');
 
-    Route::get('/profile/edit-general-info', function () {
+    Route::get('/my-profile/edit-general-info', function () {
         return view('profile.edit.general-info');
     })->name('profile.edit.general-info');
 
-    Route::post('/profile/edit-general-info/action', [ProfileController::class, 'updateGeneralInfo'])->name('profile.edit.general-info.action');
+    Route::post('/my-profile/edit-general-info/action', [ProfileController::class, 'updateGeneralInfo'])->name('profile.edit.general-info.action');
 
     Route::get('/change-password', function () {
         return view('auth.passwords.change-password');
     })->name('change-password');
 
     Route::post('/change-password/action', [PasswordResetController::class, 'changePassword'])->name('change-password.action');
+
+    // CURRENT ROUTE OF FOCUS
+    // Route::get('/')
+
+    /*
+    * EVENTS FINDER RELATED ROUTES
+    */
 
     Route::get('/events-finder', [EventController::class, 'fetchEventsFinder'])->name('events-finder');
 

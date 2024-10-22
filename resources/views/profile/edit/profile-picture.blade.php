@@ -29,7 +29,7 @@
                             <h3 class="rserif fw-bold w-100">Profile picture</h3>
                         </div>
                         <div class="col-right-alt col-lg-6 col-md-8 col-12 align-self-center">
-                            <a href="{{ route('profile') }}" class="rsans text-decoration-none text-dark fw-bold px-3">Cancel</a>
+                            <a href="{{ route('my-profile') }}" class="rsans text-decoration-none text-dark fw-bold px-3">Cancel</a>
                             <button type="submit" class="section-button-short rsans btn btn-primary fw-bold px-3">Save</button>
                         </div>
                     </div>

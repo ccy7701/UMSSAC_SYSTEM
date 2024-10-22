@@ -2,12 +2,12 @@
 <nav class="navbar navbar-light w-100 m-0" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
     <div class="container-fluid px-lg-5 px-md-4 py-2">
         <div class="col-md-2 col-sm-4 col-6 text-start">
-            <a class="navbar-brand" href="{{ route('profile') }}">
+            <a class="navbar-brand" href="{{ route('my-profile') }}">
                 <img id="topnav-logo" src="{{ asset('images/umssacs_logo_final.png') }}" alt="UMSSACS logo" class="topnav-website-logo img-fluid w-75">
             </a>
         </div>
         <div class="col-6 text-end">
-            <a href="{{ route('profile') }}" style="text-decoration: none; outline: none;">
+            <a href="{{ route('my-profile') }}" style="text-decoration: none; outline: none;">
                 <img id="user-profile-topnav" src="{{ profile()->profile_picture }}" alt="User profile" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
             </a>
             <span class="px-2"></span>
@@ -37,7 +37,7 @@
             <hr class="divider-gray-300 py-0 mt-3 mb-0">
 
             <div class="px-0">
-                <li class="nav-item"><a class="nav-link px-3" href="{{ route('profile') }}">Profile</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="{{ route('my-profile') }}">Profile</a></li>
                 <hr class="divider-gray-300 py-0 my-0">
 
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('admin.all-system-users') }}">All System Users</a></li>

@@ -100,7 +100,7 @@ class PasswordResetController extends Controller
 
         // Redirect back with a success message
         return $status
-            ? redirect()->route('profile')->with('success', 'Account password changed successfully!')
+            ? redirect()->route('my-profile')->with('success', 'Account password changed successfully!')
             : back()->withErrors(['account_email_address' => [__($status)]]);
     }
 }

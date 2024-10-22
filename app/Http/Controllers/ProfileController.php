@@ -32,8 +32,8 @@ class ProfileController extends Controller
             $status = $profile->save();
 
             return $status
-                ? redirect()->route('profile')->with('success', 'Profile picture updated successfully!')
-                : back()->withErrors(['profile' => 'Failed to update profile picture. Please try again.']);
+                ? redirect()->route('my-profile')->with('success', 'Profile picture updated successfully!')
+                : back()->withErrors(['my-profile' => 'Failed to update profile picture. Please try again.']);
         }
     }
 
@@ -55,7 +55,7 @@ class ProfileController extends Controller
 
         // Redirect back with a success message
         return $status
-            ? redirect()->route('profile')->with('success', 'General info updated successfully!')
-            : back()->withErrors(['profile' => 'Failed to update the general info. Please try again.']);
+            ? redirect()->route('my-profile')->with('success', 'General info updated successfully!')
+            : back()->withErrors(['my-profile' => 'Failed to update the general info. Please try again.']);
     }
 }
