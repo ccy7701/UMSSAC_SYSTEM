@@ -33,6 +33,16 @@
                                 </h1>
                                 <p class="rslab fs-4">Enter the email address you used to register your account. We'll send you instructions to reset your password.</p>
                                 <!-- RESET PASSWORD FORM -->
+                                @if ($errors->any())
+                                    <br><br><br>
+                                    <div class="rsans alert alert-danger">
+                                        @foreach ($errors->all() as $error)
+                                            <i class="fa fa-circle-exclamation px-2"></i>
+                                                {!! $error !!}
+                                            <br>
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <form method="POST" action="{{ route('password.email') }}" class="py-3">
                                     @csrf
                                     <div class="mb-3">

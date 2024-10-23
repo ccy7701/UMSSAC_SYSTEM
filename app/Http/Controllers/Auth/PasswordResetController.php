@@ -19,7 +19,7 @@ class PasswordResetController extends Controller
         $account = Account::where('account_email_address', $request->account_email_address)->first();
 
         if (!$account) {
-            return back()->withErrors(['account_email_address' => 'E-mail address not found.']);
+            return back()->withErrors(['account_email_address' => 'E-mail address not found. Please check your email address and try again.']);
         }
 
         // Send the password reset link
@@ -35,7 +35,7 @@ class PasswordResetController extends Controller
     // Step 2: Show the reset form
     public function showResetForm(Request $request, $token = null) {
         return view('auth.passwords.reset')->with(
-            ['token' => $token, 'account_email_address' => $request->account_email_address]
+            ['token' => $token, 'account_email_address' => $request->query('email')]
         );
     }
 
