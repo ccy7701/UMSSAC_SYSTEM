@@ -16,7 +16,7 @@ class PreventAuthenticatedAccess
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->user()) {
-            return redirect()->route('profile');
+            return redirect()->route('my-profile');
         }
 
         return $next($request);

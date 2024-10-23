@@ -37,7 +37,7 @@
         </div>
         <div class="row-container align-self-center py-3">
             <div class="col-12 text-center my-2">
-                <img src="{{ asset(profile()->profile_picture) }}" class="rounded-circle" alt="User profile" style="width: 200px; height: 200px; object-fit: cover; border: 2px solid #AAAAAA;">
+                <img id="user-profile-picture" src="{{ asset(profile()->profile_picture) }}" class="rounded-circle" alt="User profile">
             </div>
             <div class="col-12 text-center mt-3 mb-2">
                 <h2 class="rserif fw-bold">{{ currentAccount()->account_full_name }}</h2>

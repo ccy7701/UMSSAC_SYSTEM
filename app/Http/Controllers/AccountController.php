@@ -36,7 +36,7 @@ class AccountController extends Controller
         
         Auth::login($account);
 
-        return redirect()->route('profile');
+        return redirect()->route('my-profile');
     }
 
     public function login(Request $request) {
@@ -72,7 +72,7 @@ class AccountController extends Controller
         // CASE 3: If everything is correct, log the user in
         Auth::login($account);
         $request->session()->regenerate();
-        return redirect()->intended('profile');
+        return redirect()->intended('my-profile');
     }
 
     public function logout(Request $request) {

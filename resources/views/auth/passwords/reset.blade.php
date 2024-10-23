@@ -17,7 +17,7 @@
                 <div class="col-lg-6 p-3 d-flex">
                     <div class="row px-md-5 px-sm-1 py-4 text-start">
                         <div class="col-12">
-                            <a href="#">
+                            <a href="{{ route('welcome') }}">
                                 <img src="{{ asset('images/umssacs_logo_final.png') }}" alt="UMSSACS logo" class="pb-4 img-fluid" style="width: 40.00%;">
                             </a>
                             <br><br>
@@ -33,6 +33,7 @@
                                         @foreach ($errors->all() as $error)
                                             <i class="fa fa-circle-exclamation px-2"></i>
                                             {{$error}}
+                                            <br>
                                         @endforeach
                                     </div>
                                 @endif
@@ -43,7 +44,7 @@
                                         <label for="email-address" class="rsans form-label fw-semibold">E-mail address</label>
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                            <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ old('account_email_address', $account_email_address) }}" required autofocus>
+                                            <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ old('account_email_address', $account_email_address) }}" required readonly>
                                         </div>
                                     </div>
                                     <div class="mb-3">
