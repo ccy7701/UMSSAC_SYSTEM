@@ -1,6 +1,22 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import os from 'os';
+import fs from 'fs';
+import path from 'path';
+
+// Function to recursively get all JS files from a directory
+function getAllFiles(dirPath, files = []) {
+    const items = fs.readdirSync(dirPath);
+    for (const item of items) {
+        const fullPath = path.join(dirPath, item);
+        if (fs.statSync(fullPath).isDirectory()) {
+            getAllFiles(fullPath, files);
+        } else if (fullPath.endsWith('.js')) {
+            files.push(fullPath);
+        }
+    }
+    return files;
+}
 
 // Function to get the local network IP address
 function getLocalIP() {
@@ -17,7 +33,34 @@ function getLocalIP() {
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/sass/app.scss', 'resources/js/app.js'],
+            input: [
+                'resources/sass/app.scss',
+                'resources/js/suggester/addedListOperations.js',
+                'resources/js/suggester/suggesterFormOperations.js',
+                'resources/js/suggester/suggesterResultsOperations.js',
+                'resources/js/timetableBuilder/addTimetableSlot.js',
+                'resources/js/timetableBuilder/deleteTimetableSlot.js',
+                'resources/js/timetableBuilder/editTimetableSlot.js',
+                'resources/js/timetableBuilder/helperFunctions.js',
+                'resources/js/timetableBuilder/timetableBuilderOperations.js',
+                'resources/js/app.js',
+                'resources/js/bootstrap.js',
+                'resources/js/clubsFinderSort.js',
+                'resources/js/eventsFinderSort.js',
+                'resources/js/facultyCoursesLoader.js',
+                'resources/js/imageViewer.js',
+                'resources/js/itemViewToggler.js',
+                'resources/js/loginFormRoleSelector.js',
+                'resources/js/manageMemberOperations.js',
+                'resources/js/picturePreviewer.js',
+                'resources/js/registerFormRoleSelector.js',
+                'resources/js/semesterDropdown.js',
+                'resources/js/semIdValidator.js',
+                'resources/js/semSubOperations.js',
+                'resources/js/systemUsersViewToggler.js',
+                'resources/js/sysusersSort.js',
+                'resources/js/tooltips.js'
+            ],
             refresh: true,
         }),
     ],
