@@ -1,34 +1,5 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import os from 'os';
-import fs from 'fs';
-import path from 'path';
-
-// Function to recursively get all JS files from a directory
-function getAllFiles(dirPath, files = []) {
-    const items = fs.readdirSync(dirPath);
-    for (const item of items) {
-        const fullPath = path.join(dirPath, item);
-        if (fs.statSync(fullPath).isDirectory()) {
-            getAllFiles(fullPath, files);
-        } else if (fullPath.endsWith('.js')) {
-            files.push(fullPath);
-        }
-    }
-    return files;
-}
-
-// Function to get the local network IP address
-function getLocalIP() {
-    const interfaces = os.networkInterfaces();
-    for (const name of Object.keys(interfaces)) {
-        for (const iface of interfaces[name]) {
-            if (iface.family === 'IPv4' && !iface.internal) {
-                return iface.address;
-            }
-        }
-    }
-}
 
 export default defineConfig({
     plugins: [
@@ -64,12 +35,4 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    server: {
-        host: '0.0.0.0',
-        port: 5173,
-        hmr: {
-            host: getLocalIP(),
-            port: 5173,
-        },
-    }
 });
