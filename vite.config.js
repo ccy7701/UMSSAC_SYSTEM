@@ -1,22 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import os from 'os';
-import fs from 'fs';
-import path from 'path';
-
-// Function to recursively get all JS files from a directory
-function getAllFiles(dirPath, files = []) {
-    const items = fs.readdirSync(dirPath);
-    for (const item of items) {
-        const fullPath = path.join(dirPath, item);
-        if (fs.statSync(fullPath).isDirectory()) {
-            getAllFiles(fullPath, files);
-        } else if (fullPath.endsWith('.js')) {
-            files.push(fullPath);
-        }
-    }
-    return files;
-}
 
 // Function to get the local network IP address
 function getLocalIP() {
