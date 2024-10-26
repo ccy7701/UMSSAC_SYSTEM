@@ -23,3 +23,4 @@ public/resources/data/all_subjects_data.json
 resources/scripts/recommender_engine.py
 resources/scripts/all_subjects_data_fetcher.py
 resources/scripts/subject_details_fetcher.py
+vite.config.dev.js
