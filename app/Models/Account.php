@@ -12,12 +12,13 @@ class Account extends Authenticatable
 
     protected $table = 'account';
     protected $primaryKey = 'account_id';
-    public $timestamps = false;  // KIV, will you need this in the future?
+    public $timestamps = true;
 
     protected $fillable = [
         'account_full_name',
         'account_email_address',
         'account_password',
+        'account_contact_number',
         'account_role',
         'account_matric_number',
     ];
@@ -50,5 +51,9 @@ class Account extends Authenticatable
     // Define the email attribute to satisfy the password reset broker
     public function getEmailAttribute() {
         return $this->account_email_address;
+    }
+
+    public function getContactNumberAttribute() {
+        return $this->account_contact_number;
     }
 }

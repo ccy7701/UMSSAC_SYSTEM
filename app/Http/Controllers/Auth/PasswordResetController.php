@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Carbon\Carbon;
 use App\Models\Account;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -65,6 +66,7 @@ class PasswordResetController extends Controller
             function ($user, $password) {
                 $user->forceFill([
                     'account_password' => Hash::make($password),
+                    'updated_at' => Carbon::now(),
                 ])->save();
 
                 $user->setRememberToken(Str::random(60));
@@ -93,10 +95,11 @@ class PasswordResetController extends Controller
         if (!Hash::check($request->current_password, $account->account_password)) {
             return redirect()->back()->withErrors(['current_password' => 'The current password is incorrect. Please try again.'])->withInput();
         }
-
-        // Update the user's password
-        $account->account_password = Hash::make($request->new_account_password);
-        $status = $account->save();
+        
+        // Update the account password
+        $status = $account->update([
+            'account_password' => Hash::make($request->new_account_password),
+        ]);
 
         // Redirect back with a success message
         return $status

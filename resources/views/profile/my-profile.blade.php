@@ -132,7 +132,14 @@
             <form class="form-standard px-3">
                 <div class="form-group mb-3">
                     <label for="email-address" class="rsans fw-bold form-label">E-mail address</label>
-                    <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ currentAccount()->account_email_address }}" readonly>
+                    <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ currentAccount()->email }}" disabled readonly>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="contact-number" class="rsans fw-bold form-label">Contact number</label>
+                    @php
+                        $contactNumber = currentAccount()->contact_number ?? 'Not filled yet'
+                    @endphp
+                    <input type="text" id="contact-number" name="account_contact_number" class="rsans form-control" value="{{ $contactNumber }}" disabled readonly>
                 </div>
                 <div class="form-group mb-3">
                     <label for="password" class="rsans fw-bold form-label">Password</label>

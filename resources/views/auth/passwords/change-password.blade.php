@@ -30,7 +30,7 @@
                                 <!-- CHANGE PASSWORD FORM -->
                                 @if ($errors->any())
                                     <br>
-                                    <div class="alert alert-danger">
+                                    <div class="rsans alert alert-danger">
                                         @foreach ($errors->all() as $error)
                                             {{$error}}
                                         @endforeach

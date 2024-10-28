@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('account_full_name');
             $table->string('account_email_address')->unique();
             $table->string('account_password');
+            $table->string('account_contact_number')->nullable();
             $table->string('account_role')->default(1)->comment('1 - student, 2 - faculty_member, 3 - admin');
             $table->string('account_matric_number', 10)->nullable()->comment('NULL - not_student');
-            // $table->timestamps(); <-- not needed
+            $table->timestamps();
         });
     }
 
