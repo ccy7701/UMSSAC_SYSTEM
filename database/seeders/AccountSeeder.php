@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class AccountSeeder extends Seeder
 {
@@ -41,7 +41,9 @@ class AccountSeeder extends Seeder
             'account_email_address' => $accountEmailAddress,
             'account_password' => $accountPassword,
             'account_role' => $accountRole,
-            'account_matric_number' => $accountMatricNumber
+            'account_matric_number' => $accountMatricNumber,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ];
 
         DB::table('account')->insert($data);

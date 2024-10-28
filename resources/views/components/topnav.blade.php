@@ -90,7 +90,7 @@
 
                 <!-- DEVELOPMENT ONLY -->
                 <li class="nav-item text-primary">
-                    <a class="nav-link px-3" href="{{ route('view-user-profile', ['profile_id' => 19]) }}">(DEVELOPMENT) View TESTSTUDENT's profile</a>
+                    <a class="nav-link px-3" href="{{ route('view-user-profile', ['profile_id' => 11]) }}">(DEVELOPMENT) TEST VIEW PROFILE</a>
                 </li>
                 <hr class="divider-gray-300 py-0 my-0">
 
