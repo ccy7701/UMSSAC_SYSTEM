@@ -81,6 +81,7 @@ class ProfileService
                     'account_id',
                     'account_full_name',
                     'account_email_address',
+                    'account_contact_number',
                     'account_role',
                     'account_matric_number'
                 );
@@ -89,13 +90,18 @@ class ProfileService
         ->first();
 
         // Prepare the profile data before sending it back
-        $profile->profile_enrolment_session = $profile->enrolment_session ?? 'No nickname';
+        $profile->profile_enrolment_session = $profile->profile_enrolment_session
+            ? $profile->profile_enrolment_session
+            : 'Not filled yet';
         $profile->profile_faculty = $profile->profile_faculty
             ? $profile->profile_faculty
             : 'Unspecified';
         $profile->profile_personal_desc = $profile->profile_personal_desc
             ? $profile->profile_personal_desc
             : 'No personal description written yet';
+        $profile->profile_course = $profile->profile_course
+            ? $profile->profile_course
+            : null;
 
         return $profile;
     }

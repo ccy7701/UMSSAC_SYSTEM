@@ -59,20 +59,29 @@
                 @if ($profile->account->account_role == 1)
                     <h5 class="rserif fw-bold">Course</h5>
                     @php
-                        $facultyCourses = json_decode(file_get_contents(public_path('resources/data/faculties_and_courses.json')), true);
                         $selectedFaculty = $profile->profile_faculty;
-                        $selectedCourseCode = $profile->profile_course;
                         $courseName = '';
-                        
-                        if (isset($facultyCourses[$selectedFaculty])) {
-                            foreach ($facultyCourses[$selectedFaculty] as $course) {
-                                if ($course['course_code'] === $selectedCourseCode) {
-                                    $courseName = $course['course_name'];
-                                    break;
+
+                        if ($selectedFaculty == "") {
+                            $selectedFaculty = 'Not filled yet';
+                            $courseName = 'Not filled yet';
+                        } else {
+                            $facultyCourses = json_decode(file_get_contents(public_path('resources/data/faculties_and_courses.json')), true);
+                            $selectedCourseCode = $profile->profile_course;
+                            $courseName = '';
+                            
+                            if (isset($facultyCourses[$selectedFaculty])) {
+                                if ($selectedCourseCode == "") {
+                                    $courseName = 'Not filled yet';
+                                } else {
+                                    foreach ($facultyCourses[$selectedFaculty] as $course) {
+                                        if ($course['course_code'] === $selectedCourseCode) {
+                                            $courseName = $course['course_name'];
+                                            break;
+                                        }
+                                    }
                                 }
                             }
-                        } else {
-                            $courseName = 'Not filled yet';
                         }
                     @endphp
                     <p class="rsans pb-3">{{ $courseName }}</p>
@@ -81,12 +90,13 @@
                 <p class="rsans pb-3">{{ $profile->profile_personal_desc }}</p>
                 <h5 class="rserif fw-bold">Email address</h5>
                 <p class="rsans pb-3">{{ $profile->account->account_email_address }}</p>
-
-                <!--
-                    course,
-                    personal description,
-                    email address
-                -->
+                <h5 class="rserif fw-bold">Contact number</h5>
+                <p class="rsans pb-3">
+                    @php
+                        $contactNumber = $profile->account->account_contact_number ?? 'Not filled yet';
+                    @endphp
+                    {{ $contactNumber }}
+                </p>
             </div>
         </div>
         <br>
