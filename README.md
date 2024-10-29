@@ -1,6 +1,6 @@
 <p align="center"><a href="#" target="_blank"><img src="https://github.com/ccy7701/UMSSAC_SYSTEM/blob/main/public/images/UMSSACS_LOGO_FINAL.png" width="300" alt="UMSSACS Logo"></a></p>
 
-## Current Status ![Version](https://img.shields.io/badge/version-0.7.0.1--pre--alpha-blue)
+## Current Status ![Version](https://img.shields.io/badge/version-0.7.0.3--pre--alpha-blue)
 
 This project is still under active development. A preview of the system has been deployed. It is now live and accessible at [this link](https://umssacs.my).
 
@@ -44,11 +44,9 @@ Efficiently manage clubs, events, memberships, and handle administrative duties 
 
 <table>
     <tr>
-        <th>Frontend</th>
-        <th>Backend</th>
-        <th>Deployment</th>
-    </tr>
-    <tr>
+        <td>
+            <b>Frontend</b>
+        </td>
         <td>
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" width="50" height="50"/>
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" width="50" height="50"/>
@@ -56,11 +54,21 @@ Efficiently manage clubs, events, memberships, and handle administrative duties 
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" alt="SASS" width="50" height="50"/>
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" width="50" height="50"/>
         </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Backend</b>
+        </td>
         <td>
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" alt="Laravel" width="50" height="50"/>
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" width="50" height="50"/>
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="50" height="50"/>
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg" alt="MySQL" width="50" height="50"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Deployment</b>
         </td>
         <td>
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original-wordmark.svg" alt="Apache" width="50" height="50"/>
