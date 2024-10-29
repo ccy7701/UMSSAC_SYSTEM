@@ -120,6 +120,7 @@
                 </div>
             </div>
         </form>
+        <br><br>
     </main>
     <x-footer/>
 </body>

@@ -76,13 +76,16 @@
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-user-lock"></i></span>
                                             <input type="password" id="password" name="account_password" class="rsans form-control" required>
+                                            <span class="input-group-text d-flex justify-content-center password-toggle" data-target="password">
+                                                <i class="fa fa-eye" id="eye-icon-pwd"></i>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="my-4 text-end">
                                         <a href="{{ route('forgot-password') }}" class="rsans fw-semibold link-dark"><u>Forgot password?</u></a>
                                     </div>
                                     <div class="d-flex justify-content-center">
-                                        <button type="submit" class="rsans btn btn-primary fw-bold" style="width: 50%;">Log in</button>
+                                        <button type="submit" class="rsans btn btn-primary fw-bold w-50">Log in</button>
                                     </div>
                                     <!-- End login credentials -->
                                 </form>

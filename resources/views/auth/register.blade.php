@@ -31,6 +31,7 @@
                                     <br>
                                     <div class="rsans alert alert-danger">
                                         @foreach ($errors->all() as $error)
+                                            <i class="fa fa-circle-exclamation px-2"></i>
                                             {{ $error }}
                                             <br>
                                         @endforeach
@@ -42,14 +43,14 @@
                                         <label for="full-name" class="rsans form-label fw-semibold">Full name</label>
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-user"></i></span>
-                                            <input type="text" id="full-name" name="account_full_name" class="rsans form-control" required autofocus>
+                                            <input type="text" id="full-name" name="account_full_name" class="rsans form-control" value="{{ old('account_full_name') }}" required autofocus>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="email-address" class="rsans form-label fw-semibold">E-mail address</label>
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                            <input type="email" id="email-address" name="account_email_address" class="rsans form-control" required autofocus>
+                                            <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ old('account_email_address') }}" required autofocus>
                                         </div>
                                     </div>
                                     <div class="mb-3">
@@ -57,6 +58,9 @@
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-user-lock d-flex"></i></span>
                                             <input type="password" id="password" name="account_password" class="rsans form-control" required autofocus>
+                                            <span class="input-group-text d-flex justify-content-center password-toggle" data-target="password">
+                                                <i class="fa fa-eye" id="eye-icon-pwd"></i>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="mb-3">
@@ -64,6 +68,9 @@
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-unlock-keyhole"></i></span>
                                             <input type="password" id="password-confirmation" name="account_password_confirmation" class="rsans form-control" required autofocus>
+                                            <span class="input-group-text d-flex justify-content-center password-toggle" data-target="password-confirmation">
+                                                <i class="fa fa-eye" id="eye-icon-cnfm-pwd"></i>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="mb-3">
@@ -82,7 +89,7 @@
                                         <label for="matric-number" class="rsans form-label fw-semibold">Matric number</label>
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
-                                            <input type="text" id="matric-number" name="account_matric_number" class="rsans form-control" autofocus>
+                                            <input type="text" id="matric-number" name="account_matric_number" class="rsans form-control" value="{{ old('account_matric_number') }}" autofocus>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center py-3">

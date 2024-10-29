@@ -18,17 +18,26 @@ class AccountController extends Controller
     }
 
     public function register(Request $request) {
-        $validator = Validator::make($request->all(), [
+        // Custom validation messages
+        $messages = [
+            'account_matric_number.unique' => 'This matric number has already been taken.',
+            'account_matric_number.regex' => 'The matric number must be in the correct format (e.g., BI12345678). Please try again.',
+        ];
+
+        $request->validate([
             'account_full_name' => 'required|string|max:255',
             'account_email_address' => 'required|string|email|max:255|unique:account,account_email_address',
             'account_password' => 'required|string|min:8|confirmed',
             'account_role' => 'required|in:1,2,3',
-            'account_matric_number' => 'required_if:account_role,1|nullable|string|max:10|unique:account,account_matric_number',
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+            'account_matric_number' => [
+                'required_if:account_role,1',
+                'nullable',
+                'string',
+                'max:10',
+                'unique:account,account_matric_number',
+                'regex:/^[A-Z]{2}\d{8}$/'
+            ],
+        ], $messages);
 
         $account = $this->accountService->createAccount($request);
         $profile = $this->accountService->createProfile($request, $account);

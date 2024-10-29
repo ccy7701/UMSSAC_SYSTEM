@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    @vite('resources/js/app.js')
     <main>
         <div class="container-fluid vh-100">
             <div class="row h-100">
@@ -52,6 +53,9 @@
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-user-lock d-flex"></i></span>
                                             <input type="password" id="new-password" name="new_account_password" class="rsans form-control" required autofocus>
+                                            <span class="input-group-text d-flex justify-content-center password-toggle" data-target="new-password">
+                                                <i class="fa fa-eye" id="eye-icon-pwd"></i>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="mb-3">
@@ -59,6 +63,9 @@
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-unlock-keyhole"></i></span>
                                             <input type="password" id="new-password-confirmation" name="new_account_password_confirmation" class="rsans form-control" required autofocus>
+                                            <span class="input-group-text d-flex justify-content-center password-toggle" data-target="new-password-confirmation">
+                                                <i class="fa fa-eye" id="eye-icon-cnfm-pwd"></i>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center py-3">

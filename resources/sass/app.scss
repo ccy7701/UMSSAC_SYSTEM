@@ -189,6 +189,12 @@ html {
     background-color: #EAF2FD;
 }
 
+.password-toggle {
+    background: transparent;
+    cursor: pointer;
+    width: 3.0rem;
+}
+
 // add media for max-width: 1400px when needed
 
 @media (max-width: 1200px) {

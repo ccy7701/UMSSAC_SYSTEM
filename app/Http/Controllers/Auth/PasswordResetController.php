@@ -20,13 +20,17 @@ class PasswordResetController extends Controller
         $account = Account::where('account_email_address', $request->account_email_address)->first();
 
         if (!$account) {
-            return back()->withErrors(['account_email_address' => 'E-mail address not found. Please check your email address and try again.']);
+            return back()->withErrors(['account_email_address' => 'No account with this e-mail address not found. Please check your email address and try again.']);
         }
 
         // Send the password reset link
         $status = Password::broker('accounts')->sendResetLink(
             ['account_email_address' => $request->account_email_address]
         );
+
+        if ($status === Password::RESET_THROTTLED) {
+            return back()->withErrors(['account_email_address' => 'Please wait for one minute before retrying.']);
+        }
 
         return $status === Password::RESET_LINK_SENT
             ? back()->with('success', 'An email with a password reset link has been sent. Please check your email address to continue with resetting your password.')
