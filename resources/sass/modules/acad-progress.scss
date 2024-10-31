@@ -24,7 +24,7 @@
         text-align: center;
     }
     #add-subject-button {
-        width: 40.00%;
+        width: 50.00% !important;
         text-align: center;
     }
 }
@@ -32,5 +32,11 @@
 @media (max-width: 768px) {
     #initialiser-fill-form {
         width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    #add-subject-button {
+        width: 60% !important;
     }
 }

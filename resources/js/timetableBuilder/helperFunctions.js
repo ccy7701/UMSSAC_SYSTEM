@@ -108,6 +108,11 @@ export function generateTimetable(timetableSlots) {
                 classCell.colSpan = classData.colspan;
                 classCell.innerHTML = `${classData.class_subject_code}<br>${classData.class_location}`;
 
+                // Apply a border style to ensure it shows above the cell colors
+                classCell.style.border = "1px solid #3C3C3C";
+                classCell.style.position = "relative";
+                classCell.style.zIndex = "1";
+
                 // Determine the class category to output in the bootstrap popover
                 let class_category_and_section = "";
                 switch(classData.class_category) {
@@ -143,7 +148,7 @@ export function generateTimetable(timetableSlots) {
                         classCell.classList.add('filled-slot', 'bg-success', 'text-white');
                         break;
                     default:
-                        classCell.classList.add('filled-slot', 'bg-secondary', 'text-white'); // Default category style
+                        classCell.classList.add('filled-slot', 'bg-secondary', 'text-white');
                 }
     
                 row.appendChild(classCell);
@@ -242,17 +247,39 @@ export function downloadTimetable() {
         // Create a temporary container for combining both elements
         const tempContainer = document.createElement('div');
 
-        // Append a style tag for PDF-specific styles
+        // Append a style tag for PDF-specific styles to ensure color consistency
         const style = document.createElement('style');
         style.textContent = `
+            /* Force specific colors to ensure consistency */
             .text-white {
-                color: black !important;
+                color: #FFFFFF !important;
             }
-            #add-subject-button {
-                display: none;
+            .text-dark {
+                color: #000000 !important;
+            }
+            .bg-primary {
+                background-color: #1064D6 !important;
+            }
+            .bg-warning {
+                background-color: #FFC107 !important;
+            }
+            .bg-info {
+                background-color: #0DCAF0 !important;
+            }
+            .bg-success {
+                background-color: #198754 !important;
+            }
+            .bg-secondary {
+                background-color: #6C757D !important;
             }
             #timetable-core {
                 margin-bottom: 20px;
+            }
+            .card-title {
+                text-align: start;
+            }
+            #add-subject-button {
+                display: none;
             }
             .dropdown {
                 display: none !important;
@@ -264,7 +291,7 @@ export function downloadTimetable() {
         tempContainer.appendChild(timetableCore);
         tempContainer.appendChild(timetableSubjectsList);
         
-        // Ensure html2pdf.js is correctly called
+        // Generate the PDF with improved color settings
         html2pdf()
             .from(tempContainer)
             .set({
@@ -272,6 +299,7 @@ export function downloadTimetable() {
                 filename: 'umssacs_timetable.pdf',
                 html2canvas: {
                     scale: 2,
+                    backgroundColor: null,
                     logging: true
                 },
                 jsPDF: {
@@ -283,7 +311,6 @@ export function downloadTimetable() {
             .toPdf()
             .get('pdf')
             .then(function (pdf) {
-                // Reduce the page to one page (scale down the content)
                 const totalPages = pdf.internal.getNumberOfPages();
                 for (let i = 1; i <= totalPages; i++) {
                     pdf.setPage(i);
