@@ -26,10 +26,10 @@
             <div class="row-container">
                 <div class="align-items-center px-3">
                     <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
-                        <div class="col-left-alt col-lg-6 col-md-4 col-12 mt-2">
+                        <div class="col-left-alt col-lg-6 col-md-4 col-12 mt-xl-2 mt-sm-0 mt-0">
                             <h3 class="rserif fw-bold w-100">Edit general info</h3>
                         </div>
-                        <div class="col-right-alt col-lg-6 col-md-8 col-12 align-self-center">
+                        <div class="col-right-alt col-lg-6 col-md-8 col-12 align-self-center mb-xl-0 mb-md-0 mb-sm-3 mb-3">
                             <a href="{{ route('my-profile') }}" class="rsans text-decoration-none text-dark fw-bold px-3">Cancel</a>
                             <button type="submit" class="section-button-short rsans btn btn-primary fw-bold px-3">Save</button>
                         </div>
@@ -54,7 +54,7 @@
                         <input type="text" id="full-name" name="account_full_name" class="rsans form-control" value="{{ currentAccount()->account_full_name }}" readonly disabled>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="nickname" class="rsans fw-bold form-label">Nickname</label>
+                        <label for="nickname" class="rsans fw-bold form-label">Nickname (optional)</label>
                         <input type="text" id="nickname" name="profile_nickname" class="rsans form-control" value="{{ profile()->profile_nickname }}" placeholder="Enter nickname">
                     </div>
                     @if (currentAccount()->account_role == 1)
@@ -100,12 +100,13 @@
                     </div>
                     @endif
                     <div class="form-group mb-3">
-                        <label for="personal-desc" class="rsans fw-bold form-label">Personal description</label>
+                        <label for="personal-desc" class="rsans fw-bold form-label">Personal description (optional)</label>
                         <textarea id="personal-desc" name="profile_personal_desc" class="rsans form-control" rows="5" style="resize: none;" maxlength="1024" placeholder="Enter personal description">{{ profile()->profile_personal_desc }}</textarea>
                     </div>
                 </div>
             </div>
         </form>
+        <br><br>
     </main>
     <x-footer/>
 </body>

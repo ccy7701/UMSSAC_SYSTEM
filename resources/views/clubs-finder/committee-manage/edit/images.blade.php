@@ -35,7 +35,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row-container">
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
@@ -48,130 +47,142 @@
                 </div>
             </div>
         </div>
-        
         <!-- BODY OF CONTENT -->
-        <div class="row-container">
-            <div class="align-items-center px-3 w-100">
-                <div class="container px-3">
-                    <div class="row pb-3 px-md-3 px-sm-0 py-4">
-                        @php
-                            $clubImagePaths = json_decode($club->club_image_paths, true);
-                        @endphp
-                        <!-- Add new image card -->
-                        <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 align-items-stretch">
-                            <div class="rsans card h-100 add-club-image-card d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#add-club-image-modal">
-                                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-                                    <i class="fa fa-plus-circle fa-3x mb-2"></i>
-                                    <h5 class="card-title fw-bold">Add new image</h5>
-                                </div>
+        @if ($errors->any())
+            <div class="d-flex justify-content-center">
+                <div class="col-12 w-xxl-80 w-sm-100 px-3 align-items-center">
+                    <br>
+                    <div class="rsans alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <i class="fa fa-circle-exclamation px-2"></i>
+                            {{ $error }}
+                            <br>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif
+        <div class="d-flex justify-content-center align-items-center py-3 w-100">
+            <div class="container px-3">
+                <div class="row py-4">
+                    @php
+                        $clubImagePaths = json_decode($club->club_image_paths, true);
+                    @endphp
+                    <!-- Add new image card -->
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-4 align-items-stretch">
+                        <div class="rsans card h-100 add-club-image-card d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#add-club-image-modal">
+                            <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                <i class="fa fa-plus-circle fa-3x mb-2"></i>
+                                <h5 class="card-title fw-bold">Add new image</h5>
                             </div>
                         </div>
-                        @if (!empty($clubImagePaths))
-                            @foreach ($clubImagePaths as $key => $imagePath)
-                                <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 align-items-center text-center">
-                                    <div class="card h-100" id="card-club-images">
-                                        <img src="{{ Storage::url($imagePath) }}" alt="Club illustration" class="card-img-top border-bottom" style="aspect-ratio: 4/4; object-fit: cover;">
-                                        <div class="card-body justify-content-center align-items-center py-2 px-1">
-                                            <div class="row px-0 mx-0">
-                                                <div class="col-xl-6 col-12 py-2">
-                                                    <button type="button" class="rsans btn btn-secondary fw-semibold w-100"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#view-image-modal"
-                                                    data-image="{{ Storage::url($imagePath) }}"
-                                                    data-index={{ $loop->iteration }}>View</button>
-                                                </div>
-                                                <div class="col-xl-6 col-12 py-2">
-                                                    <button type="button" class="rsans btn btn-danger fw-semibold w-100"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#delete-confirmation-modal"
-                                                    data-key="{{ $key }}">Delete</button>
-                                                </div>
+                    </div>
+                    @if (!empty($clubImagePaths))
+                        @foreach ($clubImagePaths as $key => $imagePath)
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-4 align-items-center text-center">
+                                <div class="card h-100" id="card-club-images">
+                                    <img src="{{ Storage::url($imagePath) }}" alt="Club illustration" class="card-img-top border-bottom" style="aspect-ratio: 4/4; object-fit: cover;">
+                                    <div class="card-body justify-content-center align-items-center py-2 px-1">
+                                        <div class="row px-0 mx-0">
+                                            <div class="col-xl-6 col-12 py-2">
+                                                <button type="button" class="rsans btn btn-secondary fw-semibold w-100"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#view-image-modal"
+                                                data-image="{{ Storage::url($imagePath) }}"
+                                                data-index={{ $loop->iteration }}>View</button>
+                                            </div>
+                                            <div class="col-xl-6 col-12 py-2">
+                                                <button type="button" class="rsans btn btn-danger fw-semibold w-100"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#delete-confirmation-modal"
+                                                data-key="{{ $key }}">Delete</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
-                            <!-- View image modal -->
-                            <div class="rsans modal fade" id="view-image-modal" tabindex="-1" aria-labelledby="viewImageModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-xl">
-                                    <div class="modal-content">
-                                        <div class="modal-header py-2 d-flex align-items-center justify-content-center">
-                                            <p class="fw-semibold fs-5 mb-0">
-                                                <span id="image-index"></span>
-                                            </p>
-                                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body d-flex justify-content-center align-items-center">
-                                            <img src="" alt="Club illustration" class="img-fluid" id="modalImage">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                            <!-- Delete confirmation modal -->
-                            <div class="rsans modal fade" id="delete-confirmation-modal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header py-2 d-flex align-items-center justify-content-center">
-                                            <p class="fw-semibold fs-5 mb-0">
-                                                Delete confirmation
-                                            </p>
-                                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Are you sure you want to delete this image?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <form id="delete-club-image-form" method="POST" action="{{ route('committee-manage.edit-images.delete', ['club_id' => $club->club_id]) }}">
-                                                @csrf
-                                                <input type="hidden" id="delete-key" name="key">
-                                                <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">No, cancel</button>
-                                                <button type="submit" class="btn btn-danger fw-semibold ms-1">Yes, continue</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @else
-                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 align-items-center">
-                                <div class="card h-100 justify-content-center" id="card-club-images" style="min-height: 35vh;">
-                                    <p class="rsans text-center">No images added yet</p>
-                                </div>
-                            </div>
-                        @endif
-                        <!-- Add club image modal -->
-                        <div class="rsans modal fade" id="add-club-image-modal" tabindex="-1" aria-labelledby="addClubImageModalLabel" aria-hidden="true">
+                        @endforeach
+                        <!-- View image modal -->
+                        <div class="rsans modal fade" id="view-image-modal" tabindex="-1" aria-labelledby="viewImageModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header py-2 d-flex align-items-center justify-content-center">
                                         <p class="fw-semibold fs-5 mb-0">
-                                            Add Club Image
+                                            <span id="image-index"></span>
                                         </p>
                                         <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form id="add-club-image-form" method="POST" action="{{ route('committee-manage.edit-images.add', ['club_id' => $club->club_id]) }}" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="modal-body">
-                                            <div class="col-md-12 text-start py-2">
-                                                <div class="rsans input-group w-100">
-                                                    <input type="file" name="new_image" id="new-image-input" class="form-control w-50" accept="image/*">
-                                                    <button id="new-image-submit" type="submit" class="rsans btn btn-primary fw-bold px-3">Save</button>
-                                                </div>
-                                                <p class="rsans pt-2">Note: The first image in the list will be shown when users search for the club.</p>
+                                    <div class="modal-body d-flex justify-content-center align-items-center">
+                                        <img src="" alt="Club illustration" class="img-fluid" id="modalImage">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Delete confirmation modal -->
+                        <div class="rsans modal fade" id="delete-confirmation-modal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header py-2 d-flex align-items-center justify-content-center">
+                                        <p class="fw-semibold fs-5 mb-0">
+                                            Delete confirmation
+                                        </p>
+                                        <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete this image?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form id="delete-club-image-form" method="POST" action="{{ route('committee-manage.edit-images.delete', ['club_id' => $club->club_id]) }}">
+                                            @csrf
+                                            <input type="hidden" id="delete-key" name="key">
+                                            <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">No, cancel</button>
+                                            <button type="submit" class="btn btn-danger fw-semibold ms-1">Yes, continue</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 align-items-center">
+                            <div class="card h-100 justify-content-center" id="card-club-images" style="min-height: 35vh;">
+                                <p class="rsans text-center">No images added yet</p>
+                            </div>
+                        </div>
+                    @endif
+                    <!-- Add club image modal -->
+                    <div class="rsans modal fade" id="add-club-image-modal" tabindex="-1" aria-labelledby="addClubImageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header py-2 d-flex align-items-center justify-content-center">
+                                    <p class="fw-semibold fs-5 mb-0">
+                                        Add Club Image
+                                    </p>
+                                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form id="add-club-image-form" method="POST" action="{{ route('committee-manage.edit-images.add', ['club_id' => $club->club_id]) }}" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="col-md-12 text-start py-2">
+                                            <div class="rsans input-group w-100">
+                                                <input type="file" name="new_image" id="new-image-input" class="form-control w-50" accept="image/*">
+                                                <button id="new-image-submit" type="submit" class="rsans btn btn-primary fw-bold px-3">Save</button>
                                             </div>
-                                            <!-- Preview of to-be-uploaded file -->
-                                            <div class="row align-items-center justify-content-center">
-                                                <div class="col-xl-3 col-lg-4 col-md-6 col-6 align-items-center text-center pb-3">
-                                                    <div class="card h-100" id="card-club-images-previewer">
-                                                        <img id="new-image-preview" src="{{ asset('images/no_club_images_default.png') }}" alt="New club illustration preview" class="card-img-top border-bottom" style="aspect-ratio: 4/4; object-fit: cover;">
-                                                        <div class="rsans card-body d-flex justify-content-center align-items-center h-100">
-                                                            <p class="mb-1">New image preview</p>
-                                                        </div>
+                                            <p class="rsans form-text text-start">Maximum allowed image file size is 2048KB only.</p>
+                                        </div>
+                                        <!-- Preview of to-be-uploaded file -->
+                                        <div class="row align-items-center justify-content-center">
+                                            <div class="col-xl-3 col-lg-4 col-md-6 col-6 align-items-center text-center pb-3">
+                                                <div class="card h-100" id="card-club-images-previewer">
+                                                    <img id="new-image-preview" src="{{ asset('images/no_club_images_default.png') }}" alt="New club illustration preview" class="card-img-top border-bottom" style="aspect-ratio: 4/4; object-fit: cover;">
+                                                    <div class="rsans card-body d-flex justify-content-center align-items-center h-100">
+                                                        <p class="mb-1">New image preview</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
+                                        <p class="rsans pt-2 text-center">Note: The first image in the list will be shown when users search for the club.</p>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

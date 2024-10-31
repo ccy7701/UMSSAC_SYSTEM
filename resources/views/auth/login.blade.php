@@ -36,7 +36,7 @@
                                     <div class="rsans alert alert-danger">
                                         @foreach ($errors->all() as $error)
                                             <i class="fa fa-circle-exclamation px-2"></i>
-                                                {!! $error !!}
+                                            {!! $error !!}
                                             <br>
                                         @endforeach
                                     </div>
