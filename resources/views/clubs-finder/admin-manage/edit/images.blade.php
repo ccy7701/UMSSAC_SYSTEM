@@ -36,6 +36,17 @@
             </div>
         </div>
 
+        @if($errors->any())
+            <br><br><br>
+            <div class="rsans alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <i class="fa fa-circle-exclamation px-2"></i>
+                    {{ $error }}
+                    <br>
+                @endforeach
+            </div>
+        @endif
+
         <div class="row-container">
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">

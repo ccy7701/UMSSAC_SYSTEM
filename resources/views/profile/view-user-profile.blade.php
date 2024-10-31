@@ -25,7 +25,7 @@
             </div>
             <div class="col-12 text-center mt-3 mb-2">
                 <h2 class="rserif fw-bold">{{ $profile->account->account_full_name }}</h2>
-                <h4 class="rserif fst-italic mt-2 text-muted">({{ 'nickname' }})</h4>
+                <h4 class="rserif fst-italic mt-2 text-muted">({{ $profile->profile_nickname }})</h4>
                 <p class="rserif text-muted fs-4 mt-0">
                     @switch($profile->account->account_role)
                         @case(1) Student @break

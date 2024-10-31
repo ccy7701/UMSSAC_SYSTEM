@@ -53,7 +53,7 @@
                                         </div>
                                         <br>
                                         <div class="d-flex justify-content-center my-3">
-                                            <button type="submit" class="rsans btn btn-primary fw-bold" style="width: 50%;">Send recovery email</button>
+                                            <button type="submit" class="rsans btn btn-primary fw-bold w-50">Send recovery email</button>
                                         </div>
                                     </div>
                                 </form>

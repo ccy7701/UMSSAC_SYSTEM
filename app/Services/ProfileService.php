@@ -90,6 +90,9 @@ class ProfileService
         ->first();
 
         // Prepare the profile data before sending it back
+        $profile->profile_nickname = $profile->profile_nickname != ''
+            ? $profile->profile_nickname
+            : 'No nickname';
         $profile->profile_enrolment_session = $profile->profile_enrolment_session
             ? $profile->profile_enrolment_session
             : 'Not filled yet';

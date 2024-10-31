@@ -78,3 +78,24 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+// For views that have password fields
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleIcons = document.querySelectorAll('.password-toggle');
+
+    toggleIcons.forEach(icon => {
+        icon.addEventListener('click', () => {
+            const targetId = icon.getAttribute('data-target');
+            const targetField = document.getElementById(targetId);
+            const eyeIcon = icon.querySelector('i');
+
+            if (targetField.type === 'password') {
+                targetField.type = 'text';
+                eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                targetField.type = 'password';
+                eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        });
+    });
+});
