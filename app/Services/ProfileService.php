@@ -38,7 +38,7 @@ class ProfileService
             'new_profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Assuming you have the authenticated user's profile
+        // Fetch the authenticated user's profile
         $profile = Profile::where('account_id', currentAccount()->account_id)->firstOrFail();
 
         // Store the new profile picture

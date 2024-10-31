@@ -179,57 +179,43 @@
                 </div>
                 <!-- GRID VIEW (Toggle based on preference) -->
                 <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
-                    @if ($clubEvents->isNotEmpty())
-                        <div class="row pb-3 px-md-3 px-sm-0">
-                            <!-- Add new club card -->
-                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
-                                <a href="{{ route('event-manage.add-new-event', ['club_id' => $club->club_id]) }}" class="text-decoration-none w-100">
-                                    <div class="rsans card add-event-card d-flex justify-content-center align-items-center h-100" id="event-card-manage">
-                                        <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-                                            <i class="fa fa-plus-circle fa-3x mb-2"></i>
-                                            <h5 class="card-title fw-bold">Add new event</5>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            @foreach ($clubEvents as $event)
-                                <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
-                                    <x-manage-event-card :event="$event"/>
-                                </div>
-                            @endforeach
-                        </div>
-                    @else
-                        <div class="col-lg-4 col-md-6">
-                            <div class="rsans card d-flex justify-content-center align-items-center h-100">
-                                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-                                    No events recorded yet
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-                <!-- LIST VIEW (Toggle based on preference) -->
-                <div id="list-view" class="row list-view justify-content-start mx-0 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
-                    @if ($clubEvents->isNotEmpty())
-                        <!-- Add new event list item -->
-                        <div class="col-xl-6 col-12 mb-3">
-                            <a href="{{ route('event-manage.add-new-event', ['club_id' => $club->club_id]) }}" class="text-decoration-none">
-                                <div class="rsans card h-100 add-event-list-item" id="event-list-item-manage">
-                                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center py-lg-3 py-md-5 py-sm-5">
-                                        <i class="fa fa-plus-circle fa-3x pt-2 pb-1"></i>
-                                        <h5 class="card-title fw-bold pt-1 pb-0">Add new event</h5>
+                    <div class="row pb-3 px-md-3 px-sm-0">
+                        <!-- Add new club card -->
+                        <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
+                            <a href="{{ route('event-manage.add-new-event', ['club_id' => $club->club_id]) }}" class="text-decoration-none w-100">
+                                <div class="rsans card add-event-card d-flex justify-content-center align-items-center h-100" id="event-card-manage" style="min-height: 250px;">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                        <i class="fa fa-plus-circle fa-3x mb-2"></i>
+                                        <h5 class="card-title fw-bold">Add new event</5>
                                     </div>
                                 </div>
                             </a>
                         </div>
                         @foreach ($clubEvents as $event)
-                            <div class="col-xl-6 col-12 mb-3">
-                                <x-manage-event-list-item :event="$event"/>
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
+                                <x-manage-event-card :event="$event"/>
                             </div>
                         @endforeach
-                    @else
-                        <p class="rsans">No events recorded yet</p>
-                    @endif
+                    </div>
+                </div>
+                <!-- LIST VIEW (Toggle based on preference) -->
+                <div id="list-view" class="row list-view justify-content-start mx-0 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
+                    <!-- Add new event list item -->
+                    <div class="col-xl-6 col-12 mb-3">
+                        <a href="{{ route('event-manage.add-new-event', ['club_id' => $club->club_id]) }}" class="text-decoration-none">
+                            <div class="rsans card h-100 add-event-list-item" id="event-list-item-manage">
+                                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center py-lg-3 py-md-5 py-sm-5">
+                                    <i class="fa fa-plus-circle fa-3x pt-2 pb-1"></i>
+                                    <h5 class="card-title fw-bold pt-1 pb-0">Add new event</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    @foreach ($clubEvents as $event)
+                        <div class="col-xl-6 col-12 mb-3">
+                            <x-manage-event-list-item :event="$event"/>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

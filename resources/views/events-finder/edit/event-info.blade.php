@@ -19,7 +19,6 @@
             @csrf
             <input type="hidden" name="club_id" value="{{ $club->club_id }}">
             <input type="hidden" name="event_id" value="{{ $event->event_id }}">
-
             <!-- PAGE HEADER -->
             <div class="row-container">
                 <!-- BREADCRUMB NAV -->
@@ -56,18 +55,18 @@
                     </div>
                 </div>
             </div>
-            @if($errors->any())
-                <br><br><br>
-                <div class="rsans alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <i class="fa fa-circle-exclamation px-2"></i>
-                        {{ $error }}
-                        <br>
-                    @endforeach
-                </div>
-            @endif
             <div class="d-flex justify-content-center align-items-center align-self-center py-3 w-100">
                 <div class="container form-container px-3">
+                    @if($errors->any())
+                        <br>
+                        <div class="rsans alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                <i class="fa fa-circle-exclamation px-2"></i>
+                                {{ $error }}
+                                <br>
+                            @endforeach
+                        </div>
+                    @endif
                     <div class="form-group mb-3">
                         <label for="event-name" class="rsans fw-bold form-label">Event name</label>
                         <input type="text" id="event-name" name="event_name" class="rsans form-control" value="{{ $event->event_name }}" required>
@@ -118,7 +117,7 @@
                 </div>
             </div>
         </form>
-        <br>
+        <br><br>
     </main>
     <x-footer/>
 </body>

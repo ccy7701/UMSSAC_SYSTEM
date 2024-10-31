@@ -18,7 +18,6 @@
     <main class="flex-grow-1">
         <form action="{{ route('event-manage.add-new-event.action', ['club_id' => $club->club_id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
-
             <!-- PAGE HEADER -->
             <div class="row-container">
                 <div class="align-items-center px-3">
@@ -49,12 +48,17 @@
             </div>
             <!-- BODY OF CONTENT -->
             @if ($errors->any())
-                <br><br><br>
-                <div class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                    {!! $error !!}
-                    <br>
-                @endforeach
+                <div class="d-flex justify-content-center">
+                    <div class="col-12 w-xxl-80 w-sm-100 px-3 align-items-center">
+                        <br>
+                        <div class="rsans alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                <i class="fa fa-circle-exclamation px-2"></i>
+                                {{ $error }}
+                                <br>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             @endif
             <div class="d-flex justify-content-center align-items-center py-3 w-100 align-self-center">
@@ -105,7 +109,7 @@
                         <div class="rsans input-group w-100">
                             <input type="file" id="new-image-input" name="new_event_image" class="form-control w-50" accept="image/*">
                         </div>
-                        <p class="rsans py-2">Note: This image will be shown when users search for the club. It can be edited later.</p>
+                        <p class="rsans form-text text-start">Maximum allowed image file size is 2048KB only.</p>
                     </div>
                     <!-- Preview of to-be-uploaded file -->
                     <div class="row align-items-center justify-content-center">
@@ -117,6 +121,7 @@
                                 </div>
                             </div>
                         </div>
+                        <p class="rsans pt-2 text-center">Note: This image will be shown when users search for the club. It can be edited later.</p>
                     </div>
                 </div>
             </div>

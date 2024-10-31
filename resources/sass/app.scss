@@ -33,6 +33,10 @@ html {
     width: 90%;
 }
 
+.w-xxl-80 {
+    width: 80% !important;
+}
+
 .rsans {
     font-family: 'Roboto', sans-serif;
 }
@@ -240,6 +244,9 @@ html {
     .col-right-alt {
         text-align: center;
         justify-content: center;
+    }
+    .w-sm-100 {
+        width: 100% !important;
     }
 }
 

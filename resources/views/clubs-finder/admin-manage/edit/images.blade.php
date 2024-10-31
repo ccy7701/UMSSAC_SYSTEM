@@ -35,18 +35,6 @@
                 </div>
             </div>
         </div>
-
-        @if($errors->any())
-            <br><br><br>
-            <div class="rsans alert alert-danger">
-                @foreach ($errors->all() as $error)
-                    <i class="fa fa-circle-exclamation px-2"></i>
-                    {{ $error }}
-                    <br>
-                @endforeach
-            </div>
-        @endif
-
         <div class="row-container">
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
@@ -59,8 +47,21 @@
                 </div>
             </div>
         </div>
-
         <!-- BODY OF CONTENT -->
+        @if ($errors->any())
+            <div class="d-flex justify-content-center">
+                <div class="col-12 w-xxl-80 w-sm-100 px-3 align-items-center">
+                    <br>
+                    <div class="rsans alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <i class="fa fa-circle-exclamation px-2"></i>
+                            {{ $error }}
+                            <br>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif
         <div class="d-flex justify-content-center align-items-center align-self-center py-3 w-100">
             <div class="container px-3">
                 <div class="row py-4">
@@ -68,7 +69,7 @@
                         $clubImagePaths = json_decode($club->club_image_paths, true);
                     @endphp
                     <!-- Add new image card -->
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-6 align-items-stretch">
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-6 align-items-stretch mb-4">
                         <div class="rsans card h-100 add-club-image-card d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#add-club-image-modal">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                                 <i class="fa fa-plus-circle fa-3x mb-2"></i>
@@ -78,7 +79,7 @@
                     </div>
                     @if (!empty($clubImagePaths))
                         @foreach ($clubImagePaths as $key => $imagePath)
-                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 align-items-center text-center">
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 align-items-center text-center mb-4">
                                 <div class="card h-100" id="card-club-images">
                                     <img src="{{ Storage::url($imagePath) }}" alt="Club illustration" class="card-img-top border-bottom" style="aspect-ratio: 4/4; object-fit: cover;">
                                     <div class="card-body justify-content-center align-items-center py-2 px-1">
@@ -166,7 +167,7 @@
                                                 <input type="file" name="new_image" id="new-image-input" class="form-control w-50" accept="image/*">
                                                 <button id="new-image-submit" type="submit" class="rsans btn btn-primary fw-bold px-3">Save</button>
                                             </div>
-                                            <p class="rsans pt-2">Note: The first image in the list will be shown when users search for the club.</p>
+                                            <p class="rsans form-text text-start">Maximum allowed image file size is 2048KB only.</p>
                                         </div>
                                         <!-- Preview of to-be-uploaded file -->
                                         <div class="row align-items-center justify-content-center">
@@ -179,6 +180,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <p class="rsans pt-2 text-center">Note: The first image in the list will be shown when users search for the club.</p>
                                     </div>
                                 </form>
                             </div>

@@ -47,6 +47,14 @@
                                         </div>
                                     </div>
                                     <div class="mb-3">
+                                        <label for="nickname" class="rsans form-label fw-semibold">Nickname (optional)</label>
+                                        <div class="input-group">
+                                            <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa-regular fa-user"></i></span>
+                                            <input type="text" id="nickname" name="profile_nickname" class="rsans form-control" value="{{ old('nickname') }}" autofocus>
+                                        </div>
+                                        <p class="rsans form-text text-start">You may leave this empty if you want to fill in a nickname later.</p>
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="email-address" class="rsans form-label fw-semibold">E-mail address</label>
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
