@@ -24,7 +24,7 @@ class AccountService
     public function createProfile(Request $request, Account $account) {
         return Profile::create([
             'account_id' => $account->account_id,
-            'profile_nickname' => '',
+            'profile_nickname' => $request->profile_nickname ?? '',
             'profile_personal_desc' => '',
             'profile_enrolment_session' => $request->account_role == 1 ? '' : null,
             'profile_faculty' => '',
