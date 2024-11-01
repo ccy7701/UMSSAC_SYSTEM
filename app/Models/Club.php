@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Club extends Model
@@ -12,7 +11,7 @@ class Club extends Model
 
     protected $table = 'club';
     protected $primaryKey = 'club_id';
-    public $timestamps = true;   // timestamps enabled for this model
+    public $timestamps = true;
 
     protected $fillable = [
         'club_name',
@@ -23,6 +22,10 @@ class Club extends Model
 
     public function events() {
         return $this->hasMany(Event::class, 'club_id', 'club_id');
+    }
+
+    public function clubMemberships() {
+        return $this->hasMany(ClubMembership::class, 'club_id', 'club_id');
     }
 
     // ACCESSOR: Club image JSON attribute

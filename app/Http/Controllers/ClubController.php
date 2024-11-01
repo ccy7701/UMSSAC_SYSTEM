@@ -89,6 +89,10 @@ class ClubController extends Controller
         ]);
     }
 
+    public function fetchJoinedClubs(Request $request) {
+        return $this->clubService->prepareAndRenderJoinedClubsView($request);
+    }
+
     public function addNewClub(Request $request) {
         return $this->clubService->handleAddNewClub($request);
     }

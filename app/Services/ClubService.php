@@ -51,6 +51,17 @@ class ClubService
         ]);
     }
 
+    // Prepare all the data to be sent to the joined clubs view
+    public function prepareAndRenderJoinedClubsView(Request $request) {
+        $joinedClubs = $this->getJoinedClubs(profile()->profile_id);
+
+        return view('clubs-finder.joined-clubs', [
+            'joinedClubs' => $joinedClubs,
+            'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
+            'totalJoinedClubs' => $joinedClubs->count()
+        ]);
+    }
+
     // Get the user's CLUB category and search filters
     public function getClubFilters() {
         $savedFilters = DB::table('user_preference')
@@ -107,6 +118,18 @@ class ClubService
 
         // Fetch clubs based on the filters (if empty, return all clubs) and search input
         return $query->paginate(12)->withQueryString();
+    }
+
+    // Get the user's joined clubs
+    public function getJoinedClubs($profileId) {
+        $query = Club::whereHas('clubMemberships', function ($query) use ($profileId) {
+            $query->where('profile_id', $profileId);
+        });
+
+        return $query
+            ->orderBy('club_name', 'asc')
+            ->paginate(12)
+            ->withQueryString();
     }
 
     // Prepare all data for the specific club

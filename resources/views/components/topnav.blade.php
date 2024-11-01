@@ -73,7 +73,7 @@
                             <a class="nav-link px-3 text-decoration-none" href="{{ route('clubs-finder') }}">&emsp;Clubs Finder</a>
                         </li>
                         <li class="nav-item nav-submenu">
-                            <a class="nav-link px-3" href="#">&emsp;Joined Clubs</a>
+                            <a class="nav-link px-3" href="{{ route('clubs-finder.joined-clubs') }}">&emsp;Joined Clubs</a>
                         </li>
                     </ul>
                 </li>
