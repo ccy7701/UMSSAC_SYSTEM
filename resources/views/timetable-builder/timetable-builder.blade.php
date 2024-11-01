@@ -14,6 +14,7 @@
     @vite('resources/js/app.js')
     @vite('resources/js/timetableBuilder/timetableBuilderOperations.js')
     <x-topnav/>
+    <x-about/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->

@@ -15,6 +15,7 @@
     @vite('resources/js/systemUsersViewToggler.js')
     @vite('resources/js/sysusersSort.js')
     <x-admin-topnav/>
+    <x-about/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->

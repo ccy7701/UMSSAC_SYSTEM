@@ -15,6 +15,7 @@
     @vite('resources/js/itemViewToggler.js')
     @vite('resources/js/clubsFinderSort.js')
     <x-admin-topnav/>
+    <x-about/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->

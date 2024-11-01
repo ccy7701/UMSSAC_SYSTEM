@@ -16,6 +16,7 @@
     @else
         <x-admin-topnav/>
     @endif
+    <x-about/>
     <br>
     <main class="flex-grow-1">
         <!-- PROFILE PICTURE -->

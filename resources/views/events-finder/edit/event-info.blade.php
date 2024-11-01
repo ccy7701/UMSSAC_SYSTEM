@@ -13,6 +13,7 @@
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     <x-topnav/>
+    <x-about/>
     <br>
     <main class="flex-grow-1">
         <form action="{{ route('event-manage.edit-event-info.action') }}" method="POST">

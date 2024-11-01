@@ -13,6 +13,7 @@
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     <x-admin-topnav/>
+    <x-about/>
     <x-response-popup
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"

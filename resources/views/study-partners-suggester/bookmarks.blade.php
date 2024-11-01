@@ -12,6 +12,7 @@
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     <x-topnav/>
+    <x-about/>
     <x-response-popup
         messageType="bookmark-delete"
         iconClass="text-primary fa-regular fa-bookmark"

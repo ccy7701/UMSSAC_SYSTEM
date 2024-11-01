@@ -49,6 +49,12 @@
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('events-finder') }}">Events Finder</a></li>
                 <hr class="divider-gray-300 py-0 my-0">
 
+                <!-- NEW COMPONENT IN DEVELOPMENT -->
+                <li class="nav-item">
+                    <a class="nav-link px-3" href="#" data-bs-toggle="modal" data-bs-target="#about-modal">About UMSSACS</a>
+                </li>
+                <hr class="divider-gray-300 py-0 my-0">
+
                 <li class="nav-item">
                     <form method="POST" action="{{ route('account.logout') }}">
                         @csrf

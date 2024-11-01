@@ -1,6 +1,6 @@
 <p align="center"><a href="#" target="_blank"><img src="https://github.com/ccy7701/UMSSAC_SYSTEM/blob/main/public/images/UMSSACS_LOGO_FINAL.png" width="300" alt="UMSSACS Logo"></a></p>
 
-## Current Status ![Version](https://img.shields.io/badge/version-0.7.0.5--alpha-blue)
+## Current Status ![Version](https://img.shields.io/badge/version-0.7.0.6--alpha-blue)
 
 This project is still under active development. A preview of the system has been deployed. It is now live and accessible at [this link](https://umssacs.my).
 
