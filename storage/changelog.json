@@ -1,5 +1,12 @@
 [
     {
+        "version": "0.7.0.7-alpha",
+        "changes": [
+            "The list of members in a club is now scrollable.",
+            "Minor UI fixes across multiple pages."
+        ]
+    },
+    {
         "version": "0.7.0.6-alpha",
         "changes": [
             "Added changelog.",
