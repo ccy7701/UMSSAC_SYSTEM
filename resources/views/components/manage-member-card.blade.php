@@ -1,6 +1,6 @@
 <!-- resources/views/components/manage-member-card.blade.php -->
-<div class="card h-100 d-flex align-items-center justify-content-center" id="card-member">
-    <div class="rsans card-body text-center d-flex flex-column align-items-center justify-content-center">
+<div class="card h-100 align-items-center justify-content-center" id="card-member">
+    <div class="rsans w-100 px-2 card-body text-center d-flex flex-column align-items-center justify-content-center">
         <input type="hidden" name="profile_id" value="{{ $member->profile_id }}">
         <input type="hidden" name="club_id" value="{{ $club->club_id }}">
         <!-- Membership Type Display -->
@@ -24,28 +24,29 @@
                 {{ $member->profile->account->account_full_name }}
             @endif
         </p>
-        <p class="fst-italic text-muted mb-0">({{ $member->profile->profile_nickname }})</p>
+        <p class="fst-italic text-muted mb-0">({{ $member->profile->profile_nickname != '' ? $member->profile->profile_nickname : 'No nickname' }})</p>
         <!-- Faculty and Email -->
         <div class="d-flex flex-column align-items-center">
             <div class="d-inline-flex align-items-center text-muted">
                 <i class="fa fa-university me-2"></i>
                 <p class="mb-0">{{ $member->profile->profile_faculty }}</p>
             </div>
-            @if ($member->profile->account->account_role == 1)
-                <span class="d-inline-flex align-items-center text-muted">
+            <div class="px-0 d-inline-block align-items-center text-muted w-100">
+                <span class="d-flex justify-content-center align-items-center text-truncate">
                     <i class="fa fa-id-badge me-2"></i>
-                    <p class="mb-0">Student: {{ $member->profile->account->account_matric_number }}</p>
+                    @if ($member->profile->account->account_role == 1)
+                        <p class="mb-0">Student: {{ $member->profile->account->account_matric_number }}</p>
+                    @else
+                        <p class="mb-0">Faculty Member</p>
+                    @endif
                 </span>
-            @else
-                <span class="d-inline-flex align-items-center text-muted">
-                    <i class="fa fa-id-badge me-2"></i>
-                    <p class="mb-0">Faculty Member</p>
-                </span>
-            @endif
-            <div class="d-inline-flex align-items-center text-muted">
-                <i class="fa fa-envelope me-2"></i>
-                <p class="mb-0">{{ $member->profile->account->account_email_address }}</p>
             </div>
+        </div>
+        <div class="px-0 d-inline-block align-items-center text-muted w-100">
+            <span class="d-flex justify-content-center align-items-center">
+                <i class="fa fa-envelope me-2"></i>
+                <p class="mb-0 text-truncate">{{ $member->profile->account->account_email_address }}</p>
+            </span>
         </div>
         @if (profile()->profile_id !== $member->profile_id)
             <button id="edit-access-level-submit-{{ $member->profile_id }}" class="btn btn-primary fw-semibold w-50 mx-auto mt-2" disabled

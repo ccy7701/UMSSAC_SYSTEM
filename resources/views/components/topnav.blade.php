@@ -46,9 +46,9 @@
 
                 @if (currentAccount()->account_role == 1)
                     <li class="nav-item">
-                        <a class="nav-link px-3" href="#" id="study-partners-toggle">
+                        <a class="nav-link d-flex justify-content-between align-items-center px-3" href="#" id="study-partners-toggle">
                             Study Partners
-                            <i class="fa fa-chevron-down chevron-icon ms-1" id="study-partners-chevron"></i>
+                            <i class="fa fa-chevron-down chevron-icon" id="study-partners-chevron"></i>
                         </a>
                         <ul class="nav flex-column collapse" id="study-partners-submenu">
                             <li class="nav-item nav-submenu"><a class="nav-link px-3 text-decoration-none" href="{{ route('study-partners-suggester') }}">&emsp;Study Partners Suggester</a></li>
@@ -63,13 +63,26 @@
                     <hr class="divider-gray-300 py-0 my-0">
                 @endif
 
-                <li class="nav-item"><a class="nav-link px-3" href="{{ route('clubs-finder') }}">Clubs Finder</a></li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex justify-content-between align-items-center px-3" href="#" id="clubs-toggle">
+                        Clubs
+                        <i class="fa fa-chevron-down chevron-icon" id="clubs-chevron"></i>
+                    </a>
+                    <ul class="nav flex-column collapse" id="clubs-submenu">
+                        <li class="nav-item nav-submenu">
+                            <a class="nav-link px-3 text-decoration-none" href="{{ route('clubs-finder') }}">&emsp;Clubs Finder</a>
+                        </li>
+                        <li class="nav-item nav-submenu">
+                            <a class="nav-link px-3" href="#">&emsp;Joined Clubs</a>
+                        </li>
+                    </ul>
+                </li>
                 <hr class="divider-gray-300 py-0 my-0">
 
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="#" id="events-toggle">
+                    <a class="nav-link d-flex justify-content-between align-items-center px-3" href="#" id="events-toggle">
                         Events
-                        <i class="fa fa-chevron-down chevron-icon ms-1" id="events-chevron"></i>
+                        <i class="fa fa-chevron-down chevron-icon" id="events-chevron"></i>
                     </a>
                     <ul class="nav flex-column collapse" id="events-submenu">
                         <li class="nav-item nav-submenu"><a class="nav-link px-3 text-decoration-none" href="{{ route('events-finder') }}">&emsp;Events Finder</a></li>
@@ -78,7 +91,6 @@
                 </li>
                 <hr class="divider-gray-300 py-0 my-0">
 
-                <!-- NEW COMPONENT IN DEVELOPMENT -->
                 <li class="nav-item">
                     <a class="nav-link px-3" href="#" data-bs-toggle="modal" data-bs-target="#about-modal">About UMSSACS</a>
                 </li>

@@ -175,6 +175,15 @@
     width: 20.00%;
 }
 
+#carousel-inner-lg {
+    display: flex;
+}
+
+#carousel-inner-md,
+#carousel-inner-sm {
+    display: none;
+}
+
 @media (max-width: 992px) {
     #club-sort-standard {
         display: none;
@@ -214,6 +223,23 @@
     }
     #btn-manage-club-compact {
         font-size: 0.90em;
+    }
+    #carousel-inner-md {
+        display: flex;
+    }
+    #carousel-inner-lg,
+    #carousel-inner-sm {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    #carousel-inner-sm {
+        display: flex;
+    }
+    #carousel-inner-lg,
+    #carousel-inner-md {
+        display: none;
     }
 }
 

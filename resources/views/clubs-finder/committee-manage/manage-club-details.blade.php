@@ -134,16 +134,9 @@
             <div class="align-items-center w-100 px-3">
                 @if ($clubMembers->isNotEmpty())
                     <div id="member-grid-view" class="row grid-view px-3 mt-3">
-                        <div class="rsans row d-flex justify-content-center">
-                            <div class="col-auto">
-                                {{ $clubMembers->links('pagination::bootstrap-4') }}
-                            </div>
-                        </div>
-                        @foreach ($clubMembers as $member)
-                            <div class="col-lg-3 col-md-4 col-6 py-2">
-                                <x-member-card :member="$member"/>
-                            </div>
-                        @endforeach
+                        <x-members-carousel :carouselid="'carousel-inner-lg'" :members="$clubMembers"/>
+                        <x-members-carousel :carouselid="'carousel-inner-md'" :members="$clubMembers"/>
+                        <x-members-carousel :carouselid="'carousel-inner-sm'" :members="$clubMembers"/>
                     </div>
                 @else
                     <p class="rsans text-center w-100 py-4">No members in this club yet</p>

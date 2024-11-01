@@ -199,6 +199,14 @@ html {
     width: 3.0rem;
 }
 
+.chevron-icon {
+    transition: transform 0.2s ease;
+}
+
+.rotate-chevron {
+    transform: rotate(180deg);
+}
+
 // add media for max-width: 1400px when needed
 
 @media (max-width: 1200px) {

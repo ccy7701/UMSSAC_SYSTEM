@@ -167,7 +167,7 @@
         <div class="row-container">
             <div class="container px-3 py-4">
                 <h5 class="rserif fw-bold">Event date and time</h5>
-                <p class="rsans pb-3">{{ $event->event_datetime }}</p>
+                <p class="rsans pb-3">{{ \Carbon\Carbon::parse($event->event_datetime)->format('Y-m-d h:i A') }}</p>
                 <h5 class="rserif fw-bold">Location</h5>
                 <p class="rsans pb-3">{{ $event->event_location }}</p>
                 <h5 class="rserif fw-bold">Description</h5>

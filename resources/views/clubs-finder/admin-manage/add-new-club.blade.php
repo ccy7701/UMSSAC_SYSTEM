@@ -64,7 +64,7 @@
                 <div class="container form-container px-3">
                     <div class="form-group mb-3">
                         <label for="new-club-name" class="rsans fw-bold form-label">Club name</label>
-                        <input type="text" id="new-club-name" name="new_club_name" class="rsans form-control" required>
+                        <input type="text" id="new-club-name" name="new_club_name" class="rsans form-control" value="{{ old('new_club_name') }}" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="new-club-category" class="rsans fw-bold form-label">Category</label>
@@ -107,7 +107,7 @@
                     <div class="form-group mb-3">
                         <label for="new-image-input" class="rsans fw-bold form-label">Add club image (optional)</label>
                         <div class="rsans input-group w-100">
-                            <input type="file" id="new-image-input" name="new_club_image" class="form-control w-50" accept="image/*">
+                            <input type="file" id="new-image-input" name="new_club_image" class="form-control w-50" value="{{ old('new_club_image') }}" accept="image/*">
                         </div>
                         <p class="rsans form-text text-start">Maximum allowed image file size is 2048KB only.</p>
                     </div>
