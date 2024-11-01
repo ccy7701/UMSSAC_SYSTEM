@@ -16,6 +16,7 @@
     @else
         <x-admin-topnav/>
     @endif
+    <x-about/>
     <x-response-popup
         messageType="bookmark-create"
         iconClass="text-primary fa-solid fa-bookmark"

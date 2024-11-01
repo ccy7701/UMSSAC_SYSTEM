@@ -13,6 +13,7 @@
     @vite('resources/js/app.js')
     @vite('resources/js/suggester/addedListOperations.js')
     <x-topnav/>
+    <x-about/>
     <x-response-popup
         messageType="added-to-list"
         iconClass="text-primary fa fa-user-plus"

@@ -14,6 +14,7 @@
     @vite('resources/js/app.js')
     @vite('resources/js/suggester/suggesterResultsOperations.js')
     <x-topnav/>
+    <x-about/>
     <x-response-popup
         messageType="bookmark-create"
         iconClass="text-primary fa-solid fa-bookmark"

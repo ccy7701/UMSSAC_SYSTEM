@@ -34,7 +34,15 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    height: 60vh;
+
+    .feature-card-circle {
+        width: 150px;
+        height: 150px;
+        i {
+            color: #3C3C3C;
+            font-size: 3.5rem;
+        }
+    }
 }
 
 // add media for max-width: 1400px, 1200px when needed
@@ -44,10 +52,19 @@
         width: 85.00%;
     }
     .carousel-item .card {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        height: 75vh !important;
+        p {
+            font-size: 0.85em;
+        }
+        h4 {
+            font-size: 1.25em;
+        }
+        .feature-card-circle {
+            width: 100px;
+            height: 100px;
+            i {
+                font-size: 3.0rem;
+            }
+        }
     }
 }
 
@@ -63,12 +80,6 @@
     }
     #benefits-carousel-small {
         display: block;
-    }
-    .carousel-item .card {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        height: 60vh !important;
     }
 }
 

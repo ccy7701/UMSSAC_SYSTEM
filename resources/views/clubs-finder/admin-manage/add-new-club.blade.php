@@ -14,6 +14,7 @@
     @vite('resources/js/app.js')
     @vite('resources/js/imageViewer.js')
     <x-admin-topnav/>
+    <x-about/>
     <br>
     <main class="flex-grow-1">
         <form action="{{ route('manage-clubs.add-new-club.action') }}" method="POST" enctype="multipart/form-data">

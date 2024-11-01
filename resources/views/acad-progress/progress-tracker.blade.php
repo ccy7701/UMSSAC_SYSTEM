@@ -17,6 +17,7 @@
     @vite('resources/js/semIdValidator.js')
     @vite('resources/js/semSubOperations.js')
     <x-topnav/>
+    <x-about/>
     <x-response-popup
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"

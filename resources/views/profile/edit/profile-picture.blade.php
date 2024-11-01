@@ -17,6 +17,7 @@
     @else
         <x-admin-topnav/>
     @endif
+    <x-about/>
     <br>
     <main class="flex-grow-1">
         <form action="{{ route('profile.edit.profile-picture.action') }}" method="POST" enctype="multipart/form-data">

@@ -1,0 +1,18 @@
+[
+    {
+        "version": "0.7.0.6-alpha",
+        "changes": [
+            "Added changelog.",
+            "Fixed the cards display at the features page before login."
+        ]
+    },
+    {
+        "version": "0.7.0.5-alpha",
+        "changes": [
+            "Fixed an issue for committee members adding club events if none currently exist.",
+            "Added the ability to show/hide passwords.",
+            "Fixed a colour reproduction issue for the timetable PDF generator.",
+            "Minor UI fixes across multiple pages."
+        ]
+    }
+]
