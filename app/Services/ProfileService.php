@@ -113,10 +113,15 @@ class ProfileService
 
     // Get the clubs that the user is currently a member in
     private function getUserJoinedClubs($profileId) {
-        return Club::whereIn('club_id', function ($query) use ($profileId) {
+        $query = Club::whereIn('club_id', function ($query) use ($profileId) {
             $query->select('club_id')
                 ->from('club_membership')
                 ->where('profile_id', $profileId);
-        })->get();
+        });
+
+        return $query
+            ->orderBy('club_name', 'asc')
+            ->paginate(12)
+            ->withQueryString();
     }
 }

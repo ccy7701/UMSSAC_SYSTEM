@@ -75,8 +75,6 @@
                 </div>
             </div>
         </div>
-
-
         <br><br>
     </main>
     <x-footer/>
