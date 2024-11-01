@@ -164,6 +164,15 @@ html {
     border: 2px solid $btn-primary-bg;
 }
 
+.user-profile-memcard,
+.user-profile-sysuser {
+    transition: transform 0.2s ease, border 0.2s ease;
+    border: 2px solid #AAAAAA;
+    &:hover {
+        border: 2px solid $btn-primary-bg !important;
+    }
+}
+
 .pagination .page-item .page-link {
     color: $btn-primary-bg;
 }

@@ -10,7 +10,13 @@
                 <p class="fw-bold mb-0">Committee</p>
             </div>
         @endif
-        <img id="user-profile" src="{{ $member->profile->profile_picture }}" alt="User profile" class="rounded-circle mb-2">
+        @if ($member->profile_id == profile()->profile_id)
+            <img id="user-profile" src="{{ $member->profile->profile_picture }}" alt="User profile" class="rounded-circle mb-2">
+        @else
+            <a href="{{ route('view-user-profile', ['profile_id' => $member->profile->profile_id]) }}" class="text-decoration-none">
+                <img id="user-profile" src="{{ $member->profile->profile_picture }}" alt="User profile" class="user-profile-memcard rounded-circle mb-2">
+            </a>
+        @endif
         <p class="fw-bold mb-0">
             @if ($member->profile_id == profile()->profile_id)
                 You
