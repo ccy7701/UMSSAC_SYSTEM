@@ -77,8 +77,12 @@ class PasswordResetController extends Controller
             }
         );
 
+        $route = currentAccount() ? 'my-profile' : 'login';
+
         return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login')->with('success', 'Account password reset successfully!')
+            ? redirect()
+                ->route($route)
+                ->with('success', 'Account password reset successfully!')
             : back()->withErrors(['account_email_address' => [__($status)]]);
     }
 

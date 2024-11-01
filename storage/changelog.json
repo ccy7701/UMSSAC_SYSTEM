@@ -3,7 +3,8 @@
         "version": "0.7.0.6-alpha",
         "changes": [
             "Added changelog.",
-            "Fixed the cards display at the features page before login."
+            "Fixed the cards display at the features page before login.",
+            "Added the ability for a logged in user to reset their password (if they happen to forget their current one)."
         ]
     },
     {
