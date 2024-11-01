@@ -41,44 +41,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// Study Partners submenu dropdown
-document.addEventListener('DOMContentLoaded', function () {
-    const studyPartnersToggleLink = document.getElementById('study-partners-toggle');
-    const studyPartnersSubmenu = document.getElementById('study-partners-submenu');
-    const studyPartnersChevronIcon = document.getElementById('study-partners-chevron');
-
-    studyPartnersToggleLink.addEventListener('click', function (event) {
-        event.preventDefault();
-        
-        if (studyPartnersSubmenu.classList.contains('collapse')) {
-            studyPartnersSubmenu.classList.remove('collapse');
-            studyPartnersChevronIcon.classList.add('rotate-chevron');
-        } else {
-            studyPartnersSubmenu.classList.add('collapse');
-            studyPartnersChevronIcon.classList.remove('rotate-chevron');
-        }
-    });
-});
-
-// Events submenu dropdown
-document.addEventListener('DOMContentLoaded', function () {
-    const eventsToggleLink = document.getElementById('events-toggle');
-    const eventsSubmenu = document.getElementById('events-submenu');
-    const eventsChevronIcon = document.getElementById('events-chevron');
-
-    eventsToggleLink.addEventListener('click', function (event) {
-        event.preventDefault();
-        
-        if (eventsSubmenu.classList.contains('collapse')) {
-            eventsSubmenu.classList.remove('collapse');
-            eventsChevronIcon.classList.add('rotate-chevron');
-        } else {
-            eventsSubmenu.classList.add('collapse');
-            eventsChevronIcon.classList.remove('rotate-chevron');
-        }
-    });
-});
-
 // For views that have password fields
 document.addEventListener('DOMContentLoaded', () => {
     const toggleIcons = document.querySelectorAll('.password-toggle');
@@ -97,5 +59,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
             }
         });
+    });
+});
+
+// For initialising each submenu dropdown in the topnav
+document.addEventListener('DOMContentLoaded', function () {
+    const dropdowns = [
+        { toggleId: 'study-partners-toggle', submenuId: 'study-partners-submenu', chevronId: 'study-partners-chevron' },
+        { toggleId: 'clubs-toggle', submenuId: 'clubs-submenu', chevronId: 'clubs-chevron' },
+        { toggleId: 'events-toggle', submenuId: 'events-submenu', chevronId: 'events-chevron' }
+    ];
+
+    dropdowns.forEach(dropdown => {
+        const toggleLink = document.getElementById(dropdown.toggleId);
+        const submenu = document.getElementById(dropdown.submenuId);
+        const chevronIcon = document.getElementById(dropdown.chevronId);
+
+        if (toggleLink && submenu && chevronIcon) {
+            toggleLink.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                if (submenu.classList.contains('collapse')) {
+                    submenu.classList.remove('collapse');
+                    chevronIcon.classList.add('rotate-chevron');
+                } else {
+                    submenu.classList.add('collapse');
+                    chevronIcon.classList.remove('rotate-chevron');
+                }
+            });
+        } else {
+            console.warn(`One or more elements are missing for dropdown with toggleId: ${dropdown.toggleId}`);
+        }
     });
 });
