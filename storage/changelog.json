@@ -1,5 +1,12 @@
 [
     {
+        "version": "0.7.1-alpha",
+        "changes": [
+            "Users can now view the profiles of other users, including clubs they've joined.",
+            "Added a page that shows the clubs joined by the user."
+        ]
+    },
+    {
         "version": "0.7.0.7-alpha",
         "changes": [
             "The list of members in a club is now scrollable.",
