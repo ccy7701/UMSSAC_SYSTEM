@@ -6,14 +6,28 @@ use App\Http\Controllers\ClubController;
 use App\Http\Controllers\ClubMembershipController;
 use App\Http\Middleware\RoleAccessMiddleware;
 use App\Http\Middleware\CommitteeAccessMiddleware;
+use App\Http\Controllers\Auth\PasswordResetController;
 
 require __DIR__.'/guest.php';
 require __DIR__.'/allauth.php';
 require __DIR__.'/admin.php';
 require __DIR__.'/student.php';
 
-// Routes accessible by facultyMember only (account role 2)
-// Route::middleware(['auth', RoleAccessMiddleware::class.':2'])->group(function ())
+// Routes accessible by users regardless of access level
+
+// The forgot password form
+Route::get('/forgot-password', function () {
+    return view('auth.passwords.forgot-password');
+})->name('forgot-password');
+
+// Send the password reset link to the user's email address
+Route::post('/forgot-password/email', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
+
+// Show the reset password form (user clicks the link in their email)
+Route::get('/forgot-password/reset/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+
+// Handle the reset password form submission (user submits their new password)
+Route::post('/forgot-password/reset', [PasswordResetController::class, 'reset'])->name('password.update');
 
 // Routes accessible by both student and facultyMember (account role 1 and 2)
 Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function () {

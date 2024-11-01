@@ -32,7 +32,9 @@
                                     <br>
                                     <div class="rsans alert alert-danger">
                                         @foreach ($errors->all() as $error)
-                                            {{$error}}
+                                            <i class="fa fa-circle-exclamation px-2"></i>
+                                            {!! $error !!}
+                                            <br>
                                         @endforeach
                                     </div>
                                 @endif
@@ -68,8 +70,11 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="d-flex justify-content-center py-3">
-                                        <button type="submit" class="rsans fw-bold btn btn-primary" style="width: 50%;">Change password</button>
+                                    <div class="my-4 text-end">
+                                        <a href="{{ route('forgot-password') }}" class="rsans fw-semibold link-dark"><u>Forgot current password?</u></a>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="rsans fw-bold btn btn-primary w-50">Change password</button>
                                     </div>
                                 </form>
                                 <!-- END CHANGE PASSWORD FORM -->

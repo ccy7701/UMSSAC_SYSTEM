@@ -16,7 +16,7 @@
                 <hr class="divider-gray-300 py-2 mb-2">
                 <div class="row text-start">
                     @php
-                        $changeLogPath = public_path('resources\changelog.json');
+                        $changeLogPath = base_path('storage/changelog.json');
                         $changeLog = [];
                         if (file_exists($changeLogPath)) {
                             $changeLog = json_decode(file_get_contents($changeLogPath), true);

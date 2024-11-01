@@ -30,18 +30,4 @@ Route::middleware([PreventAuthenticatedAccess::class])->group(function () {
     })->name('login');
 
     Route::post('/login', [AccountController::class, 'login'])->name('account.login');
-
-    // The forgot password form
-    Route::get('/forgot-password', function () {
-        return view('auth.passwords.forgot-password');
-    })->name('forgot-password');
-
-    // Send the password reset link to the user's email address
-    Route::post('/forgot-password/email', [PasswordResetController::class, 'sendResetLinkEmail'])->name('password.email');
-
-    // Show the reset password form (user clicks the link in their email)
-    Route::get('/forgot-password/reset/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
-
-    // Handle the reset password form submission (user submits their new password)
-    Route::post('/forgot-password/reset', [PasswordResetController::class, 'reset'])->name('password.update');
 });
