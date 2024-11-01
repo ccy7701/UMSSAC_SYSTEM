@@ -48,13 +48,11 @@
         <div id="details-{{ $record->profile_id }}-{{ $record->study_partner_profile_id }}" class="collapse">
             <hr class="divider-gray-300 mb-4 mt-2">
             <div class="container px-2">
-                <ul class="list-unstyled mb-4">
-                    <li><strong>Personal description:</strong><br>{{ $profile->profile_personal_desc != '' ? $profile->profile_personal_desc : 'No personal description written yet' }}</li>
-                </ul>
                 @if ($type == 1)
                     <div class="row">
                         <div class="added-sps-actions-row d-flex justify-content-center col-12 mb-3 px-0">
-                            <button type="button" class="section-button-short rsans btn btn-danger fw-semibold px-3"
+                            <a href="{{ route('view-user-profile', ['profile_id' => $record->study_partner_profile_id]) }}" class="section-button-extrashort rsans btn btn-secondary fw-semibold px-3 me-2">View profile</a>
+                            <button type="button" class="section-button-extrashort rsans btn btn-danger fw-semibold px-2"
                                 data-bs-toggle="modal"
                                 data-bs-target="#delete-sp-confirmation-modal"
                                 data-study-partner-name="{{ $profile->account->account_full_name }}"
@@ -70,7 +68,8 @@
                                 @csrf
                                 <input type="hidden" name="operation_page_source" value="added">
                                 <input type="hidden" name="study_partner_profile_id" value="{{ $profile->profile_id }}">
-                                <button type="submit" class="section-button-short rsans btn btn-primary fw-semibold px-3">Add to my list</button>
+                                <a href="{{ route('view-user-profile', ['profile_id' => $profile->profile_id]) }}" class="section-button-extrashort rsans btn btn-secondary fw-semibold px-3 me-2">View profile</a>
+                                <button type="submit" class="section-button-extrashort rsans btn btn-primary fw-semibold px-3 ms-2">Add to my list</button>
                             </form>
                         </div>
                     </div>

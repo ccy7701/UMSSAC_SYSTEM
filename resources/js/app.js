@@ -62,6 +62,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// For controlling the chevron icon in views that contain it excluding the topnav
+document.addEventListener('DOMContentLoaded', function () {
+    const toggleButtons = document.querySelectorAll('.toggle-details');
+
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const chevronIcon = this.querySelector('.chevron-icon');
+            if (chevronIcon) {
+                chevronIcon.classList.toggle('rotate-chevron');
+            }
+        });
+    });
+});
+
 // For initialising each submenu dropdown in the topnav
 document.addEventListener('DOMContentLoaded', function () {
     const dropdowns = [

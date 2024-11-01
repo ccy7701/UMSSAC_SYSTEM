@@ -16,14 +16,16 @@ class ProfileService
         $validatedData = $request->validate([
             'profile_personal_desc' => 'max:1024',
             'profile_faculty' => 'nullable|string|max:16',
-            'profile_course' => 'nullable|string|max:255',
+            'profile_course' => 'string|max:255',
             'profile_nickname' => 'nullable|string|max:255',
         ]);
 
-        // Assuming you have the authenticated user's profile
-        $profile = Profile::where('account_id', currentAccount()->account_id)->firstOrFail();
+        if ($request->profile_course == null) {
+            return back()->withErrors(['profile_course' => 'No course was selected. Please check your details and try again.']);
+        }
 
         // Update the profile with the validated data
+        $profile = Profile::where('account_id', currentAccount()->account_id)->firstOrFail();
         $status = $profile->update($validatedData);
 
         // Redirect back with a success message

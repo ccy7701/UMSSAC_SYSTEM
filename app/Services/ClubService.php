@@ -52,7 +52,7 @@ class ClubService
     }
 
     // Prepare all the data to be sent to the joined clubs view
-    public function prepareAndRenderJoinedClubsView(Request $request) {
+    public function prepareAndRenderJoinedClubsView() {
         $joinedClubs = $this->getJoinedClubs(profile()->profile_id);
 
         return view('clubs-finder.joined-clubs', [

@@ -65,9 +65,9 @@
                     @foreach ($addedStudyPartners as $record)
                         <div class="row pb-3">
                             <x-added-sp-list-item
-                            :record="$record"
-                            :type="1"
-                            :intersectionarray="$intersectionArray"/>
+                                :record="$record"
+                                :type="1"
+                                :intersectionarray="$intersectionArray"/>
                         </div>
                     @endforeach
                     <x-delete-added-sp/>

@@ -61,6 +61,7 @@
                     <h5 class="rserif fw-bold">Course</h5>
                     @php
                         $selectedFaculty = $profile->profile_faculty;
+                        $courseCode = null;
                         $courseName = '';
 
                         if ($selectedFaculty == "") {
@@ -77,7 +78,7 @@
                                 } else {
                                     foreach ($facultyCourses[$selectedFaculty] as $course) {
                                         if ($course['course_code'] === $selectedCourseCode) {
-                                            $courseName = $course['course_name'];
+                                            $courseName = $course['course_code'] . ' ' . $course['course_name'];
                                             break;
                                         }
                                     }

@@ -45,16 +45,14 @@
         <div id="details-{{ $bookmark->study_partner_profile_id }}" class="collapse">
             <hr class="divider-gray-300 mb-4 mt-2">
             <div class="container px-2">
-                <ul class="list-unstyled mb-4">
-                    <li><strong>Personal description:</strong><br>{{ $bookmark->studyPartnerProfile->profile_personal_desc != '' ? $bookmark->studyPartnerProfile->profile_personal_desc : 'No personal description written yet' }}</li>
-                </ul>
                 <div class="row">
                     <div class="bookmarks-actions-row d-flex justify-content-center col-12 mb-3 px-0">
                         <form class="w-100 d-flex justify-content-center" method="POST" action="{{ route('study-partners-suggester.add-to-list') }}">
                             @csrf
                             <input type="hidden" name="operation_page_source" value="bookmarks">
                             <input type="hidden" name="study_partner_profile_id" value="{{ $bookmark->study_partner_profile_id }}">
-                            <button type="submit" class="section-button-short rsans btn btn-primary fw-semibold px-3">Add to my list</button>
+                            <a href="{{ route('view-user-profile', ['profile_id' => $bookmark->study_partner_profile_id]) }}" class="section-button-extrashort rsans btn btn-secondary fw-semibold px-3 me-2">View profile</a>
+                            <button type="submit" class="section-button-extrashort rsans btn btn-primary fw-semibold px-3 ms-2">Add to my list</button>
                         </form>
                     </div>
                 </div>

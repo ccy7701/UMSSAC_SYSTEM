@@ -93,6 +93,10 @@ html {
     width: 25.00%;
 }
 
+.section-button-extrashort {
+    width: 20.00%;
+}
+
 .row-container {
     width: 90.00%;
     margin-left: auto;
@@ -237,6 +241,10 @@ html {
     .section-button-short {
         width: 50.00%;
     }
+    .section-button-extrashort {
+        width: 40.00%;
+        font-size: 0.85em;
+    }    
     .search-tab {
         width: 100.00%;
     }
