@@ -61,6 +61,7 @@
                     <h5 class="rserif fw-bold">Course</h5>
                     @php
                         $selectedFaculty = $profile->profile_faculty;
+                        $courseCode = null;
                         $courseName = '';
 
                         if ($selectedFaculty == "") {
@@ -77,7 +78,7 @@
                                 } else {
                                     foreach ($facultyCourses[$selectedFaculty] as $course) {
                                         if ($course['course_code'] === $selectedCourseCode) {
-                                            $courseName = $course['course_name'];
+                                            $courseName = $course['course_code'] . ' ' . $course['course_name'];
                                             break;
                                         }
                                     }
@@ -100,7 +101,39 @@
                 </p>
             </div>
         </div>
-        <br>
+        @if ($profile->account->account_role != 3)
+            <!-- JOINED CLUBS -->
+            <div class="row-container">
+                <div class="align-items-center px-3">
+                    <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
+                        <div class="col-left-alt col-lg-6 col-md-6 col-12 mt-2">
+                            <h3 class="rserif fw-bold w-100">Joined clubs</h3>
+                        </div>
+                        <div class="col-right-alt col-lg-6 col-md-6 col-12 mt-xl-2 mt-sm-0 d-flex align-items-center"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-container container-fluid align-items-center my-3 py-3 px-4">
+                <div class="rsans row">
+                    <div class="col-12 px-0">
+                        <div id="grid-view" class="row grid-view ms-2">
+                            <div class="row pb-3 px-md-3 px-sm-0">
+                            @if ($joinedClubs->isNotEmpty())
+                                @foreach ($joinedClubs as $club)
+                                    <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
+                                        <x-club-card :club="$club"/>
+                                    </div>
+                                @endforeach
+                            @else
+                                <p class="text-center w-100">This user hasn't joined any clubs yet.</p>
+                            @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        <br><br>
     </main>
     <x-footer/>
 </body>

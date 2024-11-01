@@ -93,6 +93,10 @@ html {
     width: 25.00%;
 }
 
+.section-button-extrashort {
+    width: 20.00%;
+}
+
 .row-container {
     width: 90.00%;
     margin-left: auto;
@@ -158,6 +162,15 @@ html {
 #user-profile-topnav:hover {
     transform: scale(1.05);
     border: 2px solid $btn-primary-bg;
+}
+
+.user-profile-memcard,
+.user-profile-sysuser {
+    transition: transform 0.2s ease, border 0.2s ease;
+    border: 2px solid #AAAAAA;
+    &:hover {
+        border: 2px solid $btn-primary-bg !important;
+    }
 }
 
 .pagination .page-item .page-link {
@@ -237,6 +250,10 @@ html {
     .section-button-short {
         width: 50.00%;
     }
+    .section-button-extrashort {
+        width: 40.00%;
+        font-size: 0.85em;
+    }    
     .search-tab {
         width: 100.00%;
     }

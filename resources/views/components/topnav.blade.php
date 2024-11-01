@@ -73,7 +73,7 @@
                             <a class="nav-link px-3 text-decoration-none" href="{{ route('clubs-finder') }}">&emsp;Clubs Finder</a>
                         </li>
                         <li class="nav-item nav-submenu">
-                            <a class="nav-link px-3" href="#">&emsp;Joined Clubs</a>
+                            <a class="nav-link px-3" href="{{ route('clubs-finder.joined-clubs') }}">&emsp;Joined Clubs</a>
                         </li>
                     </ul>
                 </li>
@@ -103,12 +103,6 @@
                             Log Out
                         </button>
                     </form>
-                </li>
-                <hr class="divider-gray-300 py-0 my-0">
-
-                <!-- DEVELOPMENT ONLY -->
-                <li class="nav-item text-primary">
-                    <a class="nav-link px-3" href="{{ route('view-user-profile', ['profile_id' => 11]) }}">(DEVELOPMENT) TEST VIEW PROFILE</a>
                 </li>
                 <hr class="divider-gray-300 py-0 my-0">
 

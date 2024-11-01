@@ -26,13 +26,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle change event for faculty dropdown
     document.getElementById('faculty').addEventListener('change', function() {
         const selectedFaculty = this.value;
-        document.getElementById('course').innerHTML = '<option selected disabled value="">Choose...</option>';
+        const courseDropdown = document.getElementById('course');
+
+        courseDropdown.value = '';
+        courseDropdown.innerHTML = '<option selected disabled value="">Choose...</option>';
+
         populateCourses(selectedFaculty);
     });
 
     function populateCourses(faculty, selectedCourse = null) {
         const courseDropdown = document.getElementById('course');
-        courseDropdown.innerHTML = '<option selected disabled value="">Choose...</option>'; // Clear the dropdown
+        courseDropdown.value = '';
+        courseDropdown.innerHTML = '<option selected disabled value="">Choose...</option>';
 
         if (facultyCourses[faculty]) {
             facultyCourses[faculty].forEach(function(course) {

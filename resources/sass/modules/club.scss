@@ -184,6 +184,11 @@
     display: none;
 }
 
+.carousel-control-prev,
+.carousel-control-next {
+    width: 80px !important;
+}
+
 @media (max-width: 992px) {
     #club-sort-standard {
         display: none;
@@ -230,6 +235,10 @@
     #carousel-inner-lg,
     #carousel-inner-sm {
         display: none;
+    }
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 50px !important;
     }
 }
 

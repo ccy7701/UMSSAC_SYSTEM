@@ -2,7 +2,9 @@
 <div class="rsans card systemuser-list-item h-100 px-4 py-xl-3 py-lg-3 py-md-0 py-0" id="systemuser-list-item" data-category="{{ $user->profile_faculty }}" data-account-role="{{ $user->account_role }}">
     <div class="row g-0 align-items-center py-2">
         <div class="col-lg-3 text-center mt-xl-0 mt-lg-0 mt-md-3 mt-3">
-            <img id="user-profile" alt="User profile" src="{{ empty($user->profile_picture_filepath) ? asset('images/no_profile_pic_default.png') : Storage::url($user->profile_picture_filepath) }}" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+            <a href="{{ route('view-user-profile', ['profile_id' => $user->profile->profile_id]) }}" class="text-decoration-none">
+                <img id="user-profile" alt="User profile" src="{{ empty($user->profile_picture_filepath) ? asset('images/no_profile_pic_default.png') : Storage::url($user->profile_picture_filepath) }}" class="user-profile-sysuser rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+            </a>
             @if ($user->account_role == 1)
                 <div class="user-tag bg-muted text-white py-1 px-2 mt-2 rounded mx-auto">
                     <p class="fw-semibold mb-0">Student</p>

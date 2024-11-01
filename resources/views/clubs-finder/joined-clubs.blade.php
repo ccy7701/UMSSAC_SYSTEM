@@ -6,18 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Bookmarked Events</title>
+    <title>Joined Clubs</title>
     @vite('resources/sass/app.scss')
 </head>
 
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     @vite('resources/js/itemViewToggler.js')
-    @if (currentAccount()->account_role != 3)
-        <x-topnav/>
-    @else
-        <x-admin-topnav/>
-    @endif
+    <x-topnav/>
     <x-about/>
     <br>
     <main class="flex-grow-1">
@@ -26,26 +22,16 @@
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
                     <div class="col-12 text-center">
-                        <h3 class="rserif fw-bold w-100 mb-1">Bookmarked events</h3>
-                        <p id="event-bookmark-count-display" class="rserif fs-4 w-100 mt-0">
-                            @if ($totalBookmarks == 0)
-                                No bookmarks found
-                            @elseif ($totalBookmarks == 1)
-                                1 bookmark found
+                        <h3 class="rserif fw-bold w-100 mb-1">Joined clubs</h3>
+                        <p id="joined-club-count-display" class="rserif fs-4 w-100 mt-0">
+                            @if ($totalJoinedClubs == 0)
+                                No joined clubs
+                            @elseif ($totalJoinedClubs == 1)
+                                1 joined club
                             @else
-                                {{ $totalBookmarks }} bookmarks found
+                                {{ $totalJoinedClubs }} joined clubs
                             @endif
                         </p>
-                        <!-- SEARCH TAB -->
-                        <form class="d-flex justify-content-center" method="GET" action="{{ route('events-finder.bookmarks') }}">
-                            <div class="search-tab mb-4">
-                                <div class="input-group">
-                                    <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-search"></i></span>
-                                    <input type="search" id="event-search" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
-                                    <button class="rsans btn btn-primary fw-bold">Search</button>
-                                </div>
-                            </div>
-                        </form>
                         <div class="row pb-3">
                             <div id="club-view-toggle" class="col-12 align-items-center justify-content-end">
                                 <div class="input-group justify-content-end">
@@ -71,22 +57,18 @@
                     <!-- GRID VIEW (Toggle based on preference) -->
                     <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                         <div class="row pb-3 px-md-3 px-sm-0">
-                            @foreach ($bookmarks as $bookmark)
+                            @foreach ($joinedClubs as $club)
                                 <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
-                                    <x-event-card
-                                        :event="$bookmark->event"
-                                        :intersectionarray="$intersectionArray"/>
+                                    <x-club-card :club="$club"/>
                                 </div>
                             @endforeach
                         </div>
                     </div>
                     <!-- LIST VIEW (Toggle based on preference) -->
                     <div id="list-view" class="row list-view mx-0 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
-                        @foreach ($bookmarks as $bookmark)
+                        @foreach ($joinedClubs as $club)
                             <div class="col-xl-6 col-12 mb-3">
-                                <x-event-list-item
-                                    :event="$bookmark->event"
-                                    :intersectionarray="$intersectionArray"/>
+                                <x-club-list-item :club="$club"/>
                             </div>
                         @endforeach
                     </div>

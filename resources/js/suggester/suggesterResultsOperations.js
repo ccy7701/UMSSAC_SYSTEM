@@ -164,12 +164,13 @@ function generateCardBody(studyPartner, index) {
     if (studyPartner.connectionType != 2) {
         suggesterActionsRow = `
             <div class="row">
-                <div class="suggester-actions-row d-flex justify-content-center col-12 mb-3 px-0">
+                <div class="suggester-actions-row d-flex justify-content-center col-12 mb-4 px-0">
                     <form class="w-100 d-flex justify-content-center" method="POST" action='/study-partners-suggester/add-to-list'>
                         <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').getAttribute('content')}">
                         <input type="hidden" name="operation_page_source" value="results">
                         <input type="hidden" name="study_partner_profile_id" value="${studyPartner.profile.profile_id}">
-                        <button type="submit" class="section-button-short rsans btn btn-primary fw-semibold px-3">Add to my list</button>
+                        <a href="/view-user-profile?profile_id=${studyPartner.profile.profile_id}" class="section-button-extrashort rsans btn btn-secondary fw-semibold px-3 me-2">View profile</a>
+                        <button type="submit" class="section-button-extrashort rsans btn btn-primary fw-semibold px-3 ms-2">Add to my list</button>
                     </form>
                 </div>
             </div>
@@ -180,9 +181,6 @@ function generateCardBody(studyPartner, index) {
         <div id="details-${index}" class="collapse">
             <hr class="divider-gray-300 mb-4 mt-2">
             <div class="container px-2">
-                <ul class="list-unstyled mb-4">
-                    <li><strong>Personal description:</strong><br>${studyPartner.profile.profile_personal_desc}</li>
-                </ul>
                 ${suggesterActionsRow}
             </div>
         </div>
