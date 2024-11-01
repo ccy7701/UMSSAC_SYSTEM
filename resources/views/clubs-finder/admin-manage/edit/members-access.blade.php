@@ -63,7 +63,7 @@
                 <div id="member-grid-view" class="row grid-view px-3 mt-3">
                     @if ($clubMembers->isNotEmpty())
                         @foreach ($clubMembers as $member)
-                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 align-items-center text-center">
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 py-2 px-2 align-items-center text-center">
                                 <x-manage-member-card
                                     :member="$member"
                                     :club="$club"/>
@@ -80,7 +80,7 @@
                     <div class="modal-content">
                         <div class="modal-header py-2 d-flex align-items-center justify-content-center">
                             <p class="fw-semibold fs-5 mb-0">
-                                Edit confirmation
+                                Edit Confirmation
                             </p>
                             <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>

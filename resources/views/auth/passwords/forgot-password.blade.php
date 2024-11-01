@@ -34,11 +34,11 @@
                                 <p class="rslab fs-4">Enter the email address you used to register your account. We'll send you instructions to reset your password.</p>
                                 <!-- RESET PASSWORD FORM -->
                                 @if ($errors->any())
-                                    <br><br><br>
+                                    <br><br><br><br>
                                     <div class="rsans alert alert-danger">
                                         @foreach ($errors->all() as $error)
                                             <i class="fa fa-circle-exclamation px-2"></i>
-                                                {!! $error !!}
+                                            {!! $error !!}
                                             <br>
                                         @endforeach
                                     </div>
@@ -49,7 +49,7 @@
                                         <label for="email-address" class="rsans form-label fw-semibold">E-mail address</label>
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-envelope"></i></span>
-                                            <input type="email" id="email-address" name="account_email_address" class="rsans form-control" required autofocus">
+                                            <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ old('account_email_address') }}" required autofocus>
                                         </div>
                                         <br>
                                         <div class="d-flex justify-content-center my-3">
