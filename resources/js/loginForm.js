@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         <input type="text" id="matric-number" name="account_matric_number" class="rsans form-control" required autofocus>
                     </div>
                 `;
+
+                // Attach the uppercase event listener
+                const matricNumberInput = document.getElementById('matric-number');
+                matricNumberInput.addEventListener('input', function () {
+                    this.value = this.value.toUpperCase();
+                });
             } else if (selectedRole === "2") {
                 identifierField.innerHTML = `
                     <label for="fm-email-address" class="rsans form-label fw-semibold">Faculty member e-mail address</label>

@@ -11,7 +11,7 @@
 
 <body>
     @vite('resources/js/app.js')
-    @vite('resources/js/registerFormRoleSelector.js')
+    @vite('resources/js/registerForm.js')
     <main>
         <div class="container-fluid vh-100">
             <div class="row h-100">
@@ -50,7 +50,7 @@
                                         <label for="nickname" class="rsans form-label fw-semibold">Nickname (optional)</label>
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa-regular fa-user"></i></span>
-                                            <input type="text" id="nickname" name="profile_nickname" class="rsans form-control" value="{{ old('nickname') }}" autofocus>
+                                            <input type="text" id="nickname" name="profile_nickname" class="rsans form-control" value="{{ old('profile_nickname') }}" autofocus>
                                         </div>
                                         <p class="rsans form-text text-start">You may leave this empty if you want to fill in a nickname later.</p>
                                     </div>
@@ -97,7 +97,7 @@
                                         <label for="matric-number" class="rsans form-label fw-semibold">Matric number</label>
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-id-badge"></i></span>
-                                            <input type="text" id="matric-number" name="account_matric_number" class="rsans form-control" value="{{ old('account_matric_number') }}" autofocus>
+                                            <input type="text" id="matric-number" name="account_matric_number" class="rsans form-control" value="{{ old('account_matric_number') }}" oninput="this.value = this.value.toUpperCase();" autofocus>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center py-3">

@@ -11,7 +11,7 @@
 
 <body>
     @vite('resources/js/app.js')
-    @vite('resources/js/loginFormRoleSelector.js')
+    @vite('resources/js/loginForm.js')
     <x-response-popup
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"
