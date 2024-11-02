@@ -5,7 +5,7 @@
             <!-- CARD HEADER -->
             <div class="row g-0 align-items-center pb-2 pt-md-2 pt-3">
                 <div class="col-md-2 text-center">
-                    <img id="user-profile" src="{{ $suggestion['profile']['profile_picture_filepath'] }}" alt="User profile" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+                    <img id="user-profile" src="{{ $suggestion['profile']['profile_picture_filepath'] }}" alt="User profile" class="sp-circle rounded-circle">
                 </div>
                 <div class="col-md-7 text-start justify-content-center align-items-center">
                     <div class="card-body">
@@ -70,13 +70,17 @@
                                 @csrf
                                 <input type="hidden" name="operation_page_source" value="results">
                                 <input type="hidden" name="study_partner_profile_id" value="{{ $suggestion['profile']['profile_id'] }}">
-                                <a href="{{ route('view-user-profile', ['profile_id' => $suggestion['profile']['profile_id']]) }}" class="section-button-extrashort rsans btn btn-secondary fw-semibold px-3 me-2">View profile</a>
-                                <button type="submit" class="section-button-extrashort rsans btn btn-primary fw-semibold px-3 ms-2">Add to my list</button>
+                                @if ($suggestion['connectionType'] == 2)
+                                    <a href="{{ route('view-user-profile', ['profile_id' => $suggestion['profile']['profile_id']]) }}" class="section-button-extrashort rsans btn btn-secondary fw-semibold px-3">View profile</a>
+                                @else
+                                    <a href="{{ route('view-user-profile', ['profile_id' => $suggestion['profile']['profile_id']]) }}" class="section-button-extrashort rsans btn btn-secondary fw-semibold px-3 me-2">View profile</a>
+                                    <button type="submit" class="section-button-extrashort rsans btn btn-primary fw-semibold px-3 ms-2">Add to my list</button>
+                                @endif
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>                    
+    </div>
 @endforeach

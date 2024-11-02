@@ -58,7 +58,6 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1'])->group(function ()
 
     Route::post('/study-partners-suggester/submit-form', [StudyPartnerController::class, 'submitSuggesterForm'])->name('study-partners-suggester.suggester-form.submit');
 
-    // CURRENT ROUTE IN FOCUS
     Route::get('/study-partners-suggester/suggester-results', [StudyPartnerController::class, 'getSuggesterResults'])->name('study-partners-suggester.suggester-results');
 
     Route::get('/study-partners-suggester/suggester-results/get', [StudyPartnerController::class, 'getSuggestedStudyPartners'])->name('study-partners-suggester.suggester-results.get');
