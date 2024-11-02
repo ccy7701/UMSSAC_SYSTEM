@@ -33,7 +33,7 @@
         <div class="row-container">
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
-                    <div class="col-12 text-center">
+                    <div id="results-text" class="col-12 text-center">
                         <h3 class="rserif fw-bold py-2 mb-0">Suggested for you</h3>
                         <p class="rserif fs-4 w-100 mt-0">
                             Here are ten potential study partners most similar to your characteristics
@@ -44,8 +44,17 @@
         </div>
         <div class="row-container">
             <!-- BODY OF CONTENT -->
-            <div id="content-body" class="rsans justify-content-center align-items-center py-3 px-5 align-self-center">
+            <div id="content-body-standard" class="rsans justify-content-center align-items-center py-3 px-5 align-self-center">
                 <!-- LOOPING COMPONENT GOES HERE -->
+                @php
+                    $data = json_decode($suggestions, true);
+                @endphp
+                <div id="suggested-sps-standard">
+                    <x-suggested-sps :data="$data"/>
+                </div>
+                <div id="suggested-sps-compact">
+                    <x-suggested-sps-compact :data="$data"/>
+                </div>
             </div>
         </div>
         <!-- REDO SUGGESTER FORM -->

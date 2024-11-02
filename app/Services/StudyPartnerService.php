@@ -125,17 +125,96 @@ class StudyPartnerService
         }
     }
 
+    // Prepare the study partner suggestions results view
+    public function prepareStudyPartnerSuggestionsView() {
+        return view('study-partners-suggester.suggester-results', [
+            'suggestions' => $this->getStudyPartnerSuggestions()
+        ]);
+    }
+
     // Handle getting the study partners suggestions
-    public function getStudyPartnerSuggestions() {
+    private function getStudyPartnerSuggestions() {
         // Fetch this student's UserTraitsRecord and that of other students to compare against
         $ownTraitsRecord = UserTraitsRecord::where('profile_id', profile()->profile_id)->first();
         $otherStudentsTraitsRecords = UserTraitsRecord::where('profile_id', '!=', $ownTraitsRecord->profile_id)->get();
 
         // Call the Python RE here and pass the data to it
-        $recommendations = $this->callRecommenderEngine($ownTraitsRecord, $otherStudentsTraitsRecords);
+        $recommendations = null;
+        $url = env('RECOMMENDER_ENGINE_URL', 'http://localhost:5000/recommendation-engine');
+        try {
+            $otherStudentsTraitsRecordsArray = $otherStudentsTraitsRecords->map(function ($record) {
+                return [
+                    'profile_id' => $record->profile_id,
+                    'wtc_data' => json_decode($record->wtc_data, true),
+                    'personality_data' => json_decode($record->personality_data, true),
+                    'skills_data' => json_decode($record->skills_data, true),
+                    'learning_style' => $record->learning_style,
+                ];
+            })->toArray();
+    
+            $response = Http::post($url, [
+                'user_traits_record' => [
+                    'profile_id' => $ownTraitsRecord->profile_id,
+                    'wtc_data' => json_decode($ownTraitsRecord->wtc_data, true),
+                    'personality_data' => json_decode($ownTraitsRecord->personality_data, true),
+                    'skills_data' => json_decode($ownTraitsRecord->skills_data, true),
+                    'learning_style' => $ownTraitsRecord->learning_style
+                ],
+                'other_students_traits_records' => $otherStudentsTraitsRecordsArray
+            ]);
+
+            $recommendations = $response->json();
+        } catch (\Exception $e) {
+            Log::error('Recommender engine connection error: ' . $e->getMessage());
+            return response()->json(['error' => 'Failed to connect to recommender engine at port 5000.']);
+        }
 
         // Prepare the recommendations data, then return the recommendations
         return $this->prepareRecommendationsData($recommendations);
+    }
+
+    // Combine the profiles with the similarity scores
+    private function prepareRecommendationsData($recommendations) {
+        // Retrieve the profiles associated with the recommendations
+        $profileIdArray = array_column($recommendations, 'profile_id');
+        $profiles = Profile::whereIn('profile_id', $profileIdArray)->get();
+
+        // Map the recommendations to their profile IDs
+        $recommendationMap = collect($recommendations)->pluck('similarity', 'profile_id');
+
+        // Process the data before return
+        $combinedResults = $profiles->map(function($profile) use ($recommendationMap) {
+            $profile->profile_picture_filepath = $profile->profile_picture_filepath
+                ? Storage::url($profile->profile_picture_filepath)
+                : asset('images/no_club_images_default.png');
+
+            $profile->account_full_name = $profile->account->account_full_name;
+
+            $profile->profile_nickname = $profile->profile_nickname
+                ? $profile->profile_nickname
+                : 'No nickname';
+
+            $profile->profile_faculty = $profile->profile_faculty
+                ? $profile->profile_faculty
+                : 'Unspecified';
+
+            $profile->account_matric_number = $profile->account->account_matric_number;
+
+            $profile->account_email_address = $profile->account->account_email_address;
+
+            $profile->profile_personal_desc = $profile->profile_personal_desc
+                ? $profile->profile_personal_desc
+                : 'No personal description written yet';
+
+            return [
+                'profile' => $profile,
+                'similarity' => $recommendationMap[$profile->profile_id] ?? null,
+                'connectionType' => $this->checkForConnectionType($profile->profile_id)
+            ];
+        });
+
+        // Sort the combined data, then return it
+        return $combinedResults->sortByDesc('similarity')->values();
     }
 
     // Prepare all the details to be sent to the added study partners view based on request type
@@ -213,83 +292,6 @@ class StudyPartnerService
                 }
             ])
             ->get();
-    }
-
-    // Call the Python RE webservice
-    private function callRecommenderEngine($ownTraitsRecord, $otherStudentsTraitsRecords) {
-        $url = env('RECOMMENDER_ENGINE_URL', 'http://localhost:5000/recommendation-engine');
-
-        try {
-            $otherStudentsTraitsRecordsArray = $otherStudentsTraitsRecords->map(function ($record) {
-                return [
-                    'profile_id' => $record->profile_id,
-                    'wtc_data' => json_decode($record->wtc_data, true),
-                    'personality_data' => json_decode($record->personality_data, true),
-                    'skills_data' => json_decode($record->skills_data, true),
-                    'learning_style' => $record->learning_style,
-                ];
-            })->toArray();
-    
-            $response = Http::post($url, [
-                'user_traits_record' => [
-                    'profile_id' => $ownTraitsRecord->profile_id,
-                    'wtc_data' => json_decode($ownTraitsRecord->wtc_data, true),
-                    'personality_data' => json_decode($ownTraitsRecord->personality_data, true),
-                    'skills_data' => json_decode($ownTraitsRecord->skills_data, true),
-                    'learning_style' => $ownTraitsRecord->learning_style
-                ],
-                'other_students_traits_records' => $otherStudentsTraitsRecordsArray
-            ]);
-
-            return $response->json();
-        } catch (\Exception $e) {
-            Log::error('Recommender engine connection error: ' . $e->getMessage());
-            return response()->json(['error' => 'Failed to connect to recommender engine at port 5000.']);
-        }
-    }
-
-    // Combine the profiles with the similarity scores
-    private function prepareRecommendationsData($recommendations) {
-        // Retrieve the profiles associated with the recommendations
-        $profileIdArray = array_column($recommendations, 'profile_id');
-        $profiles = Profile::whereIn('profile_id', $profileIdArray)->get();
-
-        // Map the recommendations to their profile IDs
-        $recommendationMap = collect($recommendations)->pluck('similarity', 'profile_id');
-
-        // Process the data before return
-        $combinedResults = $profiles->map(function($profile) use ($recommendationMap) {
-            $profile->profile_picture_filepath = $profile->profile_picture_filepath
-                ? Storage::url($profile->profile_picture_filepath)
-                : asset('images/no_club_images_default.png');
-
-            $profile->account_full_name = $profile->account->account_full_name;
-
-            $profile->profile_nickname = $profile->profile_nickname
-                ? $profile->profile_nickname
-                : 'No nickname';
-
-            $profile->profile_faculty = $profile->profile_faculty
-                ? $profile->profile_faculty
-                : 'Unspecified';
-
-            $profile->account_matric_number = $profile->account->account_matric_number;
-
-            $profile->account_email_address = $profile->account->account_email_address;
-
-            $profile->profile_personal_desc = $profile->profile_personal_desc
-                ? $profile->profile_personal_desc
-                : 'No personal description written yet';
-
-            return [
-                'profile' => $profile,
-                'similarity' => $recommendationMap[$profile->profile_id] ?? null,
-                'connectionType' => $this->checkForConnectionType($profile->profile_id)
-            ];
-        });
-
-        // Sort the combined data, then return it
-        return $combinedResults->sortByDesc('similarity')->values();
     }
 
     // Check if a study partner exists, and if it does, check if it is a bookmark or has been added

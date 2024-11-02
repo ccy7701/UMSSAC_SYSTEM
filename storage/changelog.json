@@ -1,5 +1,12 @@
 [
     {
+        "version": "0.7.1.1-alpha",
+        "changes": [
+            "Redesigned the display of the suggested study partners page for smaller screens.",
+            "Updated the website welcome page."
+        ]
+    },
+    {
         "version": "0.7.1-alpha",
         "changes": [
             "Users can now view the profiles of other users, including clubs they've joined.",

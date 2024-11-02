@@ -91,6 +91,19 @@ $btn-primary-bg: #1064D6;
     }
 }
 
+#suggested-sps-standard {
+    display: block;
+    .sp-circle {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+    }
+}
+
+#suggested-sps-compact {
+    display: none;
+}
+
 @media (max-width: 1200px) {
     .form-step {
         width: 75.00%;
@@ -103,6 +116,22 @@ $btn-primary-bg: #1064D6;
 @media (max-width: 992px) {
     #added-sp-view-toggle {
         width: 80%;
+    }
+    #suggested-sps-standard {
+        display: none;
+    }
+    #suggested-sps-compact {
+        .sp-circle {
+            width: 80px;
+            height: 80px;
+        }
+        display: block;
+        &:hover {
+            cursor: pointer;
+        }
+        .bookmark-inline {
+            font-size: 1.40em !important;
+        }
     }
 }
 
@@ -149,10 +178,28 @@ $btn-primary-bg: #1064D6;
     .progress {
         width: 100.00%;
     }
+    #suggested-sps-compact {
+        .sp-circle {
+            width: 60px;
+            height: 60px;
+        }
+        display: block;
+        h5 {
+            font-size: 1.00em;
+        }
+        p {
+            font-size: 0.85em;
+        }
+        .bookmark-inline {
+            font-size: 1.20em !important;
+        }
+        i, .col-11 {
+            font-size: 0.85em;
+        }
+    }
 }
 
 @media (max-width: 576px) {
-    // Radio button size progression
     .xxs-radio {
         width: 0.60em !important;
         height: 0.60em !important;
@@ -190,6 +237,14 @@ $btn-primary-bg: #1064D6;
     }
     #added-sp-view-toggle {
         width: 100%;
+    }
+    #results-text {
+        h3 {
+            font-size: 1.25em;
+        }
+        p {
+            font-size: 1.00em !important;
+        }
     }
     #toggle-self-view,
     #toggle-others-view {
