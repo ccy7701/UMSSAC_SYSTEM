@@ -8,7 +8,6 @@ export default defineConfig({
                 'resources/sass/app.scss',
                 'resources/js/suggester/addedListOperations.js',
                 'resources/js/suggester/suggesterFormOperations.js',
-                'resources/js/suggester/suggesterResultsOperations.js',
                 'resources/js/timetableBuilder/addTimetableSlot.js',
                 'resources/js/timetableBuilder/deleteTimetableSlot.js',
                 'resources/js/timetableBuilder/editTimetableSlot.js',

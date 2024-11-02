@@ -12,7 +12,7 @@
 <body class="welcome-body">
     @vite('resources/js/app.js')
     <main>
-        <div class="container p-3">
+        <div class="container p-3 mb-xl-3 mb-lg-3 mb-md-4 mb-sm-5">
             <div class="row align-items-center">
                 <!-- Logo section -->
                 <div class="col-md-3 col-sm-4 col-xs-12 py-2 text-center">
@@ -28,37 +28,26 @@
                 </div>
             </div>
         </div>
-        <br><br>
-        <div class="container px-6 mx-6">
-            <h1 class="rserif welcome-title fw-bold text-center">Enrich your student<br>life with UMSSACS</h1>
+        <br>
+        <div class="container pb-3 mb-xl-3 mb-lg-3 mb-md-4 mb-sm-5">
+            <h1 class="rserif welcome-title fw-bold text-center">Enrich your student life with UMSSACS</h1>
             <p class="rserif welcome-subtitle text-center">UMSSACS is designed to help you keep track of your uni life</p>
         </div>
-        <br><br>
+        <br>
         <div class="image-carousel px-sm-5">
-            <div class="carousel-track">
-                <img src="{{ asset('images/study_partner_suggester.png') }}" alt="Study partner suggester placeholder illustration" class="img-fluid mx-3 border shadow">
-    
-                <img src="{{ asset('placeholder-images/study_partner_list.png') }}" alt="Study partner list placeholder illustration" class="img-fluid mx-3 border shadow">
-    
-                <img src="{{ asset('placeholder-images/bookmarked_events.png') }}" alt="Bookmarked events placeholder illustration" class="img-fluid mx-3 border shadow">
-    
-                <img src="{{ asset('images/acad_prog_tracker.png') }}" alt="Academic progress tracker placeholder illustration" class="img-fluid mx-3 border shadow">
-    
-                <img src="{{ asset('images/timetable_builder.png') }}" alt="Timetable builder placeholder illustration" class="img-fluid mx-3 border shadow">
-    
-                <img src="{{ asset('images/system_users.png') }}" alt="System users placeholder illustration" class="img-fluid mx-3 border shadow">
-    
-                <img src="{{ asset('images/study_partner_suggester.png') }}" alt="Study partner suggester placeholder illustration" class="img-fluid mx-3 border shadow">
-    
-                <img src="{{ asset('placeholder-images/study_partner_list.png') }}" alt="Study partner list placeholder illustration" class="img-fluid mx-3 border shadow">
-    
-                <img src="{{ asset('placeholder-images/bookmarked_events.png') }}" alt="Bookmarked events placeholder illustration" class="img-fluid mx-3 border shadow">
-    
-                <img src="{{ asset('images/acad_prog_tracker.png') }}" alt="Academic progress tracker placeholder illustration" class="img-fluid mx-3 border shadow">
-    
-                <img src="{{ asset('images/timetable_builder.png') }}" alt="Timetable builder placeholder illustration" class="img-fluid mx-3 border shadow">
-    
-                <img src="{{ asset('images/system_users.png') }}" alt="System users placeholder illustration" class="img-fluid mx-3 border shadow">
+            <div id="carousel-track-standard" class="carousel-track">
+                <img src="{{ asset('images/welcome-standard/study_partner_suggester.png') }}" alt="Study partner suggester placeholder illustration" class="img-fluid mx-3 border shadow">
+                <img src="{{ asset('images/welcome-standard/study_partner_list.png') }}" alt="Study partner list placeholder illustration" class="img-fluid mx-3 border shadow">
+                <img src="{{ asset('images/welcome-standard/bookmarked_events.png') }}" alt="Bookmarked events placeholder illustration" class="img-fluid mx-3 border shadow">
+                <img src="{{ asset('images/welcome-standard/acad_prog_tracker.png') }}" alt="Academic progress tracker placeholder illustration" class="img-fluid mx-3 border shadow">
+                <img src="{{ asset('images/welcome-standard/timetable_builder.png') }}" alt="Timetable builder placeholder illustration" class="img-fluid mx-3 border shadow">
+                <img src="{{ asset('images/welcome-standard/system_users.png') }}" alt="System users placeholder illustration" class="img-fluid mx-3 border shadow">
+                <img src="{{ asset('images/welcome-standard/study_partner_suggester.png') }}" alt="Study partner suggester placeholder illustration" class="img-fluid mx-3 border shadow">
+                <img src="{{ asset('images/welcome-standard/study_partner_list.png') }}" alt="Study partner list placeholder illustration" class="img-fluid mx-3 border shadow">
+                <img src="{{ asset('images/welcome-standard/bookmarked_events.png') }}" alt="Bookmarked events placeholder illustration" class="img-fluid mx-3 border shadow">
+                <img src="{{ asset('images/welcome-standard/acad_prog_tracker.png') }}" alt="Academic progress tracker placeholder illustration" class="img-fluid mx-3 border shadow">
+                <img src="{{ asset('images/welcome-standard/timetable_builder.png') }}" alt="Timetable builder placeholder illustration" class="img-fluid mx-3 border shadow">
+                <img src="{{ asset('images/welcome-standard/system_users.png') }}" alt="System users placeholder illustration" class="img-fluid mx-3 border shadow">
             </div>
         </div>
     </main>
