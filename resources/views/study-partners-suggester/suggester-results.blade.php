@@ -44,8 +44,12 @@
         </div>
         <div class="row-container">
             <!-- BODY OF CONTENT -->
-            <div id="content-body" class="rsans justify-content-center align-items-center py-3 px-5 align-self-center">
+            <div id="content-body-standard" class="rsans justify-content-center align-items-center py-3 px-5 align-self-center">
                 <!-- LOOPING COMPONENT GOES HERE -->
+                @php
+                    $data = json_decode($suggestions, true);
+                @endphp
+                <x-suggested-sps :data="$data"/>
             </div>
         </div>
         <!-- REDO SUGGESTER FORM -->

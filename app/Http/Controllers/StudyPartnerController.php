@@ -33,18 +33,12 @@ class StudyPartnerController extends Controller
         $status = $this->studyPartnerService->handleSuggesterFormData($request);
 
         return $status
-            ? redirect()->route('study-partners-suggester.suggester-results')->with('success', 'Your details have been saved successfully!')
+            ? redirect()->route('study-partners-suggester.suggester-results')
             : back()->withErrors(['error' => 'Failed to save details. Please try again.']);
     }
 
-    public function getSuggestedStudyPartners() {
-        // Call the service to get recommended study partners
-        $suggestedStudyPartners = $this->studyPartnerService->getStudyPartnerSuggestions();
-
-        return response()->json([
-            'success' => true,
-            'suggestedStudyPartners' => $suggestedStudyPartners
-        ]);
+    public function getSuggesterResults() {
+        return $this->studyPartnerService->prepareStudyPartnerSuggestionsView();
     }
 
     public function fetchUserStudyPartnerBookmarks(Request $request) {
