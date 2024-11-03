@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $profile->account->account_full_name }}'s Profile</title>
+    <title>{{ $profile->account->account_full_name }}'s Profile | UMSSACS</title>
+    <meta name="description" content="Visit UMSSACS and learn more about {{ $profile->account->account_full_name }}.">
     @vite('resources/sass/app.scss')
 </head>
 

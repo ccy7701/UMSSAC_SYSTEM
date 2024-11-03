@@ -12,7 +12,6 @@
 
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
-    @vite('resources/js/suggester/suggesterResultsOperations.js')
     <x-topnav/>
     <x-about/>
     <x-response-popup

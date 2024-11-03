@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Register | UMSSACS</title>
+    <meta name="description" content="Register an account with UMSSACS to access its features.">
     @vite('resources/sass/app.scss')
 </head>
 

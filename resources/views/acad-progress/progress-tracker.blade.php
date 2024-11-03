@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Academic Progress Tracker</title>
+    <title>Academic Progress Tracker | UMSSACS</title>
+    <meta name="description" content="Monitor your academic milestones and track progress toward your goals with UMSSACS.">
     @vite('resources/sass/app.scss')
 </head>
 
