@@ -34,7 +34,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/change-password/action', [PasswordResetController::class, 'changePassword'])->name('change-password.action');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/view-user-profile', [ProfileController::class, 'fetchUserProfile'])->name('view-user-profile');
 
     /*
