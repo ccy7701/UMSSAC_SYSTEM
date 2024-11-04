@@ -41,9 +41,11 @@
         </div>
         <div class="col-md-2"></div>
         <div class="col-md-1 text-center">
-            <button class="btn btn-muted toggle-details" data-bs-toggle="collapse" data-bs-target="#details-{{ $record->profile_id }}-{{ $record->study_partner_profile_id }}">
-                <i class="fa fa-chevron-down fs-1 chevron-icon"></i>
-            </button>
+            @if (!($type == 2 && in_array($profile->profile_id, $intersectionarray)))
+                <button class="btn btn-muted toggle-details" data-bs-toggle="collapse" data-bs-target="#details-{{ $record->profile_id }}-{{ $record->study_partner_profile_id }}">
+                    <i class="fa fa-chevron-down fs-1 chevron-icon"></i>
+                </button>
+            @endif
         </div>
         <div id="details-{{ $record->profile_id }}-{{ $record->study_partner_profile_id }}" class="collapse">
             <hr class="divider-gray-300 mb-4 mt-2">
