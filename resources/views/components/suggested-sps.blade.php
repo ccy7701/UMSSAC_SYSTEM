@@ -51,8 +51,26 @@
                     </div>
                 </div>
                 <div class="col-md-2 text-center">
-                    <h4 class="text-success">Similarity</h4>
-                    <h1 class="text-success mb-0">{{ number_format($suggestion['similarity'], 2) }}</h1>
+                    @php
+                        $similarity = $suggestion['similarity'];
+                        
+                        // Define colors in RGB format
+                        $minColor = [192, 210, 224];        #C0D2E0 (approaching -1.00)
+                        $maxColor = [40, 167, 69];          #28A745 (approaching 1.00)
+                        
+                        // Calculate interpolation factor between 0 and 1
+                        $factor = ($similarity + 1) / 2;    // Maps -1 to 0 and 1 to 1
+                        
+                        // Interpolate each color channel
+                        $r = (int) ($minColor[0] + ($maxColor[0] - $minColor[0]) * $factor);
+                        $g = (int) ($minColor[1] + ($maxColor[1] - $minColor[1]) * $factor);
+                        $b = (int) ($minColor[2] + ($maxColor[2] - $minColor[2]) * $factor);
+                        
+                        // Combine into a hex color
+                        $color = sprintf("#%02x%02x%02x", $r, $g, $b);
+                    @endphp
+                    <h4 style="color: {{ $color }}">Similarity</h4>
+                    <h1 class="mb-0" style="color: {{ $color }}">{{ number_format($suggestion['similarity'], 2) }}</h1>
                 </div>
                 <div class="col-md-1 text-center">
                     <button class="btn btn-muted toggle-details" data-bs-toggle="collapse" data-bs-target="#details-{{ $index }}">

@@ -44,14 +44,59 @@
                         <div class="row pb-3 d-flex justify-content-center">
                             <div id="added-sp-view-toggle" class="rsans input-group d-flex justify-content-center">
                                 <!-- list of SPs added by the user; -->
-                                <button id="toggle-self-view" class="btn d-flex justify-content-center align-items-center fw-semibold w-40 border">
+                                <button id="toggle-self-view" class="btn d-flex justify-content-center align-items-center fw-semibold w-50 border">
                                     Added by me ({{ $totalAddedSPs }})
                                 </button>
                                 <!-- list of SPs that have added the user -->
-                                <button id="toggle-others-view" class="btn d-flex justify-content-center align-items-center fw-semibold w-40 border">
+                                <button id="toggle-others-view" class="btn d-flex justify-content-center align-items-center fw-semibold w-50 border">
                                     Added by others ({{ $totalAddedBySPs }})
                                 </button>
                             </div>
+                        </div>
+                        <!-- Filter and sort buttons -->
+                        <div class="row pb-3">
+                            <!-- Left column: Filters popout for smaller displays -->
+                            <div id="sysusers-filters-compact" class="col-xl-6 col-md-12 col-sm-12 col-12 align-items-center justify-content-end">
+                                <div class="input-group justify-content-end">
+                                    <button id="sysusers-sort-compact" class="rsans btn justify-content-center align-items-center border" data-bs-toggle="modal" data-bs-target="#added-list-sort-modal" aria-controls="added-list-sort-modal" aria-label="Added Study Partners Sort Options">
+                                        <i class="fa-solid fa-sort fs-4 text-secondary"></i>
+                                        <p class="ms-2 mb-0 text-secondary">
+                                            @php
+                                                $activeSort = request()->input('sort', '');
+                                            @endphp
+                                            @switch ($activeSort)
+                                                @case ('az') Name (A-Z) @break
+                                                @case ('za') Name (Z-A) @break
+                                                @default Sort
+                                            @endswitch
+                                        </p>
+                                    </button>
+                                </div>
+                            </div>
+                            @php
+                                $categoryFilters = $filters ?? [];
+                            @endphp
+                            <x-sysusers-filters-tab :categoryfilters="$categoryFilters"/>
+                            <!-- Right column: View icons -->
+                            <div id="sysusers-view-toggle" class="col-xl-12 col-lg-12 col-md-6 col-sm-4 col-4 align-items-center justify-content-end pe-0">
+                                <div class="input-group justify-content-end">
+                                    <!-- SORT BUTTON -->
+                                    <button id="sysusers-sort-standard" class="rsans btn justify-content-center align-items-center border" data-bs-toggle="modal" data-bs-target="#added-list-sort-modal" aria-controls="added-list-sort-modal" aria-label="Added Study Partners Sort Options">
+                                        <i class="fa-solid fa-sort fs-4 text-secondary"></i>
+                                        <p class="ms-2 mb-0 text-secondary">
+                                            @php
+                                                $activeSort = request()->input('sort', '');
+                                            @endphp
+                                            @switch ($activeSort)
+                                                @case ('az') Name (A-Z) @break
+                                                @case ('za') Name (Z-A) @break
+                                                @default Sort
+                                            @endswitch
+                                        </p>
+                                    </button>
+                                </div>
+                            </div>
+                            <x-sort-modal :type="'addedlist'"/>
                         </div>
                     </div>
                 </div>

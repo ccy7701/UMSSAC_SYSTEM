@@ -1,7 +1,7 @@
 // Events sort modal operations
 document.getElementById('event-sort-form').addEventListener('submit', function (event) {
     event.preventDefault();
-    const sortOption = document.querySelector('input[name="sortOption"]:checked').value;
+    const sortOption = document.querySelector('input[name="sort"]:checked').value;
     console.log(sortOption);
 
     // Redirect to the events-finder route with the correct query parameter

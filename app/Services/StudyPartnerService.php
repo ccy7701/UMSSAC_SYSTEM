@@ -217,20 +217,40 @@ class StudyPartnerService
         return $combinedResults->sortByDesc('similarity')->values();
     }
 
-    // Prepare all the details to be sent to the added study partners view based on request type
-    public function prepareAndRenderAddedListView($profileId, $viewName, $search = null) {
-        // First prepare data of SPs the user has added
+    // Prepare all the details to be sent to the added study partners view based on request type and sort
+    public function prepareAndRenderAddedListView(Request $request) {
+        $profileId = profile()->profile_id;
+        $sort = $request->input('sort', '');
+        $search = $request->input('search', '');
+
+        // First, prepare data of SPs the user has added and that have added the user
         $addedStudyPartners = $this->getStudyPartnersByType(1, $profileId, $search);
-        $allAddedSPProfileIDs = $addedStudyPartners->pluck('study_partner_profile_id')->toArray();
-    
-        // Then prepare data of SPs that have added the user
         $addedByStudyPartners = $this->getStudyPartnersByType(2, $profileId, $search);
+
+        // Then, apply the sort
+        switch ($sort) {
+            case 'az':
+                $addedStudyPartners = $addedStudyPartners->sortBy(fn($partner) => $partner->studyPartnerProfile->account->account_full_name ?? '');
+                $addedByStudyPartners = $addedByStudyPartners->sortBy(fn($partner) => $partner->studyPartnerProfile->account->account_full_name ?? '');
+                break;
+            case 'za':
+                $addedStudyPartners = $addedStudyPartners->sortByDesc(fn($partner) => $partner->studyPartnerProfile->account->account_full_name ?? '');
+                $addedByStudyPartners = $addedByStudyPartners->sortByDesc(fn($partner) => $partner->studyPartnerProfile->account->account_full_name ?? '');
+                break;
+            default:
+                $addedStudyPartners = $addedStudyPartners->sortBy(fn($partner) => $partner->studyPartnerProfile->account->account_full_name ?? '');
+                $addedByStudyPartners = $addedByStudyPartners->sortBy(fn($partner) => $partner->studyPartnerProfile->account->account_full_name ?? '');
+                break;
+        }
+
+        // Then, pluck their profileIDs
+        $allAddedSPProfileIDs = $addedStudyPartners->pluck('study_partner_profile_id')->toArray();
         $allAddedBySPProfileIDs = $addedByStudyPartners->pluck('profile_id')->toArray();
 
         // Find the intersection (profiles that exist in both lists)
         $intersectionArray = array_values(array_intersect($allAddedSPProfileIDs, $allAddedBySPProfileIDs));
 
-        return view($viewName, [
+        return view('study-partners-suggester.added-list', [
             'addedStudyPartners' => $addedStudyPartners,
             'totalAddedSPs' => $addedStudyPartners->count(),
             'addedByStudyPartners' => $addedByStudyPartners,
@@ -268,30 +288,30 @@ class StudyPartnerService
             $source = 'study_partner_profile_id';
             $target = 'profile';
         }
-        
+
         return StudyPartner::where($source, $profileId)
-            ->where('connection_type', 2)
-            ->where(function ($query) use ($search, $target) {
-                $query->whereHas("$target.account", function ($query) use ($search) {
-                    if ($search) {
-                        $query->where('account_full_name', 'like', '%' . $search . '%');
-                    }
-                })
-                ->orWhereHas("$target", function ($query) use ($search) {
-                    if ($search) {
-                        $query->where('profile_faculty', 'like', '%'. $search . '%');
-                    }
-                });
-            })
-            ->with([
-                "$target.account" => function ($query) {
-                    $query->select('account_id', 'account_full_name', 'account_email_address', 'account_matric_number');
-                },
-                "$target" => function ($query) {
-                    $query->select('profile_id', 'account_id', 'profile_nickname', 'profile_personal_desc', 'profile_faculty', 'profile_picture_filepath');
+        ->where('connection_type', 2)
+        ->where(function ($query) use ($search, $target) {
+            $query->whereHas("$target.account", function ($query) use ($search) {
+                if ($search) {
+                    $query->where('account_full_name', 'like', '%' . $search . '%');
                 }
-            ])
-            ->get();
+            })
+            ->orWhereHas("$target", function ($query) use ($search) {
+                if ($search) {
+                    $query->where('profile_faculty', 'like', '%'. $search . '%');
+                }
+            });
+        })
+        ->with([
+            "$target.account" => function ($query) {
+                $query->select('account_id', 'account_full_name', 'account_email_address', 'account_matric_number');
+            },
+            "$target" => function ($query) {
+                $query->select('profile_id', 'account_id', 'profile_nickname', 'profile_personal_desc', 'profile_faculty', 'profile_picture_filepath');
+            }
+        ])
+        ->get();
     }
 
     // Check if a study partner exists, and if it does, check if it is a bookmark or has been added

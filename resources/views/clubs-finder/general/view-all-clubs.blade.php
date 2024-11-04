@@ -92,7 +92,18 @@
                                     <!-- SORT BUTTON -->
                                     <button id="club-sort-standard" class="rsans btn justify-content-center align-items-center border" data-bs-toggle="modal" data-bs-target="#club-sort-modal" aria-controls="club-sort-modal" aria-label="Club Sort Options">
                                         <i class="fa-solid fa-sort fs-4 text-secondary"></i>
-                                        <p class="ms-2 mb-0 text-secondary">Sort</p>
+                                        <p class="ms-2 mb-0 text-secondary">
+                                            @php
+                                                $activeSort = request()->input('sort', '');
+                                            @endphp
+                                            @switch ($activeSort)
+                                                @case ('az') Name (A-Z) @break
+                                                @case ('za') Name (Z-A) @break
+                                                @case ('oldest') Oldest @break
+                                                @case ('newest') Newest @break
+                                                @default Sort
+                                            @endswitch
+                                        </p>
                                     </button>
                                     <x-sort-modal :type="'club'"/>
                                     <!-- Grid view toggle button -->

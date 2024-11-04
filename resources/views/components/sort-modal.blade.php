@@ -24,6 +24,12 @@
             $sortFormId = 'sysusers-sort-form';
             $modalHeader = 'Sort System Users';
             break;
+        case 'addedlist':
+            $modalId = 'added-list-sort-modal';
+            $ariaLabel= 'addedListSortModalLabel';
+            $sortFormId = 'added-list-sort-form';
+            $modalHeader = 'Sort Study Partners';
+            break;
     }
 @endphp
 <div class="rsans modal fade" id="{{ $modalId }}" tabindex="-1" aria-labelledby="{{ $ariaLabel }}" aria-hidden="true">
@@ -37,38 +43,51 @@
             </div>
             <div class="modal-body ps-4">
                 <form id="{{ $sortFormId }}">
-                    <div class="form-check text-start">
-                        <input class="form-check-input" type="radio" name="sortOption" id="sort-alphabetical-AZ" value="az"
-                        {{ $activeSort === 'az' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="sort-alphabetical-AZ">Name (A-Z)</label>
-                    </div>
-                    <div class="form-check text-start">
-                        <input class="form-check-input" type="radio" name="sortOption" id="sort-alphabetical-ZA" value="za"
-                        {{ $activeSort === 'za' ? 'checked' : '' }}>
-                        <label class="form-check-label" for="sort-alphabetical-ZA">Name (Z-A)</label>
-                    </div>
-                    @if ($type !== 'sysusers')
+                    @if ($type == 'addedlist')
                         <div class="form-check text-start">
-                            <input class="form-check-input" type="radio" name="sortOption" id="sort-oldest" value="oldest"
-                            {{ $activeSort === 'oldest' ? 'checked' : '' }}>
-                            <label class="form-check-label" for="sort-oldest">Date (Oldest)</label>
+                            <input class="form-check-input" type="radio" name="sort" id="sort-alphabetical-AZ" value="az"
+                            {{ $activeSort === 'az' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="sort-alphabetical-AZ">Name (A-Z)</label>
                         </div>
                         <div class="form-check text-start">
-                            <input class="form-check-input" type="radio" name="sortOption" id="sort-newest" value="newest"
-                            {{ $activeSort === 'newest' ? 'checked' : '' }}>
-                            <label class="form-check-label" for="sort-newest">Date (Newest)</label>
+                            <input class="form-check-input" type="radio" name="sort" id="sort-alphabetical-ZA" value="za"
+                            {{ $activeSort === 'za' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="sort-alphabetical-ZA">Name (Z-A)</label>
                         </div>
                     @else
                         <div class="form-check text-start">
-                            <input class="form-check-input" type="radio" name="sortOption" id="sort-fm" value="fm"
-                            {{ $activeSort === 'fm' ? 'checked' : '' }}>
-                            <label class="form-check-label" for="sort-fm">Role (faculty members first)</label>
+                            <input class="form-check-input" type="radio" name="sort" id="sort-alphabetical-AZ" value="az"
+                            {{ $activeSort === 'az' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="sort-alphabetical-AZ">Name (A-Z)</label>
                         </div>
                         <div class="form-check text-start">
-                            <input class="form-check-input" type="radio" name="sortOption" id="sort-student" value="student"
-                            {{ $activeSort === 'student' ? 'checked' : '' }}>
-                            <label class="form-check-label" for="sort-student">Role (students first)</label>
+                            <input class="form-check-input" type="radio" name="sort" id="sort-alphabetical-ZA" value="za"
+                            {{ $activeSort === 'za' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="sort-alphabetical-ZA">Name (Z-A)</label>
                         </div>
+                        @if ($type !== 'sysusers')
+                            <div class="form-check text-start">
+                                <input class="form-check-input" type="radio" name="sort" id="sort-oldest" value="oldest"
+                                {{ $activeSort === 'oldest' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="sort-oldest">Date (Oldest)</label>
+                            </div>
+                            <div class="form-check text-start">
+                                <input class="form-check-input" type="radio" name="sort" id="sort-newest" value="newest"
+                                {{ $activeSort === 'newest' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="sort-newest">Date (Newest)</label>
+                            </div>
+                        @else
+                            <div class="form-check text-start">
+                                <input class="form-check-input" type="radio" name="sort" id="sort-fm" value="fm"
+                                {{ $activeSort === 'fm' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="sort-fm">Role (faculty members first)</label>
+                            </div>
+                            <div class="form-check text-start">
+                                <input class="form-check-input" type="radio" name="sort" id="sort-student" value="student"
+                                {{ $activeSort === 'student' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="sort-student">Role (students first)</label>
+                            </div>
+                        @endif
                     @endif
                 </form>
             </div>
