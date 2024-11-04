@@ -14,6 +14,7 @@
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     @vite('resources/js/itemViewToggler.js')
+    @vite('resources/js/imageViewer.js')
     @if (currentAccount()->account_role != 3)
         <x-topnav/>
     @else
@@ -84,18 +85,27 @@
                     <div class="carousel-inner">
                         @if (!empty($clubImagePaths))
                             <div class="carousel-item active">
-                                <img src="{{ Storage::url($clubImagePaths[0]) }}" class="d-block w-100" alt="Club illustration" style="aspect-ratio: 4/4; object-fit: cover;">
+                                <img src="{{ Storage::url($clubImagePaths[0]) }}" class="d-block w-100" alt="Club illustration"
+                                data-bs-toggle="modal"
+                                data-bs-target="#view-image-modal"
+                                data-image="{{ Storage::url($clubImagePaths[0]) }}"
+                                data-index="1">
                             </div>
-                            @foreach(array_slice($clubImagePaths, 1) as $imagePath)
+                            @foreach(array_slice($clubImagePaths, 1) as $index => $imagePath)
                                 <div class="carousel-item">
-                                    <img src="{{ Storage::url($imagePath) }}" class="d-block w-100" alt="Club illustration" style="aspect-ratio: 4/4; object-fit: cover;">
+                                    <img src="{{ Storage::url($imagePath) }}" class="d-block w-100" alt="Club illustration"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#view-image-modal"
+                                    data-image="{{ Storage::url($imagePath) }}"
+                                    data-index="{{ $index + 2 }}">
                                 </div>
                             @endforeach
                         @else
                             <div class="carousel-item active">
-                                <img src="{{ asset('images/no_club_images_default.png') }}"  class="d-block w-100" alt="No club illustration found" style="aspect-ratio: 4/4; object-fit: cover;">
+                                <img src="{{ asset('images/no_club_images_default.png') }}"  class="d-block w-100" alt="No club illustration found" style="cursor: default;">
                             </div>
                         @endif
+                        <x-view-image-modal/>
                     </div>
                     <button class="carousel-control-prev ms-2" type="button" data-bs-target="#club-images-carousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
