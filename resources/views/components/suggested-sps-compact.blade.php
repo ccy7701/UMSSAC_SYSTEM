@@ -4,27 +4,9 @@
         <div class="rsans card px-2 suggested-sp-list-item h-100" id="suggested-sp-list-item-{{ $index }}">
             <!-- CARD HEADER -->
             <div class="row g-0 align-items-center py-2" data-bs-toggle="collapse" data-bs-target="#details-compact-{{ $index }}" aria-expanded="false" aria-controls="details-collapse-{{ $index }}">
-                <div class="col-3 text-center align-items-center ps-0">
+                <div class="col-3 text-center align-items-center">
                     <img id="user-profile" src="{{ $suggestion['profile']['profile_picture_filepath'] }}" alt="User profile" class="sp-circle rounded-circle">
-                    @php
-                        $similarity = $suggestion['similarity'];
-                        
-                        // Define colors in RGB format
-                        $minColor = [192, 210, 224];        #C0D2E0 (approaching -1.00)
-                        $maxColor = [40, 167, 69];          #28A745 (approaching 1.00)
-                        
-                        // Calculate interpolation factor between 0 and 1
-                        $factor = ($similarity + 1) / 2;    // Maps -1 to 0 and 1 to 1
-                        
-                        // Interpolate each color channel
-                        $r = (int) ($minColor[0] + ($maxColor[0] - $minColor[0]) * $factor);
-                        $g = (int) ($minColor[1] + ($maxColor[1] - $minColor[1]) * $factor);
-                        $b = (int) ($minColor[2] + ($maxColor[2] - $minColor[2]) * $factor);
-                        
-                        // Combine into a hex color
-                        $color = sprintf("#%02x%02x%02x", $r, $g, $b);
-                    @endphp
-                    <p class="fw-semibold mt-2 mb-0" style="color: {{ $color }}">
+                    <p class="text-success fw-semibold mt-2 mb-0">
                         Similarity<br>{{ number_format($suggestion['similarity'], 2) }}
                     </p>
                 </div>
@@ -41,17 +23,17 @@
                                 @switch ($suggestion['connectionType'])
                                     @case (0)
                                         <button type="submit" class="bookmark-inline d-flex justify-content-end align-items-center bg-transparent border-0 p-0 text-decoration-none">
-                                            <i class="fa-regular fa-bookmark text-primary me-1"></i>
+                                            <i class="fa-regular fa-bookmark text-primary"></i>
                                         </button>
                                     @break
                                     @case (1)
                                         <button type="submit" class="bookmark-inline d-flex justify-content-end align-items-center bg-transparent border-0 p-0 text-decoration-none">
-                                            <i class="fa-solid fa-bookmark text-primary me-1"></i>
+                                            <i class="fa-solid fa-bookmark text-primary"></i>
                                         </button>
                                     @break
                                     @case (2)
                                         <button class="bookmark-inline d-flex justify-content-end align-items-center bg-transparent border-0 p-0 text-decoration-none" disabled>
-                                            <i class="fa fa-user-plus text-primary me-0"></i>
+                                            <i class="fa fa-user-plus text-primary"></i>
                                         </button>
                                     @break
                                 @endswitch
