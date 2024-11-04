@@ -13,6 +13,7 @@
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     @vite('resources/js/itemViewToggler.js')
+    @vite('resources/js/imageViewer.js')
     <x-admin-topnav/>
     <x-about/>
     <x-response-popup
@@ -105,12 +106,17 @@
                     $clubImagePaths = json_decode($club->club_image_paths, true);
                 @endphp
                 @if (!empty($clubImagePaths))
-                    <div class="row py-4">
-                        @foreach ($clubImagePaths as $imagePath)
+                    <div id="club-images-list" class="row py-4">
+                        @foreach ($clubImagePaths as $index => $imagePath)
                             <div class="col-xl-2 col-md-3 col-sm-4 col-6 mb-4">
-                                <img src="{{ Storage::url($imagePath) }}" alt="Club illustration" class="img-fluid border" style="aspect-ratio: 4/4; object-fit: cover;">
+                                <img src="{{ Storage::url($imagePath) }}" alt="Club illustration" class="img-fluid border" style="aspect-ratio: 4/4; object-fit: cover; cursor: pointer;"
+                                data-bs-toggle="modal"
+                                data-bs-target="#view-image-modal"
+                                data-image="{{ Storage::url($imagePath) }}"
+                                data-index="{{ $index + 1 }}">
                             </div>
                         @endforeach
+                        <x-view-image-modal/>
                     </div>
                 @else
                     <p class="rsans text-center w-100 py-4">No images added yet</p>

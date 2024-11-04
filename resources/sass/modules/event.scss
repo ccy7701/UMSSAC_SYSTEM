@@ -197,6 +197,17 @@ $btn-primary-bg: #1064D6;
     width: 30.00%;
     .carousel-item img {
         border-radius: 12px;
+        aspect-ratio: 16/10;
+        object-fit: cover;
+        cursor: pointer;
+    }
+}
+
+#event-images-list img {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 }
 

@@ -7,6 +7,28 @@ document.addEventListener('DOMContentLoaded', function () {
     const viewImageModal = document.getElementById('view-image-modal');
     const deleteConfirmationModal = document.getElementById('delete-confirmation-modal');
 
+    // Update viewImageModal
+    if (viewImageModal) {
+        viewImageModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const imageUrl = button.getAttribute('data-image');
+            const imageIndex = button.getAttribute('data-index');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageUrl;
+            const modalImageIndex = document.getElementById('image-index');
+            modalImageIndex.textContent = `Image ${imageIndex}`;
+        });
+    }
+    
+    if (deleteConfirmationModal) {
+        deleteConfirmationModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const key = button.getAttribute('data-key');
+            const deleteKeyInput = document.getElementById('delete-key');
+            deleteKeyInput.value = key;
+        });
+    }
+
     // Disable the submit button initially, if it exists
     if (newImageSubmit) {
         newImageSubmit.disabled = true;
@@ -25,26 +47,4 @@ document.addEventListener('DOMContentLoaded', function () {
             newImageSubmit.disabled = true;
          }
     });
-
-    // Update modal image
-    if (viewImageModal) {
-        viewImageModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            const imageUrl = button.getAttribute('data-image');
-            const imageIndex = button.getAttribute('data-index');
-            const modalImage = document.getElementById('modalImage');
-            modalImage.src = imageUrl;
-            const modalImageIndex = document.getElementById('image-index');
-            modalImageIndex.textContent = `Club image ${imageIndex}`;
-        });
-    }
-    
-    if (deleteConfirmationModal) {
-        deleteConfirmationModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            const key = button.getAttribute('data-key');
-            const deleteKeyInput = document.getElementById('delete-key');
-            deleteKeyInput.value = key;
-        });
-    }
 });
