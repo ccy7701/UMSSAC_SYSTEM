@@ -5,23 +5,33 @@ namespace App\Services;
 use App\Models\Club;
 use App\Models\Profile;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileService
 {
     // Handle updating the user's profile general info
-    public function handleUpdateGeneralInfo(Request $request) {
+    public function handleUpdateGeneralInfo(Request $request) {        
         // Validate the incoming request data
         $validatedData = $request->validate([
             'profile_personal_desc' => 'max:1024',
             'profile_faculty' => 'nullable|string|max:16',
-            'profile_course' => 'string|max:255',
+            'profile_course' => [
+                'required_if:account_role,1',
+                'string',
+                'max:255',
+            ],
             'profile_nickname' => 'nullable|string|max:255',
         ]);
 
-        if ($request->profile_course == null) {
+        // If a student selected a faculty but no course, this if guard triggers
+        if (currentAccount()->account_role == 1 && $request->profile_course == null) {
             return back()->withErrors(['profile_course' => 'No course was selected. Please check your details and try again.']);
+        }
+        // If a faculty member selected a faculty but no course, allow through
+        // Assumption: Not all faculty members are teaching staff of any specific course
+        if (currentAccount()->account_role == 2 && ($validatedData['profile_course'] ?? null) === null) {
+            // Set to an empty string if this is the case
+            $validatedData['profile_course'] = '';
         }
 
         // Update the profile with the validated data

@@ -1,5 +1,10 @@
 <!-- resources/views/components/club-card.blade.php -->
-<a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}" class="text-decoration-none">
+@php
+    $route = currentAccount()->account_role != 3
+        ? 'clubs-finder.fetch-club-details'
+        : 'manage-clubs.fetch-club-details';
+@endphp
+<a href="{{ route($route, ['club_id' => $club->club_id]) }}" class="text-decoration-none">
     <div class="card h-100" id="club-card-standard">
         @php
             $clubImagePaths = json_decode($club->club_image_paths, true);

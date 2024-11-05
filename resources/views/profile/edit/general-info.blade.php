@@ -94,7 +94,13 @@
                         <div id="faculty-note" class="rsans form-text">Note: Select "FPP (former)" for courses not listed under FPKS or FPPS.</div>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="course" class="rsans fw-bold form-label">Course</label>
+                        <label for="course" class="rsans fw-bold form-label">
+                            @if(currentAccount()->account_role == 1)
+                                Course
+                            @elseif(currentAccount()->account_role == 2)
+                                Course (optional)
+                            @endif
+                        </label>
                         <select id="course" class="rsans form-select" name="profile_course">
                             <option select disabled value="">Choose...</option>
                         </select>
