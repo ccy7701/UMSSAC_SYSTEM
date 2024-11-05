@@ -78,7 +78,8 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="event-datetime" class="rsans fw-bold form-label">Event date and time</label>
-                        <input type="datetime-local" id="event-datetime" name="event_datetime" class="rsans form-control" value="{{ \Carbon\Carbon::parse($event->event_datetime)->format('Y-m-d\TH:i') }}" required>
+                        <input type="datetime-local" id="event-datetime" name="event_datetime" class="rsans form-control" value="{{ \Carbon\Carbon::parse($event->event_datetime)->format('Y-m-d\TH:i') }}"
+                        min="{{ now()->format('Y-m-d\TH:i') }}" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="event-description" class="rsans fw-bold form-label">Description</label>
@@ -88,7 +89,7 @@
                         <label for="event-entrance-fee" class="rsans fw-bold form-label">Entrance fee</label>
                         <div class="input-group">
                             <span class="rsans formfield-span input-group-text d-flex justify-content-center">RM</span>
-                            <input type="number" id="new-event-entrance-fee" name="new_event_entrance_fee" class="rsans form-control" step="0.01" min="0" value="{{ number_format($event->event_entrance_fee, 2) }}" required>
+                            <input type="number" id="new-event-entrance-fee" name="event_entrance_fee" class="rsans form-control" step="0.01" min="0" value="{{ number_format($event->event_entrance_fee, 2) }}" required>
                         </div>
                     </div>
                     <div class="form-group mb-3">

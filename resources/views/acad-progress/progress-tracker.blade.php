@@ -13,10 +13,16 @@
 
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
-    @vite('resources/js/semesterDropdown.js')
     @vite('resources/js/tooltips.js')
-    @vite('resources/js/semIdValidator.js')
-    @vite('resources/js/semSubOperations.js')
+    @vite('resources/js/acadProgress/semSubOperations.js')
+    <!-- Send routes templates to external JS -->
+    <script>
+        window.fetchBySemProgLogIdRoute = "{{ route('fetch-subject-stats', ['sem_prog_log_id' => ':sem_prog_log_id']) }}";
+        window.getSubjectDataRouteTemplate = "{{ route('subject-stats-log.get', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
+        window.editSubjectRouteTemplate = "{{ route('subject-stats-log.edit', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
+        window.deleteRouteTemplate = "{{ route('subject-stats-log.delete', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
+        window.csrfToken = "{{ csrf_token() }}";
+    </script>
     <x-topnav/>
     <x-about/>
     <x-response-popup
@@ -125,14 +131,6 @@
                             @endforeach
                         </select>
                     </div>
-                    <!-- Send routes templates to external JS -->
-                    <script>
-                        window.fetchBySemProgLogIdRoute = "{{ route('fetch-subject-stats', ['sem_prog_log_id' => ':sem_prog_log_id']) }}";
-                        window.getSubjectDataRouteTemplate = "{{ route('subject-stats-log.get', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
-                        window.editSubjectRouteTemplate = "{{ route('subject-stats-log.edit', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
-                        window.deleteRouteTemplate = "{{ route('subject-stats-log.delete', ['sem_prog_log_id' => ':sem_prog_log_id', 'subject_code' => ':subject_code']) }}";
-                        window.csrfToken = "{{ csrf_token() }}";
-                    </script>
                     <!-- RESULTS OVERVIEW SECTION -->
                     <div class="row-container justify-content-center align-items-center align-self-center py-3">
                         <div class="card shadow-sm p-3">
@@ -193,7 +191,26 @@
                                                     <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    A subject with the same subject code already exists in the system. Please check your input again.
+                                                    A subject with the same subject code already exists. Please check your input again.
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary fw-semibold" data-bs-dismiss="modal">Go back</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Incorrect input detected modal -->
+                                    <div class="rsans modal fade" id="invalid-subject-code-modal" tabindex="-1" aria-labelledby="invalidSubjectCodeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header py-2 d-flex align-items-center justify-content-center">
+                                                    <p class="fw-semibold fs-5 mb-0">
+                                                        Invalid Subject Code Detected
+                                                    </p>
+                                                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    The subject code must be in the correct format (e.g. AB12345). Please check your input again.
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary fw-semibold" data-bs-dismiss="modal">Go back</button>

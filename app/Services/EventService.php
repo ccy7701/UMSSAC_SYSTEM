@@ -192,7 +192,7 @@ class EventService
             'event_location' => 'required|string|max:255',
             'event_datetime' => 'required|date_format:Y-m-d\TH:i',
             'event_description' => 'required|string|max:1024',
-            'event_entrance_fee' => 'nullable|numeric|min:0',
+            'event_entrance_fee' => 'required|numeric|min:0',
             'event_sdp_provided' => 'required|boolean',
             'event_registration_link' => 'required|string|max:255',
             'event_status' => 'required|boolean',

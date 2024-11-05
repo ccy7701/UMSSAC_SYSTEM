@@ -14,6 +14,7 @@
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     @vite('resources/js/itemViewToggler.js')
+    @vite('resources/js/imageViewer.js')
     <x-admin-topnav/>
     <x-about/>
     <x-response-popup

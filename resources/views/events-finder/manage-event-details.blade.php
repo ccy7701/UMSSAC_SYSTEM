@@ -85,7 +85,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <label for="event-datetime" class="rsans fw-bold form-label">Event date and time</label>
-                    <input type="text" id="event-datetime" name="event_datetime" class="rsans form-control" value="{{ $event->event_datetime }}" readonly>
+                    <input type="text" id="event-datetime" name="event_datetime" class="rsans form-control" value="{{ \Carbon\Carbon::parse($event->event_datetime)->format('Y-m-d h:i A') }}" readonly>
                 </div>
                 <div class="form-group mb-3">
                     <label for="event-description" class="rsans fw-bold form-label">Description</label>

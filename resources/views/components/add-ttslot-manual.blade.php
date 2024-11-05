@@ -106,7 +106,6 @@
                             <button type="submit" class="btn btn-primary fw-semibold ms-1 w-50">Add</button>
                         </div>
                     </div>
-
                 </div>
             </form>
         </div>

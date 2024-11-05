@@ -6,6 +6,11 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/sass/app.scss',
+                'resources/js/acadProgress/addSubject.js',
+                'resources/js/acadProgress/helperFunctions.js',
+                'resources/js/acadProgress/semesterDropdown.js',
+                'resources/js/acadProgress/semIdValidator.js',
+                'resources/js/acadProgress/semSubOperations.js',
                 'resources/js/suggester/addedListOperations.js',
                 'resources/js/suggester/suggesterFormOperations.js',
                 'resources/js/timetableBuilder/addTimetableSlot.js',
@@ -24,9 +29,6 @@ export default defineConfig({
                 'resources/js/manageMemberOperations.js',
                 'resources/js/picturePreviewer.js',
                 'resources/js/registerForm.js',
-                'resources/js/semesterDropdown.js',
-                'resources/js/semIdValidator.js',
-                'resources/js/semSubOperations.js',
                 'resources/js/systemUsersViewToggler.js',
                 'resources/js/sysusersSort.js',
                 'resources/js/tooltips.js'

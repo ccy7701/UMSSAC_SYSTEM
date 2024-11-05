@@ -74,7 +74,8 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="new-event-datetime" class="rsans fw-bold form-label">Event date and time</label>
-                        <input type="datetime-local" id="new-event-datetime" name="new_event_datetime" class="rsans form-control" required value="{{ old('new_event_datetime', $event->new_event_datetime ?? '') }}">
+                        <input type="datetime-local" id="new-event-datetime" name="new_event_datetime" class="rsans form-control" required value="{{ old('new_event_datetime', $event->new_event_datetime ?? '') }}"
+                        min="{{ now()->format('Y-m-d\TH:i') }}">
                     </div>
                     <div class="form-group mb-3">
                         <label for="new-event-description" class="rsans fw-bold form-label">Description</label>

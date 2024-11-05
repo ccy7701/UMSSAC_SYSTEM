@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Services\AccountService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {

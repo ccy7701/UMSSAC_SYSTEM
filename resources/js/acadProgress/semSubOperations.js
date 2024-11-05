@@ -1,3 +1,8 @@
+import {updateCGPAandSGPA, updateSubjectList} from './helperFunctions.js';
+import './addSubject.js';
+import './semesterDropdown.js';
+import './semIdValidator.js';
+
 // SEMESTER AND SUBJECTS DISPLAY OPERATIONS
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -18,6 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
     enrolmentSessionField.addEventListener('change', checkFieldsFilled);
     courseDurationField.addEventListener('change', checkFieldsFilled);
 
+    // Apply an EventListener to the subject code fields to enforce uppercase
+    const subjectCodeInput = document.getElementById('subject-code');
+    subjectCodeInput.addEventListener('input', function () {
+        this.value = this.value.toUpperCase();
+    });
+
     // Handle the click of the "Confirm" button
     btnPassForm.addEventListener('click', function (event) {
         // Prevent default form submission
@@ -32,16 +43,16 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function () {
     const selectSemester = document.getElementById('select-semester');
     const semesterTitle = document.getElementById('semester-results-title');
+    const addSubjectHiddenInput = document.getElementById('selected-semester');
 
     if (selectSemester) {
         selectSemester.addEventListener('change', function () {
             const semProgLogId = this.value;
-            console.log('semProgLogId = ', semProgLogId);
             if (semProgLogId) {
-                // const url = `${window.fetchSubjectStatsRoute}/${semProgLogId}`;
+                addSubjectHiddenInput.value = semProgLogId;
+
                 const url = window.fetchBySemProgLogIdRoute
                     .replace(':sem_prog_log_id', semProgLogId);
-                console.log('Fetching data from:', url);
 
                 fetch(url)
                     .then(response => {
@@ -75,82 +86,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// ADD SUBJECT MODAL AND FORM OPERATIONS
-
-const addModalElement = document.getElementById('add-subject-modal');
-const addModal = new bootstrap.Modal(addModalElement);
-const addSubjectForm = document.getElementById('add-subject-form');
-
-document.addEventListener('DOMContentLoaded', function () {
-    const duplicateEntryModal = new bootstrap.Modal(document.getElementById('duplicate-entry-modal'));
-
-    // Handle Add Subject form submission via AJAX
-    if (addSubjectForm) {
-        addSubjectForm.addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent the default form submission
-            const formData = new FormData(addSubjectForm);
-            const semProgLogId = formData.get('sem_prog_log_id');
-            const subjectCode = formData.get('subject_code');
-
-            // Fetch existing subject_stats_logs for the selected sem_prog_log_id
-            const fetchBySemProgLogIdRoute = window.fetchBySemProgLogIdRoute
-                .replace(':sem_prog_log_id', semProgLogId);
-
-            // First check if a row with the subject code passed from the form already exists
-            fetch(fetchBySemProgLogIdRoute)
-                .then(response => response.json())
-                .then(subjectStatsLogs => {
-                    const subjects = subjectStatsLogs.subjects
-                    if (checkForDuplicate(subjectCode, subjects)) {
-                        // If a duplicate is detected, show the error modal
-                        addModal.hide();
-                        duplicateEntryModal.show();
-
-                        // After the error modal is closed, show the add modal again
-                        const duplicateEntryModalElement = document.getElementById('duplicate-entry-modal');
-                        duplicateEntryModalElement.addEventListener('hidden.bs.modal', function () {
-                            addModal.show();
-                        }, { once: true });
-
-                        return;
-                    } else {
-                        // If no duplicate, proceed to submit the form to the server
-                        fetch(addSubjectForm.action, {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content // Add CSRF token
-                            },
-                            body: formData,
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! Status: ${response.status}`);
-                            }
-                            return response.json(); // Attempt to parse JSON
-                        })
-                        .then(data => {
-                            if (data.success) {
-                                console.log('New subject added successfully!');
-            
-                                // Close the modal after success
-                                console.log(addModal);
-                                addModal.hide();
-                                document.getElementById('add-subject-form').reset();
-            
-                                // Update CGPA and SGPA and subject list
-                                updateCGPAandSGPA(data.cgpa, data.sgpa);
-                                updateSubjectList(data.subjects);
-                            } else {
-                                alert('Failed to add the subject. Please try again.');
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
-                    }
-                });
-        })
-    }
-});
-
 // EDIT SUBJECT MODAL AND FORM OPERATIONS
 
 const editModalElement = document.getElementById('edit-subject-modal');
@@ -177,8 +112,6 @@ window.editSubject = function(sem_prog_log_id, subject_code) {
             const formAction = window.editSubjectRouteTemplate
                 .replace(':sem_prog_log_id', sem_prog_log_id)
                 .replace(':subject_code', subject_code);
-
-            console.log("NEW_FORM_ACTION:", formAction);
 
             document.getElementById('edit-subject-form').action = formAction;
 
@@ -211,10 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(data => {
                 if (data.success) {
-                    console.log('Subject updated successfully!');
-
                     // Close the modal after success
-                    console.log('Model instance:', editModal);
                     editModal.hide();
                     document.getElementById('edit-subject-form').reset();
 
@@ -252,8 +182,6 @@ deleteConfirmationModalElement.addEventListener('show.bs.modal', function (event
         .replace(':subject_code', subjectCode);
 
     deleteSubjectForm.action = deleteRoute;
-
-    console.log("Delete Route:", deleteRoute); // Debugging
 });
 
 // Reset the form when the modal is hidden to avoid stale data
@@ -283,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             if (data.success) {
-                console.log('Subject deleted successfully.');
                 deleteConfirmationModal.hide();
                 deleteSubjectForm.reset();
                 updateCGPAandSGPA(data.cgpa, data.sgpa);
@@ -295,113 +222,3 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error:', error));
     });
 });
-
-// HELPER FUNCTIONS
-
-// Helper function to check for duplicate on add/edit form submission
-function checkForDuplicate(subjectCode, subjectStatsLogs, currentSubjectCode = null) {
-    for (const log of subjectStatsLogs) {
-        // If editing, skip checcking the current subject_code itself
-        if (currentSubjectCode && log.subject_code === currentSubjectCode) {
-            continue;
-        }
-        // Check for duplicates
-        if (subjectCode === log.subject_code) {
-            return true;
-        }
-    }
-    return false;
-}
-
-// Helper function to update CGPA and SGPA dynamically
-function updateCGPAandSGPA(cgpa, sgpa) {
-    // Update CGPA in the view
-    const cgpaValue = cgpa ? cgpa.toFixed(2) : '0.00';
-    document.querySelector('#cgpa-value').textContent = cgpaValue;
-
-    // Update SGPA in the view
-    const sgpaValue = sgpa ? (Math.round(sgpa * 100) / 100).toFixed(2) : '0.00';
-    document.querySelector('#sgpa-value').textContent = sgpaValue;
-
-    // Update CGPA message and color based on the value
-    const cgpaMessageElement = document.querySelector('#cgpa-message');
-    if (cgpa >= 3.67) {
-        cgpaMessageElement.textContent = 'On track to first class';
-        cgpaMessageElement.style.color = '#15AA07';
-    } else if (cgpa >= 2.00 && cgpa < 3.67) {
-        cgpaMessageElement.textContent = 'You\'re on the right path!';
-        cgpaMessageElement.style.color = '#B4C75C';
-    } else if (cgpa < 2.00 && cgpa > 0.00) {
-        cgpaMessageElement.textContent = 'Needs improvement';
-        cgpaMessageElement.style.color = '#FF0000';
-    } else {
-        cgpaMessageElement.textContent = 'No data available';
-        cgpaMessageElement.style.color = '#BBBBBB';
-    }
-
-    // Update SGPA message and color based on the value
-    const sgpaMessageElement = document.querySelector('#sgpa-message');
-    if (sgpa >= 3.50) {
-        sgpaMessageElement.textContent = 'On track to dean\'s list';
-        sgpaMessageElement.style.color = '#15AA07';
-    } else if (sgpa >= 2.00 && sgpa < 3.50) {
-        sgpaMessageElement.textContent = 'Good effort, keep pushing!';
-        sgpaMessageElement.style.color = '#B4C75C';
-    } else if (sgpa < 2.00 && sgpa > 0.00) {
-        sgpaMessageElement.textContent = 'Needs improvement';
-        sgpaMessageElement.style.color = '#FF0000';
-    } 
-    else {
-        sgpaMessageElement.textContent = 'No data available';
-        sgpaMessageElement.style.color = '#BBBBBB';
-    }
-}
-
-// Helper function to generate the subject list dynamically
-function generateSubjectListRow(subject, row, tableBody) {
-    row.className = 'text-left align-middle';
-    row.innerHTML = `
-        <td>${subject.subject_code}</td>
-        <td>${subject.subject_name}</td>
-        <td>${subject.subject_credit_hours}</td>
-        <td>${subject.subject_grade}</td>
-        <td>${subject.subject_grade_point.toFixed(2)}</td>
-        <td style="width: 1%;">
-            <div class="dropdown">
-                <button class="subject-row btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton${subject.subject_code}" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-ellipsis-vertical"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton${subject.subject_code}">
-                    <li>
-                        <a class="dropdown-item" href="javascript:void(0)" onclick="editSubject(${subject.sem_prog_log_id}, '${subject.subject_code}')" data-bs-target="#editSubjectModal">Edit</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)" class="text-danger dropdown-item"
-                            data-bs-toggle="modal"
-                            data-bs-target="#delete-confirmation-modal"
-                            data-sem-prog-log-id="${subject.sem_prog_log_id}"
-                            data-subject-code="${subject.subject_code}">Delete</a>
-                    </li>
-                </ul>
-            </div>
-        </td>
-    `;
-    tableBody.appendChild(row);
-}
-
-// Helper function to update the subject list dynamically
-function updateSubjectList(subjects) {
-    const tableBody = document.getElementById('subjects-taken-table-body');
-    tableBody.innerHTML = ''; // Clear previous data
-
-    if (subjects.length > 0) {
-        subjects.forEach(subject => {
-            const row = document.createElement('tr');
-            generateSubjectListRow(subject, row, tableBody);
-        });
-    } else {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td colspan="6">No subjects added yet</td>`;
-        tableBody.appendChild(row);
-    }
-}
