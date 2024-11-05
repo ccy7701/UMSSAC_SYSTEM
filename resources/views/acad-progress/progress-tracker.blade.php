@@ -13,10 +13,8 @@
 
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
-    @vite('resources/js/semesterDropdown.js')
     @vite('resources/js/tooltips.js')
-    @vite('resources/js/semIdValidator.js')
-    @vite('resources/js/semSubOperations.js')
+    @vite('resources/js/acadProgress/semSubOperations.js')
     <x-topnav/>
     <x-about/>
     <x-response-popup
