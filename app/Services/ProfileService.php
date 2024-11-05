@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class ProfileService
 {
     // Handle updating the user's profile general info
-    public function handleUpdateGeneralInfo(Request $request) {        
+    public function handleUpdateGeneralInfo(Request $request) {
         // Validate the incoming request data
         $validatedData = $request->validate([
             'profile_personal_desc' => 'max:1024',

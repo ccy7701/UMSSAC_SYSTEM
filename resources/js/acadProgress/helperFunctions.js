@@ -1,3 +1,9 @@
+// Helper function to check if inputted subject code fits requirement
+export function isValidSubjectCode(subjectCode) {
+    const regex = /^[A-Za-z]{2}\d{5}$/;
+    return regex.test(subjectCode);
+}
+
 // Helper function to check for duplicate on add/edit form submission
 export function checkForDuplicate(subjectCode, subjectStatsLogs, currentSubjectCode = null) {
     for (const log of subjectStatsLogs) {

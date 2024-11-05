@@ -1,12 +1,13 @@
-import {checkForDuplicate, updateCGPAandSGPA, updateSubjectList} from './helperFunctions.js';
+import {isValidSubjectCode, checkForDuplicate, updateCGPAandSGPA, updateSubjectList} from './helperFunctions.js';
 
 // ADD SUBJECT MODAL AND FORM OPERATIONS
 
-const addModalElement = document.getElementById('add-subject-modal');
-const addModal = new bootstrap.Modal(addModalElement);
-const addSubjectForm = document.getElementById('add-subject-form');
-
 document.addEventListener('DOMContentLoaded', function () {
+    const addModalElement = document.getElementById('add-subject-modal');
+    const addModal = new bootstrap.Modal(addModalElement);
+    const addSubjectForm = document.getElementById('add-subject-form');
+
+    const invalidSubjectCodeModal = new bootstrap.Modal(document.getElementById('invalid-subject-code-modal'));
     const duplicateEntryModal = new bootstrap.Modal(document.getElementById('duplicate-entry-modal'));
 
     // Handle Add Subject form submission via AJAX
@@ -26,6 +27,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(subjectStatsLogs => {
                     const subjects = subjectStatsLogs.subjects
+                    if (!isValidSubjectCode(subjectCode)) {
+                        console.log("INVALID SUBJECT CODE");
+                        // 'account_matric_number.regex' => 'The matric number must be in the correct format (e.g., BI12345678). Please try again.',
+                        addModal.hide();
+                        invalidSubjectCodeModal.show();
+
+                        const invalidSubjectCodeModalElement = document.getElementById('invalid-subject-code-modal');
+                        invalidSubjectCodeModalElement.addEventListener('hidden.bs.modal', function () {
+                            addModal.show();
+                        }, { once: true });
+                    }
                     if (checkForDuplicate(subjectCode, subjects)) {
                         // If a duplicate is detected, show the error modal
                         addModal.hide();

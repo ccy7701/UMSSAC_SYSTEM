@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
     enrolmentSessionField.addEventListener('change', checkFieldsFilled);
     courseDurationField.addEventListener('change', checkFieldsFilled);
 
+    // Apply an EventListener to the subject code fields to enforce uppercase
+    const subjectCodeInput = document.getElementById('subject-code');
+    subjectCodeInput.addEventListener('input', function () {
+        this.value = this.value.toUpperCase();
+    });
+
     // Handle the click of the "Confirm" button
     btnPassForm.addEventListener('click', function (event) {
         // Prevent default form submission
@@ -37,11 +43,14 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function () {
     const selectSemester = document.getElementById('select-semester');
     const semesterTitle = document.getElementById('semester-results-title');
+    const addSubjectHiddenInput = document.getElementById('selected-semester');
 
     if (selectSemester) {
         selectSemester.addEventListener('change', function () {
             const semProgLogId = this.value;
             if (semProgLogId) {
+                addSubjectHiddenInput.value = semProgLogId;
+
                 const url = window.fetchBySemProgLogIdRoute
                     .replace(':sem_prog_log_id', semProgLogId);
 

@@ -1,5 +1,11 @@
 [
     {
+        "version": "0.7.1.2-alpha",
+        "changes": [
+            "Minor UI improvements and fixes across multiple pages (Arigatou, Danny)."
+        ]
+    },
+    {
         "version": "0.7.1.1-alpha",
         "changes": [
             "Redesigned the display of the suggested study partners page for smaller screens.",
