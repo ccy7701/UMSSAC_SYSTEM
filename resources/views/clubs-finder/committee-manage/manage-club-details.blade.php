@@ -155,7 +155,7 @@
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
                     <div class="col-lg-6 col-8 text-start mt-2">
-                        <h3 class="rserif fw-bold w-100">Events</h3>
+                        <h3 class="rserif fw-bold w-100">Events ({{ $clubEventsCount }})</h3>
                     </div>
                     <div class="col-lg-6 col-4 text-end align-self-center">
                         <div class="input-group justify-content-end me-2">
@@ -216,6 +216,9 @@
                             <x-manage-event-list-item :event="$event"/>
                         </div>
                     @endforeach
+                </div>
+                <div class="col-auto d-flex justify-content-center mt-xl-0 mt-1">
+                    {{ $clubEvents->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>

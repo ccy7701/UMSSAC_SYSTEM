@@ -155,7 +155,7 @@
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
                     <div class="col-lg-6 col-8 text-start mt-2">
-                        <h3 class="rserif fw-bold w-100">Events</h3>
+                        <h3 class="rserif fw-bold w-100">Events ({{ $clubEventsCount }})</h3>
                     </div>
                     <div class="col-lg-6 col-4 text-end align-self-center">
                         <div class="input-group justify-content-end me-2">
@@ -177,9 +177,9 @@
                 <div class="col-auto d-flex justify-content-center mt-xl-0 mt-lg-0 mt-md-3 mt-3">
                     {{ $clubEvents->links('pagination::bootstrap-4') }}
                 </div>
-                <!-- GRID VIEW (Toggle based on preference) -->
-                <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
-                    @if ($clubEvents->isNotEmpty())
+                @if ($clubEvents->isNotEmpty())
+                    <!-- GRID VIEW (Toggle based on preference) -->
+                    <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
                         <div class="row pb-3 px-md-3 px-sm-0">
                             @foreach ($clubEvents as $event)
                                 <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
@@ -189,13 +189,9 @@
                                 </div>
                             @endforeach
                         </div>
-                    @else
-                        <p class="rsans">No events recorded yet</p>
-                    @endif
-                </div>
-                <!-- LIST VIEW (Toggle based on preference) -->
-                <div id="list-view" class="row list-view justify-content-start mx-0 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
-                    @if ($clubEvents->isNotEmpty())
+                    </div>
+                    <!-- LIST VIEW (Toggle based on preference) -->
+                    <div id="list-view" class="row list-view justify-content-start mx-0 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
                         @foreach ($clubEvents as $event)
                             <div class="col-xl-6 col-12 mb-3">
                                 <x-event-list-item
@@ -203,9 +199,14 @@
                                     :intersectionarray="$intersectionArray"/>
                             </div>
                         @endforeach
-                    @else
-                        <p class="rsans">No events recorded yet</p>
-                    @endif
+                    </div>
+                @else
+                    <div id="grid-view" class="row grid-view d-none"></div>
+                    <div id="list-view" class="row list-view d-none"></div>
+                    <p class="rsans text-center w-100 py-2">No events recorded yet</p>
+                @endif
+                <div class="col-auto d-flex justify-content-center mt-xl-0 mt-1">
+                    {{ $clubEvents->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>

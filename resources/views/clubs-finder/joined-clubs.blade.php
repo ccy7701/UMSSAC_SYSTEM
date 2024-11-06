@@ -51,27 +51,30 @@
             </div>
         </div>
         <!-- BODY OF CONTENT -->
-        <div class="row-container container-fluid align-items-center my-3 py-3 px-4">
-            <div class="rsans row">
-                <div class="col-12 px-0">
-                    <!-- GRID VIEW (Toggle based on preference) -->
-                    <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
-                        <div class="row pb-3 px-md-3 px-sm-0">
-                            @foreach ($joinedClubs as $club)
-                                <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
-                                    <x-club-card :club="$club"/>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <!-- LIST VIEW (Toggle based on preference) -->
-                    <div id="list-view" class="row list-view mx-0 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
+        <div class="row-container container-fluid align-items-center my-3 py-3 pb-4 pt-xl-4 pt-lg-4 pt-md-0 pt-0 mt-0">
+            <div class="align-items-center w-100 px-0">
+                <div class="col-auto d-flex justify-content-center mt-xl-0 mt-lg-0 mt-md-3 mt-3">
+                    {{ $joinedClubs->links('pagination::bootstrap-4') }}
+                </div>
+                <div id="grid-view" class="row grid-view ms-2 {{ $searchViewPreference == 1 ? '' : 'd-none' }}">
+                    <div class="row pb-3 px-md-3 px-sm-0">
                         @foreach ($joinedClubs as $club)
-                            <div class="col-xl-6 col-12 mb-3">
-                                <x-club-list-item :club="$club"/>
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 px-2">
+                                <x-club-card :club="$club"/>
                             </div>
                         @endforeach
                     </div>
+                </div>
+                <!-- LIST VIEW (Toggle based on preference) -->
+                <div id="list-view" class="row list-view justify-content-start mx-0 {{ $searchViewPreference == 2 ? '' : 'd-none' }}">
+                    @foreach ($joinedClubs as $club)
+                        <div class="col-xl-6 col-12 mb-3">
+                            <x-club-list-item :club="$club"/>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="col-auto d-flex justify-content-center">
+                    {{ $joinedClubs->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>
