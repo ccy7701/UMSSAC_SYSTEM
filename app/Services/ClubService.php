@@ -45,7 +45,7 @@ class ClubService
         return view($viewName, [
             'clubs' => $allClubs,
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
-            'totalClubCount' => $allClubs->count(),
+            'totalClubCount' => $allClubs->total(),
             'filters' => $filters,
             'search' => $search
         ]);
@@ -58,7 +58,7 @@ class ClubService
         return view('clubs-finder.joined-clubs', [
             'joinedClubs' => $joinedClubs,
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
-            'totalJoinedClubs' => $joinedClubs->count()
+            'totalJoinedClubs' => $joinedClubs->total()
         ]);
     }
 
@@ -133,8 +133,8 @@ class ClubService
     }
 
     // Prepare all data for the specific club
-    public function prepareClubData($clubId) {
-        $clubEvents = $this->getEventsForClub($clubId);
+    public function prepareClubData($clubId, $isCommitteeManage = null) {
+        $clubEvents = $this->getEventsForClub($clubId, $isCommitteeManage);
 
         // Find intersection between all club eventIDs and bookmarked eventIDs
         $bookmarkedEventIDs = $this->bookmarkService->getBookmarkedEventIDs();
@@ -145,7 +145,8 @@ class ClubService
             'club' => $this->getClubDetails($clubId),
             'clubMembers' => $this->getClubMembers($clubId),
             'clubMembersCount' => $this->getClubMembersCount($clubId),
-            'clubEvents' => $clubEvents['clubEvents'],
+            'clubEvents' => $clubEvents['allClubEvents'],
+            'clubEventsCount' => $clubEvents['clubEventsCount'],
             'intersectionArray' => $intersectionArray,
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
             'isCommitteeMember' => $this->checkCommitteeMember($clubId, profile()->profile_id)
@@ -169,11 +170,14 @@ class ClubService
     }
 
     // Get all the events of the specific club
-    public function getEventsForClub($club_id) {
-        $clubEvents = Event::where('club_id', $club_id)->paginate(12);
-        $eventIDs = $clubEvents->pluck('event_id')->toArray();
+    public function getEventsForClub($clubId, $isCommitteeManage) {
+        $paginateCount = $isCommitteeManage == null ? 12 : 11;
 
-        return compact('clubEvents', 'eventIDs');
+        $clubEventsCount = Event::where('club_id', $clubId)->count();
+        $allClubEvents = Event::where('club_id', $clubId)->paginate($paginateCount)->withQueryString();
+        $eventIDs = $allClubEvents->pluck('event_id')->toArray();
+
+        return compact('clubEventsCount', 'allClubEvents', 'eventIDs');
     }
 
     // Get the details of the specific club

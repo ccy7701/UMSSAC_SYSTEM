@@ -53,7 +53,7 @@ class ClubController extends Controller
     public function fetchCommitteeManagePage(Request $request) {
         return view(
             'clubs-finder.committee-manage.manage-club-details',
-            $this->clubService->prepareClubData($request->query('club_id'))
+            $this->clubService->prepareClubData($request->query('club_id'), 1)
         );
     }
 
