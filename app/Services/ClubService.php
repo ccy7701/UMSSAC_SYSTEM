@@ -18,7 +18,7 @@ class ClubService
     }
 
     // Prepare all the data to be sent to the clubs finder view
-    public function prepareAndRenderClubsFinderView(Request $request) {
+    public function prepareAndRenderClubsFinderView(Request $request, $isAdminManage = null) {
         $route = currentAccount()->account_role != 3 ? 'clubs-finder' : 'manage-clubs';
         $viewName = currentAccount()->account_role != 3
             ? 'clubs-finder.general.view-all-clubs'
@@ -40,7 +40,7 @@ class ClubService
         $sort = $request->input('sort', '');
         $search = $request->input('search', '');
 
-        $allClubs = $this->getAllClubs($filters, $sort, $search);
+        $allClubs = $this->getAllClubs($filters, $sort, $search, $isAdminManage);
     
         return view($viewName, [
             'clubs' => $allClubs,
@@ -97,7 +97,9 @@ class ClubService
     }
 
     // Get all clubs
-    public function getAllClubs(array $filters, string $sort, $search = null) {
+    public function getAllClubs(array $filters, string $sort, $search = null, $isAdminManage = null) {
+        $paginateCount = $isAdminManage == null ? 12 : 11;
+
         $query = Club::when(!empty($filters), function ($query) use ($filters) {
                 return $query->whereIn('club_category', $filters);
             })
@@ -117,7 +119,7 @@ class ClubService
         }
 
         // Fetch clubs based on the filters (if empty, return all clubs) and search input
-        return $query->paginate(12)->withQueryString();
+        return $query->paginate($paginateCount)->withQueryString();
     }
 
     // Get the user's joined clubs

@@ -29,7 +29,7 @@ class ClubController extends Controller
     }
 
     public function fetchClubsManager(Request $request) {
-        return $this->clubService->prepareAndRenderClubsFinderView($request);
+        return $this->clubService->prepareAndRenderClubsFinderView($request, 1);
     }
 
     public function clearFilterForManager() {
