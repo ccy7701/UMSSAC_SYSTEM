@@ -1,11 +1,10 @@
 <?php
 
-use App\Mail\TestCustomEmail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClubController;
+use App\Http\Controllers\ClubCreationController;
 use App\Http\Controllers\AccountController;
 use App\Http\Middleware\RoleAccessMiddleware;
-use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ClubMembershipController;
 
 // Routes accessible by admin only (account role 3)
@@ -38,7 +37,7 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
         return view('clubs-finder.admin-manage.add-new-club');
     })->name('manage-clubs.add-new-club');
 
-    Route::post('manage-clubs/add-new-club/action', [ClubController::class, 'addNewClub'])->name('manage-clubs.add-new-club.action');
+    Route::post('manage-clubs/add-new-club/action', [ClubCreationController::class, 'addNewClub'])->name('manage-clubs.add-new-club.action');
 
     Route::get('/all-system-users', [AccountController::class, 'fetchAllSystemUsers'])->name('admin.all-system-users');
 

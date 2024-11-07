@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('club_creation_request', function (Blueprint $table) {
             $table->increments('creation_request_id');
+            $table->unsignedInteger('requester_profile_id');
+            $table->foreign('requester_profile_id')->references('profile_id')->on('profile');
             $table->string('club_name', 512);
             $table->string('club_category', 16);
             $table->string('club_description', 1024);

@@ -4,16 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\ClubService;
-use App\Services\NotificationService;
 
 class ClubController extends Controller
 {
     protected $clubService;
-    protected $notificationService;
 
-    public function __construct(ClubService $clubService, NotificationService $notificationService) {
+    public function __construct(ClubService $clubService) {
         $this->clubService = $clubService;
-        $this->notificationService = $notificationService;
     }
 
     public function fetchClubsFinder(Request $request) {
@@ -94,10 +91,6 @@ class ClubController extends Controller
 
     public function fetchJoinedClubs(Request $request) {
         return $this->clubService->prepareAndRenderJoinedClubsView($request);
-    }
-
-    public function addNewClub(Request $request) {
-        return $this->clubService->handleAddNewClub($request);
     }
 
     public function updateClubInfo(Request $request) {
