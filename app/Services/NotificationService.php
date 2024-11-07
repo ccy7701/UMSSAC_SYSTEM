@@ -2,27 +2,33 @@
 
 namespace App\Services;
 
-use App\Mail\TestCustomEmail;
+use App\Mail\ClubCreationRequestNotification;
 use Illuminate\Support\Facades\Mail;
-use App\Models\Club;
+use App\Models\Profile;
 
 class NotificationService
 {
     /**
-     * Example method to handle club notifications.
+     * Handle sending a club creation request notification email to the admin.
      *
-     * @param int $clubId
-     * @return void
+     * @param \App\Models\ClubCreationRequest $clubCreationRequest
      */
-    public function handleClubEmailTest($club) {
-        // Fetch then prepare the club data from the club servfunc
-        $emailData = [
-            'title' => "Club Description: {$club->club_name}",
-            'message' => "Join our club - {$club->club_name} - today!",
-        ];
+    public function prepareClubCreationRequestEmail($clubCreationRequest) {
+        $requester = Profile::where('profile_id', $clubCreationRequest->requester_profile_id)
+            ->with([
+                'account' => function($query) {
+                    $query->select(
+                        'account_id',
+                        'account_full_name',
+                        'account_email_address',
+                        'account_contact_number'
+                    );
+                }
+            ])
+            ->first();
 
-        Mail::to('example@email.com')->send(new TestCustomEmail($emailData));
+        Mail::to('umssacs@gmail.com')->send(new ClubCreationRequestNotification($clubCreationRequest, $requester));
 
-        return 'Custom email test send successfully';
+        return 'Club creation request notification sent successfully';
     }
 }

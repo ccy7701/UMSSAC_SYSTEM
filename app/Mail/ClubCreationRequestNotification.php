@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\ClubCreationRequest;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -9,20 +10,23 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class TestCustomEmail extends Mailable
+class ClubCreationRequestNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
+    public $clubCreationRequest;
+    public $requester;
 
     /**
      * Create a new message instance.
      *
-     * @param array $data
+     * @param ClubCreationRequest $clubCreationRequest
+     * @param Profile $requester
      */
-    public function __construct(array $data)
+    public function __construct(ClubCreationRequest $clubCreationRequest, $requester)
     {
-        $this->data = $data;
+        $this->clubCreationRequest = $clubCreationRequest;
+        $this->requester = $requester;
     }
 
     /**
@@ -31,7 +35,7 @@ class TestCustomEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Custom Email Test',
+            subject: 'Request to Create New Club: ' . $this->clubCreationRequest->club_name,
         );
     }
 
@@ -41,7 +45,7 @@ class TestCustomEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.custom-email-test',
+            view: 'emails.club-creation-request',
         );
     }
 

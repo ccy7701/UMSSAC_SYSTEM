@@ -127,28 +127,6 @@
                 </div>
             </div>
         </form>
-        <!-- VIEW SUBMITTED REQUESTS -->
-        {{-- <div class="row-container">
-            <div class="align-items-center px-3">
-                <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
-                    <div class="col-12">
-                        <h3 class="rserif fw-bold w-100">Submitted requests</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row-container d-flex justify-content-center align-items-center py-3">
-            <div class="row w-75">
-                <div class="rsans card text-center p-0">
-                    <div class="card-body align-items-center justify-content-center">
-                        <div class="card-text">
-                            <p>Feature coming soon</p>
-                        </div>
-                    </diV>
-                </div>
-            </div>
-        </div>
-        <br><br> --}}
         <br><br>
     </main>
     <x-footer/>

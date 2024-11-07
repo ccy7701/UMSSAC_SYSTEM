@@ -333,7 +333,10 @@ class ClubService
             'request_remarks' => '',
         ]);
 
-        return $clubCreationRequest
+        // Send email after creation
+        $status = $this->notificationService->prepareClubCreationRequestEmail($clubCreationRequest);
+
+        return $status
             ? redirect()->route('club-creation.requests.new')
                 ->with('success', 'Your club creation request has been sent successfully. The system admin will review your request soon.')
             : back()->withErrors(['error' => 'Failed to submit club creation request. Please try again.']);
