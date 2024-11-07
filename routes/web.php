@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 require __DIR__.'/guest.php';
 require __DIR__.'/allauth.php';
 require __DIR__.'/admin.php';
+require __DIR__.'/facultyMember.php';
 require __DIR__.'/student.php';
 
 // Routes accessible by users regardless of access level

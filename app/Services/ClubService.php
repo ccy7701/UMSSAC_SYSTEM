@@ -6,15 +6,18 @@ use App\Models\Club;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\ClubMembership;
+use App\Services\NotificationService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ClubService
 {
     protected $bookmarkService;
+    protected $notificationService;
 
-    public function __construct(BookmarkService $bookmarkService) {
+    public function __construct(BookmarkService $bookmarkService, NotificationService $notificationService) {
         $this->bookmarkService = $bookmarkService;
+        $this->notificationService = $notificationService;
     }
 
     // Prepare all the data to be sent to the clubs finder view
@@ -304,5 +307,12 @@ class ClubService
         return $status
             ? redirect($route)->with('success', 'Club image deleted successfully.')
             : back()->withErrors(['error' => 'Failed to delete club image. Please try again.']);
+    }
+
+    // Handle sending club email
+    public function handleClubEmailTest(Request $request = null) {
+        $club = Club::findOrFail(1);
+
+        return $this->notificationService->handleClubEmailTest($club);
     }
 }

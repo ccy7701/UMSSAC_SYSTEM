@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <h1>{{ $data['title'] }}</h1>
+    <h1 class="rsans">{{ $data['title'] }}</h1>
     <p>{{ $data['message'] }}</p>
     <p>Best regards,</p>
     <p>UMSSACS</p>

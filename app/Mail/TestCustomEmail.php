@@ -17,7 +17,7 @@ class TestCustomEmail extends Mailable
 
     /**
      * Create a new message instance.
-     * 
+     *
      * @param array $data
      */
     public function __construct(array $data)
@@ -31,7 +31,7 @@ class TestCustomEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Test Custom Email 1',
+            subject: 'Custom Email Test',
         );
     }
 
@@ -41,7 +41,7 @@ class TestCustomEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.custom-email-1',
+            view: 'emails.custom-email-test',
         );
     }
 

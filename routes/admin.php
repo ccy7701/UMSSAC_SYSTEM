@@ -10,9 +10,6 @@ use App\Http\Controllers\ClubMembershipController;
 
 // Routes accessible by admin only (account role 3)
 Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function () {
-    // CURRENT ROUTE IN FOCUS
-    Route::get('/send-custom-email-1', [NotificationController::class, 'sendCustomEmail1'])->name('send-custom-email-1');
-
     Route::get('/manage-clubs', [ClubController::class, 'fetchClubsManager'])->name('manage-clubs');
 
     Route::post('/manage-clubs/filter', [ClubController::class, 'fetchClubsManager'])->name('manage-clubs.filter');

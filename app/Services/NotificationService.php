@@ -4,17 +4,25 @@ namespace App\Services;
 
 use App\Mail\TestCustomEmail;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Club;
 
 class NotificationService
 {
-    public function handleCustomEmail1() {
-        $data = [
-            'title' => 'Welcome to UMSSACS!',
-            'message' => 'We are excited to have you on board. Enjoy exploring our features!',
+    /**
+     * Example method to handle club notifications.
+     *
+     * @param int $clubId
+     * @return void
+     */
+    public function handleClubEmailTest($club) {
+        // Fetch then prepare the club data from the club servfunc
+        $emailData = [
+            'title' => "Club Description: {$club->club_name}",
+            'message' => "Join our club - {$club->club_name} - today!",
         ];
 
-        Mail::to('example@email.com')->send(new TestCustomEmail($data));
+        Mail::to('example@email.com')->send(new TestCustomEmail($emailData));
 
-        return 'Custom email 1 send successfully';
+        return 'Custom email test send successfully';
     }
 }
