@@ -327,7 +327,7 @@ class ClubService
         ]);
 
         $imagePath = $request->hasFile('new_club_image')
-            ? $request->file('new_club_image')->store('club-request-images', 'public') 
+            ? $request->file('new_club_image')->store('club-request-images', 'public')
             : '';
 
         $clubCreationRequest = ClubCreationRequest::create([

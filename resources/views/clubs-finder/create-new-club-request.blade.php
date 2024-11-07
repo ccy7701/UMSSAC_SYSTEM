@@ -25,19 +25,17 @@
             @csrf
             <input type="hidden" name="requester_profile_id" value="{{ profile()->profile_id }}">
             <!-- PAGE HEADER -->
-            <div class="row-container">
-                <div class="align-items-center px-3">
-                    <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
-                        <div class="col-12 text-center">
-                            <h3 class="rserif fw-bold w-100 mb-1">Request for new club creation</h3>
-                            <p class="rserif fs-4 w-100 mt-0">Fill in the details below to request for a new club</p>
-                        </div>
-                        <div class="row py-3">
-                            <div id="club-breadcrumb" class="col-lg-8 align-items-center"></div>
-                            <div id="club-action-buttons" class="col-lg-4 col-md-12 col-12 align-items-center px-0">
-                                <a href="#" class="rsans text-decoration-none text-dark fw-bold px-3" onclick="history.back(); return false;">Cancel</a>
-                                <button type="submit" class="rsans btn btn-primary fw-bold px-3 ms-2 w-40">Add</button>
-                            </div>
+            <div class="row-container align-items-center px-3">
+                <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
+                    <div class="col-12 text-center">
+                        <h3 class="rserif fw-bold w-100 mb-1">Request for new club creation</h3>
+                        <p class="rserif fs-4 w-100 mt-0 mb-md-0 mb-sm-0 mb-xs-0 mb-0">Fill in the details below to request for a new club</p>
+                    </div>
+                    <div class="row py-xl-3 py-lg-3 py-md-2 py-sm-2 py-2">
+                        <div id="club-breadcrumb" class="col-lg-8 align-items-center"></div>
+                        <div id="club-action-buttons-standard" class="col-xl-4 col-lg-4 align-items-center px-0">
+                            <button onclick="history.back(); return false;" class="cancel-compact rsans text-decoration-none text-dark fw-bold px-3">Cancel</button>
+                            <button type="submit" class="rsans btn btn-primary fw-bold px-3 ms-2 w-40">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -122,10 +120,15 @@
                     </div>
                 </div>
             </div>
+            <div id="club-action-buttons-compact" class="row w-100 mx-0 mt-3 justify-content-center">
+                <div class="col-12 d-flex justify-content-center align-items-center">
+                    <button onclick="history.back(); return false;" class="cancel-compact rsans text-decoration-none text-dark fw-bold px-3">Cancel</button>
+                    <button type="submit" class="w-40 rsans btn btn-primary fw-bold px-3">Submit</button>
+                </div>
+            </div>
         </form>
-        <br>
         <!-- VIEW SUBMITTED REQUESTS -->
-        <div class="row-container">
+        {{-- <div class="row-container">
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
                     <div class="col-12">
@@ -145,6 +148,7 @@
                 </div>
             </div>
         </div>
+        <br><br> --}}
         <br><br>
     </main>
     <x-footer/>

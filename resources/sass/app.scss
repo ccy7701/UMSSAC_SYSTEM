@@ -120,6 +120,10 @@ html {
     justify-content: end;
 }
 
+#col-action-buttons-compact {
+    display: none;
+}
+
 .subject-row.dropdown-toggle::after {
     display: none;
 }
@@ -220,6 +224,12 @@ html {
     transform: rotate(180deg);
 }
 
+.cancel-compact {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
 // add media for max-width: 1400px when needed
 
 @media (max-width: 1200px) {
@@ -275,6 +285,12 @@ html {
     }
     .about-body tr td {
         font-size: 0.85em;
+    }
+    #col-action-buttons-standard {
+        display: none;
+    }
+    #col-action-buttons-compact {
+        display: block;
     }
 }
 

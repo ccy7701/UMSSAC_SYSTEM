@@ -31,7 +31,8 @@ export default defineConfig({
                 'resources/js/registerForm.js',
                 'resources/js/systemUsersViewToggler.js',
                 'resources/js/sysusersSort.js',
-                'resources/js/tooltips.js'
+                'resources/js/tooltips.js',
+                'resources/js/updateProfilePicture.js'
             ],
             refresh: true,
         }),

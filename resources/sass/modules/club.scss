@@ -158,9 +158,13 @@
     display: flex;
 }
 
-#club-action-buttons {
+#club-action-buttons-standard {
     display: flex;
     justify-content: end;
+}
+
+#club-action-buttons-compact {
+    display: none;
 }
 
 #club-images-carousel {
@@ -216,8 +220,11 @@
     #club-breadcrumb {
         display: none;
     }
-    #club-action-buttons {
-        justify-content: center;
+    #club-action-buttons-standard {
+        display: none;
+    }
+    #club-action-buttons-compact {
+        display: flex;
     }
     #club-breadcrumb-alt {
         display: flex;

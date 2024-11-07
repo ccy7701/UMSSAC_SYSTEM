@@ -20,27 +20,18 @@
         <form action="{{ route('manage-clubs.add-new-club.action') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <!-- PAGE HEADER -->
-            <div class="row-container">
-                <div class="align-items-center px-3">
-                    <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
-                        <div class="col-12 text-center">
-                            <h3 class="rserif fw-bold w-100 mb-1">Add new club</h3>
-                            <p class="rserif fs-4 w-100 mt-0">Fill in the details below to create a new club</p>
-                        </div>
-                        <!-- BREADCRUMB NAV -->
-                        <div class="row py-3">
-                            <div id="club-breadcrumb" class="col-lg-8 align-items-center">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="rsans breadcrumb mb-0 px-2" style="--bs-breadcrumb-divider: '>';">
-                                        <li class="breadcrumb-item"><a href="{{ route('manage-clubs') }}">All Clubs</a></li>
-                                        <li class="breadcrumb-item active">Add New Club</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                            <div id="club-action-buttons" class="col-lg-4 col-md-12 col-12 align-items-center px-0">
-                                <a href="{{ route('manage-clubs') }}" class="rsans text-decoration-none text-dark fw-bold px-3">Cancel</a>
-                                <button type="submit" class="rsans btn btn-primary fw-bold px-3 ms-2 w-40">Add</button>
-                            </div>
+            <div class="row-container align-items-center px-3">
+                <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
+                    <div class="col-12 text-center">
+                        <h3 class="rserif fw-bold w-100 mb-1">Add new club</h3>
+                        <p class="rserif fs-4 w-100 mt-0 mb-md-0 mb-sm-0 mb-xs-0 mb-0">Fill in the details below to create a new club</p>
+                    </div>
+                    <!-- BREADCRUMB NAV -->
+                    <div class="row py-xl-3 py-lg-3 py-md-2 py-sm-2 py-2">
+                        <div id="club-breadcrumb" class="col-lg-8 align-items-center"></div>
+                        <div id="club-action-buttons-standard" class="col-xl-4 col-lg-4 align-items-center px-0">
+                            <a href="{{ route('manage-clubs') }}" class="rsans text-decoration-none text-dark fw-bold px-3">Cancel</a>
+                            <button type="submit" class="rsans btn btn-primary fw-bold px-3 ms-2 w-40">Add</button>
                         </div>
                     </div>
                 </div>
@@ -123,6 +114,12 @@
                         </div>
                         <p class="rsans pt-2 text-center">Note: This image will be shown when users search for the club. It can be edited later.</p>
                     </div>
+                </div>
+            </div>
+            <div id="club-action-buttons-compact" class="row w-100 mx-0 mt-3 justify-content-center">
+                <div class="col-12 d-flex justify-content-center align-items-center">
+                    <a href="{{ route('manage-clubs') }}" class="rsans text-decoration-none text-dark fw-bold px-3">Cancel</a>
+                    <button type="submit" class="w-40 rsans btn btn-primary fw-bold px-3">Add</button>
                 </div>
             </div>
         </form>
