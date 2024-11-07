@@ -1,10 +1,12 @@
 <?php
 
+use App\Mail\TestCustomEmail;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ClubController;
-use App\Http\Controllers\ClubMembershipController;
+use App\Http\Controllers\AccountController;
 use App\Http\Middleware\RoleAccessMiddleware;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ClubMembershipController;
 
 // Routes accessible by admin only (account role 3)
 Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function () {

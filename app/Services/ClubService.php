@@ -6,19 +6,22 @@ use App\Models\Club;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\ClubMembership;
+use App\Services\NotificationService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ClubService
 {
     protected $bookmarkService;
+    protected $notificationService;
 
-    public function __construct(BookmarkService $bookmarkService) {
+    public function __construct(BookmarkService $bookmarkService, NotificationService $notificationService) {
         $this->bookmarkService = $bookmarkService;
+        $this->notificationService = $notificationService;
     }
 
     // Prepare all the data to be sent to the clubs finder view
-    public function prepareAndRenderClubsFinderView(Request $request) {
+    public function prepareAndRenderClubsFinderView(Request $request, $isAdminManage = null) {
         $route = currentAccount()->account_role != 3 ? 'clubs-finder' : 'manage-clubs';
         $viewName = currentAccount()->account_role != 3
             ? 'clubs-finder.general.view-all-clubs'
@@ -40,7 +43,7 @@ class ClubService
         $sort = $request->input('sort', '');
         $search = $request->input('search', '');
 
-        $allClubs = $this->getAllClubs($filters, $sort, $search);
+        $allClubs = $this->getAllClubs($filters, $sort, $search, $isAdminManage);
     
         return view($viewName, [
             'clubs' => $allClubs,
@@ -97,7 +100,9 @@ class ClubService
     }
 
     // Get all clubs
-    public function getAllClubs(array $filters, string $sort, $search = null) {
+    public function getAllClubs(array $filters, string $sort, $search = null, $isAdminManage = null) {
+        $paginateCount = $isAdminManage == null ? 12 : 11;
+
         $query = Club::when(!empty($filters), function ($query) use ($filters) {
                 return $query->whereIn('club_category', $filters);
             })
@@ -117,7 +122,7 @@ class ClubService
         }
 
         // Fetch clubs based on the filters (if empty, return all clubs) and search input
-        return $query->paginate(12)->withQueryString();
+        return $query->paginate($paginateCount)->withQueryString();
     }
 
     // Get the user's joined clubs
@@ -302,5 +307,12 @@ class ClubService
         return $status
             ? redirect($route)->with('success', 'Club image deleted successfully.')
             : back()->withErrors(['error' => 'Failed to delete club image. Please try again.']);
+    }
+
+    // Handle sending club email
+    public function handleClubEmailTest(Request $request = null) {
+        $club = Club::findOrFail(1);
+
+        return $this->notificationService->handleClubEmailTest($club);
     }
 }

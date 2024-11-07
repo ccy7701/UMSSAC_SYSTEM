@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\ClubService;
+use App\Services\NotificationService;
 
 class ClubController extends Controller
 {
     protected $clubService;
+    protected $notificationService;
 
-    public function __construct(ClubService $clubService) {
+    public function __construct(ClubService $clubService, NotificationService $notificationService) {
         $this->clubService = $clubService;
+        $this->notificationService = $notificationService;
     }
 
     public function fetchClubsFinder(Request $request) {
@@ -29,7 +32,7 @@ class ClubController extends Controller
     }
 
     public function fetchClubsManager(Request $request) {
-        return $this->clubService->prepareAndRenderClubsFinderView($request);
+        return $this->clubService->prepareAndRenderClubsFinderView($request, 1);
     }
 
     public function clearFilterForManager() {
@@ -107,5 +110,9 @@ class ClubController extends Controller
 
     public function deleteClubImage(Request $request) {
         return $this->clubService->handleDeleteClubImage($request);
+    }
+
+    public function sendEmailTest() {
+        return $this->clubService->handleClubEmailTest();
     }
 }

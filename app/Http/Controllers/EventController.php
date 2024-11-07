@@ -12,7 +12,8 @@ class EventController extends Controller
     protected $bookmarkService;
     protected $eventService;
 
-    public function __construct(BookmarkService $bookmarkService, EventService $eventService) {
+    public function __construct(BookmarkService $bookmarkService, EventService $eventService,
+    ) {
         $this->eventService = $eventService;
         $this->bookmarkService = $bookmarkService;
     }

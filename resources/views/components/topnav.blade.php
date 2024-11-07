@@ -33,7 +33,7 @@
                 @if (currentAccount()->account_role == 1)
                     <small>Student</small><br>
                     <small>{{ currentAccount()->account_matric_number }}</small>
-                @elseif (currentAccount()->account == 2)
+                @elseif (currentAccount()->account_role == 2)
                     <small>Faculty Member</small><br>
                     <small>{{ currentAccount()->account_email_address }}</small>
                 @endif
@@ -74,6 +74,9 @@
                         </li>
                         <li class="nav-item nav-submenu">
                             <a class="nav-link px-3" href="{{ route('clubs-finder.joined-clubs') }}">&emsp;Joined Clubs</a>
+                        </li>
+                        <li class="nav-item nav-submenu">
+                            <a class="nav-link px-3" href="{{ route('create-new-club.request') }}">&emsp;Request for New Club Creation</a>
                         </li>
                     </ul>
                 </li>
