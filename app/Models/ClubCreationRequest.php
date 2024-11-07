@@ -19,7 +19,8 @@ class ClubCreationRequest extends Model
         'club_category',
         'club_description',
         'club_image_paths',
-        'request_status'
+        'request_status',
+        'request_remarks'
     ];
 
     // Define relationships

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Club;
 use App\Models\Event;
+use App\Models\ClubCreationRequest;
 use Illuminate\Http\Request;
 use App\Models\ClubMembership;
 use App\Services\NotificationService;
@@ -314,5 +315,34 @@ class ClubService
         $club = Club::findOrFail(1);
 
         return $this->notificationService->handleClubEmailTest($club);
+    }
+
+    // Handle creating new club request
+    public function handleNewClubCreationRequest(Request $request) {
+        $validatedData = $request->validate([
+            'new_club_name' => 'required|string|max:128',
+            'new_club_category' => 'required|string',
+            'new_club_description' => 'required|string|max:1024',
+            'new_club_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $imagePath = $request->hasFile('new_club_image')
+            ? $request->file('new_club_image')->store('club-request-images', 'public') 
+            : '';
+
+        $clubCreationRequest = ClubCreationRequest::create([
+            'requester_profile_id' => $request->requester_profile_id,
+            'club_name' => $validatedData['new_club_name'],
+            'club_category' => $validatedData['new_club_category'],
+            'club_description' => $validatedData['new_club_description'],
+            'club_image_paths' => json_encode($imagePath ? [$imagePath] : []),
+            'request_status' => 0,
+            'request_remarks' => '',
+        ]);
+
+        return $clubCreationRequest
+            ? redirect()->route('create-new-club.request')
+                ->with('success', 'Your club creation requested has been sent successfully. The system admin will review your request soon.')
+            : back()->withErrors(['error' => 'Failed to submit club creation request. Please try again.']);
     }
 }

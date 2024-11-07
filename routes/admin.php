@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClubController;
-use App\Http\Controllers\ClubCreationController;
 use App\Http\Controllers\AccountController;
 use App\Http\Middleware\RoleAccessMiddleware;
+use App\Http\Controllers\ClubCreationController;
 use App\Http\Controllers\ClubMembershipController;
 
 // Routes accessible by admin only (account role 3)
