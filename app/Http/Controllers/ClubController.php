@@ -104,8 +104,4 @@ class ClubController extends Controller
     public function deleteClubImage(Request $request) {
         return $this->clubService->handleDeleteClubImage($request);
     }
-
-    public function sendEmailTest() {
-        return $this->clubService->handleClubEmailTest();
-    }
 }

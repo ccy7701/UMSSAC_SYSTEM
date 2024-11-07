@@ -53,7 +53,7 @@
                             <a class="nav-link px-3 text-decoration-none" href="{{ route('manage-clubs') }}">&emsp;Manage Clubs</a>
                         </li>
                         <li class="nav-item nav-submenu">
-                            <a class="nav-link px-3 text-decoration-none" href="#">&emsp;Club Creation Requests</a>
+                            <a class="nav-link px-3 text-decoration-none" href="{{ route('club-creation.requests.manage') }}">&emsp;Manage Club Creation Requests</a>
                         </li>
                     </ul>
                 </li>

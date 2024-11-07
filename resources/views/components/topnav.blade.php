@@ -75,9 +75,14 @@
                         <li class="nav-item nav-submenu">
                             <a class="nav-link px-3" href="{{ route('clubs-finder.joined-clubs') }}">&emsp;Joined Clubs</a>
                         </li>
-                        <li class="nav-item nav-submenu">
-                            <a class="nav-link px-3" href="{{ route('create-new-club.request') }}">&emsp;Request for New Club Creation</a>
-                        </li>
+                        @if (currentAccount()->account_role == 2)
+                            <li class="nav-item nav-submenu">
+                                <a class="nav-link px-3" href="{{ route('club-creation.requests.new') }}">&emsp;Request for New Club Creation</a>
+                            </li>
+                            <li class="nav-item nav-submenu">
+                                <a class="nav-link px-3" href="{{ route('club-creation.requests.view') }}">&emsp;View Club Creation Requests</a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
                 <hr class="divider-gray-300 py-0 my-0">

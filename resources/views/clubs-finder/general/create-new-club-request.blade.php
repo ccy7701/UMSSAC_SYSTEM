@@ -21,7 +21,7 @@
         title="Success!"/>
     <br>
     <main class="flex-grow-1">
-        <form action="{{ route('create-new-club.request.action') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('club-creation.requests.new.action') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="requester_profile_id" value="{{ profile()->profile_id }}">
             <!-- PAGE HEADER -->

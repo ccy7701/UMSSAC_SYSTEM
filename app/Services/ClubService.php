@@ -59,7 +59,7 @@ class ClubService
     public function prepareAndRenderJoinedClubsView() {
         $joinedClubs = $this->getJoinedClubs(profile()->profile_id);
 
-        return view('clubs-finder.joined-clubs', [
+        return view('clubs-finder.general.joined-clubs', [
             'joinedClubs' => $joinedClubs,
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
             'totalJoinedClubs' => $joinedClubs->total()
@@ -310,13 +310,6 @@ class ClubService
             : back()->withErrors(['error' => 'Failed to delete club image. Please try again.']);
     }
 
-    // Handle sending club email
-    public function handleClubEmailTest(Request $request = null) {
-        $club = Club::findOrFail(1);
-
-        return $this->notificationService->handleClubEmailTest($club);
-    }
-
     // Handle creating new club request
     public function handleNewClubCreationRequest(Request $request) {
         $validatedData = $request->validate([
@@ -341,8 +334,20 @@ class ClubService
         ]);
 
         return $clubCreationRequest
-            ? redirect()->route('create-new-club.request')
-                ->with('success', 'Your club creation requested has been sent successfully. The system admin will review your request soon.')
+            ? redirect()->route('club-creation.requests.new')
+                ->with('success', 'Your club creation request has been sent successfully. The system admin will review your request soon.')
             : back()->withErrors(['error' => 'Failed to submit club creation request. Please try again.']);
+    }
+
+    // Prepare all the data to be sent to the club creation requests view
+    public function prepareAndRenderRequestsView() {
+        $viewName = null;
+        if (currentAccount()->account_role == 3) {
+            $viewName = 'club-creation.admin-manage.view-club-creation-requests';
+        } elseif (currentAccount()->account_role == 2) {
+            $viewName = 'club-creation.general.view-club-creation-requests';
+        }
+
+        dd($viewName);
     }
 }
