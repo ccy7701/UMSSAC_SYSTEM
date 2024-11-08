@@ -13,7 +13,11 @@
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     @vite('resources/js/clubRequests.js')
-    <x-admin-topnav/>
+    @if (currentAccount()->account_role == 3)
+        <x-admin-topnav/>
+    @elseif (currentAccount()->account_role == 2)
+        <x-topnav/>
+    @endif
     <x-about/>
     <br>
     <main class="flex-grow-1">
@@ -21,8 +25,12 @@
         <div class="row-container align-items-center px-3">
             <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
                 <div class="col-12 text-center">
-                    <h3 class="rserif fw-bold w-100 mb-1">Review club creation request</h3>
-                    <p class="rserif fs-4 w-100 mt-0 mb-md-3 mb-sm-3 mb-xs-3 mb-3">Please review all details before proceeding</p>
+                    @if (currentAccount()->account_role == 3)
+                        <h3 class="rserif fw-bold w-100 mb-1">Review club creation request</h3>
+                        <p class="rserif fs-4 w-100 mt-0 mb-md-3 mb-sm-3 mb-xs-3 mb-3">Please review all details before proceeding</p>
+                    @elseif (currentAccount()->account_role == 2)
+                        <h3 class="rserif fw-bold w-100 mb-3">Review club creation request</h3>
+                    @endif
                 </div>
             </div>
         </div>
@@ -92,27 +100,35 @@
             </div>
             <br>
         </form>
-        <div id="col-action-buttons" class="row w-100 mx-0 mt-3 justify-content-center">
-            <div id="col-action-buttons-row" class="col-12 d-flex justify-content-center align-items-center">
-                <a href="{{ route('club-creation.requests.manage') }}" class="w-30 rsans btn btn-secondary fw-semibold px-3 me-1">Cancel</a>
-                <a href="{{ '#' }}" class="w-30 rsans btn btn-danger fw-semibold px-3 ms-1 me-1"
-                    data-bs-toggle="modal"
-                    data-bs-target="#reject-confirmation-modal"
-                    data-creation-request-id="{{ $target->creation_request_id }}"
-                    data-club-name="{{ $target->club_name }}">
-                    Reject
-                </a>
-                <button type="button" form="review-form" class="w-30 rsans btn btn-primary fw-semibold px-3 ms-1"
-                    data-bs-toggle="modal"
-                    data-bs-target="#accept-confirmation-modal"
-                    data-creation-request-id="{{ $target->creation_request_id }}"
-                    data-club-name="{{ $target->club_name }}">
-                    Approve
-                </button>
+        @if (currentAccount()->account_role == 3)
+            <div id="col-action-buttons" class="row w-100 mx-0 mt-3 justify-content-center">
+                <div id="col-action-buttons-row" class="col-12 d-flex justify-content-center align-items-center">
+                    <a href="{{ route('club-creation.requests.manage') }}" class="w-30 rsans btn btn-secondary fw-semibold px-3 me-1">Go back</a>
+                    <a href="{{ '#' }}" class="w-30 rsans btn btn-danger fw-semibold px-3 ms-1 me-1"
+                        data-bs-toggle="modal"
+                        data-bs-target="#reject-confirmation-modal"
+                        data-creation-request-id="{{ $target->creation_request_id }}"
+                        data-club-name="{{ $target->club_name }}">
+                        Reject
+                    </a>
+                    <button type="button" form="review-form" class="w-30 rsans btn btn-primary fw-semibold px-3 ms-1"
+                        data-bs-toggle="modal"
+                        data-bs-target="#accept-confirmation-modal"
+                        data-creation-request-id="{{ $target->creation_request_id }}"
+                        data-club-name="{{ $target->club_name }}">
+                        Approve
+                    </button>
+                </div>
+                <x-accept-request/>
+                <x-reject-request/>
             </div>
-            <x-accept-request/>
-            <x-reject-request/>
-        </div>
+        @elseif (currentAccount()->account_role == 2)
+            <div id="col-action-buttons" class="row w-100 mx-0 mt-3 justify-content-center">
+                <div id="col-action-buttons-row" class="col-12 d-flex justify-content-center align-items-center">
+                    <a href="{{ route('club-creation.requests.view') }}" class="w-30 rsans btn btn-secondary fw-semibold px-3">Go back</a>
+                </div>
+            </div>
+        @endif
         <br><br><br><br>
     </main>
     <x-footer/>

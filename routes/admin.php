@@ -21,7 +21,7 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
     Route::get('/club-creation/requests/manage', [ClubCreationController::class, 'fetchRequestsPage'])->name('club-creation.requests.manage');
 
     // CURRENT ROUTE OF FOCUS
-    Route::get('/club-creation/requests/review', [ClubCreationController::class, 'fetchRequestReviewPage'])->name('club-creation.requests.review');
+    // Route::get('/club-creation/requests/review', [ClubCreationController::class, 'fetchRequestReviewPage'])->name('club-creation.requests.review');
 
     // CURRENT ROUTE OF FOCUS
     Route::post('/club-creation/requests/accept', [ClubCreationController::class, 'acceptCreationRequest'])->name('club-creation.requests.accept');

@@ -30,7 +30,6 @@
                 <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
                     <div class="col-12 text-center px-0">
                         <h3 class="rserif fw-bold w-100 mb-3">Manage club creation requests</h3>
-                        <!-- Do I want to put a search tab here?? -->
                         <!-- VIEW ICONS -->
                         <div class="row pb-3 d-flex justify-content-center px-0 mx-0">
                             <div id="club-requests-view-toggle" class="rsans input-group d-flex justify-content-center px-0 mb-2">

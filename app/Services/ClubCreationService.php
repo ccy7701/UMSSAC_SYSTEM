@@ -69,8 +69,8 @@ class ClubCreationService
         $status = $this->notificationService->prepareClubCreationRequestEmail($clubCreationRequest);
 
         return $status
-            ? redirect()->route('club-creation.requests.new')
-                ->with('success', 'Your club creation request has been sent successfully. The system admin will review your request soon.')
+            ? redirect()->route('club-creation.requests.view')
+                ->with('sent', 'Your club creation request has been sent successfully. The system admin will review your request soon.')
             : back()->withErrors(['error' => 'Failed to submit club creation request. Please try again.']);
     }
 
@@ -118,7 +118,7 @@ class ClubCreationService
         $target = ClubCreationRequest::where('creation_request_id', $request->creation_request_id)->first();
 
         /**
-         * For the case where the admin accesses the page via the email,
+         * For the case where the ADMIN accesses the page via the email,
          * but the request has already been reviewed,
          * redirect to the overview page instead.
          */
@@ -126,7 +126,7 @@ class ClubCreationService
             return redirect()->route('club-creation.requests.manage');
         }
 
-        return view('clubs-finder.admin-manage.review-request', [
+        return view('clubs-finder.general.review-request', [
             'target' => $target,
         ]);
     }

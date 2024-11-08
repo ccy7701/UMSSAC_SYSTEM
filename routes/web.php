@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventController;
 use App\Http\Controllers\ClubController;
-use App\Http\Controllers\ClubMembershipController;
+use App\Http\Controllers\EventController;
 use App\Http\Middleware\RoleAccessMiddleware;
+use App\Http\Controllers\ClubCreationController;
+use App\Http\Controllers\ClubMembershipController;
 use App\Http\Middleware\CommitteeAccessMiddleware;
 use App\Http\Controllers\Auth\PasswordResetController;
 
@@ -92,4 +93,10 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
 
         Route::post('/events-finder/full-details/manage/delete-event', [EventController::class, 'deleteEvent'])->name('event-manage.delete-event');
     });
+});
+
+// Routes accessible by both facultyMember and Admin (account role 2 and 3)
+Route::middleware(['auth', RoleAccessMiddleware::class.':2, 3'])->group(function () {
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/club-creation/requests/review', [ClubCreationController::class, 'fetchRequestReviewPage'])->name('club-creation.requests.review');
 });
