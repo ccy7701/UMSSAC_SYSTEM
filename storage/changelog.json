@@ -1,5 +1,12 @@
 [
     {
+        "version": "0.7.2-alpha",
+        "changes": [
+            "The faculty member role now has the ability to request for club creation.",
+            "Extended mailing functionality to provide notifications on club creation."
+        ]
+    },
+    {
         "version": "0.7.1.3-alpha",
         "changes": [
             "Fixed pagination issues across multiple pages."
@@ -29,23 +36,6 @@
         "version": "0.7.0.7-alpha",
         "changes": [
             "The list of members in a club is now scrollable.",
-            "Minor UI fixes across multiple pages."
-        ]
-    },
-    {
-        "version": "0.7.0.6-alpha",
-        "changes": [
-            "Added changelog.",
-            "Fixed the cards display at the features page before login.",
-            "Added the ability for a logged in user to reset their password (if they happen to forget their current one)."
-        ]
-    },
-    {
-        "version": "0.7.0.5-alpha",
-        "changes": [
-            "Fixed an issue for committee members adding club events if none currently exist.",
-            "Added the ability to show/hide passwords.",
-            "Fixed a colour reproduction issue for the timetable PDF generator.",
             "Minor UI fixes across multiple pages."
         ]
     }

@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Check if the modal element exists
     if (flashModal) {
-        console.log('Flash modal element found: ', flashModal);
         // Initialise the modal using Bootstrap's Modal class
         const modalInstance = new bootstrap.Modal(flashModal);
         // Show the modal

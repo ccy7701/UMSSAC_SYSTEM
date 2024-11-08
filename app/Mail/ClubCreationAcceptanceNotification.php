@@ -6,7 +6,6 @@ use App\Models\Club;
 use App\Models\Profile;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use App\Models\ClubCreationRequest;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
@@ -21,7 +20,7 @@ class ClubCreationAcceptanceNotification extends Mailable
 
     /**
      * Create a new message instance.
-     * 
+     *
      * @param Profile $requester
      * @param Club $club
      */

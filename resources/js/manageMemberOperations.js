@@ -29,8 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedRole = selectElement.value;
             const memberName = selectElement.closest('.card-body').querySelector('p.fw-bold').innerText;
 
-            console.log(selectElement);
-
             // Fill the hidden form fields in the modal
             const form = document.getElementById('edit-access-level-form');
             form.querySelector('input[name="profile_id"]').value = profileId;

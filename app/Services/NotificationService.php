@@ -25,7 +25,7 @@ class NotificationService
 
     /**
      * Handle sending the club creation acceptance notification to the user who made the request.
-     * 
+     *
      * @param \App\Models\ClubCreationRequest $clubCreationRequest
      * @param \App\Models\Club $club
      */

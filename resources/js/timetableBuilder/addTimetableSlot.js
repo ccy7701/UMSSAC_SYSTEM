@@ -229,8 +229,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         })
                         .then(data => {
                             if (data.success) {
-                                console.log("Timetable builder refreshed with newly added data.");
-                
                                 // Close the modal after success
                                 addTimetableSlotAuto.hide();
                                 document.getElementById('add-ttslot-auto-form').reset();
@@ -272,7 +270,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     addTimetableSlotManual.show();
                 }, { once: true });
 
-                console.log("TIME FLIP IF GUARD ENTERED");
                 return;
             }
             // If it is not, then proceed
@@ -306,8 +303,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         })
                         .then(data => {
                             if (data.success) {
-                                console.log("Timetable builder refreshed with newly added data.");
-                
                                 // Close the modal after success
                                 addTimetableSlotManual.hide();
                                 document.getElementById('add-ttslot-manual-form').reset();
