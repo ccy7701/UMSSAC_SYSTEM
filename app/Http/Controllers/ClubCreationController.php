@@ -25,6 +25,14 @@ class ClubCreationController extends Controller
         return $this->clubCreationService->prepareAndRenderRequestsView($request);
     }
 
+    public function fetchRequestReviewPage(Request $request) {
+        return $this->clubCreationService->prepareAndRenderRequestReviewPage($request);
+    }
+
+    public function acceptCreationRequest(Request $request) {
+        return $this->clubCreationService->handleAcceptClubCreationRequest($request);
+    }
+
     public function rejectCreationRequest(Request $request) {
         return $this->clubCreationService->handleRejectClubCreationRequest($request);
     }

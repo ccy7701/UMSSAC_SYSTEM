@@ -8,20 +8,27 @@
                 </p>
                 <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div id="reject-request-body" class="modal-body">
-                Are you sure you want to reject the request to create (club name)? This action cannot be undone!
-            </div>
-            <div class="modal-footer">
+            <div class="modal-body">
+                <div id="reject-request-body">
+                    You are about to reject the request to create (club_name). This action cannot be undone.
+                </div>
+                <br>
                 <form id="reject-request-form" method="POST" action="{{ route('club-creation.requests.reject') }}">
                     @csrf
                     <input type="hidden" id="creation-request-id" name="creation_request_id" value="">
-                    <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">
-                        No, cancel
-                    </button>
-                    <button type="submit" class="btn btn-danger fw-semibold ms-1">
-                        Yes, continue
-                    </button>
+                    <div class="form-group mb-3">
+                        <label for="request-remarks" class="form-label">Please provide your remarks before proceeding:</label>
+                        <textarea id="request-remarks" name="request_remarks" class="rsans form-control" rows="3" style="resize: none;" maxlength="1024" required></textarea>
+                    </div>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary fw-semibold me-1" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button form="reject-request-form" type="submit" class="btn btn-danger fw-semibold ms-1">
+                    Continue
+                </button>
             </div>
         </div>
     </div>

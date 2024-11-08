@@ -57,9 +57,26 @@ rejectConfirmationModalElement.addEventListener('show.bs.modal', function (event
 
     const modalBodyText = document.getElementById('reject-request-body');
     modalBodyText.innerHTML = `
-        Are you sure you want to reject the request to create ${clubName}? <span class="text-danger">This action cannot be undone!</span>
+        You are about to reject the request to create ${clubName}. <span class="text-danger">This action cannot be undone.</span>
     `;
 
     const creationRequestIdInput = document.getElementById('creation-request-id');
     creationRequestIdInput.value = creationRequestId;
+    
+    console.log(creationRequestIdInput);
+});
+
+// Handle accept request form submission
+document.querySelector('button[data-bs-target="#accept-confirmation-modal"]').addEventListener('click', function (event) {
+    // Prevent the default form submission
+    event.preventDefault();
+
+    // Populate the hidden input in the accept request form with the creation request ID
+    const creationRequestId = document.querySelector('input[name="creation_request_id"]').value;
+    const acceptRequestForm = document.getElementById('accept-request-form');
+    acceptRequestForm.querySelector('input[name="creation_request_id"]').value = creationRequestId;
+
+    // Show the modal
+    const acceptConfirmationModal = new bootstrap.Modal(document.getElementById('accept-confirmation-modal'));
+    acceptConfirmationModal.show();
 });

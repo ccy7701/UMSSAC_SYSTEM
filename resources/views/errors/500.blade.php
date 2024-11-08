@@ -16,7 +16,7 @@
             <h1 class="rserif display-1 fw-bold">500</h1>
             <p class="rserif fw-bold fs-2">INTERNAL SERVER ERROR</p>
             <p class="rsans">Oops! Something went wrong on our end. Please try again later.</p>
-            <button class="rsans btn btn-secondary fw-semibold w-50 mt-2" onclick="history.back()">Go back</button>
+            <a href="{{ route('welcome') }}" class="rsans btn btn-secondary fw-semibold w-50 mt-2">Go back</a>
         </div>
     </main>
 </body>

@@ -14,6 +14,10 @@
     @vite('resources/js/clubRequests.js')
     <x-admin-topnav/>
     <x-about/>
+    <x-response-popup
+        messageType="success"
+        iconClass="text-secondary fa-solid fa-circle-xmark"
+        title="Request rejected"/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->
@@ -54,7 +58,6 @@
                             <x-club-request-list-item :request="$request"/>
                         </div>
                     @endforeach
-                    <x-reject-request/>
                 </div>
                 <!-- Requests marked as accepted -->
                 <div id="accepted-view">

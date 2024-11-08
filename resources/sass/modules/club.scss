@@ -223,6 +223,13 @@ $btn-primary-bg: #1064D6;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         cursor: pointer;
     }
+    .request-section {
+        cursor: default;
+    }
+}
+
+#col-action-buttons-row {
+    width: 50%;
 }
 
 @media (max-width: 992px) {
@@ -294,6 +301,9 @@ $btn-primary-bg: #1064D6;
     }
     #club-requests-view-toggle {
         width: 90%;
+    }
+    #col-action-buttons-row {
+        width: 80%;
     }
 }
 
@@ -368,5 +378,8 @@ $btn-primary-bg: #1064D6;
         .card-text {
             font-size: 0.85em;
         }
+    }
+    #col-action-buttons-row {
+        width: 100%;
     }
 }

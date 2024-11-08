@@ -112,9 +112,46 @@ class ClubCreationService
         return $query->get();
     }
 
+    // Handle preparing the data to be sent to the request review page
+    public function prepareAndRenderRequestReviewPage(Request $request) {
+        $target = ClubCreationRequest::where('creation_request_id', $request->creation_request_id)->first();
+
+        return view('clubs-finder.admin-manage.review-request', [
+            'target' => $target,
+        ]);
+    }
+
+    // Handle acceptance of the club creation request and then append to final Club table
+    public function handleAcceptClubCreationRequest($request) {
+        $target = ClubCreationRequest::where('creation_request_id', $request->creation_request_id)->first();
+
+        dd($target);
+        
+        // temporary
+        $status = true;
+
+        return $status
+            ? redirect(route('club-creation.requests.manage'))->with('accepted', 'Club creation for ' . $target->club_name . ' marked as accepted.')
+            : back()->withErrors(['error' => 'Failed to mark club creation request for ' . $target->club_name . ' as accepted. Please try again.']);
+    }
+
     // Handle rejection of the club creation request
     public function handleRejectClubCreationRequest(Request $request) {
-        dump("ENTERED handleRejectClubCreationRequest()");
-        dd($request);
+        $target = ClubCreationRequest::where('creation_request_id', $request->creation_request_id)->first();
+
+        dump("ENTERED REJECT SERVFUNC");
+        dd($request->request_remarks);
+
+        // temporary
+        $status = true;
+
+        // update $target->request_status to 3 (rejected)
+        // update $target->request_remark with form data
+        // update $target->updated_at to Carbon::now()
+        // redirect to route('club-creation.requests.manage');
+
+        return $status
+            ? redirect(route('club-creation.requests.manage'))->with('rejected', 'Club creation request for ' . $target->club_name . ' marked as rejected.')
+            : back()->withErrors(['error' => 'Failed to mark club creation request for ' . $target->club_name . ' as rejected. Please try again.']);
     }
 }

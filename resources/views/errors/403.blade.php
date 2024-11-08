@@ -16,7 +16,7 @@
             <h1 class="rserif display-1 fw-bold">403</h1>
             <p class="rserif fw-bold fs-2">FORBIDDEN</p>
             <p class="rsans">Access denied. You do not have permission to view this page.</p>
-            <button class="rsans btn btn-secondary fw-semibold w-50 mt-2" onclick="history.back()">Go back</button>
+            <a href="{{ route('welcome') }}" class="rsans btn btn-secondary fw-semibold w-50 mt-2">Go back</a>
         </div>
     </main>
 </body>
