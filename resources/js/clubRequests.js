@@ -45,3 +45,21 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleAcceptedViewBtn.classList.remove('active');
     });
 });
+
+const rejectConfirmationModalElement = document.getElementById('reject-confirmation-modal');
+const rejectConfirmationModal = new bootstrap.Modal(rejectConfirmationModalElement);
+const rejectRequestForm = document.getElementById('reject-request-form');
+
+rejectConfirmationModalElement.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+    const clubName = button.getAttribute('data-club-name');
+    const creationRequestId = button.getAttribute('data-creation-request-id');
+
+    const modalBodyText = document.getElementById('reject-request-body');
+    modalBodyText.innerHTML = `
+        Are you sure you want to reject the request to create ${clubName}? <span class="text-danger">This action cannot be undone!</span>
+    `;
+
+    const creationRequestIdInput = document.getElementById('creation-request-id');
+    creationRequestIdInput.value = creationRequestId;
+});

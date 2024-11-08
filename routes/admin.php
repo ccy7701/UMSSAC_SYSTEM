@@ -20,6 +20,9 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
     // CURRENT ROUTE OF FOCUS
     Route::get('/club-creation/requests/manage', [ClubCreationController::class, 'fetchRequestsPage'])->name('club-creation.requests.manage');
 
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/club-creation/request/reject', [ClubCreationController::class, 'rejectCreationRequest'])->name('club-creation.requests.reject');
+
     Route::get('/admin-manage/full-details/manage', [ClubController::class, 'fetchAdminManagePage'])->name('admin-manage.manage-details');
 
     Route::get('/admin-manage/full-details/manage/edit-club-info', [ClubController::class, 'showClubInfoEditForAdmin'])->name('admin-manage.edit-club-info');

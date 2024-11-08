@@ -11,7 +11,7 @@
 
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
-    @vite('resources/js/clubRequestsViewToggler.js')
+    @vite('resources/js/clubRequests.js')
     <x-admin-topnav/>
     <x-about/>
     <br>
@@ -49,15 +49,28 @@
             <div id="content-body" class="rsans justify-content-center align-items-center py-3 px-5 align-self-center">
                 <!-- Requests marked as pending -->
                 <div id="pending-view">
-                    PENDING VIEW
+                    @foreach ($pendingRequests as $request)
+                        <div class="row pb-3">
+                            <x-club-request-list-item :request="$request"/>
+                        </div>
+                    @endforeach
+                    <x-reject-request/>
                 </div>
                 <!-- Requests marked as accepted -->
                 <div id="accepted-view">
-                    ACCEPTED VIEW
+                    @foreach ($acceptedRequests as $request)
+                        <div class="row pb-3">
+                            <x-club-request-list-item :request="$request"/>
+                        </div>
+                    @endforeach
                 </div>
                 <!-- Requests marked as rejected -->
                 <div id="rejected-view">
-                    REJECTED VIEW
+                    @foreach ($rejectedRequests as $request)
+                        <div class="row pb-3">
+                            <x-club-request-list-item :request="$request"/>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

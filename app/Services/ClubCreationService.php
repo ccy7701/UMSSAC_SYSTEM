@@ -103,12 +103,18 @@ class ClubCreationService
      * 0 - pending, 1 - accepted, 2 - accepted with amendment, 3 = rejected
      */
     private function getClubCreationRequestsByStatus($requestStatus, $includeAmended = null) {
-        $query = ClubCreationRequest::where('request_status', $requestStatus);
-
+        $query = ClubCreationRequest::with(['profile.account'])->where('request_status', $requestStatus);
+    
         if ($requestStatus == 1 && $includeAmended) {
-            $query = ClubCreationRequest::whereIn('request_status', [1, 2]);
+            $query = ClubCreationRequest::with(['profile.account'])->whereIn('request_status', [1, 2]);
         }
-
+    
         return $query->get();
+    }
+
+    // Handle rejection of the club creation request
+    public function handleRejectClubCreationRequest(Request $request) {
+        dump("ENTERED handleRejectClubCreationRequest()");
+        dd($request);
     }
 }

@@ -216,6 +216,15 @@ $btn-primary-bg: #1064D6;
     }
 }
 
+.club-request-list-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+}
+
 @media (max-width: 992px) {
     #club-sort-standard {
         display: none;
@@ -350,6 +359,14 @@ $btn-primary-bg: #1064D6;
         width: 100%;
         button {
             font-size: 0.90em;
+        }
+    }
+    .club-request-list-item {
+        h5 {
+            font-size: 1.00em;
+        }
+        .card-text {
+            font-size: 0.85em;
         }
     }
 }
