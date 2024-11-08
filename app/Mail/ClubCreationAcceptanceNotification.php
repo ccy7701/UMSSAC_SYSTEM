@@ -2,32 +2,33 @@
 
 namespace App\Mail;
 
-use App\Models\ClubCreationRequest;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
+use App\Models\Club;
 use App\Models\Profile;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use App\Models\ClubCreationRequest;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ClubCreationRejectionNotification extends Mailable
+class ClubCreationAcceptanceNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $clubCreationRequest;
     public $requester;
+    public $club;
 
     /**
      * Create a new message instance.
-     *
-     * @param ClubCreationRequest $clubCreationRequest
+     * 
      * @param Profile $requester
+     * @param Club $club
      */
-    public function __construct(ClubCreationRequest $clubCreationRequest, Profile $requester)
+    public function __construct(Profile $requester, Club $club)
     {
-        $this->clubCreationRequest = $clubCreationRequest;
         $this->requester = $requester;
+        $this->club = $club;
     }
 
     /**
@@ -36,7 +37,7 @@ class ClubCreationRejectionNotification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Request to create ' . $this->clubCreationRequest->club_name . ' rejected',
+            subject: 'Request to create ' . $this->club->club_name . ' accepted',
         );
     }
 
@@ -46,7 +47,7 @@ class ClubCreationRejectionNotification extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.club-creation-rejected',
+            view: 'emails.club-creation-accepted',
         );
     }
 

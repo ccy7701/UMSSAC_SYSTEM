@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Mail\ClubCreationRequestNotification;
 use App\Mail\ClubCreationRejectionNotification;
+use App\Mail\ClubCreationAcceptanceNotification;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Profile;
 
@@ -20,6 +21,21 @@ class NotificationService
         Mail::to('umssacs@gmail.com')->send(new ClubCreationRequestNotification($clubCreationRequest, $requester));
 
         return 'Club creation request notification sent successfully';
+    }
+
+    /**
+     * Handle sending the club creation acceptance notification to the user who made the request.
+     * 
+     * @param \App\Models\ClubCreationRequest $clubCreationRequest
+     * @param \App\Models\Club $club
+     */
+    public function prepareClubCreationAcceptEmail($clubCreationRequest, $club) {
+        $requester = $this->getRequester($clubCreationRequest->requester_profile_id);
+        $targetEmail = $requester->account->account_email_address;
+
+        Mail::to($targetEmail)->send(new ClubCreationAcceptanceNotification($requester, $club));
+
+        return 'Club creation acceptance notification sent successfully';
     }
 
     /**

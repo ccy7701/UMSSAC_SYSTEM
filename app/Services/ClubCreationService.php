@@ -135,8 +135,23 @@ class ClubCreationService
     public function handleAcceptClubCreationRequest($request) {
         $target = ClubCreationRequest::where('creation_request_id', $request->creation_request_id)->first();
         
-        // temporary
-        $status = true;
+        // Update the request status and updated timestamp
+        $target->request_status = 1;
+        $target->updated_at = Carbon::now();
+
+        // Save the updated data
+        $target->save();
+
+        // Then, create a new Club instance and append it to the 'club' table
+        $club = Club::create([
+            'club_name' => $target->club_name,
+            'club_category' => $target->club_category,
+            'club_description' => $target->club_description,
+            'club_image_paths' => json_encode([]),
+        ]);
+
+        // Then send email after update
+        $status = $this->notificationService->prepareClubCreationAcceptEmail($target, $club);
 
         return $status
             ? redirect(route('club-creation.requests.manage'))->with('accepted', 'Club creation request for ' . $target->club_name . ' marked as accepted.')
