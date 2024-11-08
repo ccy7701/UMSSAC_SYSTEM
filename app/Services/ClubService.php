@@ -6,8 +6,8 @@ use App\Models\Club;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\ClubMembership;
-use App\Services\NotificationService;
 use Illuminate\Support\Facades\DB;
+use App\Services\NotificationService;
 use Illuminate\Support\Facades\Storage;
 
 class ClubService
@@ -58,7 +58,7 @@ class ClubService
     public function prepareAndRenderJoinedClubsView() {
         $joinedClubs = $this->getJoinedClubs(profile()->profile_id);
 
-        return view('clubs-finder.joined-clubs', [
+        return view('clubs-finder.general.joined-clubs', [
             'joinedClubs' => $joinedClubs,
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
             'totalJoinedClubs' => $joinedClubs->total()
@@ -198,32 +198,6 @@ class ClubService
             ->exists();
     }
 
-    // Handle adding new club
-    public function handleAddNewClub(Request $request) {
-        $validatedData = $request->validate([
-            'new_club_name' => 'required|string|max:128',
-            'new_club_category' => 'required|string',
-            'new_club_description' => 'required|string|max:1024',
-            'new_club_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        // Handle the image upload, if present
-        $imagePath = $request->hasFile('new_club_image')
-            ? $request->file('new_club_image')->store('club-images', 'public')
-            : '';
-
-        $club = Club::create([
-            'club_name' => $validatedData['new_club_name'],
-            'club_category' => $validatedData['new_club_category'],
-            'club_description' => $validatedData['new_club_description'],
-            'club_image_paths' => json_encode($imagePath ? [$imagePath] : []),
-        ]);
-
-        return $club
-            ? redirect()->route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id])->with('success', 'New club added successfully!')
-            : back()->withErrors(['error' => 'Failed to add new club. Please try again.']);
-    }
-
     // Handle editing the club info
     public function handleUpdateClubInfo(Request $request) {
         $validatedData = $request->validate([
@@ -307,12 +281,5 @@ class ClubService
         return $status
             ? redirect($route)->with('success', 'Club image deleted successfully.')
             : back()->withErrors(['error' => 'Failed to delete club image. Please try again.']);
-    }
-
-    // Handle sending club email
-    public function handleClubEmailTest(Request $request = null) {
-        $club = Club::findOrFail(1);
-
-        return $this->notificationService->handleClubEmailTest($club);
     }
 }

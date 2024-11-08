@@ -10,7 +10,6 @@ use App\Models\StudyPartner;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class StudyPartnerService
 {
@@ -165,7 +164,6 @@ class StudyPartnerService
 
             $recommendations = $response->json();
         } catch (\Exception $e) {
-            Log::error('Recommender engine connection error: ' . $e->getMessage());
             return response()->json(['error' => 'Failed to connect to recommender engine at port 5000.']);
         }
 

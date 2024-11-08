@@ -1,3 +1,5 @@
+$btn-primary-bg: #1064D6;
+
 #club-filters-compact {
     display: none;
 }
@@ -158,9 +160,13 @@
     display: flex;
 }
 
-#club-action-buttons {
+#club-action-buttons-standard {
     display: flex;
     justify-content: end;
+}
+
+#club-action-buttons-compact {
+    display: none;
 }
 
 #club-images-carousel {
@@ -200,6 +206,32 @@
     width: 80px !important;
 }
 
+#club-requests-view-toggle {
+    width: 60%;
+    button {
+        &.active {
+            background-color: $btn-primary-bg;
+            color: white;
+        }
+    }
+}
+
+.club-request-list-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+    .request-section {
+        cursor: default;
+    }
+}
+
+#col-action-buttons-row {
+    width: 50%;
+}
+
 @media (max-width: 992px) {
     #club-sort-standard {
         display: none;
@@ -216,8 +248,11 @@
     #club-breadcrumb {
         display: none;
     }
-    #club-action-buttons {
-        justify-content: center;
+    #club-action-buttons-standard {
+        display: none;
+    }
+    #club-action-buttons-compact {
+        display: flex;
     }
     #club-breadcrumb-alt {
         display: flex;
@@ -251,6 +286,9 @@
     .carousel-control-next {
         width: 50px !important;
     }
+    #club-requests-view-toggle {
+        width: 75%;
+    }
 }
 
 @media (max-width: 768px) {
@@ -260,6 +298,12 @@
     #carousel-inner-lg,
     #carousel-inner-md {
         display: none;
+    }
+    #club-requests-view-toggle {
+        width: 90%;
+    }
+    #col-action-buttons-row {
+        width: 80%;
     }
 }
 
@@ -320,5 +364,22 @@
     #btn-club-join,
     #btn-club-leave {
         width: 75.00%;
+    }
+    #club-requests-view-toggle {
+        width: 100%;
+        button {
+            font-size: 0.90em;
+        }
+    }
+    .club-request-list-item {
+        h5 {
+            font-size: 1.00em;
+        }
+        .card-text {
+            font-size: 0.85em;
+        }
+    }
+    #col-action-buttons-row {
+        width: 100%;
     }
 }

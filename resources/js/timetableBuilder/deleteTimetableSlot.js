@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             if (data.success) {
-                console.log("Timetable slot deleted successfully.");
                 deleteConfirmationModal.hide();
                 deleteTimetableSlotForm.reset();
                 updateSubjectList(data.timetableSlots);

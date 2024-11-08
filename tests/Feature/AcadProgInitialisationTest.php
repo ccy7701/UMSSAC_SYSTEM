@@ -7,7 +7,6 @@ use App\Models\Account;
 use App\Models\Profile;
 use App\Models\SemesterProgressLog;
 use Tests\TestCase;
-use Illuminate\Support\Facades\Log;
 
 class AcadProgInitialisationTest extends TestCase
 {

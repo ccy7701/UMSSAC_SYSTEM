@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\TestCase;
-use App\Services\StudyPartnersSuggesterService;
+use App\Services\StudyPartnerService;
 
 class SPSCalculationTest extends TestCase
 {
@@ -12,7 +12,7 @@ class SPSCalculationTest extends TestCase
 
     public function test_calculate_wtc_scores(): void
     {
-        $spsService = new StudyPartnersSuggesterService();
+        $spsService = new StudyPartnerService();
         $wtc = [
             'stranger_presenting' => 3,
             'colleague_in_line' => 3,
@@ -43,7 +43,7 @@ class SPSCalculationTest extends TestCase
 
     public function test_calculate_personality_scores(): void
     {
-        $spsService = new StudyPartnersSuggesterService();
+        $spsService = new StudyPartnerService();
         $bfiData = [
             'reserved' => 4,
             'trusting' => 4,

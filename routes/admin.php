@@ -1,11 +1,10 @@
 <?php
 
-use App\Mail\TestCustomEmail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\AccountController;
 use App\Http\Middleware\RoleAccessMiddleware;
-use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ClubCreationController;
 use App\Http\Controllers\ClubMembershipController;
 
 // Routes accessible by admin only (account role 3)
@@ -17,6 +16,18 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
     Route::post('/manage-clubs/clear-all', [ClubController::class, 'clearFilterForManager'])->name('manage-clubs.clear-filter');
 
     Route::get('/manage-clubs/full-details', [ClubController::class, 'fetchClubDetailsForManager'])->name('manage-clubs.fetch-club-details');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::get('/club-creation/requests/manage', [ClubCreationController::class, 'fetchRequestsPage'])->name('club-creation.requests.manage');
+
+    // CURRENT ROUTE OF FOCUS
+    // Route::get('/club-creation/requests/review', [ClubCreationController::class, 'fetchRequestReviewPage'])->name('club-creation.requests.review');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/club-creation/requests/accept', [ClubCreationController::class, 'acceptCreationRequest'])->name('club-creation.requests.accept');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/club-creation/request/reject', [ClubCreationController::class, 'rejectCreationRequest'])->name('club-creation.requests.reject');
 
     Route::get('/admin-manage/full-details/manage', [ClubController::class, 'fetchAdminManagePage'])->name('admin-manage.manage-details');
 
@@ -38,7 +49,7 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
         return view('clubs-finder.admin-manage.add-new-club');
     })->name('manage-clubs.add-new-club');
 
-    Route::post('manage-clubs/add-new-club/action', [ClubController::class, 'addNewClub'])->name('manage-clubs.add-new-club.action');
+    Route::post('manage-clubs/add-new-club/action', [ClubCreationController::class, 'addNewClub'])->name('manage-clubs.add-new-club.action');
 
     Route::get('/all-system-users', [AccountController::class, 'fetchAllSystemUsers'])->name('admin.all-system-users');
 

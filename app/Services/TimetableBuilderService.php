@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class TimetableBuilderService
 {
@@ -17,7 +16,6 @@ class TimetableBuilderService
 
             return response()->json(['message' => 'Subjects data updated successfully!', 'output' => $response]);
         } catch (\Exception $e) {
-            Log::error('ASDF connection error: ' . $e->getMessage());
             return response()->json(['error' => 'Failed to connect to all subjects data fetcher at port 5001.']);
         }
     }
@@ -31,7 +29,6 @@ class TimetableBuilderService
                 'source_link' => $sourceLink
             ]);
         } catch (\Exception $e) {
-            Log::error('SDF connection error: ' . $e->getMessage());
             return response()->json(['error' => 'Failed to connect to subject details fetcher at port 5002.']);
         }
     }

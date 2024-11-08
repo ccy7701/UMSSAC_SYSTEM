@@ -20,9 +20,11 @@ export default defineConfig({
                 'resources/js/timetableBuilder/timetableBuilderOperations.js',
                 'resources/js/app.js',
                 'resources/js/bootstrap.js',
+                'resources/js/clubRequests.js',
                 'resources/js/clubsFinderSort.js',
                 'resources/js/eventsFinderSort.js',
                 'resources/js/facultyCoursesLoader.js',
+                'resources/js/flashModal.js',
                 'resources/js/imageViewer.js',
                 'resources/js/itemViewToggler.js',
                 'resources/js/loginForm.js',
@@ -31,7 +33,8 @@ export default defineConfig({
                 'resources/js/registerForm.js',
                 'resources/js/systemUsersViewToggler.js',
                 'resources/js/sysusersSort.js',
-                'resources/js/tooltips.js'
+                'resources/js/tooltips.js',
+                'resources/js/updateProfilePicture.js'
             ],
             refresh: true,
         }),

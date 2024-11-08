@@ -43,7 +43,20 @@
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('admin.all-system-users') }}">All System Users</a></li>
                 <hr class="divider-gray-300 py-0 my-0">
 
-                <li class="nav-item"><a class="nav-link px-3" href="{{ route('manage-clubs') }}">Manage Clubs</a></li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex justify-content-between align-items-center px-3" href="#" id="clubs-toggle">
+                        Clubs
+                        <i class="fa fa-chevron-down chevron-icon" id="clubs-chevron"></i>
+                    </a>
+                    <ul class="nav flex-column collapse" id="clubs-submenu">
+                        <li class="nav-item nav-submenu">
+                            <a class="nav-link px-3 text-decoration-none" href="{{ route('manage-clubs') }}">&emsp;Manage Clubs</a>
+                        </li>
+                        <li class="nav-item nav-submenu">
+                            <a class="nav-link px-3 text-decoration-none" href="{{ route('club-creation.requests.manage') }}">&emsp;Manage Club Creation Requests</a>
+                        </li>
+                    </ul>
+                </li>
                 <hr class="divider-gray-300 py-0 my-0">
 
                 <li class="nav-item"><a class="nav-link px-3" href="{{ route('events-finder') }}">Events Finder</a></li>

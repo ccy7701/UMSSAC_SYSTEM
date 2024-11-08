@@ -91,8 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         })
                         .then(data => {
                             if (data.success) {
-                                console.log("Timetable builder refreshed with edited data.");
-
                                 editTimetableSlotModal.hide();
                                 document.getElementById('edit-timetable-slot-form').reset();
 

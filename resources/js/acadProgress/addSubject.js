@@ -28,8 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(subjectStatsLogs => {
                     const subjects = subjectStatsLogs.subjects
                     if (!isValidSubjectCode(subjectCode)) {
-                        console.log("INVALID SUBJECT CODE");
-                        // 'account_matric_number.regex' => 'The matric number must be in the correct format (e.g., BI12345678). Please try again.',
                         addModal.hide();
                         invalidSubjectCodeModal.show();
 

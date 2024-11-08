@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\TimetableSlot;
 use App\Services\TimetableBuilderService;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class TimetableSlotController extends Controller
 {
@@ -87,10 +85,6 @@ class TimetableSlotController extends Controller
 
     public function deleteTimetableSlot($timetable_slot_id) {
         try {
-            Log::info('Attempting to delete timetable slot', [
-                'timetable_slot_id' => $timetable_slot_id
-            ]);
-
             $status = DB::table('timetable_slot')
                 ->where('timetable_slot_id', $timetable_slot_id)
                 ->delete();

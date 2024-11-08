@@ -59,27 +59,18 @@ class CGPAService
 
     // Calculate SGPA for the selected semester
     public function calculateSGPA($semProgLogId) {
-        Log::info('SGPA Calculation - sem_prog_log_id:', ['sem_prog_log_id' => $semProgLogId]);  // Debug
-    
         $currentSemesterSubjects = SubjectStatsLog::where('sem_prog_log_id', $semProgLogId)->get();
-    
-        Log::info('Subjects for SGPA Calculation:', $currentSemesterSubjects->toArray());  // Debug: Log the subjects fetched for the selected semester
     
         $totalSGPs = 0;
         $totalSemCredits = 0;
     
         foreach ($currentSemesterSubjects as $subject) {
             $gradePoint = $this->getGradePoint($subject->subject_grade);
-            Log::info('Subject:', ['subject_code' => $subject->subject_code, 'grade' => $subject->subject_grade, 'grade_point' => $gradePoint, 'credit_hours' => $subject->subject_credit_hours]);  // Debug
     
             $totalSGPs += $gradePoint * $subject->subject_credit_hours;
             $totalSemCredits += $subject->subject_credit_hours;
         }
     
-        $sgpa = $totalSemCredits > 0 ? $totalSGPs / $totalSemCredits : 0;
-    
-        Log::info('Calculated SGPA:', ['sgpa' => $sgpa, 'total_sem_credits' => $totalSemCredits, 'total_sgps' => $totalSGPs]);  // Debug: Log final calculated SGPA
-    
-        return $sgpa;
+        return $totalSemCredits > 0 ? $totalSGPs / $totalSemCredits : 0;
     }
 }

@@ -149,9 +149,9 @@
                             @foreach ($categories as $category)
                             <div class="col-6 mb-2 px-1">
                                 <div class="p-2 border rounded">
-                                    <div class="form-check w-50">
-                                        <input class="form-check-input" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" value="{{ $category }}" {{ in_array($category, $filters) ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="{{ strtolower($category) }}">
+                                    <div class="form-check w-100 d-flex justify-content-start align-items-center clickable-wrapper">
+                                        <label class="form-check-label flex-grow-1 text-start" for="{{ strtolower($category) }}">
+                                            <input class="form-check-input me-2" type="checkbox" id="{{ strtolower($category) }}" name="category_filter[]" value="{{ $category }}" {{ in_array($category, $filters) ? 'checked' : '' }}>
                                             {{ $category }}
                                         </label>
                                     </div>
