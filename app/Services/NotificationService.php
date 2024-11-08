@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Mail\ClubCreationRequestNotification;
+use App\Mail\ClubCreationRejectionNotification;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Profile;
 
@@ -14,7 +15,32 @@ class NotificationService
      * @param \App\Models\ClubCreationRequest $clubCreationRequest
      */
     public function prepareClubCreationRequestEmail($clubCreationRequest) {
-        $requester = Profile::where('profile_id', $clubCreationRequest->requester_profile_id)
+        $requester = $this->getRequester($clubCreationRequest->requester_profile_id);
+
+        Mail::to('umssacs@gmail.com')->send(new ClubCreationRequestNotification($clubCreationRequest, $requester));
+
+        return 'Club creation request notification sent successfully';
+    }
+
+    /**
+     * Handle sending the club creation rejection notification to the user who made the request.
+     *
+     * @param \App\Models\ClubCreationRequest $clubCreationRequest
+     */
+    public function prepareClubCreationRejectEmail($clubCreationRequest) {
+        $requester = $this->getRequester($clubCreationRequest->requester_profile_id);
+        $targetEmail = $requester->account->account_email_address;
+
+        Mail::to($targetEmail)->send(new ClubCreationRejectionNotification($clubCreationRequest, $requester));
+
+        return 'Club creation rejection notification sent successfully';
+    }
+
+    /**
+     * Get the details of the user who made the request.
+     */
+    private function getRequester($profileId) {
+        return Profile::where('profile_id', $profileId)
             ->with([
                 'account' => function($query) {
                     $query->select(
@@ -26,9 +52,5 @@ class NotificationService
                 }
             ])
             ->first();
-
-        Mail::to('umssacs@gmail.com')->send(new ClubCreationRequestNotification($clubCreationRequest, $requester));
-
-        return 'Club creation request notification sent successfully';
     }
 }

@@ -99,16 +99,20 @@
                     data-bs-toggle="modal"
                     data-bs-target="#reject-confirmation-modal"
                     data-creation-request-id="{{ $target->creation_request_id }}"
-                    data-club-name="{{ $target->club_name }}">Reject</a>
+                    data-club-name="{{ $target->club_name }}">
+                    Reject
+                </a>
                 <button type="button" form="review-form" class="w-30 rsans btn btn-primary fw-semibold px-3 ms-1"
                     data-bs-toggle="modal"
-                    data-bs-target="#accept-confirmation-modal">
+                    data-bs-target="#accept-confirmation-modal"
+                    data-creation-request-id="{{ $target->creation_request_id }}"
+                    data-club-name="{{ $target->club_name }}">
                     Approve
                 </button>
             </div>
+            <x-accept-request/>
+            <x-reject-request/>
         </div>
-        <x-accept-request/>
-        <x-reject-request/>
         <br><br><br><br>
     </main>
     <x-footer/>

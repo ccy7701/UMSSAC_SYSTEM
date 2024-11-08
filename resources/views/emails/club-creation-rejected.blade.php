@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Club Creation Request Notification</title>
+    <title>Club Creation Rejection Notification</title>
     <style>
         p {
             font-size: 16px;
@@ -18,34 +18,31 @@
         <div class="header" style="text-align: center; margin-bottom: 20px;">
             <img src="https://umssacs.my/images/umssacs_logo_final.png" alt="UMSSACS logo" style="max-width: 35%;">
         </div>
-
-        <h1 style="text-align: center; color: #2C3E50; font-size: 24px; margin-bottom: 10px;">New Club Creation Request</h1>
-
+    
+        <h1 style="text-align: center; color: #2C3E50; font-size: 24px; margin-bottom: 10px;">Club Creation Request Rejected</h1>
+    
         <br>
 
         <p>
-            Dear Admin,<br>
-            You have received a new request from <strong>{{ $requester->account->account_full_name }}</strong> to create a new club.
+            Dear <strong>{{ $requester->account->account_full_name }}</strong>,<br>
+            Unfortunately, your request to create a new club has been rejected.
         </p>
-        
+    
         <br>
-
-        <p>Here are some quick details about the request:</p>
-
+    
+        <p>Here are the details of your request:</p>
+    
         <ul style="font-size: 16px;">
             <li>Proposed Club Name: <strong>{{ $clubCreationRequest->club_name }}</strong></li>
             <li>Club Category: <strong>{{ $clubCreationRequest->club_category }}</strong></li>
+            <li>Request Submitted On: <strong>{{ \Carbon\Carbon::parse($clubCreationRequest->created_at)->format('Y-m-d H:i A') }}</strong></li>
         </ul>
-
+    
         <br>
-
-        <p>Please click the button below to view the full details of this request.</p>
-
-        <p style="text-align: center;">
-            {{-- <a href="{{ route('admin.clubRequests.show', ['id' => $clubCreationRequest->id]) }}" class="button">View Request</a> --}}
-            <a href="{{ route('club-creation.requests.review', ['creation_request_id' => $clubCreationRequest->creation_request_id]) }}" class="button" style="background-color: #1064D6; color: #FFFFFF; text-decoration: none; padding: 12px 20px; border-radius: 5px; font-weight: bold;">View Request</a>
-        </p>
-
+    
+        <p>Remarks from the admin:</p>
+        <p style="font-style: italic;">"{{ $clubCreationRequest->request_remarks }}"</p>
+    
         <div class="footer" style="text-align: center; margin-top: 40px;">
             <p style="font-size: 10px; color: #999999;">This is an automated message from the UMSSACS system.</p>
         </div>

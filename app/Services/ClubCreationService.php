@@ -6,6 +6,7 @@ use App\Models\Club;
 use Illuminate\Http\Request;
 use App\Models\ClubCreationRequest;
 use App\Services\NotificationService;
+use Carbon\Carbon;
 
 class ClubCreationService
 {
@@ -109,12 +110,21 @@ class ClubCreationService
             $query = ClubCreationRequest::with(['profile.account'])->whereIn('request_status', [1, 2]);
         }
     
-        return $query->get();
+        return $query->orderBy('updated_at', 'desc')->get();
     }
 
     // Handle preparing the data to be sent to the request review page
     public function prepareAndRenderRequestReviewPage(Request $request) {
         $target = ClubCreationRequest::where('creation_request_id', $request->creation_request_id)->first();
+
+        /**
+         * For the case where the admin accesses the page via the email,
+         * but the request has already been reviewed,
+         * redirect to the overview page instead.
+         */
+        if ($target->request_status != 0) {
+            return redirect()->route('club-creation.requests.manage');
+        }
 
         return view('clubs-finder.admin-manage.review-request', [
             'target' => $target,
@@ -124,14 +134,12 @@ class ClubCreationService
     // Handle acceptance of the club creation request and then append to final Club table
     public function handleAcceptClubCreationRequest($request) {
         $target = ClubCreationRequest::where('creation_request_id', $request->creation_request_id)->first();
-
-        dd($target);
         
         // temporary
         $status = true;
 
         return $status
-            ? redirect(route('club-creation.requests.manage'))->with('accepted', 'Club creation for ' . $target->club_name . ' marked as accepted.')
+            ? redirect(route('club-creation.requests.manage'))->with('accepted', 'Club creation request for ' . $target->club_name . ' marked as accepted.')
             : back()->withErrors(['error' => 'Failed to mark club creation request for ' . $target->club_name . ' as accepted. Please try again.']);
     }
 
@@ -139,16 +147,16 @@ class ClubCreationService
     public function handleRejectClubCreationRequest(Request $request) {
         $target = ClubCreationRequest::where('creation_request_id', $request->creation_request_id)->first();
 
-        dump("ENTERED REJECT SERVFUNC");
-        dd($request->request_remarks);
+        // Update the request status, remarks, and updated timestamp
+        $target->request_status = 3;
+        $target->request_remarks = $request->request_remarks;
+        $target->updated_at = Carbon::now();
 
-        // temporary
-        $status = true;
+        // Save the updated data
+        $target->save();
 
-        // update $target->request_status to 3 (rejected)
-        // update $target->request_remark with form data
-        // update $target->updated_at to Carbon::now()
-        // redirect to route('club-creation.requests.manage');
+        // Send email after update
+        $status = $this->notificationService->prepareClubCreationRejectEmail($target);
 
         return $status
             ? redirect(route('club-creation.requests.manage'))->with('rejected', 'Club creation request for ' . $target->club_name . ' marked as rejected.')

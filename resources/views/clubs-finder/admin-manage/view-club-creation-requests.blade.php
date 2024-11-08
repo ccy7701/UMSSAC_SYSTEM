@@ -15,9 +15,13 @@
     <x-admin-topnav/>
     <x-about/>
     <x-response-popup
-        messageType="success"
+        messageType="rejected"
         iconClass="text-secondary fa-solid fa-circle-xmark"
         title="Request rejected"/>
+    <x-response-popup
+        messageType="accepted"
+        iconClass="text-success fa-regular fa-circle-check"
+        title="Request accepted"/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->

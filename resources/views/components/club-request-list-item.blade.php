@@ -43,14 +43,49 @@
                 </div>
             </div>
         </div>
+        <!-- Collapsible actions sections -->
         @if ($request->request_status == 0)
-            <!-- Collapsible actions sections -->
             <div id="actions-{{ $request->creation_request_id }}" class="request-section collapse">
                 <hr class="divider-gray-300 mb-3 mt-0">
                 <div class="container px-2 py-xl-2 py-lg-2 py-md-2 py-0">
                     <div class="row">
                         <div class="club-request-actions-row d-flex justify-content-center col-12 mb-3 px-0">
                             <a href="{{ route('club-creation.requests.review', ['creation_request_id' => $request->creation_request_id]) }}" class="section-button-extrashort rsans btn btn-secondary fw-semibold px-3 me-3">Review request</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @elseif ($request->request_status == 1)
+            <div id="actions-{{ $request->creation_request_id }}" class="request-section collapse">
+                <hr class="divider-gray-300 mb-3 mt-0">
+                <div class="container px-2 py-xl-2 py-lg-2 py-md-2 py-0">
+                    <div class="row px-3">
+                        <div class="d-flex justify-content-start col-12 mb-3 px-0" style="font-size: 0.85em;">
+                            This request was accepted on {{ \Carbon\Carbon::parse($request->updated_at)->format('Y-m-d h:i A') }}.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @elseif ($request->request_status == 2)
+            <div id="actions-{{ $request->creation_request_id }}" class="request-section collapse">
+                <hr class="divider-gray-300 mb-3 mt-0">
+                <div class="container px-2 py-xl-2 py-lg-2 py-md-2 py-0">
+                    <div class="row px-3">
+                        <div class="d-flex justify-content-start col-12 mb-3 px-0" style="font-size: 0.85em;">
+                            This request was accepted with amendments on {{ \Carbon\Carbon::parse($request->updated_at)->format('Y-m-d h:i A') }}.<br>
+                            Remarks: {{ $request->request_remarks }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @elseif ($request->request_status == 3)
+            <div id="actions-{{ $request->creation_request_id }}" class="request-section collapse">
+                <hr class="divider-gray-300 mb-3 mt-0">
+                <div class="container px-2 py-xl-2 py-lg-2 py-md-2 py-0">
+                    <div class="row px-3">
+                        <div class="d-flex justify-content-start col-12 mb-3 px-0" style="font-size: 0.85em;">
+                            This request was rejected on {{ \Carbon\Carbon::parse($request->updated_at)->format('Y-m-d h:i A') }}.<br>
+                            Remarks: {{ $request->request_remarks }}
                         </div>
                     </div>
                 </div>
