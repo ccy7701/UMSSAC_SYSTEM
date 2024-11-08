@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('club_category', 16);
             $table->string('club_description', 1024);
             $table->json('club_image_paths')->nullable();
-            $table->unsignedInteger('request_status')->comment('-1 - rejected, 0 - pending, 1 - approved, 2 - approved with amendments');
+            $table->unsignedInteger('request_status')->comment('0 - pending, 1 - approved, 2 - approved with amendments, 3 - rejected');
             $table->string('request_remarks', 1024);
             $table->timestamps();
         });

@@ -1,3 +1,5 @@
+$btn-primary-bg: #1064D6;
+
 #club-filters-compact {
     display: none;
 }
@@ -204,6 +206,16 @@
     width: 80px !important;
 }
 
+#club-requests-view-toggle {
+    width: 60%;
+    button {
+        &.active {
+            background-color: $btn-primary-bg;
+            color: white;
+        }
+    }
+}
+
 @media (max-width: 992px) {
     #club-sort-standard {
         display: none;
@@ -258,6 +270,9 @@
     .carousel-control-next {
         width: 50px !important;
     }
+    #club-requests-view-toggle {
+        width: 75%;
+    }
 }
 
 @media (max-width: 768px) {
@@ -267,6 +282,9 @@
     #carousel-inner-lg,
     #carousel-inner-md {
         display: none;
+    }
+    #club-requests-view-toggle {
+        width: 90%;
     }
 }
 
@@ -327,5 +345,11 @@
     #btn-club-join,
     #btn-club-leave {
         width: 75.00%;
+    }
+    #club-requests-view-toggle {
+        width: 100%;
+        button {
+            font-size: 0.90em;
+        }
     }
 }

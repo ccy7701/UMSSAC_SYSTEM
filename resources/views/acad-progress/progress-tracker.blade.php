@@ -15,6 +15,7 @@
     @vite('resources/js/app.js')
     @vite('resources/js/tooltips.js')
     @vite('resources/js/acadProgress/semSubOperations.js')
+    @vite('resources/js/flashModal.js')
     <!-- Send routes templates to external JS -->
     <script>
         window.fetchBySemProgLogIdRoute = "{{ route('fetch-subject-stats', ['sem_prog_log_id' => ':sem_prog_log_id']) }}";

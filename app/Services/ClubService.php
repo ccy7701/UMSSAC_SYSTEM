@@ -346,11 +346,38 @@ class ClubService
     public function prepareAndRenderRequestsView() {
         $viewName = null;
         if (currentAccount()->account_role == 3) {
-            $viewName = 'club-creation.admin-manage.view-club-creation-requests';
+            $viewName = 'clubs-finder.admin-manage.view-club-creation-requests';
         } elseif (currentAccount()->account_role == 2) {
-            $viewName = 'club-creation.general.view-club-creation-requests';
+            $viewName = 'clubs-finder.general.view-club-creation-requests';
         }
 
-        dd($viewName);
+        // Fetch the requests arranged by status
+        // Note: accepted requests includes full accept and amended accept
+        $pendingRequests = $this->getClubCreationRequestsByStatus(0);
+        $acceptedRequests = $this->getClubCreationRequestsByStatus(1, 'include_amended');
+        $rejectedRequests = $this->getClubCreationRequestsByStatus(3);
+
+        return view($viewName, [
+            'pendingRequests' => $pendingRequests,
+            'pendingCount' => $pendingRequests->count(),
+            'acceptedRequests' => $acceptedRequests,
+            'acceptedCount' => $acceptedRequests->count(),
+            'rejectedRequests' => $rejectedRequests,
+            'rejectedCount' => $rejectedRequests->count()
+        ]);
+    }
+
+    /**
+     * Get the club creation requests by status.
+     * 0 - pending, 1 - accepted, 2 - accepted with amendment, 3 = rejected
+     */
+    private function getClubCreationRequestsByStatus($requestStatus, $includeAmended = null) {
+        $query = ClubCreationRequest::where('request_status', $requestStatus);
+
+        if ($requestStatus == 1 && $includeAmended) {
+            $query = ClubCreationRequest::whereIn('request_status', [1, 2]);
+        }
+
+        return $query->get();
     }
 }
