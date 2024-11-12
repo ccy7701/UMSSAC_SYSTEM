@@ -26,6 +26,12 @@ html {
 .w-60 {
     width: 60%;
 }
+.w-65 {
+    width: 65%;
+}
+.w-70 {
+    width: 70%;
+}
 .w-80 {
     width: 80%;
 }
@@ -74,11 +80,24 @@ html {
     background-color: #EAF2FD;
 }
 
+#topnav-logo {
+    width: 75.00%;
+}
+
 .nav-item {
     transition: background-color 0.1s ease;
     &:hover {
         background-color: #E0E0E0;
     }
+}
+
+#main-card {
+    width: 70%;
+    margin-left: 3rem !important;
+    margin-right: 3rem !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    margin-bottom: 3rem !important;
 }
 
 .section-header {
@@ -239,6 +258,9 @@ html {
     #footer-right {
         font-size: 0.95em;
     }
+    #topnav-logo {
+        width: 80.00% !important;
+    }
 }
 
 @media (max-width: 992px) {
@@ -250,6 +272,15 @@ html {
     }
     #footer-right {
         font-size: 0.85em;
+    }
+    #main-card {
+        width: 100%;
+        border: none;
+        margin: 0 !important;
+        padding: 0 !important;
+        padding-top: 0.5rem !important;
+        position: relative;
+        z-index: -1;
     }
     .form-standard {
         width: 80.00%;
@@ -270,6 +301,9 @@ html {
 }
 
 @media (max-width: 768px) {
+    #topnav-logo {
+        width: 70.00% !important;
+    }
     .user-profile-text {
         text-align: center;
     }
@@ -300,7 +334,7 @@ html {
         height: 150px;
     }
     #topnav-logo {
-        width: 75.00% !important;
+        width: 65.00% !important;
     }
     #footer-left {
         font-size: 1em;

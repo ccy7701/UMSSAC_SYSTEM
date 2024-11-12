@@ -1,9 +1,9 @@
 <!-- resources/views/components/topnav.blade.php -->
-<nav class="navbar navbar-light w-100 m-0" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+<nav class="navbar navbar-light w-100 m-0 py-xl-1 py-lg-1 py-md-1 py-sm-0 py-xs-0 py-0" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); background-color: #FFFFFF;">
     <div class="container-fluid px-lg-5 px-md-4 py-2">
         <div class="col-md-2 col-sm-4 col-6 text-start">
             <a class="navbar-brand" href="{{ route('my-profile') }}">
-                <img id="topnav-logo" src="{{ asset('images/umssacs_logo_final.png') }}" alt="UMSSACS logo" class="topnav-website-logo img-fluid w-75">
+                <img id="topnav-logo" src="{{ asset('images/umssacs_logo_final.png') }}" alt="UMSSACS logo" class="topnav-website-logo img-fluid">
             </a>
         </div>
         <div class="col-6 text-end">
@@ -112,6 +112,9 @@
                         </button>
                     </form>
                 </li>
+                <hr class="divider-gray-300 py-0 my-0">
+
+                <li class="nav-item"><a class="nav-link px-3 text-primary" href="{{ route('my-profile.dev') }}">(DEVELOPMENT) My Profile 2.0</a></li>
                 <hr class="divider-gray-300 py-0 my-0">
 
             </div>

@@ -12,6 +12,10 @@ Route::middleware('auth')->group(function () {
     /*
     * PROFILE MANAGEMENT RELATED ROUTES
     */
+    Route::get('/my-profile/dev', function () {
+        return view('profile.my-profile-dev');
+    })->name('my-profile.dev');
+
     Route::get('/my-profile', function () {
         return view('profile.my-profile');
     })->name('my-profile');
