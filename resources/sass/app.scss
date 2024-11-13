@@ -255,6 +255,9 @@ html {
 // add media for max-width: 1400px when needed
 
 @media (max-width: 1200px) {
+    .w-lg-100 {
+        width: 100% !important;
+    }
     #footer-left {
         font-size: 1.75em;
     }
@@ -300,6 +303,9 @@ html {
     }
     #col-right-img-edit {
         display: none;
+    }
+    #col-right-membership-edit {
+        display: none
     }
     .form-standard {
         width: 80.00%;

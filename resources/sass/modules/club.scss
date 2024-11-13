@@ -170,7 +170,7 @@ $btn-primary-bg: #1064D6;
 }
 
 #club-images-carousel {
-    width: 30.00%;
+    width: 40.00%;
     .carousel-item img {
         border-radius: 12px;
         aspect-ratio: 4/4;
@@ -232,6 +232,23 @@ $btn-primary-bg: #1064D6;
     width: 50%;
 }
 
+@media (max-width: 1200px) {
+    #club-images-carousel {
+        width: 50%;
+    }
+    #club-breadcrumb {
+        .breadcrumb-item {
+            font-size: 0.95em;
+        }
+        .breadcrumb-item.active {
+            font-size: 0.90em;
+        }
+        p, a {
+            font-size: 0.90em;
+        }
+    }
+}
+
 @media (max-width: 992px) {
     #club-sort-standard {
         display: none;
@@ -256,6 +273,7 @@ $btn-primary-bg: #1064D6;
     }
     #club-breadcrumb-alt {
         display: flex;
+        font-size: 1.00em;
     }
     #membership-type {
         #membership-type-label {
@@ -305,6 +323,9 @@ $btn-primary-bg: #1064D6;
     #col-action-buttons-row {
         width: 80%;
     }
+    #club-images-carousel {
+        width: 60.00%;
+    }
 }
 
 @media (max-width: 576px) {
@@ -333,9 +354,6 @@ $btn-primary-bg: #1064D6;
     #club-breadcrumb-alt {
         nav, p {
             font-size: 0.80em;
-        }
-        .section-button {
-            width: 75.00% !important;
         }
     }
     #club-list-item-manage {

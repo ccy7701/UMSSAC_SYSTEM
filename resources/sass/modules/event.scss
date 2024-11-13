@@ -77,16 +77,16 @@ $btn-primary-bg: #1064D6;
     display: flex;
 }
 
+#event-breadcrumb-alt {
+    display: none;
+}
+
 #event-filters-compact {
     display: none;
 }
 
 #event-sort-standard {
     display: flex;
-}
-
-#event-breadcrumb-alt {
-    display: none;
 }
 
 #event-view-toggle {

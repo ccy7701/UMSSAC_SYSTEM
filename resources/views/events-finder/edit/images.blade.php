@@ -24,14 +24,12 @@
         <div id="event-breadcrumb" class="col-auto align-items-center">
             <nav aria-label="breadcrumb">
                 <ol class="rsans breadcrumb mb-0" style="--bs-breadcrumb-divider: '>';">
-                    <li class="breadcrumb-item"><a href="{{ route('events-finder') }}">All Events</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('events-finder.fetch-event-details', ['event_id' => $event->event_id]) }}">{{ $event->event_name }}</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('events-finder.manage-details', [
                         'event_id' => $event->event_id,
                         'club_id' => $club->club_id,
                     ]) }}">Manage Details</a></li>
-                    <li class="breadcrumb-item active">Edit Images</li>
+                    <li class="breadcrumb-item active">Edit Event Images</li>
                 </ol>
             </nav>
         </div>
@@ -59,7 +57,7 @@
             <div class="row-container align-items-center px-3 mt-md-2 mt-sm-0 mt-xs-0 mt-0">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
                     <div class="col-left-alt col-lg-5 col-md-12 col-12 mt-xl-2 mt-md-2 mt-sm-2 mt-2 mb-sm-1 mb-xs-2">
-                        <h3 class="rserif fw-bold w-100">Event images</h3>
+                        <h3 class="rserif fw-bold w-100">Edit event images</h3>
                     </div>
                     <div id="col-right-img-edit" class="col-right-alt col-lg-7 col-md-7 col-12 align-self-center mb-xl-0 mb-md-0 mb-sm-3 mb-3">
                         <a href="{{ route('events-finder.manage-details', [

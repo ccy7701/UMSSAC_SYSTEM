@@ -35,7 +35,7 @@
     <div id="event-breadcrumb" class="row w-80 justify-content-center mx-auto py-4">
         <div class="col-6 d-flex justify-content-start align-items-center">
             <nav aria-label="breadcrumb">
-                <ol class="rsans breadcrumb" style="--bs-breadcrumb-divider: '>'; margin-bottom: 0;">
+                <ol class="rsans breadcrumb mb-0" style="--bs-breadcrumb-divider: '>';">
                     <li class="breadcrumb-item"><a href="{{ route('events-finder') }}">All Events</a></li>
                     <li class="breadcrumb-item active">{{ $event->event_name }}</li>
                 </ol>
@@ -52,7 +52,7 @@
         </div>
     </div>
     <!-- ALT BREADCRUMB (COMPACT) -->
-    <div id="event-breadcrumb-alt" class="row w-100 mx-auto py-2 border">
+    <div id="event-breadcrumb-alt" class="row w-100 mx-auto py-2">
         <div class="col-4 d-flex justify-content-start align-items-start my-2">
             <nav aria-label="breadcrumb">
                 <ol class="rsans breadcrumb m-0" style="--bs-breadcrumb-divider: '<';">
