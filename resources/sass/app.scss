@@ -252,11 +252,16 @@ html {
     cursor: pointer;
 }
 
-// add media for max-width: 1400px when needed
+#header-subtitle {
+    font-size: 1.50em;
+}
 
 @media (max-width: 1200px) {
     .w-lg-100 {
         width: 100% !important;
+    }
+    .section-button-short {
+        width: 30.00%;
     }
     #footer-left {
         font-size: 1.75em;
@@ -267,45 +272,11 @@ html {
     #topnav-logo {
         width: 80.00% !important;
     }
-    .section-button-short {
-        width: 30.00%;
-    }
 }
 
 @media (max-width: 992px) {
-    #topnav {
-        position: relative;
-        z-index: 1;
-    }
-    #footer {
-        position: relative;
-        z-index: 1;
-    }
-    #topnav-logo {
-        width: 100.00% !important;
-    }
-    #footer-left {
-        font-size: 1.50em;
-    }
-    #footer-right {
-        font-size: 0.85em;
-    }
-    #main-card {
-        width: 100%;
-        border: none;
-        margin: 0 !important;
-        padding: 0 !important;
-        padding-top: 0.5rem !important;
-        border-radius: 0 0 0 0;
-    }
     .col-left-alt {
         text-align: center;
-    }
-    #col-right-img-edit {
-        display: none;
-    }
-    #col-right-membership-edit {
-        display: none
     }
     .form-standard {
         width: 80.00%;
@@ -323,14 +294,46 @@ html {
     .search-tab {
         width: 100.00%;
     }
+    #col-right-img-edit {
+        display: none;
+    }
+    #col-right-membership-edit {
+        display: none
+    }
+    #footer {
+        position: relative;
+        z-index: 1;
+    }
+    #footer-left {
+        font-size: 1.50em;
+    }
+    #footer-right {
+        font-size: 0.85em;
+    }
+    #main-card {
+        width: 100%;
+        border: none;
+        margin: 0 !important;
+        padding: 0 !important;
+        padding-top: 0.5rem !important;
+        border-radius: 0 0 0 0;
+    }
+    #topnav {
+        position: relative;
+        z-index: 1;
+    }
+    #topnav-logo {
+        width: 100.00% !important;
+    }
 }
 
 @media (max-width: 768px) {
-    #topnav-logo {
-        width: 70.00% !important;
+    .w-sm-100 {
+        width: 100% !important;
     }
-    .user-profile-text {
-        text-align: center;
+
+    .about-body tr td {
+        font-size: 0.85em;
     }
     .col-left-alt {
         text-align: center;
@@ -339,11 +342,8 @@ html {
         text-align: center;
         justify-content: center;
     }
-    .w-sm-100 {
-        width: 100% !important;
-    }
-    .about-body tr td {
-        font-size: 0.85em;
+    .user-profile-text {
+        text-align: center;
     }
     #col-action-buttons-standard {
         display: none;
@@ -351,18 +351,36 @@ html {
     #col-action-buttons-compact {
         display: block;
     }
+    #header-subtitle {
+        font-size: 1.25em;
+    }
+    #header-title {
+        font-size: 1.35em;
+    }
+    #topnav-logo {
+        width: 70.00% !important;
+    }
 }
 
 @media (max-width: 576px) {
     .w-xs-80 {
         width: 80% !important;
     }
-    #user-profile-picture {
-        width: 150px;
-        height: 150px;
+
+    .form-container {
+        width: 90.00%;
     }
-    #topnav-logo {
-        width: 65.00% !important;
+    .form-standard {
+        width: 90.00%;
+    }
+    .row-container {
+        width: 100.00%;
+    }
+    .section-button {
+        width: 100.00%;
+    }
+    #header-subtitle {
+        font-size: 1.00em;
     }
     #footer-left {
         font-size: 1em;
@@ -370,16 +388,11 @@ html {
     #footer-right {
         font-size: 0.55em;
     }
-    .section-button {
-        width: 100.00%;
+    #topnav-logo {
+        width: 65.00% !important;
     }
-    .row-container {
-        width: 100.00%;
-    }
-    .form-standard {
-        width: 90.00%;
-    }
-    .form-container {
-        width: 90.00%;
+    #user-profile-picture {
+        width: 150px;
+        height: 150px;
     }
 }
