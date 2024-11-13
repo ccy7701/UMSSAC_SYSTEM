@@ -1,3 +1,11 @@
+.tooltip-inner {
+    font-family: 'Roboto Sans', sans-serif;
+}
+
+#add-subject-button {
+    width: 60.00%;
+}
+
 #initialiser-fill-form {
     width: 50%;
 }
@@ -10,21 +18,13 @@
     text-align: end;
 }
 
-#add-subject-button {
-    width: 60.00%;
-}
-
-.tooltip-inner {
-    font-family: 'Roboto Sans', sans-serif;
-}
-
 @media (max-width: 992px) {
-    #subcard-col-left,
-    #subcard-col-right {
-        text-align: center;
-    }
     #add-subject-button {
         width: 50.00% !important;
+        text-align: center;
+    }
+    #subcard-col-left,
+    #subcard-col-right {
         text-align: center;
     }
 }

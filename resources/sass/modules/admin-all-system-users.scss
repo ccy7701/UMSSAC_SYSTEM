@@ -1,13 +1,13 @@
+.user-tag {
+    width: 100.00%;
+}
+
+#filter-clear {
+    width: 100.00%;
+}
+
 #sysusers-filters-compact {
     display: none;
-}
-
-#sysusers-view-toggle {
-    display: flex;
-}
-
-#sysusers-sort-standard {
-    display: flex;
 }
 
 #systemuser-list-item {
@@ -18,15 +18,21 @@
     }
 }
 
-.user-tag {
-    width: 100.00%;
+#sysusers-sort-standard {
+    display: flex;
 }
 
-#filter-clear {
-    width: 100.00%;
+#sysusers-view-toggle {
+    display: flex;
 }
 
 @media (max-width: 992px) {
+    .user-tag {
+        width: 25.00%;
+    }
+    #filter-clear {
+        width: 50.00%;
+    }
     #sysusers-filters-compact {
         display: flex;
     }
@@ -39,18 +45,9 @@
     #sysusers-sort-standard {
         display: none;
     }
-    .user-tag {
-        width: 25.00%;
-    }
+
     #sysusers-view-toggle {
         display: none;
-    }
-    /*
-        Keep in view the following CSS.
-        ID -> list-view, margin-top, 1em
-    */
-    #filter-clear {
-        width: 50.00%;
     }
 }
 

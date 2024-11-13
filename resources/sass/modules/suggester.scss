@@ -1,23 +1,5 @@
 $btn-primary-bg: #1064D6;
 
-.form-step {
-    width: 65.00%;
-}
-
-.custom-radio .form-check-input {
-    border-radius: 50%;
-    border: 2px solid $btn-primary-bg;
-    transition: transform 0.2s ease;
-    appearance: none;
-    background-color: transparent;
-}
-
-.custom-radio .form-check-input:checked {
-    background-color: $btn-primary-bg;
-    border-color: $btn-primary-bg;
-    transform: scale(1.15);
-}
-
 .xxs-radio {
     width: 0.75em !important;
     height: 0.75em !important;
@@ -53,7 +35,7 @@ $btn-primary-bg: #1064D6;
     height: 2.25em !important;
 }
 
-.suggested-sp-list-item {
+.added-sp-list-item {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     &:hover {
         transform: scale(1.01);
@@ -69,16 +51,34 @@ $btn-primary-bg: #1064D6;
     }
 }
 
-.added-sp-list-item {
+.custom-radio .form-check-input {
+    border-radius: 50%;
+    border: 2px solid $btn-primary-bg;
+    transition: transform 0.2s ease;
+    appearance: none;
+    background-color: transparent;
+}
+
+.custom-radio .form-check-input:checked {
+    background-color: $btn-primary-bg;
+    border-color: $btn-primary-bg;
+    transform: scale(1.15);
+}
+
+.form-step {
+    width: 65.00%;
+}
+
+.progress {
+    width: 30.00%;
+}
+
+.suggested-sp-list-item {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     &:hover {
         transform: scale(1.01);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-}
-
-.progress {
-    width: 30.00%;
 }
 
 #added-sp-view-toggle {
@@ -164,19 +164,19 @@ $btn-primary-bg: #1064D6;
         width: 2.00em !important;
         height: 2.00em !important;
     }
+    .form-step {
+        width: 80.00%;
+    }
     .rg-left {
         font-size: 0.75em;
         text-align: center;
     }
+    .progress {
+        width: 100.00%;
+    }
     .rg-right {
         font-size: 0.75em;
         text-align: center;
-    }
-    .form-step {
-        width: 80.00%;
-    }
-    .progress {
-        width: 100.00%;
     }
     #suggested-sps-compact {
         .sp-circle {

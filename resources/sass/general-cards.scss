@@ -1,21 +1,5 @@
 $btn-primary-bg: #1064D6;
 
-#list-item-standard {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    &:hover {
-        transform: scale(1.01);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-}
-
-#card-standard {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    &:hover {
-        transform: scale(1.01);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-}
-
 #card-member {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     &:hover {
@@ -30,6 +14,14 @@ $btn-primary-bg: #1064D6;
     }
 }
 
+#card-standard {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
+
 #card-study-partner {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     &:hover {
@@ -41,6 +33,14 @@ $btn-primary-bg: #1064D6;
         height: 100px;
         object-fit: cover;
         border: 2px solid #AAAAAA;
+    }
+}
+
+#list-item-standard {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 }
 
