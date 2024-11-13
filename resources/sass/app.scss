@@ -39,6 +39,9 @@ html {
     width: 90%;
 }
 
+.w-xxl-50 {
+    width: 50% !important;
+}
 .w-xxl-80 {
     width: 80% !important;
 }
@@ -292,6 +295,12 @@ html {
         padding-top: 0.5rem !important;
         border-radius: 0 0 0 0;
     }
+    .col-left-alt {
+        text-align: center;
+    }
+    #col-right-img-edit {
+        display: none;
+    }
     .form-standard {
         width: 80.00%;
     }
@@ -339,6 +348,9 @@ html {
 }
 
 @media (max-width: 576px) {
+    .w-xs-80 {
+        width: 80% !important;
+    }
     #user-profile-picture {
         width: 150px;
         height: 150px;

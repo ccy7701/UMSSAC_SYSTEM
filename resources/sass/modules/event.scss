@@ -190,11 +190,11 @@ $btn-primary-bg: #1064D6;
 }
 
 #btn-event-delete {
-    width: 20.00%;
+    width: 30.00%;
 }
 
 #event-images-carousel {
-    width: 30.00%;
+    width: 50.00%;
     .carousel-item img {
         border-radius: 12px;
         aspect-ratio: 16/10;
@@ -208,6 +208,26 @@ $btn-primary-bg: #1064D6;
     &:hover {
         transform: scale(1.01);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@media (max-width: 1200px) {
+    #event-images-carousel {
+        width: 75%;
+    }
+    #event-breadcrumb {
+        .breadcrumb-item {
+            font-size: 0.95em;
+        } 
+        .breadcrumb-item.active {
+            font-size: 0.90em;
+        }
+        p, a {
+            font-size: 0.90em;
+        }
+    }
+    #btn-event-delete {
+        width: 40.00%;
     }
 }
 
@@ -240,6 +260,7 @@ $btn-primary-bg: #1064D6;
     }
     #event-breadcrumb-alt {
         display: flex;
+        font-size: 1.00em;
     }
     #btn-event-delete {
         width: 35.00%;
@@ -248,7 +269,10 @@ $btn-primary-bg: #1064D6;
         font-size: 0.90em;
     }
     #event-images-carousel {
-        width: 50.00%;
+        .carousel-item.active img {
+            position: relative;
+            z-index: 1;
+        }
     }
     #event-list-item-standard {
         .bookmark-span {

@@ -10,7 +10,7 @@
     @vite('resources/sass/app.scss')
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100" style="background-color: #F8F8F8;">
     @vite('resources/js/app.js')
     @vite('resources/js/imageViewer.js')
     <x-topnav/>
@@ -19,34 +19,49 @@
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"
         title="Success!"/>
-    <br>
-    <main class="flex-grow-1">
-        <div class="row-container">
-            <!-- BREADCRUMB NAV -->
-            <div id="event-breadcrumb" class="row pb-3">
-                <div id="event-breadcrumb" class="col-auto align-items-center">
-                    <nav aria-label="breadcrumb">
-                        <ol class="rsans breadcrumb" style="--bs-breadcrumb-divider: '>';">
-                            <li class="breadcrumb-item"><a href="{{ route('events-finder') }}">All Events</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('events-finder.fetch-event-details', ['event_id' => $event->event_id]) }}">{{ $event->event_name }}</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('events-finder.manage-details', [
-                                'event_id' => $event->event_id,
-                                'club_id' => $club->club_id,
-                            ]) }}">Manage Details</a></li>
-                            <li class="breadcrumb-item active">Edit Images</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
+    <!-- BREADCRUMB NAV -->
+    <div id="event-breadcrumb" class="row w-80 justify-content-start mx-auto py-4">
+        <div id="event-breadcrumb" class="col-auto align-items-center">
+            <nav aria-label="breadcrumb">
+                <ol class="rsans breadcrumb mb-0" style="--bs-breadcrumb-divider: '>';">
+                    <li class="breadcrumb-item"><a href="{{ route('events-finder') }}">All Events</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('clubs-finder.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('events-finder.fetch-event-details', ['event_id' => $event->event_id]) }}">{{ $event->event_name }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('events-finder.manage-details', [
+                        'event_id' => $event->event_id,
+                        'club_id' => $club->club_id,
+                    ]) }}">Manage Details</a></li>
+                    <li class="breadcrumb-item active">Edit Images</li>
+                </ol>
+            </nav>
         </div>
-        <div class="row-container">
-            <div class="align-items-center px-3">
+    </div>
+    <!-- ALT BREADCRUMB (COMPACT) -->
+    <div id="event-breadcrumb-alt" class="row w-100 mx-auto py-2 border">
+        <div class="col-4 d-flex justify-content-start align-items-start my-2">
+            <nav aria-label="breadcrumb">
+                <ol class="rsans breadcrumb m-0" style="--bs-breadcrumb-divider: '<'; font-size: 1.20em;">
+                    <li class="breadcrumb-item"></li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('events-finder.manage-details', [
+                            'event_id' => $event->event_id,
+                            'club_id' => $club->club_id,
+                        ]) }}">
+                            Go back
+                        </a>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <main class="flex-grow-1 d-flex justify-content-center">
+        <div id="main-card" class="card">
+            <div class="row-container align-items-center px-3 mt-md-2 mt-sm-0 mt-xs-0 mt-0">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
-                    <div class="col-left-alt col-lg-6 col-md-6 col-12 mt-xl-2 mt-sm-0 mt-0">
+                    <div class="col-left-alt col-lg-5 col-md-12 col-12 mt-xl-2 mt-md-2 mt-sm-2 mt-2 mb-sm-1 mb-xs-2">
                         <h3 class="rserif fw-bold w-100">Event images</h3>
                     </div>
-                    <div class="col-right-alt col-lg-6 col-md-6 col-12 align-self-center mb-xl-0 mb-md-0 mb-sm-3 mb-3">
+                    <div id="col-right-img-edit" class="col-right-alt col-lg-7 col-md-7 col-12 align-self-center mb-xl-0 mb-md-0 mb-sm-3 mb-3">
                         <a href="{{ route('events-finder.manage-details', [
                             'event_id' => $event->event_id,
                             'club_id' => $club->club_id,
@@ -54,30 +69,28 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- BODY OF CONTENT -->
-        @if ($errors->any())
-            <div class="d-flex justify-content-center">
-                <div class="col-12 w-xxl-80 w-sm-100 px-3 align-items-center">
-                    <br>
-                    <div class="rsans alert alert-danger">
-                        @foreach ($errors->all() as $error)
-                            <i class="fa fa-circle-exclamation px-2"></i>
-                            {{ $error }}
-                            <br>
-                        @endforeach
+            <!-- BODY OF CONTENT -->
+            @if ($errors->any())
+                <div class="d-flex justify-content-center">
+                    <div class="col-12 w-xxl-80 w-sm-100 px-3 align-items-center">
+                        <br>
+                        <div class="rsans alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                <i class="fa fa-circle-exclamation px-2"></i>
+                                {{ $error }}
+                                <br>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endif
-        <div class="d-flex justify-content-center align-items-center align-self-center py-3 w-100">
-            <div class="container px-3">
-                <div class="row py-4">
-                    @php
-                        $eventImagePaths = json_decode($event->event_image_paths, true);
-                    @endphp
+            @endif
+            <div class="container px-xl-5 px-lg-5 px-md-3 px-sm-3 px-xs-3 px-3 mb-md-3 mb-sm-3 mb-xs-3 mb-3">
+                @php
+                    $eventImagePaths = json_decode($event->event_image_paths, true);
+                @endphp
+                <div class="row mt-4">
                     <!-- Add new image card -->
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-4 align-items-stretch">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-6 mb-4 align-items-center">
                         <div class="rsans card h-100 add-event-image-card d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#add-event-image-modal">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                                 <i class="fa fa-plus-circle fa-3x mb-2"></i>
@@ -87,7 +100,7 @@
                     </div>
                     @if (!empty($eventImagePaths))
                         @foreach ($eventImagePaths as $key => $imagePath)
-                            <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-4 align-items-center text-center">
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-6 mb-4 align-items-center text-center">
                                 <div class="card h-100" id="card-event-images">
                                     <img src="{{ Storage::url($imagePath) }}" alt="Event illustration" class="card-img-top border-bottom" style="aspect-ratio: 4/4; object-fit: cover;">
                                     <div class="card-body justify-content-center align-items-center py-2 px-1">
@@ -154,8 +167,8 @@
                             </div>
                         </div>
                     @else
-                        <div class="col-xl-3 col-lg-4 col-md-4 col-6 mb-3 align-items-center">
-                            <div class="card h-100 justify-content-center" id="card-event-images" style="min-height: 35vh;">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-6 mb-4 align-items-center">
+                            <div class="card h-100 justify-content-center" id="card-event-images" style="min-height: 35vh; cursor: pointer;">
                                 <p class="rsans text-center">No images added yet</p>
                             </div>
                         </div>
