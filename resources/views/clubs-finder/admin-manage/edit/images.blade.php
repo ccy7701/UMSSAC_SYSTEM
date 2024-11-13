@@ -54,7 +54,7 @@
                         <h3 class="rserif fw-bold w-100">Edit club images</h3>
                     </div>
                     <div id="col-right-img-edit" class="col-right-alt col-lg-7 col-md-7 col-12 align-self-center mb-xl-0 mb-md-0 mb-sm-3 mb-3">
-                        <a href="{{ route('admin-manage.manage-details', ['club_id' => $club->club_id]) }}" class="section-button-short rsans btn btn-secondary fw-bold px-3">Go back</a>
+                        <a href="{{ route('admin-manage.manage-details', ['club_id' => $club->club_id]) }}" class="w-xxl-50 w-lg-100 rsans btn btn-secondary fw-bold px-3">Go back</a>
                     </div>
                 </div>
             </div>
