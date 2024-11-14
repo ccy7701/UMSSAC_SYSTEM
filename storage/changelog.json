@@ -1,5 +1,11 @@
 [
     {
+        "version": "0.8-1-alpha",
+        "changes": [
+            "Refreshed the UI for the study partners suggester module views in smaller display sizes."
+        ]
+    },
+    {
         "version": "0.8-alpha",
         "changes": [
             "Refreshed the website UI in most pages."
