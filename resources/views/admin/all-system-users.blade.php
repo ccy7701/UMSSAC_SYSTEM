@@ -13,6 +13,7 @@
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     @vite('resources/js/systemUsersViewToggler.js')
+    @vite('resources/js/searchInputToggle.js')
     @vite('resources/js/sysusersSort.js')
     <x-admin-topnav/>
     <x-about/>
@@ -23,8 +24,8 @@
             <div class="align-items-center px-3">
                 <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
                     <div class="col-12 text-center">
-                        <h3 class="rserif fw-bold py-2 mb-0">System users list</h3>
-                        <p id="users-count-display" class="rserif fs-4 w-100 mt-0">
+                        <h3 class="rserif fw-bold w-100 mb-1">System users list</h3>
+                        <p id="header-subtitle" class="rserif w-100 mt-0">
                             @if ($totalSystemUsersCount == 0)
                                 No users found{{ $search ? ' for search term "' . $search . '"' : '' }}
                             @elseif ($totalSystemUsersCount == 1)
@@ -33,17 +34,25 @@
                                 {{ $totalSystemUsersCount }} users found{{ $search ? ' for search term "' . $search . '"' : '' }}
                             @endif
                         </p>
-                    </div>
-                    <!-- SEARCH TAB -->
-                    <form class="d-flex justify-content-center" method="GET" action="{{ route('admin.all-system-users') }}">
-                        <div class="search-tab mb-4">
-                            <div class="input-group">
-                                <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-search"></i></span>
-                                <input type="search" id="system-users-search" name="search" class="rsans form-control" aria-label="search" placeholder="Search...">
-                                <button class="rsans btn btn-primary fw-bold">Search</button>
+                        <!-- SEARCH BAR -->
+                        <div class="row pb-3">
+                            <div class="col-12 px-0">
+                                <form class="d-flex justify-content-center" method="GET" action="{{ route('admin.all-system-users') }}">
+                                    <div id="search-bar-standard" class="input-group w-70 mb-4">
+                                        <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-search"></i></span>
+                                        <input type="search" id="search-standard" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
+                                        <button class="rsans btn btn-primary fw-bold">Search</button>
+                                    </div>
+                                    <div id="search-bar-compact" class="input-group w-90 mb-3">
+                                        <input type="search" id="search-compact" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
+                                        <button class="rsans btn btn-primary fw-bold">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
+                    </div>
                     <!-- Filter and sort buttons -->
                     <div class="row pb-3">
                         <!-- Left column: Filters popout for smaller displays -->

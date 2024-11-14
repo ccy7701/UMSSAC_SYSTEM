@@ -14,6 +14,7 @@
 <body class="d-flex flex-column min-vh-100">
     @vite('resources/js/app.js')
     @vite('resources/js/itemViewToggler.js')
+    @vite('resources/js/searchInputToggle.js')
     @vite('resources/js/clubsFinderSort.js')
     @if (currentAccount()->account_role != 3)
         <x-topnav/>
@@ -29,7 +30,7 @@
                 <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
                     <div class="col-12 text-center">
                         <h3 class="rserif fw-bold w-100 mb-1">Clubs finder</h3>
-                        <p id="club-count-display" class="rserif fs-4 w-100 mt-0">
+                        <p id="header-subtitle" class="rserif w-100 mt-0">
                             @if ($totalClubCount == 0)
                                 No clubs found{{ $search ? ' for search term "' . $search . '"' : '' }}
                             @elseif ($totalClubCount == 1)
@@ -38,16 +39,24 @@
                                 {{ $totalClubCount }} clubs found{{ $search ? ' for search term "' . $search . '"' : '' }}
                             @endif
                         </p>
-                        <!-- SEARCH TAB -->
-                        <form class="d-flex justify-content-center" method="GET" action="{{ route('clubs-finder') }}">
-                            <div class="search-tab mb-4">
-                                <div class="input-group">
-                                    <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-search"></i></span>
-                                    <input type="search" id="club-search" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
-                                    <button class="rsans btn btn-primary fw-bold">Search</button>
-                                </div>
+                        <!-- SEARCH BAR -->
+                        <div class="row pb-3">
+                            <div class="col-12 px-0">
+                                <form class="d-flex justify-content-center" method="GET" action="{{ route('clubs-finder') }}">
+                                    <div id="search-bar-standard" class="input-group w-70 mb-4">
+                                        <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-search"></i></span>
+                                        <input type="search" id="search-standard" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
+                                        <button class="rsans btn btn-primary fw-bold">Search</button>
+                                    </div>
+                                    <div id="search-bar-compact" class="input-group w-90 mb-3">
+                                        <input type="search" id="search-compact" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
+                                        <button class="rsans btn btn-primary fw-bold">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                         <!-- BREADCRUMB -->
                         <div class="row pb-3">
                             <!-- Left Column: Breadcrumb -->

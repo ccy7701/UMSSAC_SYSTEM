@@ -103,6 +103,15 @@ html {
     margin-bottom: 3rem !important;
 }
 
+#main-card-suggester {
+    width: 85%;
+    margin-left: 3rem !important;
+    margin-right: 3rem !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    margin-bottom: 3rem !important;
+}
+
 .section-header {
     border-bottom: 1px solid #E0E0E0;
 }
@@ -161,7 +170,11 @@ html {
 }
 
 .search-tab {
-    width: 50.00%;
+    width: 60.00%;
+}
+
+#search-bar-compact {
+    display: none;
 }
 
 .toggle-view-btn:focus, 
@@ -260,6 +273,9 @@ html {
     .w-lg-100 {
         width: 100% !important;
     }
+    .search-tab {
+        width: 75%;
+    }
     .section-button-short {
         width: 30.00%;
     }
@@ -310,7 +326,8 @@ html {
     #footer-right {
         font-size: 0.85em;
     }
-    #main-card {
+    #main-card,
+    #main-card-suggester {
         width: 100%;
         border: none;
         margin: 0 !important;
@@ -356,6 +373,12 @@ html {
     }
     #header-title {
         font-size: 1.35em;
+    }
+    #search-bar-compact {
+        display: flex;
+    }
+    #search-bar-standard {
+        display: none;
     }
     #topnav-logo {
         width: 70.00% !important;
