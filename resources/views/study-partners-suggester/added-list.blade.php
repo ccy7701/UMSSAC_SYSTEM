@@ -67,7 +67,7 @@
                 <!-- SPs added by the user -->
                 <div id="self-view">
                     <div id="added-sps-standard" class="py-3 px-5">
-                        <x-added-sps 
+                        <x-added-sps
                             :addedstudypartners="$addedStudyPartners"
                             :type="'1'"
                             :intersectionarray="$intersectionArray"/>

@@ -9,7 +9,7 @@
         <div class="rsans card px-2 added-sp-list-item h-100" id="added-sp-list-item-{{ $record->profile_id }}-{{ $record->study_partner_profile_id }}">
             <!-- CARD HEADER -->
             <div class="row g-0 align-items-center py-2"
-                data-bs-toggle="collapse" 
+                data-bs-toggle="collapse"
                 data-bs-target="#details-compact-{{ $record->profile_id }}-{{ $record->study_partner_profile_id }}" aria-expanded="false"
                 aria-controls="details-collapse-{{ $record->profile_id }}-{{ $record->study_partner_profile_id }}"
             >
