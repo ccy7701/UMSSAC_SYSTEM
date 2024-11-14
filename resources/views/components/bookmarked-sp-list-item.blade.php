@@ -51,8 +51,8 @@
                             @csrf
                             <input type="hidden" name="operation_page_source" value="bookmarks">
                             <input type="hidden" name="study_partner_profile_id" value="{{ $bookmark->study_partner_profile_id }}">
-                            <a href="{{ route('view-user-profile', ['profile_id' => $bookmark->study_partner_profile_id]) }}" class="section-button-extrashort rsans btn btn-secondary fw-semibold px-3 me-2">View profile</a>
-                            <button type="submit" class="section-button-extrashort rsans btn btn-primary fw-semibold px-3 ms-2">Add to my list</button>
+                            <a href="{{ route('view-user-profile', ['profile_id' => $bookmark->study_partner_profile_id]) }}" class="section-button-short rsans btn btn-secondary fw-semibold px-3 me-2">View profile</a>
+                            <button type="submit" class="section-button-short rsans btn btn-primary fw-semibold px-3 ms-2">Add to my list</button>
                         </form>
                     </div>
                 </div>

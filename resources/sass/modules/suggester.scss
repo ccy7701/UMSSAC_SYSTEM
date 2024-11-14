@@ -91,7 +91,8 @@ $btn-primary-bg: #1064D6;
     }
 }
 
-#suggested-sps-standard {
+#suggested-sps-standard,
+#bookmarked-sps-standard {
     display: block;
     .sp-circle {
         width: 80px;
@@ -100,7 +101,8 @@ $btn-primary-bg: #1064D6;
     }
 }
 
-#suggested-sps-compact {
+#suggested-sps-compact,
+#bookmarked-sps-compact {
     display: none;
 }
 
@@ -120,15 +122,17 @@ $btn-primary-bg: #1064D6;
     #added-sp-view-toggle {
         width: 80%;
     }
-    #suggested-sps-standard {
+    #suggested-sps-standard,
+    #bookmarked-sps-standard {
         display: none;
     }
-    #suggested-sps-compact {
+    #suggested-sps-compact,
+    #bookmarked-sps-compact {
+        display: block;
         .sp-circle {
             width: 80px;
             height: 80px;
         }
-        display: block;
         &:hover {
             cursor: pointer;
         }
@@ -184,7 +188,8 @@ $btn-primary-bg: #1064D6;
     #added-sp-view-toggle {
         width: 90%;
     }
-    #suggested-sps-compact {
+    #suggested-sps-compact,
+    #bookmarked-sps-compact {
         .sp-circle {
             width: 60px;
             height: 60px;
