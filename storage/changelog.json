@@ -1,5 +1,11 @@
 [
     {
+        "version": "0.8-alpha",
+        "changes": [
+            "Refreshed the website UI in most pages."
+        ]
+    },
+    {
         "version": "0.7.2-alpha",
         "changes": [
             "The faculty member role now has the ability to request for club creation.",
@@ -30,13 +36,6 @@
         "changes": [
             "Users can now view the profiles of other users, including clubs they've joined.",
             "Added a page that shows the clubs joined by the user."
-        ]
-    },
-    {
-        "version": "0.7.0.7-alpha",
-        "changes": [
-            "The list of members in a club is now scrollable.",
-            "Minor UI fixes across multiple pages."
         ]
     }
 ]
