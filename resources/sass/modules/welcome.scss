@@ -1,3 +1,21 @@
+.carousel-track {
+    display: flex;
+    width: calc(200%);
+    animation: welcome-scroll 90s linear infinite;
+    img {
+        width: 16.66%;
+        flex-shrink: 0;
+        object-fit: cover;
+    }
+}
+
+.image-carousel {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    padding-bottom: 70px;
+}
+
 .welcome-body {
     background-color: #EAF2FD;
     min-height: 100vh;
@@ -9,30 +27,12 @@
     text-align: end;
 }
 
-.welcome-title {
-    font-size: 5rem;
-}
-
 .welcome-subtitle {
     font-size: 2.5rem;
 }
 
-.image-carousel {
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-    padding-bottom: 70px;
-}
-
-.carousel-track {
-    display: flex;
-    width: calc(200%);
-    animation: welcome-scroll 90s linear infinite;
-    img {
-        width: 16.66%;
-        flex-shrink: 0;
-        object-fit: cover;
-    }
+.welcome-title {
+    font-size: 5rem;
 }
 
 @keyframes welcome-scroll {
@@ -45,26 +45,26 @@
 }
 
 @media (max-width: 1200px) {
-    .welcome-title {
-        font-size: 4rem;
+    .carousel-track img {
+        width: 40%;
     }
     .welcome-subtitle {
         font-size: 2.25rem;
     }
-    .carousel-track img {
-        width: 40%;
+    .welcome-title {
+        font-size: 4rem;
     }
 }
 
 @media (max-width: 992px) {
-    .welcome-title {
-        font-size: 3rem;
+    .carousel-track img {
+        width: 40%;
     }
     .welcome-subtitle {
         font-size: 2rem;
     }
-    .carousel-track img {
-        width: 40%;
+    .welcome-title {
+        font-size: 3rem;
     }
 }
 
@@ -75,20 +75,20 @@
 }
 
 @media (max-width: 576px) {
-    .welcome-website-logo {
-        width: 50%;
+    .carousel-track img {
+        width: 75%;
     }
     .welcome-nav {
         text-align: center;
     }
-    .welcome-title {
-        font-size: 2.5rem;
-    }
     .welcome-subtitle {
         font-size: 1.5rem;
     }
-    .carousel-track img {
-        width: 75%;
+    .welcome-title {
+        font-size: 2.5rem;
+    }
+    .welcome-website-logo {
+        width: 50%;
     }
 }
 

@@ -1,25 +1,5 @@
 $btn-primary-bg: #1064D6;
 
-#club-filters-compact {
-    display: none;
-}
-
-#card-club-images {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    &:hover {
-        transform: scale(1.01);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-}
-
-#card-club-images-previewer {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    &:hover {
-        transform: scale(1.01);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-}
-
 .add-club-card {
     transition: background-color 0.2s ease, transform 0.2s ease;
     &:hover {
@@ -74,12 +54,68 @@ $btn-primary-bg: #1064D6;
     }
 }
 
-#club-card-standard {
+.carousel-control-prev,
+.carousel-control-next {
+    width: 80px !important;
+}
+
+.club-request-list-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+    .request-section {
+        cursor: default;
+    }
+}
+
+#btn-club-join,
+#btn-club-leave {
+    width: 20.00%;
+}
+
+#card-club-images {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     &:hover {
         transform: scale(1.01);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
+}
+
+#card-club-images-previewer {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
+
+#carousel-inner-lg {
+    display: flex;
+}
+
+#carousel-inner-md,
+#carousel-inner-sm {
+    display: none;
+}
+
+#club-action-buttons-standard {
+    display: flex;
+    justify-content: end;
+}
+
+#club-action-buttons-compact {
+    display: none;
+}
+
+#club-breadcrumb {
+    display: flex;
+}
+
+#club-breadcrumb-alt {
+    display: none;
 }
 
 #club-card-manage {
@@ -104,6 +140,36 @@ $btn-primary-bg: #1064D6;
             display: flex;
             opacity: 1;
         }
+    }
+}
+
+#club-card-standard {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
+
+#club-filters-compact {
+    display: none;
+}
+
+#club-images-carousel {
+    width: 40.00%;
+    .carousel-item img {
+        border-radius: 12px;
+        aspect-ratio: 4/4;
+        object-fit: cover;
+        cursor: pointer;
+    }
+}
+
+#club-images-list img {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 }
 
@@ -144,66 +210,12 @@ $btn-primary-bg: #1064D6;
     }
 }
 
-#club-breadcrumb {
-    display: flex;
-}
-
-#club-breadcrumb-alt {
-    display: none;
-}
-
 #club-sort-standard {
     display: flex;
 }
 
 #club-view-toggle {
     display: flex;
-}
-
-#club-action-buttons-standard {
-    display: flex;
-    justify-content: end;
-}
-
-#club-action-buttons-compact {
-    display: none;
-}
-
-#club-images-carousel {
-    width: 30.00%;
-    .carousel-item img {
-        border-radius: 12px;
-        aspect-ratio: 4/4;
-        object-fit: cover;
-        cursor: pointer;
-    }
-}
-
-#club-images-list img {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    &:hover {
-        transform: scale(1.01);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-}
-
-#btn-club-join,
-#btn-club-leave {
-    width: 20.00%;
-}
-
-#carousel-inner-lg {
-    display: flex;
-}
-
-#carousel-inner-md,
-#carousel-inner-sm {
-    display: none;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-    width: 80px !important;
 }
 
 #club-requests-view-toggle {
@@ -216,57 +228,34 @@ $btn-primary-bg: #1064D6;
     }
 }
 
-.club-request-list-item {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    &:hover {
-        transform: scale(1.01);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-    }
-    .request-section {
-        cursor: default;
-    }
-}
-
 #col-action-buttons-row {
     width: 50%;
 }
 
-@media (max-width: 992px) {
-    #club-sort-standard {
-        display: none;
-    }
-    #club-sort-compact {
-        display: flex;
-    }
-    #club-filters-compact {
-        display: flex;
-    }
-    #club-filters-standard {
-        display: none;
-    }
+@media (max-width: 1200px) {
     #club-breadcrumb {
-        display: none;
-    }
-    #club-action-buttons-standard {
-        display: none;
-    }
-    #club-action-buttons-compact {
-        display: flex;
-    }
-    #club-breadcrumb-alt {
-        display: flex;
-    }
-    #membership-type {
-        #membership-type-label {
-            display: none;
+        .breadcrumb-item {
+            font-size: 0.95em;
         }
-        select {
+        .breadcrumb-item.active {
+            font-size: 0.90em;
+        }
+        p, a {
             font-size: 0.90em;
         }
     }
     #club-images-carousel {
-        width: 50.00%;
+        width: 50%;
+    }
+    #club-requests-view-toggle {
+        width: 85%;
+    }
+}
+
+@media (max-width: 992px) {
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 50px !important;
     }
     #btn-club-join,
     #btn-club-leave {
@@ -282,22 +271,58 @@ $btn-primary-bg: #1064D6;
     #carousel-inner-sm {
         display: none;
     }
-    .carousel-control-prev,
-    .carousel-control-next {
-        width: 50px !important;
+    #club-action-buttons-compact {
+        display: flex;
+    }
+    #club-action-buttons-standard {
+        display: none;
+    }
+    #club-breadcrumb {
+        display: none;
+    }
+    #club-breadcrumb-alt {
+        display: flex;
+        font-size: 1.00em;
+    }
+    #club-filters-compact {
+        display: flex;
+    }
+    #club-filters-standard {
+        display: none;
+    }
+    #club-images-carousel {
+        width: 50.00%;
     }
     #club-requests-view-toggle {
         width: 75%;
     }
+    #club-sort-compact {
+        display: flex;
+    }
+    #club-sort-standard {
+        display: none;
+    }
+    #membership-type {
+        #membership-type-label {
+            display: none;
+        }
+        select {
+            font-size: 0.90em;
+            border-radius: 6px;
+        }
+    }
 }
 
 @media (max-width: 768px) {
-    #carousel-inner-sm {
-        display: flex;
-    }
     #carousel-inner-lg,
     #carousel-inner-md {
         display: none;
+    }
+    #carousel-inner-sm {
+        display: flex;
+    }
+    #club-images-carousel {
+        width: 60.00%;
     }
     #club-requests-view-toggle {
         width: 90%;
@@ -318,25 +343,28 @@ $btn-primary-bg: #1064D6;
             }
         }
     }
-    #club-card-standard .card-body h5 {
-        font-size: 1.10em;
+    .club-request-list-item {
+        h5 {
+            font-size: 1.00em;
+        }
+        .card-text {
+            font-size: 0.85em;
+        }
     }
-    #club-card-manage .card-body h5 {
-        font-size: 1.10em;
-    }
-    #club-list-item-manage:hover .overlay .overlay-btn {
-        width: 35.00%;
-    }
-    #club-list-item-manage:hover .overlay .overlay-btn a {
-        font-size: 0.80em;
+    #btn-club-join,
+    #btn-club-leave {
+        width: 75.00%;
     }
     #club-breadcrumb-alt {
         nav, p {
             font-size: 0.80em;
         }
-        .section-button {
-            width: 75.00% !important;
-        }
+    }
+    #club-card-manage .card-body h5 {
+        font-size: 1.10em;
+    }
+    #club-card-standard .card-body h5 {
+        font-size: 1.10em;
     }
     #club-list-item-manage {
         .card-body {
@@ -353,16 +381,13 @@ $btn-primary-bg: #1064D6;
             }
         }
     }
-    #membership-type {
-        select {
-            font-size: 0.80em;
-        }
+    #club-list-item-manage:hover .overlay .overlay-btn {
+        width: 35.00%;
+    }
+    #club-list-item-manage:hover .overlay .overlay-btn a {
+        font-size: 0.80em;
     }
     #club-images-carousel {
-        width: 75.00%;
-    }
-    #btn-club-join,
-    #btn-club-leave {
         width: 75.00%;
     }
     #club-requests-view-toggle {
@@ -371,15 +396,12 @@ $btn-primary-bg: #1064D6;
             font-size: 0.90em;
         }
     }
-    .club-request-list-item {
-        h5 {
-            font-size: 1.00em;
-        }
-        .card-text {
-            font-size: 0.85em;
-        }
-    }
     #col-action-buttons-row {
         width: 100%;
+    }
+    #membership-type {
+        select {
+            font-size: 0.80em;
+        }
     }
 }

@@ -1,33 +1,9 @@
-.features-body {
-    background-color: #EAF2FD;
-}
-
-.features-nav {
-    text-align: end;
-}
-
-.features-illustration {
-    width: 75.00%;
-}
-
-.features-text {
-    text-align: start;
-}
-
 .benefits {
     background-color: #FAFAFA;
 }
 
 .benefits-subtitle {
     color: #21549A;
-}
-
-#benefits-carousel-standard {
-    display: block;
-}
-
-#benefits-carousel-small {
-    display: none;
 }
 
 .carousel-item .card {
@@ -45,12 +21,33 @@
     }
 }
 
-// add media for max-width: 1400px, 1200px when needed
+.features-body {
+    background-color: #EAF2FD;
+}
+
+.features-illustration {
+    width: 75.00%;
+}
+
+
+.features-nav {
+    text-align: end;
+}
+
+
+.features-text {
+    text-align: start;
+}
+
+#benefits-carousel-small {
+    display: none;
+}
+
+#benefits-carousel-standard {
+    display: block;
+}
 
 @media (max-width: 992px) {
-    .features-illustration {
-        width: 85.00%;
-    }
     .carousel-item .card {
         p {
             font-size: 0.85em;
@@ -66,34 +63,37 @@
             }
         }
     }
-}
-
-@media (max-width: 768px) {
-    .features-text {
-        text-align: center;
-    }
     .features-illustration {
         width: 85.00%;
     }
-    #benefits-carousel-standard {
-        display: none;
+}
+
+@media (max-width: 768px) {
+    .features-illustration {
+        width: 85.00%;
+    }
+    .features-text {
+        text-align: center;
     }
     #benefits-carousel-small {
         display: block;
     }
+    #benefits-carousel-standard {
+        display: none;
+    }
 }
 
 @media (max-width: 576px) {
-    .features-website-logo {
-        width: 50.00%;
+    .features-illustration {
+        width: 65.00%;
     }
     .features-nav {
         text-align: center;
     }
-    .features-illustration {
-        width: 65.00%;
-    }
     .features-text p.rserif.fs-4 {
         font-size: 1.25rem !important;
+    }
+    .features-website-logo {
+        width: 50.00%;
     }
 }

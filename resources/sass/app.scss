@@ -26,6 +26,12 @@ html {
 .w-60 {
     width: 60%;
 }
+.w-65 {
+    width: 65%;
+}
+.w-70 {
+    width: 70%;
+}
 .w-80 {
     width: 80%;
 }
@@ -33,6 +39,9 @@ html {
     width: 90%;
 }
 
+.w-xxl-50 {
+    width: 50% !important;
+}
 .w-xxl-80 {
     width: 80% !important;
 }
@@ -74,11 +83,33 @@ html {
     background-color: #EAF2FD;
 }
 
+#topnav-logo {
+    width: 75.00%;
+}
+
 .nav-item {
     transition: background-color 0.1s ease;
     &:hover {
         background-color: #E0E0E0;
     }
+}
+
+#main-card {
+    width: 70%;
+    margin-left: 3rem !important;
+    margin-right: 3rem !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    margin-bottom: 3rem !important;
+}
+
+#main-card-suggester {
+    width: 85%;
+    margin-left: 3rem !important;
+    margin-right: 3rem !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    margin-bottom: 3rem !important;
 }
 
 .section-header {
@@ -139,7 +170,11 @@ html {
 }
 
 .search-tab {
-    width: 50.00%;
+    width: 60.00%;
+}
+
+#search-bar-compact {
+    display: none;
 }
 
 .toggle-view-btn:focus, 
@@ -230,26 +265,34 @@ html {
     cursor: pointer;
 }
 
-// add media for max-width: 1400px when needed
+#header-subtitle {
+    font-size: 1.50em;
+}
 
 @media (max-width: 1200px) {
+    .w-lg-100 {
+        width: 100% !important;
+    }
+    .search-tab {
+        width: 75%;
+    }
+    .section-button-short {
+        width: 30.00%;
+    }
     #footer-left {
         font-size: 1.75em;
     }
     #footer-right {
         font-size: 0.95em;
     }
+    #topnav-logo {
+        width: 80.00% !important;
+    }
 }
 
 @media (max-width: 992px) {
-    #topnav-logo {
-        width: 100.00% !important;
-    }
-    #footer-left {
-        font-size: 1.50em;
-    }
-    #footer-right {
-        font-size: 0.85em;
+    .col-left-alt {
+        text-align: center;
     }
     .form-standard {
         width: 80.00%;
@@ -267,11 +310,47 @@ html {
     .search-tab {
         width: 100.00%;
     }
+    #col-right-img-edit {
+        display: none;
+    }
+    #col-right-membership-edit {
+        display: none
+    }
+    #footer {
+        position: relative;
+        z-index: 1;
+    }
+    #footer-left {
+        font-size: 1.50em;
+    }
+    #footer-right {
+        font-size: 0.85em;
+    }
+    #main-card,
+    #main-card-suggester {
+        width: 100%;
+        border: none;
+        margin: 0 !important;
+        padding: 0 !important;
+        padding-top: 0.5rem !important;
+        border-radius: 0 0 0 0;
+    }
+    #topnav {
+        position: relative;
+        z-index: 1;
+    }
+    #topnav-logo {
+        width: 100.00% !important;
+    }
 }
 
 @media (max-width: 768px) {
-    .user-profile-text {
-        text-align: center;
+    .w-sm-100 {
+        width: 100% !important;
+    }
+
+    .about-body tr td {
+        font-size: 0.85em;
     }
     .col-left-alt {
         text-align: center;
@@ -280,11 +359,8 @@ html {
         text-align: center;
         justify-content: center;
     }
-    .w-sm-100 {
-        width: 100% !important;
-    }
-    .about-body tr td {
-        font-size: 0.85em;
+    .user-profile-text {
+        text-align: center;
     }
     #col-action-buttons-standard {
         display: none;
@@ -292,15 +368,42 @@ html {
     #col-action-buttons-compact {
         display: block;
     }
+    #header-subtitle {
+        font-size: 1.25em;
+    }
+    #header-title {
+        font-size: 1.35em;
+    }
+    #search-bar-compact {
+        display: flex;
+    }
+    #search-bar-standard {
+        display: none;
+    }
+    #topnav-logo {
+        width: 70.00% !important;
+    }
 }
 
 @media (max-width: 576px) {
-    #user-profile-picture {
-        width: 150px;
-        height: 150px;
+    .w-xs-80 {
+        width: 80% !important;
     }
-    #topnav-logo {
-        width: 75.00% !important;
+
+    .form-container {
+        width: 90.00%;
+    }
+    .form-standard {
+        width: 90.00%;
+    }
+    .row-container {
+        width: 100.00%;
+    }
+    .section-button {
+        width: 100.00%;
+    }
+    #header-subtitle {
+        font-size: 1.00em;
     }
     #footer-left {
         font-size: 1em;
@@ -308,16 +411,11 @@ html {
     #footer-right {
         font-size: 0.55em;
     }
-    .section-button {
-        width: 100.00%;
+    #topnav-logo {
+        width: 65.00% !important;
     }
-    .row-container {
-        width: 100.00%;
-    }
-    .form-standard {
-        width: 90.00%;
-    }
-    .form-container {
-        width: 90.00%;
+    #user-profile-picture {
+        width: 150px;
+        height: 150px;
     }
 }

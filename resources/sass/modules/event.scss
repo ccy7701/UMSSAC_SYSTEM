@@ -1,21 +1,5 @@
 $btn-primary-bg: #1064D6;
 
-#card-event-images {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    &:hover {
-        transform: scale(1.01);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-}
-
-#card-event-image-previewer {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    &:hover {
-        transform: scale(1.01);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-}
-
 .add-event-card {
     transition: background-color 0.2s ease, transform 0.2s ease;
     &:hover {
@@ -73,24 +57,24 @@ $btn-primary-bg: #1064D6;
     }
 }
 
-#event-breadcrumb {
-    display: flex;
+#btn-event-delete {
+    width: 30.00%;
 }
 
-#event-filters-compact {
-    display: none;
+#card-event-images {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
-#event-sort-standard {
-    display: flex;
-}
-
-#event-breadcrumb-alt {
-    display: none;
-}
-
-#event-view-toggle {
-    display: flex;
+#card-event-image-previewer {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }
 
 #event-action-buttons {
@@ -113,19 +97,12 @@ $btn-primary-bg: #1064D6;
     }
 }
 
-#event-list-item-standard {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    .bookmark-span {
-        background-color: #CFE2FB;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    &:hover {
-        transform: scale(1.01);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+#event-breadcrumb {
+    display: flex;
+}
+
+#event-breadcrumb-alt {
+    display: none;
 }
 
 #event-card-manage {
@@ -153,6 +130,43 @@ $btn-primary-bg: #1064D6;
             display: flex;
             opacity: 1;
         }
+    }
+}
+
+#event-filters-compact {
+    display: none;
+}
+
+#event-images-carousel {
+    width: 50.00%;
+    .carousel-item img {
+        border-radius: 12px;
+        aspect-ratio: 16/10;
+        object-fit: cover;
+        cursor: pointer;
+    }
+}
+
+#event-images-list img {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
+
+#event-list-item-standard {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    .bookmark-span {
+        background-color: #CFE2FB;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    &:hover {
+        transform: scale(1.01);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 }
 
@@ -189,37 +203,73 @@ $btn-primary-bg: #1064D6;
     }
 }
 
-#btn-event-delete {
-    width: 20.00%;
+#event-sort-standard {
+    display: flex;
 }
 
-#event-images-carousel {
-    width: 30.00%;
-    .carousel-item img {
-        border-radius: 12px;
-        aspect-ratio: 16/10;
-        object-fit: cover;
-        cursor: pointer;
+#event-view-toggle {
+    display: flex;
+}
+
+@media (max-width: 1200px) {
+    #event-images-carousel {
+        width: 75%;
     }
-}
-
-#event-images-list img {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    &:hover {
-        transform: scale(1.01);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    #event-breadcrumb {
+        .breadcrumb-item {
+            font-size: 0.95em;
+        } 
+        .breadcrumb-item.active {
+            font-size: 0.90em;
+        }
+        p, a {
+            font-size: 0.90em;
+        }
+    }
+    #btn-event-delete {
+        width: 40.00%;
     }
 }
 
 @media (max-width: 992px) {
+    #btn-event-delete {
+        width: 35.00%;
+    }
+    #btn-manage-event-compact {
+        font-size: 0.90em;
+    }
+    #event-action-buttons {
+        justify-content: center;
+    }
     #event-breadcrumb {
         display: none;
+    }
+    #event-breadcrumb-alt {
+        display: flex;
+        font-size: 1.00em;
     }
     #event-filters-compact {
         display: flex;
     }
     #event-filters-standard {
         display: none;
+    }
+    #event-images-carousel {
+        .carousel-item.active img {
+            position: relative;
+            z-index: 1;
+        }
+    }
+    #event-list-item-standard {
+        .bookmark-span {
+            background-color: #CFE2FB;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            i {
+                font-size: 1.60em !important;
+            }
+        }
     }
     #event-sort-compact {
         display: flex;
@@ -234,32 +284,6 @@ $btn-primary-bg: #1064D6;
     #toggle-list-view {
         border-top-right-radius: 0.35rem;
         border-bottom-right-radius: 0.35rem;
-    }
-    #event-action-buttons {
-        justify-content: center;
-    }
-    #event-breadcrumb-alt {
-        display: flex;
-    }
-    #btn-event-delete {
-        width: 35.00%;
-    }
-    #btn-manage-event-compact {
-        font-size: 0.90em;
-    }
-    #event-images-carousel {
-        width: 50.00%;
-    }
-    #event-list-item-standard {
-        .bookmark-span {
-            background-color: #CFE2FB;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            i {
-                font-size: 1.60em !important;
-            }
-        }
     }
 }
 
@@ -278,6 +302,14 @@ $btn-primary-bg: #1064D6;
 }
 
 @media (max-width: 576px) {
+    #btn-event-delete {
+        width: 75.00%;
+    }
+    #event-breadcrumb-alt {
+        nav, p {
+            font-size: 0.80em;
+        }
+    }
     #event-card-manage {
         font-size: 0.70em;
         .card-body h5 {
@@ -295,6 +327,9 @@ $btn-primary-bg: #1064D6;
             height: 40px;
             border-radius: 50%;
         }
+    }
+    #event-images-carousel {
+        width: 75.00%;
     }
     #event-list-item-manage {
         font-size: 0.70em;
@@ -323,16 +358,5 @@ $btn-primary-bg: #1064D6;
         .card-body h5 {
             font-size: 1.25em;
         }
-    }
-    #event-breadcrumb-alt {
-        nav, p {
-            font-size: 0.80em;
-        }
-    }
-    #btn-event-delete {
-        width: 75.00%;
-    }
-    #event-images-carousel {
-        width: 75.00%;
     }
 }

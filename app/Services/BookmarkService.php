@@ -27,7 +27,8 @@ class BookmarkService
             'bookmarks' => $bookmarks,
             'totalBookmarks' => $bookmarks->count(),
             'searchViewPreference' => getUserSearchViewPreference($profileId),
-            'intersectionArray' => $intersectionArray
+            'intersectionArray' => $intersectionArray,
+            'search' => $search
         ]);
     }
 
@@ -62,7 +63,8 @@ class BookmarkService
         return view($viewName, [
             'bookmarks' => $bookmarks,
             'totalBookmarks' => $totalBookmarks,
-            'searchViewPreference' => getUserSearchViewPreference($profileId)
+            'searchViewPreference' => getUserSearchViewPreference($profileId),
+            'search' => $search
         ]);
     }
 

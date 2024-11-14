@@ -9,9 +9,10 @@
     @vite('resources/sass/app.scss')
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100" style="background-color: #F8F8F8;">
     @vite('resources/js/app.js')
     @vite('resources/js/suggester/addedListOperations.js')
+    @vite('resources/js/searchInputToggle.js')
     <x-topnav/>
     <x-about/>
     <x-response-popup
@@ -22,27 +23,32 @@
         messageType="deleted-from-list"
         iconClass="text-secondary fa fa-user-times"
         title="Study partner removed"/>
-    <br>
-    <main class="flex-grow-1">
-        <!-- PAGE HEADER -->
-        <div class="row-container">
-            <div class="align-items-center px-3">
+    <main class="flex-grow-1 d-flex justify-content-center mt-xl-5 mt-lg-5">
+        <div id="main-card" class="card">
+            <!-- PAGE HEADER -->
+            <div class="row-container align-items-center px-3 mt-lg-0 mt-md-3 mt-sm-3 mt-xs-3">
                 <div class="section-header row w-100 m-0 py-0 d-flex align-items-center">
-                    <div class="col-12 text-center">
+                    <div class="col-12 text-center mt-md-0 mt-sm-0 mt-xs-3 mt-3">
                         <h3 class="rserif fw-bold w-100 mb-3">Added study partners list</h3>
                         <!-- SEARCH TAB -->
-                        <form class="d-flex justify-content-center" method="GET" action="{{ route('study-partners-suggester.added-list') }}">
-                            <div class="search-tab mb-4">
-                                <div class="input-group">
+                        <div class="row pb-3">
+                            <form class="d-flex justify-content-center" method="GET" action="{{ route('study-partners-suggester.added-list') }}">
+                                <div id="search-bar-standard" class="input-group w-70 mb-1">
                                     <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-search"></i></span>
-                                    <input type="search" id="added-sps-search" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
+                                    <input type="search" id="search-standard" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
                                     <button class="rsans btn btn-primary fw-bold">Search</button>
                                 </div>
-                            </div>
-                        </form>
+                                <div id="search-bar-compact" class="input-group w-80 mb-1">
+                                    <input type="search" id="search-compact" name="search" class="rsans form-control" aria-label="search" placeholder="Search..." value="{{ request()->input('search') }}">
+                                    <button class="rsans btn btn-primary fw-bold">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                         <!-- VIEW ICONS -->
                         <div class="row pb-3 d-flex justify-content-center">
-                            <div id="added-sp-view-toggle" class="rsans input-group d-flex justify-content-center">
+                            <div id="added-sp-view-toggle" class="rsans input-group d-flex justify-content-center px-0">
                                 <!-- list of SPs added by the user; -->
                                 <button id="toggle-self-view" class="btn d-flex justify-content-center align-items-center fw-semibold w-40 border">
                                     Added by me ({{ $totalAddedSPs }})
@@ -56,36 +62,35 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- BODY OF CONTENT -->
-        <div class="row-container">
-            <div id="content-body" class="rsans justify-content-center align-items-center py-3 px-5 align-self-center">
-                <!-- SPs added by the user -->
-                <div id="self-view">
-                    @foreach ($addedStudyPartners as $record)
-                        <div class="row pb-3">
-                            <x-added-sp-list-item
-                                :record="$record"
-                                :type="1"
-                                :intersectionarray="$intersectionArray"/>
-                        </div>
-                    @endforeach
-                    <x-delete-added-sp/>
-                </div>
-                <!-- SPs who have added the user -->
-                <div id="others-view">
-                    @foreach ($addedByStudyPartners as $record)
-                        <div class="row pb-3">
-                            <x-added-sp-list-item
-                                :record="$record"
-                                :type="2"
-                                :intersectionarray="$intersectionArray"/>
-                        </div>
-                    @endforeach
+            <!-- BODY OF CONTENT -->
+            <div class="row-container">
+                <div id="content-body" class="rsans justify-content-center align-items-center py-3 px-5 align-self-center">
+                    <!-- SPs added by the user -->
+                    <div id="self-view">
+                        @foreach ($addedStudyPartners as $record)
+                            <div class="row pb-3">
+                                <x-added-sp-list-item
+                                    :record="$record"
+                                    :type="1"
+                                    :intersectionarray="$intersectionArray"/>
+                            </div>
+                        @endforeach
+                        <x-delete-added-sp/>
+                    </div>
+                    <!-- SPs who have added the user -->
+                    <div id="others-view">
+                        @foreach ($addedByStudyPartners as $record)
+                            <div class="row pb-3">
+                                <x-added-sp-list-item
+                                    :record="$record"
+                                    :type="2"
+                                    :intersectionarray="$intersectionArray"/>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
-        <br><br>
     </main>
     <x-footer/>
 </body>
