@@ -51,7 +51,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="new-password" class="rsans form-label fw-semibold">New password (minimum 8 characters)</label>
+                                        <label for="new-password" class="rsans form-label fw-semibold">New password</label>
                                         <div class="input-group">
                                             <span class="formfield-span input-group-text d-flex justify-content-center"><i class="fa fa-lock d-flex"></i></span>
                                             <input type="password" id="new-password" name="new_account_password" class="rsans form-control" required autofocus>
@@ -59,6 +59,7 @@
                                                 <i class="fa fa-eye" id="eye-icon-pwd"></i>
                                             </span>
                                         </div>
+                                        <p class="rsans form-text text-start mb-0">The password must be at least 10 characters long.</p>
                                     </div>
                                     <div class="mb-3">
                                         <label for="new-password-confirmation" class="rsans form-label fw-semibold">Confirm new password</label>
@@ -69,6 +70,7 @@
                                                 <i class="fa fa-eye" id="eye-icon-cnfm-pwd"></i>
                                             </span>
                                         </div>
+                                        <p class="rsans form-text text-start mb-0">Both passwords must match.</p>
                                     </div>
                                     <div class="my-4 text-end">
                                         <a href="{{ route('forgot-password') }}" class="rsans fw-semibold link-dark"><u>Forgot current password?</u></a>

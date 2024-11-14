@@ -54,7 +54,7 @@ class PasswordResetController extends Controller
         $request->validate([
             'token' => 'required',
             'account_email_address' => 'required|string|email',
-            'new_account_password' => 'required|string|min:8|confirmed',
+            'new_account_password' => 'required|string|min:10|confirmed',
         ], $messages);
 
         // Map the validated data to the format expected by the PasswordBroker
@@ -95,7 +95,7 @@ class PasswordResetController extends Controller
 
         $request->validate([
             'current_password' => 'required|string',
-            'new_account_password' => 'required|string|min:8|confirmed',
+            'new_account_password' => 'required|string|min:10|confirmed',
         ], $messages);
 
         $account = Account::where('account_id', currentAccount()->account_id)->firstOrFail();

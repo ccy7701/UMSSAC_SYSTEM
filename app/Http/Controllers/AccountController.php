@@ -27,7 +27,7 @@ class AccountController extends Controller
             'account_full_name' => 'required|string|max:255',
             'profile_nickname' => 'nullable|string|max:255',
             'account_email_address' => 'required|string|email|max:255|unique:account,account_email_address',
-            'account_password' => 'required|string|min:8|confirmed',
+            'account_password' => 'required|string|min:10|confirmed',
             'account_role' => 'required|in:1,2,3',
             'account_matric_number' => [
                 'required_if:account_role,1',
