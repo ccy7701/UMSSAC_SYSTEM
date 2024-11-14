@@ -64,31 +64,37 @@
             </div>
             <!-- BODY OF CONTENT -->
             <div class="row-container">
-                <div id="content-body" class="rsans justify-content-center align-items-center py-3 px-5 align-self-center">
-                    <!-- SPs added by the user -->
-                    <div id="self-view">
-                        @foreach ($addedStudyPartners as $record)
-                            <div class="row pb-3">
-                                <x-added-sp-list-item
-                                    :record="$record"
-                                    :type="1"
-                                    :intersectionarray="$intersectionArray"/>
-                            </div>
-                        @endforeach
-                        <x-delete-added-sp/>
+                <!-- SPs added by the user -->
+                <div id="self-view">
+                    <div id="added-sps-standard" class="py-3 px-5">
+                        <x-added-sps 
+                            :addedstudypartners="$addedStudyPartners"
+                            :type="'1'"
+                            :intersectionarray="$intersectionArray"/>
                     </div>
-                    <!-- SPs who have added the user -->
-                    <div id="others-view">
-                        @foreach ($addedByStudyPartners as $record)
-                            <div class="row pb-3">
-                                <x-added-sp-list-item
-                                    :record="$record"
-                                    :type="2"
-                                    :intersectionarray="$intersectionArray"/>
-                            </div>
-                        @endforeach
+                    <div id="added-sps-compact" class="py-3 px-5">
+                        <x-added-sps-compact
+                            :addedstudypartners="$addedStudyPartners"
+                            :type="'1'"
+                            :intersectionarray="$intersectionArray"/>
                     </div>
                 </div>
+                <!-- SPs who have added the user -->
+                <div id="others-view">
+                    <div id="added-by-sps-standard" class="py-3 px-5">
+                        <x-added-sps
+                            :addedstudypartners="$addedByStudyPartners"
+                            :type="'2'"
+                            :intersectionarray="$intersectionArray"/>
+                    </div>
+                    <div id="added-by-sps-compact" class="py-3 px-5">
+                        <x-added-sps-compact
+                            :addedstudypartners="$addedByStudyPartners"
+                            :type="'2'"
+                            :intersectionarray="$intersectionArray"/>
+                    </div>
+                </div>
+                <x-delete-added-sp/>
             </div>
         </div>
     </main>

@@ -61,13 +61,6 @@
             </div>
             <!-- BODY OF CONTENT -->
             <div class="row-container">
-                {{-- <div id="content-body" class="rsans justify-content-center align-items-center py-3 px-5 align-self-center">
-                    @foreach ($bookmarks as $bookmark)
-                        <div class="row pb-3">
-                            <x-bookmarked-sp-list-item :bookmark="$bookmark"/>
-                        </div>
-                    @endforeach
-                </div> --}}
                 <div id="bookmarked-sps-standard" class="py-3 px-5">
                     <x-bookmarked-sps :bookmarks="$bookmarks"/>
                 </div>
