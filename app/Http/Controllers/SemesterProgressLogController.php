@@ -12,8 +12,10 @@ class SemesterProgressLogController extends Controller
 {
     // Create new SemesterProgressLogs based on the details pushed to this function
     public function initialiseProgressTracker(Request $request) {
+        $status = true;
+
         $profileId = profile()->profile_id;
-        $profile = Profile::find($profileId);
+        $profile = Profile::where('profile_id', profile()->profile_id)->first();
 
         // Extract user input for the enrolment session and course duration
         $enrolmentSession = $request->input('profile_enrolment_session');
@@ -35,11 +37,17 @@ class SemesterProgressLogController extends Controller
             $semester = ($semesterCount % 2) + 1;
 
             // Create the SemesterProgressLog entry
-            $status = SemesterProgressLog::create([
+            $newEntry = SemesterProgressLog::create([
                 'profile_id' => $profileId,
                 'semester' => $semester,
                 'academic_session' => $academicSession,
             ]);
+
+            // Update status flag if any create operation fails, then exit loop on fail
+            if (!$newEntry) {
+                $status = false;
+                break;
+            }
         }
 
         // Redirect back to the page with a success message
