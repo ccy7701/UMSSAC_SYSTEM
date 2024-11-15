@@ -23,12 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
     enrolmentSessionField.addEventListener('change', checkFieldsFilled);
     courseDurationField.addEventListener('change', checkFieldsFilled);
 
-    // Apply an EventListener to the subject code fields to enforce uppercase
-    const subjectCodeInput = document.getElementById('subject-code');
-    subjectCodeInput.addEventListener('input', function () {
-        this.value = this.value.toUpperCase();
-    });
-
     // Handle the click of the "Confirm" button
     btnPassForm.addEventListener('click', function (event) {
         // Prevent default form submission
@@ -37,6 +31,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Transfer the values from the form to the hidden fields
         hiddenEnrolmentSessionField.value = enrolmentSessionField.value;
         hiddenCourseDurationField.value = courseDurationField.value;
+    });
+
+    // Apply an EventListener to the subject code fields to enforce uppercase
+    const subjectCodeInput = document.getElementById('subject-code');
+    subjectCodeInput.addEventListener('input', function () {
+        this.value = this.value.toUpperCase();
     });
 });
 

@@ -1,5 +1,11 @@
 [
     {
+        "version": "0.8.2-alpha",
+        "changes": [
+            "Fixed an issue where the system fails to initialise the academic progress tracker on first use."
+        ]
+    },
+    {
         "version": "0.8-1-alpha",
         "changes": [
             "Refreshed the UI for the study partners suggester module views in smaller display sizes."
