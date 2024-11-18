@@ -7,17 +7,27 @@
             </a>
         </div>
         <div class="col-6 text-end">
-            <a href="{{ route('my-profile') }}" style="text-decoration: none; outline: none;">
+
+            <!-- Profile picture icon button for notifications trigger -->
+            <button class="btn p-0 position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-notifications-bar" aria-controls="offcanvas-notifications-bar" style="text-decoration: none; outline: none; border: none;">
                 <img id="user-profile-topnav" src="{{ profile()->profile_picture }}" alt="User profile" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
-            </a>
+                <!-- Notification Indicator -->
+                <!-- if check: there are any noti's unopened, trigger this span -->
+                <span id="noti-indicator" class="position-absolute bg-primary rounded-circle"></span>
+            </button>
             <span class="px-2"></span>
+
+            <!-- Sandwich icon button for navigation trigger -->
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar" aria-controls="offcanvas-navbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
         </div>
     </div>
 </nav>
-<!-- Offcanvas Navbar -->
+<!-- Offcanvas Navbar for Notifications -->
+<x-notifications-offcanvas/>
+<!-- Offcanvas Navbar for Navigation -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-navbar" aria-labelledby="offcanvas-navbar-label">
     <div class="rsans offcanvas-header pb-0">
         <h5 class="offcanvas-title" id="offcanvas-navbar-label">Menu</h5>
