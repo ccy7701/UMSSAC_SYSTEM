@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             ClubEventMixedSeeder::class,
             TimetableSlotSeeder::class,
             UserTraitsRecordSeeder::class,
+            NotificationSeeder::class,
         ]);
     }
 }
