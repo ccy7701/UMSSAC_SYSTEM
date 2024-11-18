@@ -12,8 +12,7 @@
             <button class="btn p-0 position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-notifications-bar" aria-controls="offcanvas-notifications-bar" style="text-decoration: none; outline: none; border: none;">
                 <img id="user-profile-topnav" src="{{ profile()->profile_picture }}" alt="User profile" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
                 <!-- Notification Indicator -->
-                <!-- if check: there are any noti's unopened, trigger this span -->
-                <span id="notification-indicator" class="position-absolute bg-primary rounded-circle"></span>
+                <span id="notification-indicator" class="position-absolute bg-primary rounded-circle d-none"></span>
             </button>
             <span class="px-2"></span>
 

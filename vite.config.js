@@ -33,6 +33,7 @@ export default defineConfig({
                 'resources/js/itemViewToggler.js',
                 'resources/js/loginForm.js',
                 'resources/js/manageMemberOperations.js',
+                'resources/js/notificationOperations.js',
                 'resources/js/picturePreviewer.js',
                 'resources/js/registerForm.js',
                 'resources/js/searchInputToggle.js',

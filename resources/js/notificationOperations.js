@@ -1,13 +1,23 @@
 // On page load, fetch the user's notifications
 document.addEventListener('DOMContentLoaded', function() {
-    fetchNotifications();
+    startPeriodicNotificationFetch();
 });
+
+// Function to periodically fetch notifications
+function startPeriodicNotificationFetch() {
+    fetchNotifications();
+    setInterval(fetchNotifications, 10000);
+}
 
 // Fetch user's notifications and populate topnav offcanvas for it
 function fetchNotifications() {
     fetch('/notifications/fetch-all')
         .then(response => response.json())
         .then(data => {
+            // Update the topnav notification indicator
+            const unreadNotificationsCount = data.filter(notification => notification.is_read === 0).length;
+            updateNotificationIndicator(unreadNotificationsCount);
+
             const notificationsList = document.getElementById('notifications-list');
             notificationsList.innerHTML = '';
 
@@ -25,6 +35,21 @@ function fetchNotifications() {
         .catch(error => {
             console.error('Error fetching notifications:', error);
         })
+}
+
+// Update the notification indicator circle
+function updateNotificationIndicator(unreadNotificationsCount) {
+    const notificationIndicator = document.getElementById('notification-indicator');
+
+    if (unreadNotificationsCount > 0) {
+        // Show the indicator
+        notificationIndicator.classList.remove('d-none');
+        notificationIndicator.classList.add('d-block');
+    } else {
+        // Hide the indicator
+        notificationIndicator.classList.remove('d-block');
+        notificationIndicator.classList.add('d-none');
+    }
 }
 
 // Create the notification list item
@@ -76,6 +101,13 @@ function createNotificationItem(notification) {
         </a>
     `;
 
+    // Attach the click event listener to the anchor if the notification is unread
+    if (notification.is_read == 0) {
+        notificationItem.querySelector('a').addEventListener('click', function() {
+            markNotificationAsRead(notification.notification_id);
+        });
+    }
+
     return notificationItem;
 }
 
@@ -85,6 +117,41 @@ function createDivider() {
     divider.classList.add('divider-gray-300', 'py-0', 'my-0');
 
     return divider;
+}
+
+// Handle marking a notification as read
+function markNotificationAsRead(notificationId) {
+    console.log("Handling marking as read for notification:", notificationId);
+
+    // Create a new FormData object and append the notification ID
+    const formData = new FormData();
+    formData.append('notification_id', notificationId);
+
+    // Use fetch API to send the update request
+    fetch('notifications/mark-as-read', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+        },
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            // Notification fetched successfully. Regenerate the notifications list
+            fetchNotifications();
+        } else {
+            console.error('Failed to delete the notification:', data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error deleting notification:', error);
+    });
 }
 
 // Handle attaching delete eventListeners and deletion

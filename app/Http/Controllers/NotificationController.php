@@ -18,6 +18,10 @@ class NotificationController extends Controller
         return $this->notificationService->getAllNotifications();
     }
 
+    public function markNotificationAsRead(Request $request) {
+        return $this->notificationService->handleSetNotificationToRead($request);
+    }
+
     public function deleteNotification(Request $request) {
         return $this->notificationService->handleDeleteNotification($request);
     }

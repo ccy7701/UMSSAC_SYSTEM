@@ -27,6 +27,27 @@ class NotificationService
 
         return response()->json($notifications);
     }
+
+    /**
+     * Handle updating the notification to mark it as read
+     *
+     * @param \Illuminate\Http\Request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function handleSetNotificationToRead(Request $request) {
+        // Validate that notification_id is provided
+        $request->validate([
+            'notification_id' => 'required|integer|exists:notification,notification_id',
+        ]);
+
+        $notification = Notification::where('notification_id', $request->notification_id)->firstOrFail();
+        $notification->is_read = 1;
+        $status = $notification->save();
+
+        return $status
+            ? response()->json(['success' => 'Notification marked as read.'])
+            : response()->json(['error' => 'Could not delete notification.'], 404);
+    }
     
     /**
      * Handle deletion of the notification based on notification ID

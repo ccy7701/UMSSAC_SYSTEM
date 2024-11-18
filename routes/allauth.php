@@ -11,13 +11,6 @@ use App\Http\Controllers\Auth\PasswordResetController;
 // Routes accessible by all levels of authenticated user
 Route::middleware('auth')->group(function () {
     /*
-    * TOPNAV NOTIFICATION RELATED ROUTES
-    */
-    Route::get('/notifications/fetch-all', [NotificationController::class, 'fetchAllNotifications'])->name('notifications.fetch-all');
-
-    Route::delete('/notifications/delete', [NotificationController::class, 'deleteNotification'])->name('notifications.delete');
-
-    /*
     * PROFILE MANAGEMENT RELATED ROUTES
     */
     Route::get('/my-profile', function () {
@@ -58,4 +51,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/update-search-view-preference', [UserPreferenceController::class, 'updateItemViewPreference']);
 
     Route::post('/logout', [AccountController::class, 'logout'])->name('account.logout');
+
+    /*
+    * TOPNAV NOTIFICATION RELATED ROUTES
+    */
+    Route::get('/notifications/fetch-all', [NotificationController::class, 'fetchAllNotifications'])->name('notifications.fetch-all');
+
+    Route::post('/notifications/mark-as-read', [NotificationController::class, 'markNotificationAsRead'])->name('notifications.mark-as-read');
+
+    Route::delete('/notifications/delete', [NotificationController::class, 'deleteNotification'])->name('notifications.delete');
 });

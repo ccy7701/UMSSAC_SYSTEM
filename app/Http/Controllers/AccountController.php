@@ -78,10 +78,10 @@ class AccountController extends Controller
             ])->withInput();
         }
 
-        // CASE 3: If everything is correct, log the user in
+        // CASE 3: If everything is correct, log the user in and redirect to my-profile route
         Auth::login($account);
         $request->session()->regenerate();
-        return redirect()->intended('my-profile');
+        return redirect()->route('my-profile');
     }
 
     public function logout(Request $request) {
