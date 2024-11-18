@@ -15,6 +15,8 @@ Route::middleware('auth')->group(function () {
     */
     Route::get('/notifications/fetch-all', [NotificationController::class, 'fetchAllNotifications'])->name('notifications.fetch-all');
 
+    Route::delete('/notifications/delete', [NotificationController::class, 'deleteNotification'])->name('notifications.delete');
+
     /*
     * PROFILE MANAGEMENT RELATED ROUTES
     */

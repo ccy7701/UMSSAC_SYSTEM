@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $event->event_name }} | UMSSACS</title>
     <meta name="description" content="{{ $event->event_description ?? 'See the full details for this event at UMSSACS.' }}">
     @vite('resources/sass/app.scss')

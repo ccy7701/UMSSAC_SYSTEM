@@ -13,7 +13,7 @@
                 <img id="user-profile-topnav" src="{{ profile()->profile_picture }}" alt="User profile" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
                 <!-- Notification Indicator -->
                 <!-- if check: there are any noti's unopened, trigger this span -->
-                <span id="noti-indicator" class="position-absolute bg-primary rounded-circle"></span>
+                <span id="notification-indicator" class="position-absolute bg-primary rounded-circle"></span>
             </button>
             <span class="px-2"></span>
 

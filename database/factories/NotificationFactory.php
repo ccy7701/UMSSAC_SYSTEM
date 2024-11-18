@@ -23,7 +23,7 @@ class NotificationFactory extends Factory
             'profile_id' => 1,
             'notification_type' => $this->faker->randomElement(['studypartner', 'event', 'club']),
             'notification_title' => $this->faker->text(30),
-            'notification_message' => $this->faker->paragraph,
+            'notification_message' => $this->faker->text(100),
             'is_read' => 0,
         ];
     }

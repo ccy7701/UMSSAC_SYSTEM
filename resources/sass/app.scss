@@ -1,6 +1,8 @@
 $btn-primary-bg: #1064D6;
 $text-primary: #1064D6;
+$text-secondary: #6C757D;
 $text-muted: #777777;
+$text-danger: #DC3545;
 $bg-muted: #777777;
 $bg-lightgray: #EAF2FD;
 
@@ -91,6 +93,31 @@ html {
     transition: background-color 0.1s ease;
     &:hover {
         background-color: #E0E0E0;
+    }
+}
+
+#notifications-list {
+    .btn-delete-notification {
+        font-size: 1.00em;
+        line-height: 1;
+
+        .delete-icon {
+            color: $text-secondary;
+            transition: color 0.2s ease;
+
+            &:hover {
+                cursor: pointer;
+                color: $text-danger;
+            }
+        }
+    }
+
+    .notification {
+        cursor: pointer;
+    }
+
+    .notification-read {
+        background-color: #F6F6F6;
     }
 }
 
@@ -202,7 +229,7 @@ html {
     border: 2px solid $btn-primary-bg;
 }
 
-#noti-indicator {
+#notification-indicator {
     width: 12px;
     height: 12px;
     bottom: 0;
