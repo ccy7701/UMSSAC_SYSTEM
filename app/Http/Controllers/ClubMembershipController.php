@@ -22,6 +22,7 @@ class ClubMembershipController extends Controller
         return view('clubs-finder.admin-manage.edit.members-access', [
             'club' => $data['club'],
             'clubMembers' => $data['clubMembers'],
+            'joinRequests' => $data['joinRequests'],
             'isCommitteeMember' => $data['isCommitteeMember'],
         ]);
     }
@@ -65,9 +66,15 @@ class ClubMembershipController extends Controller
             ->where('club_id', $clubId)
             ->update(['membership_type' => 1]);
 
+        $route = '';
+        if (currentAccount()->account_role != 3) {
+            $route = route('committee-manage.edit-member-access', ['club_id' => $clubId]);
+        } else {
+            $route = route('admin-manage.edit-member-access', ['club_id' => $clubId]);
+        }
+
         return $status
-            ? redirect()
-                ->route('committee-manage.edit-member-access', ['club_id' => $clubId])
+            ? redirect($route)
                 ->with('accepted', 'User join request accepted.')
             : back()->withErrors(['error' => 'Failed to accept user join request. Please try again.']);
     }
@@ -81,9 +88,15 @@ class ClubMembershipController extends Controller
             ->where('club_id', $clubId)
             ->delete();
 
+        $route = '';
+        if (currentAccount()->account_role != 3) {
+            $route = route('committee-manage.edit-member-access', ['club_id' => $clubId]);
+        } else {
+            $route = route('admin-manage.edit-member-access', ['club_id' => $clubId]);
+        }
+
         return $status
-            ? redirect()
-                ->route('committee-manage.edit-member-access', ['club_id' => $clubId])
+            ? redirect($route)
                 ->with('rejected', 'User join request rejected.')
             : back()->withErrors(['error' => 'Failed to reject user join request. Please try again.']);
     }

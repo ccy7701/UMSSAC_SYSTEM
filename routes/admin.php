@@ -17,16 +17,10 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
 
     Route::get('/manage-clubs/full-details', [ClubController::class, 'fetchClubDetailsForManager'])->name('manage-clubs.fetch-club-details');
 
-    // CURRENT ROUTE OF FOCUS
     Route::get('/club-creation/requests/manage', [ClubCreationController::class, 'fetchRequestsPage'])->name('club-creation.requests.manage');
 
-    // CURRENT ROUTE OF FOCUS
-    // Route::get('/club-creation/requests/review', [ClubCreationController::class, 'fetchRequestReviewPage'])->name('club-creation.requests.review');
-
-    // CURRENT ROUTE OF FOCUS
     Route::post('/club-creation/requests/accept', [ClubCreationController::class, 'acceptCreationRequest'])->name('club-creation.requests.accept');
 
-    // CURRENT ROUTE OF FOCUS
     Route::post('/club-creation/request/reject', [ClubCreationController::class, 'rejectCreationRequest'])->name('club-creation.requests.reject');
 
     Route::get('/admin-manage/full-details/manage', [ClubController::class, 'fetchAdminManagePage'])->name('admin-manage.manage-details');
@@ -44,6 +38,13 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':3'])->group(function ()
     Route::get('/admin-manage/full-details/manage/edit-members-access', [ClubMembershipController::class, 'showClubMembersForAdmin'])->name('admin-manage.edit-member-access');
 
     Route::post('/admin-manage/full-details/manage/edit-members-access/action', [ClubMembershipController::class, 'updateClubMemberAccess'])->name('admin-manage.edit-member-access.action');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/admin-manage/full-details/manage/join-requests/accept', [ClubMembershipController::class, 'acceptJoinRequest'])->name('admin-manage.join-requests.accept');
+
+    // CURRENT ROUTE OF FOCUS
+    Route::post('/admin-manage/full-details/manage/join-request/reject', [ClubMembershipController::class, 'rejectJoinRequest'])->name('admin-manage.join-requests.reject');
+
 
     Route::get('/manage-clubs/add-new-club', function () {
         return view('clubs-finder.admin-manage.add-new-club');
