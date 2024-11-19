@@ -14,13 +14,22 @@ function fetchNotifications() {
     fetch('/notifications/fetch-all')
         .then(response => response.json())
         .then(data => {
+            const notificationsList = document.getElementById('notifications-list');
+            notificationsList.innerHTML = '';
+
             // Update the topnav notification indicator
             const unreadNotificationsCount = data.filter(notification => notification.is_read === 0).length;
             updateNotificationIndicator(unreadNotificationsCount);
 
-            const notificationsList = document.getElementById('notifications-list');
-            notificationsList.innerHTML = '';
+            // Check if there are no notifications, exit early if true
+            if (data.length === 0) {
+                const noNotificationItem = createNoNotificationsMessage();
+                notificationsList.appendChild(noNotificationItem);
 
+                return;
+            }
+        
+            // If there are, then generate the notification items
             data.forEach(notification => {
                 const notificationItem = createNotificationItem(notification);
                 const divider = createDivider();
@@ -50,6 +59,23 @@ function updateNotificationIndicator(unreadNotificationsCount) {
         notificationIndicator.classList.remove('d-block');
         notificationIndicator.classList.add('d-none');
     }
+}
+
+// Display a no notifications imgge if there aren't any notifications
+function createNoNotificationsMessage() {
+    const noNotificationItem = document.createElement('li');
+    noNotificationItem.classList.add('nav-item', 'disabled');
+    noNotificationItem.innerHTML = `
+        <a class="nav-link px-3">
+            <div class="row d-flex justify-content-center mt-4">
+                <div class="col-12 d-flex justify-content-center">
+                    <p class="fst-italic">No notifications found</p>
+                </div>
+            </div>
+        </a>
+    `;
+
+    return noNotificationItem;
 }
 
 // Create the notification list item

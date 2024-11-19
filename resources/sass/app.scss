@@ -96,6 +96,12 @@ html {
     }
 }
 
+.nav-item.disabled {
+    &:hover {
+        background-color: #FFFFFF;
+    }
+}
+
 #notifications-list {
     .btn-delete-notification {
         font-size: 1.00em;

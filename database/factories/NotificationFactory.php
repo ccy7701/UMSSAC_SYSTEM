@@ -20,7 +20,7 @@ class NotificationFactory extends Factory
     public function definition()
     {
         return [
-            'profile_id' => 1,
+            'profile_id' => 3,
             'notification_type' => $this->faker->randomElement(['studypartner', 'event', 'club']),
             'notification_title' => $this->faker->text(30),
             'notification_message' => $this->faker->text(100),
