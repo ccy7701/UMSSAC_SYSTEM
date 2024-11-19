@@ -147,8 +147,6 @@ function createDivider() {
 
 // Handle marking a notification as read
 function markNotificationAsRead(notificationId) {
-    console.log("Handling marking as read for notification:", notificationId);
-
     // Create a new FormData object and append the notification ID
     const formData = new FormData();
     formData.append('notification_id', notificationId);

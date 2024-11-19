@@ -1,5 +1,11 @@
 [
     {
+        "version": "0.9-alpha",
+        "changes": [
+            "Added functionality to view notifications. Integration with other modules coming soon."
+        ]
+    },
+    {
         "version": "0.8.2-alpha",
         "changes": [
             "Fixed an issue where the system fails to initialise the academic progress tracker on first use."

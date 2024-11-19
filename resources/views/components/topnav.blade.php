@@ -27,7 +27,7 @@
 <!-- Offcanvas Navbar for Notifications -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-notifications-bar" aria-labelledby="offcanvas-notifications-bar-label">
     <div class="rsans offcanvas-header pb-0">
-        <h5 class="offcanvas-title" id="offcanvas-notifications-bar-label">Notifications</h5>
+        <h5 class="offcanvas-title" id="offcanvas-notifications-bar-label">Notifications (WIP)</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <hr class="divider-gray-300 py-0 mt-3 mb-0">
