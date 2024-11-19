@@ -7,17 +7,14 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Models\ClubMembership;
 use Illuminate\Support\Facades\DB;
-use App\Services\NotificationService;
 use Illuminate\Support\Facades\Storage;
 
 class ClubService
 {
     protected $bookmarkService;
-    protected $notificationService;
 
-    public function __construct(BookmarkService $bookmarkService, NotificationService $notificationService) {
+    public function __construct(BookmarkService $bookmarkService) {
         $this->bookmarkService = $bookmarkService;
-        $this->notificationService = $notificationService;
     }
 
     // Prepare all the data to be sent to the clubs finder view
@@ -149,80 +146,12 @@ class ClubService
         return [
             'club' => $this->getClubDetails($clubId),
             'clubMembers' => $this->getClubMembers($clubId),
-            'clubMembersCount' => $this->getClubMembersCount($clubId),
             'clubEvents' => $clubEvents['allClubEvents'],
-            'clubEventsCount' => $clubEvents['clubEventsCount'],
             'intersectionArray' => $intersectionArray,
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
             'isCommitteeMember' => $this->checkCommitteeMember($clubId, profile()->profile_id),
             'hasJoinRequest' => $this->checkForJoinRequest($clubId, profile()->profile_id),
         ];
-    }
-
-    // Get the profiles (students, faculty members) inside the club, excluding pending memberships
-    public function getClubMembers($clubId) {
-        $currentProfileId = profile()->profile_id;
-
-        return ClubMembership::where('club_id', $clubId)
-            ->whereIn('membership_type', [1, 2])
-            ->with(['profile.account'])
-            ->orderByRaw("CASE WHEN profile_id = ? THEN 0 ELSE 1 END", [$currentProfileId])
-            ->orderBy('membership_type', 'desc')
-            ->paginate(8);
-    }
-
-    // Get the count of members of the specific club
-    public function getClubMembersCount($clubId) {
-        return ClubMembership::where('club_id', $clubId)
-            ->whereIn('membership_type', [1, 2])
-            ->count();
-    }
-
-    // Get the join requests for the club
-    public function getJoinRequests($clubId) {
-        return ClubMembership::where('club_id', $clubId)
-            ->where('membership_type', 0)
-            ->with(['profile.account'])
-            ->paginate(8);
-    }
-
-    // Get the count of join requests of the specific club
-    public function getJoinRequestsCount($clubId) {
-        return ClubMembership::where('club_id', $clubId)
-            ->where('membership_type', 0)
-            ->count();
-    }
-
-    // Get all the events of the specific club
-    public function getEventsForClub($clubId, $isCommitteeManage) {
-        $paginateCount = $isCommitteeManage == null ? 12 : 11;
-
-        $clubEventsCount = Event::where('club_id', $clubId)->count();
-        $allClubEvents = Event::where('club_id', $clubId)->paginate($paginateCount)->withQueryString();
-        $eventIDs = $allClubEvents->pluck('event_id')->toArray();
-
-        return compact('clubEventsCount', 'allClubEvents', 'eventIDs');
-    }
-
-    // Get the details of the specific club
-    public function getClubDetails($clubId) {
-        return Club::findOrFail($clubId);
-    }
-
-    // Check and determine if the current user is a committee member of the club
-    public function checkCommitteeMember($clubId, $profileId) {
-        return ClubMembership::where('club_id', $clubId)
-            ->where('profile_id', $profileId)
-            ->where('membership_type', 2)
-            ->exists();
-    }
-
-    // Check and determine if the current user has made a club join request
-    public function checkForJoinRequest($clubId, $profileId) {
-        return ClubMembership::where('club_id', $clubId)
-            ->where('profile_id', $profileId)
-            ->where('membership_type', 0)
-            ->first();
     }
 
     // Handle editing the club info
@@ -308,5 +237,48 @@ class ClubService
         return $status
             ? redirect($route)->with('success', 'Club image deleted successfully.')
             : back()->withErrors(['error' => 'Failed to delete club image. Please try again.']);
+    }
+
+        // Get the profiles (students, faculty members) inside the club, excluding pending memberships
+    public function getClubMembers($clubId) {
+        $currentProfileId = profile()->profile_id;
+
+        return ClubMembership::where('club_id', $clubId)
+            ->whereIn('membership_type', [1, 2])
+            ->with(['profile.account'])
+            ->orderByRaw("CASE WHEN profile_id = ? THEN 0 ELSE 1 END", [$currentProfileId])
+            ->orderBy('membership_type', 'desc')
+            ->get();
+    }
+
+    // Get all the events of the specific club
+    public function getEventsForClub($clubId, $isCommitteeManage) {
+        $paginateCount = $isCommitteeManage == null ? 12 : 11;
+
+        $allClubEvents = Event::where('club_id', $clubId)->paginate($paginateCount)->withQueryString();
+        $eventIDs = $allClubEvents->pluck('event_id')->toArray();
+
+        return compact('allClubEvents', 'eventIDs');
+    }
+
+    // Get the details of the specific club
+    public function getClubDetails($clubId) {
+        return Club::findOrFail($clubId);
+    }
+
+    // Check and determine if the current user is a committee member of the club
+    public function checkCommitteeMember($clubId, $profileId) {
+        return ClubMembership::where('club_id', $clubId)
+            ->where('profile_id', $profileId)
+            ->where('membership_type', 2)
+            ->exists();
+    }
+
+    // Check and determine if the current user has made a club join request
+    public function checkForJoinRequest($clubId, $profileId) {
+        return ClubMembership::where('club_id', $clubId)
+            ->where('profile_id', $profileId)
+            ->where('membership_type', 0)
+            ->first();
     }
 }
