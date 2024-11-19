@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\ClubService;
+use App\Models\ClubMembership;
 use Illuminate\Support\Facades\DB;
 
 class ClubMembershipController extends Controller
@@ -54,36 +55,37 @@ class ClubMembershipController extends Controller
             : back()->withErrors(['error' => 'Failed to create join club request. Please try again.']);
     }
 
+    // If the committee member accepts the join request, process as if the ClubMembership membership_type is updated to 1
     public function acceptJoinRequest(Request $request) {
         $profileId = $request->profile_id;
         $clubId = $request->club_id;
 
-        dd("PROCESS ACCEPT");
+        $status = DB::table('club_membership')
+            ->where('profile_id', $profileId)
+            ->where('club_id', $clubId)
+            ->update(['membership_type' => 1]);
+
+        return $status
+            ? redirect()
+                ->route('committee-manage.edit-member-access', ['club_id' => $clubId])
+                ->with('accepted', 'User join request accepted.')
+            : back()->withErrors(['error' => 'Failed to accept user join request. Please try again.']);
     }
 
+    // If the committee member rejects the join request, process as if the ClubMembership record will be deleted
     public function rejectJoinRequest(Request $request) {
         $profileId = $request->profile_id;
         $clubId = $request->club_id;
 
-        dd("PROCESS REJECT");
-    }
-
-    // Possible drop scheduled
-    public function joinClub(Request $request) {
-        $profileId = $request->profile_id;
-        $clubId = $request->club_id;
-
-        $status = DB::table('club_membership')->insert([
-            'profile_id' => $profileId,
-            'club_id' => $clubId,
-            'membership_type' => 1, // Default assign 1 (non-committee)
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        $status = ClubMembership::where('profile_id', $profileId)
+            ->where('club_id', $clubId)
+            ->delete();
 
         return $status
-            ? redirect()->route('clubs-finder.fetch-club-details', ['club_id' => $clubId])->with('success', 'You are now a member of this club.')
-            : back()->withErrors(['error' => 'Failed to process join club request. Please try again.']);
+            ? redirect()
+                ->route('committee-manage.edit-member-access', ['club_id' => $clubId])
+                ->with('rejected', 'User join request rejected.')
+            : back()->withErrors(['error' => 'Failed to reject user join request. Please try again.']);
     }
 
     public function leaveClub(Request $request) {
@@ -132,14 +134,6 @@ class ClubMembershipController extends Controller
             'clubMembers' => $this->clubService->getClubMembers($clubId),
             'joinRequests' => $this->clubService->getJoinRequests($clubId),
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
-            'isCommitteeMember' => $this->clubService->checkCommitteeMember($clubId, profile()->profile_id)
-        ];
-    }
-
-    private function prepareJoinRequestsData($clubId) {
-        return [
-            'club' => $this->clubService->getClubDetails($clubId),
-            'joinRequests' => $this->clubService->getJoinRequests($clubId),
             'isCommitteeMember' => $this->clubService->checkCommitteeMember($clubId, profile()->profile_id)
         ];
     }

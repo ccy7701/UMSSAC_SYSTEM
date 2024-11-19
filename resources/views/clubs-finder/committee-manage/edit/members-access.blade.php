@@ -19,6 +19,14 @@
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"
         title="Success!"/>
+    <x-response-popup
+        messageType="accepted"
+        iconClass="text-success fa-solid fa-right-to-bracket"
+        title="Request accepted"/>
+    <x-response-popup
+        messageType="rejected"
+        iconClass="text-muted fa-solid fa-user-slash"
+        title="Request rejected"/>
     <!-- BREADCRUMB NAV -->
     <div id="club-breadcrumb" class="row w-80 justify-content-start mx-auto py-4">
         <div class="col-auto align-items-center">

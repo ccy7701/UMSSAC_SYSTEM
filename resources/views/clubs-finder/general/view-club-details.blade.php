@@ -240,7 +240,7 @@
                 <div class="row w-75">
                     <div class="rsans card text-center p-0">
                         <div class="card-body align-items-center justify-content-center">
-                            @if ($joinRequest)
+                            @if ($hasJoinRequest)
                                 <p class="card-text py-3">Your join request is still pending approval.</p>
                             @else
                                 @php

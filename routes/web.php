@@ -47,8 +47,6 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
     // CURRENT ROUTE IN FOCUS
     Route::post('/clubs-finder/request-join-clubs', [ClubMembershipController::class, 'requestJoinClub'])->name('clubs-finder.request-join-club');
 
-    Route::post('/clubs-finder/join-club', [ClubMembershipController::class, 'joinClub'])->name('clubs-finder.join-club');
-
     Route::post('/clubs-finder/leave-club', [ClubMembershipController::class, 'leaveClub'])->name('clubs-finder.leave-club');
 
     Route::get('/clubs-finder/joined-clubs', [ClubController::class, 'fetchJoinedClubs'])->name('clubs-finder.joined-clubs');

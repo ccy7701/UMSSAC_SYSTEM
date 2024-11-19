@@ -155,9 +155,7 @@ class ClubService
             'intersectionArray' => $intersectionArray,
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
             'isCommitteeMember' => $this->checkCommitteeMember($clubId, profile()->profile_id),
-            'joinRequest' => $this->checkForJoinRequest($clubId, profile()->profile_id),
-            'allJoinRequests' => $this->getJoinRequests($clubId),
-            'joinRequestsCount' => $this->getJoinRequestsCount($clubId)
+            'hasJoinRequest' => $this->checkForJoinRequest($clubId, profile()->profile_id),
         ];
     }
 
