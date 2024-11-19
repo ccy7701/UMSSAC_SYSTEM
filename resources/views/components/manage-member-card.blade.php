@@ -29,7 +29,7 @@
         <div class="d-flex flex-column align-items-center">
             <div class="d-inline-flex align-items-center text-muted">
                 <i class="fa fa-university me-2"></i>
-                <p class="mb-0">{{ $member->profile->profile_faculty }}</p>
+                <p class="mb-0">{{ $member->profile->profile_faculty != '' ? $member->profile->profile_faculty : 'Unspecified' }}</p>
             </div>
             <div class="px-0 d-inline-block align-items-center text-muted w-100">
                 <span class="d-flex justify-content-center align-items-center text-truncate">

@@ -126,7 +126,7 @@
                             <h3 class="rserif fw-bold w-100">Members</h3>
                         </div>
                         <div class="col-lg-6 col-4 text-end align-self-center">
-                            <a href="{{ route('committee-manage.edit-member-access', ['club_id' => $club->club_id]) }}" class="section-button rsans btn btn-primary fw-bold px-3">Manage</a>
+                            <a href="{{ route('committee-manage.edit-member-access', ['club_id' => $club->club_id]) }}" class="section-button rsans btn btn-primary fw-bold px-0">Manage</a>
                         </div>
                     </div>
                 </div>

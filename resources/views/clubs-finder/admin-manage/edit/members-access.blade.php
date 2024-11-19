@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Edit Members and Access Levels</title>
+    <title>Manage Members, Roles and Requests</title>
     @vite('resources/sass/app.scss')
 </head>
 
@@ -34,7 +34,7 @@
                 <ol class="rsans breadcrumb mb-0" style="--bs-breadcrumb-divider: '>';">
                     <li class="breadcrumb-item"><a href="{{ route('manage-clubs.fetch-club-details', ['club_id' => $club->club_id]) }}">{{ $club->club_name }}</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('admin-manage.manage-details', ['club_id' => $club->club_id]) }}">Manage Details</a></li>
-                    <li class="breadcrumb-item active">Edit Members and Access Levels
+                    <li class="breadcrumb-item active">Manage Members, Roles and Requests
                 </ol>
             </nav>
         </div>
@@ -59,7 +59,7 @@
             <div class="row-container align-items-center px-3 mt-md-2 mt-sm-0 mt-xs-0 mt-0">
                 <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
                     <div class="col-left-alt col-xl-8 col-lg-9 col-md-12 col-12 mt-xl-2 mt-md-2 mt-sm-2 mt-2 mb-sm-1 mb-xs-2">
-                        <h3 class="rserif fw-bold w-100">Edit members and access levels</h3>
+                        <h3 class="rserif fw-bold w-100">Manage Members, Roles and Requests</h3>
                     </div>
                     <div id="col-right-membership-edit" class="col-right-alt col-xl-4 col-lg-3 col-md-7 col-12 align-self-center mb-xl-0 mb-md-0 mb-sm-3 mb-3">
                         <a href="{{ route('admin-manage.manage-details', ['club_id' => $club->club_id]) }}" class="rsans w-xxl-50 w-lg-100 w-100 btn btn-secondary fw-semibold px-3">Go back</a>
