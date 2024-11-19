@@ -1,5 +1,5 @@
 <!-- resources/views/components/admin-topnav.blade.php -->
-<nav id="topnav" class="navbar navbar-light w-100 m-0 py-xl-1 py-lg-1 py-md-1 py-sm-0 py-xs-0 py-0" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+<nav id="topnav" class="navbar navbar-light w-100 m-0 py-xl-1 py-lg-1 py-md-1 py-sm-0 py-xs-0 py-0" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); background-color: #FFFFFF">
     <div class="container-fluid px-lg-5 px-md-4 py-2">
         <div class="col-md-2 col-sm-4 col-6 text-start">
             <a class="navbar-brand" href="{{ route('my-profile') }}">
@@ -7,7 +7,6 @@
             </a>
         </div>
         <div class="col-6 text-end">
-
             <!-- Profile picture icon button for notifications trigger -->
             <button class="btn p-0 position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-notifications-bar" aria-controls="offcanvas-notifications-bar" style="text-decoration-none; outline: none; border: none;">
                 <img id="user-profile-topnav" src="{{ profile()->profile_picture }}" alt="User profile" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
@@ -15,7 +14,6 @@
                 <span id="notification-indicator" class="position-absolute bg-primary rounded-circle d-none"></span>
             </button>
             <span class="px-2"></span>
-
             <!-- Sandwich icon button for navigation trigger -->
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

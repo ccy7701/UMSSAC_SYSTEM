@@ -109,7 +109,7 @@
                         <div class="col-left-alt col-lg-6 col-md-6 col-12 mt-2">
                             <h3 class="rserif fw-bold w-100">{{ $club->club_name }}</h3>
                         </div>
-                        <div class="col-right-alt col-lg-6 col-md-6 col-12 mt-xl-2 mt-sm-0 d-flex align-items-center">
+                        <div class="col-right-alt col-lg-6 col-md-6 col-12 mt-xl-2 mt-md-3 mt-sm-0 d-flex align-items-center">
                             <i class="fa fa-university text-muted mb-2 me-3"></i>
                             <h3 class="rserif fw-bold text-muted">{{ $club->club_category }}</h3>
                         </div>
@@ -129,7 +129,7 @@
                 <div class="align-items-center px-3">
                     <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
                         <div class="col-12">
-                            <h3 class="rserif fw-bold w-100">Members ({{ $clubMembersCount }})</h3>
+                            <h3 class="rserif fw-bold w-100">Members</h3>
                         </div>
                     </div>
                 </div>
@@ -153,7 +153,7 @@
                 <div class="align-items-center px-3">
                     <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
                         <div class="col-lg-6 col-8 text-start mt-2">
-                            <h3 class="rserif fw-bold w-100">Events ({{ $clubEventsCount }})</h3>
+                            <h3 class="rserif fw-bold w-100">Events</h3>
                         </div>
                         <div class="col-lg-6 col-4 text-end align-self-center">
                             <div class="input-group justify-content-end me-2">

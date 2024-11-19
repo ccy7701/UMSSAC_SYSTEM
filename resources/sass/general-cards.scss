@@ -1,6 +1,7 @@
 $btn-primary-bg: #1064D6;
 
-#card-member {
+#card-member,
+#card-join-request {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     &:hover {
         transform: scale(1.01);
@@ -45,7 +46,8 @@ $btn-primary-bg: #1064D6;
 }
 
 @media (max-width: 1200px) {
-    #card-member {
+    #card-member,
+    #card-join-request {
         p {
             font-size: 0.90em;
         }
@@ -72,7 +74,8 @@ $btn-primary-bg: #1064D6;
 }
 
 @media (max-width: 576px) {
-    #card-member {
+    #card-member,
+    #card-join-request {
         #membership-type-standard {
             .input-group-text, .form-select {
                 font-size: 0.75em;

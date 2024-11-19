@@ -44,7 +44,8 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
 
     Route::get('/clubs-finder/full-details', [ClubController::class, 'fetchClubDetailsForGeneral'])->name('clubs-finder.fetch-club-details');
 
-    Route::post('/clubs-finder/join-club', [ClubMembershipController::class, 'joinClub'])->name('clubs-finder.join-club');
+    // CURRENT ROUTE IN FOCUS
+    Route::post('/clubs-finder/request-join-clubs', [ClubMembershipController::class, 'requestJoinClub'])->name('clubs-finder.request-join-club');
 
     Route::post('/clubs-finder/leave-club', [ClubMembershipController::class, 'leaveClub'])->name('clubs-finder.leave-club');
 
@@ -74,6 +75,12 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
         Route::get('/committee-manage/full-details/manage/edit-members-access', [ClubMembershipController::class, 'showClubMembersForCommittee'])->name('committee-manage.edit-member-access');
 
         Route::post('/committee-manage/full-details/manage/edit-members-access/action', [ClubMembershipController::class, 'updateClubMemberAccess'])->name('committee-manage.edit-member-access.action');
+
+        // CURRENT ROUTE OF FOCUS
+        Route::post('/committee-manage/full-details/manage/join-requests/accept', [ClubMembershipController::class, 'acceptJoinRequest'])->name('committee-manage.join-requests.accept');
+
+        // CURRENT ROUTE OF FOCUS
+        Route::post('/committee-manage/full-details/manage/join-request/reject', [ClubMembershipController::class, 'rejectJoinRequest'])->name('committee-manage.join-requests.reject');
 
         Route::get('/events-finder/full-details/manage', [EventController::class, 'fetchEventManagePage'])->name('events-finder.manage-details');
 

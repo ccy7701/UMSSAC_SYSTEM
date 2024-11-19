@@ -112,6 +112,54 @@ class NotificationService
     }
 
     /**
+     * Handle sending a join club rejection notification (Notification::class)
+     * to the user who made the request.
+     *
+     * @param \App\Models\ClubMembership $clubMembership
+     */
+    public function prepareJoinRejectionNotification($clubMembership) {
+        $requester = $this->getRequester($clubMembership->profile_id);
+
+        // Create the notification content
+        $notificationData = [
+            'profile_id' => $requester->profile_id,
+            'notification_type' => 'join_rejection',
+            'notification_title' => 'Join Request Rejected',
+            'notification_message' => 'Your request to join the club ' . $clubMembership->club->club_name . ' has been rejected.',
+            'is_read' => 0,
+        ];
+
+        // Create the Notification object
+        Notification::create($notificationData);
+
+        return 'Join rejection notification created successfully';
+    }
+
+    /**
+     * Hande sending a join club acceptance notification (Notification::class)
+     * to the user who made the request.
+     *
+     * @param \App\Models\ClubMembership $clubMembership
+     */
+    public function prepareJoinAcceptanceNotification($clubMembership) {
+        $requester = $this->getRequester($clubMembership->profile_id);
+
+        // Create the notification content
+        $notificationData = [
+            'profile_id' => $requester->profile_id,
+            'notification_type' => 'join_acceptance',
+            'notification_title' => 'Join Request Accepted',
+            'notification_message' => 'Your request to join the club ' . $clubMembership->club->club_name . ' has been accepted.',
+            'is_read' => 0,
+        ];
+
+        // Create the Notification object
+        Notification::create($notificationData);
+
+        return 'Join acceptance notification created successfully';
+    }
+
+    /**
      * Get the details of the user who made the request.
      */
     private function getRequester($profileId) {

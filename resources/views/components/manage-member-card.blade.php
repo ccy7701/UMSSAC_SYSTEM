@@ -8,7 +8,7 @@
         @if (profile()->profile_id !== $member->profile_id)
             <div id="membership-type" class="input-group py-1 px-2 mb-2">
                 <label id="membership-type-label" for="membership-select-{{ $member->profile_id }}"  class="input-group-text">Level</label>
-                <select id="membership-select-{{ $member->profile_id }}" name="new_membership_type" class="form-select" data-current-role="{{ $member->membership_type }}">
+                <select id="membership-select-{{ $member->profile_id }}" name="new_membership_type" class="form-select" data-current-role="{{ $member->membership_type }}" style="cursor: pointer;">
                     <option value="1" {{ $member->membership_type == 1 ? 'selected' : '' }}>Member</option>
                     <option value="2" {{ $member->membership_type == 2 ? 'selected' : '' }}>Committee</option>
                 </select>
@@ -29,7 +29,7 @@
         <div class="d-flex flex-column align-items-center">
             <div class="d-inline-flex align-items-center text-muted">
                 <i class="fa fa-university me-2"></i>
-                <p class="mb-0">{{ $member->profile->profile_faculty }}</p>
+                <p class="mb-0">{{ $member->profile->profile_faculty != '' ? $member->profile->profile_faculty : 'Unspecified' }}</p>
             </div>
             <div class="px-0 d-inline-block align-items-center text-muted w-100">
                 <span class="d-flex justify-content-center align-items-center text-truncate">
