@@ -22,6 +22,10 @@
     @endif
     <x-about/>
     <x-response-popup
+        messageType="requested"
+        iconClass="text-primary fa-solid fa-right-to-bracket"
+        title="Request sent"/>
+    <x-response-popup
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"
         title="Success!"/>
@@ -231,31 +235,36 @@
                     </div>
                 </div>
             </div>
-            <!-- DELETION SECTION -->
+            <!-- JOIN/LEAVE SECTION -->
             <div class="row-container d-flex justify-content-center align-items-center py-3 mb-3">
                 <div class="row w-75">
-                    @if (!in_array(profile()->profile_id, $clubMembers->pluck('profile_id')->toArray()))
-                        <div class="rsans card text-center p-0">
-                            <div class="card-body align-items-center justify-content-center">
-                                <p class="card-text">Click the button below to become a member of this club.</p>
-                                <form id="join-club-form" method="POST" action="{{ route('clubs-finder.join-club') }}">
-                                    @csrf
-                                    <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
-                                    <input type="hidden" name="club_id" value="{{ $club->club_id }}">
-                                    <button id="btn-club-join" type="submit" class="btn btn-primary fw-semibold align-self-center w-20">Join club</button>
-                                </form>
-                            </div>
-                        </div>
-                    @else
-                        <div class="rsans card text-center p-0">
-                            <div class="card-body align-items-center justify-content-center">
-                                <p class="card-text">Click the button below to leave this club.</p>
-                                <button id="btn-club-leave" type="button" class="btn btn-danger fw-semibold align-self-center w-20"
+                    <div class="rsans card text-center p-0">
+                        <div class="card-body align-items-center justify-content-center">
+                            @if ($joinRequest)
+                                <p class="card-text py-3">Your join request is still pending approval.</p>
+                            @else
+                                @php
+                                    $currentMembership = $clubMembers->firstWhere('profile_id', profile()->profile_id);
+                                @endphp
+                                @if ($currentMembership != null)
+                                    <p class="card-text">Click the button below to leave this club.</p>
+                                    <button id="btn-club-leave" type="button" class="btn btn-danger fw-semibold align-self-center w-20"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#leave-club-confirmation-modal">Leave club</button>
-                            </div>
+                                    data-bs-target="#leave-club-confirmation-modal">
+                                        Leave club
+                                    </button>
+                                @else
+                                    <p class="card-text">Click the button below to request to become a member of this club.</p>
+                                    <form id="join-club-form" method="POST" action="{{ route('clubs-finder.request-join-club') }}">
+                                        @csrf
+                                        <input type="hidden" name="profile_id" value="{{ profile()->profile_id }}">
+                                        <input type="hidden" name="club_id" value="{{ $club->club_id }}">
+                                        <button id="btn-club-join" type="submit" class="btn btn-primary fw-semibold align-self-center">Request to join</button>
+                                    </form>
+                                @endif
+                            @endif
                         </div>
-                    @endif
+                    </div>
                 </div>
             </div>
             <!-- Leave club confirmation modal -->

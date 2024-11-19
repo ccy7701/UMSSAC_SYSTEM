@@ -128,7 +128,7 @@ class ClubService
     // Get the user's joined clubs
     public function getJoinedClubs($profileId) {
         $query = Club::whereHas('clubMemberships', function ($query) use ($profileId) {
-            $query->where('profile_id', $profileId);
+            $query->where('profile_id', $profileId)->whereIn('membership_type', [1, 2]);
         });
 
         return $query
@@ -154,15 +154,17 @@ class ClubService
             'clubEventsCount' => $clubEvents['clubEventsCount'],
             'intersectionArray' => $intersectionArray,
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
-            'isCommitteeMember' => $this->checkCommitteeMember($clubId, profile()->profile_id)
+            'isCommitteeMember' => $this->checkCommitteeMember($clubId, profile()->profile_id),
+            'joinRequest' => $this->checkForJoinRequest($clubId, profile()->profile_id)
         ];
     }
 
-    // Get the profiles (students, faculty members) inside the club
+    // Get the profiles (students, faculty members) inside the club, excluding pending memberships
     public function getClubMembers($clubId) {
         $currentProfileId = profile()->profile_id;
 
         return ClubMembership::where('club_id', $clubId)
+            ->whereIn('membership_type', [1, 2])
             ->with(['profile.account'])
             ->orderByRaw("CASE WHEN profile_id = ? THEN 0 ELSE 1 END", [$currentProfileId])
             ->orderBy('membership_type', 'desc')
@@ -171,7 +173,9 @@ class ClubService
 
     // Get the count of members of the specific club
     public function getClubMembersCount($clubId) {
-        return ClubMembership::where('club_id', $clubId)->count();
+        return ClubMembership::where('club_id', $clubId)
+            ->whereIn('membership_type', [1, 2])
+            ->count();
     }
 
     // Get all the events of the specific club
@@ -196,6 +200,14 @@ class ClubService
             ->where('profile_id', $profileId)
             ->where('membership_type', 2)
             ->exists();
+    }
+
+    // Check and determine if the current user has made a club join request
+    public function checkForJoinRequest($clubId, $profileId) {
+        return ClubMembership::where('club_id', $clubId)
+            ->where('profile_id', $profileId)
+            ->where('membership_type', 0)
+            ->first();
     }
 
     // Handle editing the club info

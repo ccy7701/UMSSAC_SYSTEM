@@ -36,6 +36,24 @@ class ClubMembershipController extends Controller
         ]);
     }
 
+    public function requestJoinClub(Request $request) {
+        $profileId = $request->profile_id;
+        $clubId = $request->club_id;
+
+        $status = DB::table('club_membership')->insert([
+            'profile_id' => $profileId,
+            'club_id' => $clubId,
+            'membership_type' => 0, // Assign 0 (request pending)
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        return $status
+            ? redirect()->route('clubs-finder.fetch-club-details', ['club_id' => $clubId])->with('requested', 'Your request to join the club has been sent. The club will review your request soon.')
+            : back()->withErrors(['error' => 'Failed to create join club request. Please try again.']);
+    }
+
+    // Possible drop scheduled
     public function joinClub(Request $request) {
         $profileId = $request->profile_id;
         $clubId = $request->club_id;
