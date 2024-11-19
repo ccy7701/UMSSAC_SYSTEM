@@ -39,6 +39,40 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('#edit-confirmation-modal .modal-body').innerText = modalBodyText;
         });
     });
+
+    // Attach event listener to all reject buttons
+    document.querySelectorAll('[id^="reject-request-submit-"]').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const profileId = this.getAttribute('data-profile-id');
+            const card = this.closest('.card');
+            const userName = card.querySelector('p.fw-bold').textContent.trim();
+
+            console.log(userName);
+
+            // Fill the hidden form field in the modal
+            const form = document.getElementById('reject-join-request-form');
+            form.querySelector('input[name="profile_id"]').value = profileId;
+
+            // Update modal content dynamically
+            const modalBodyText = `Are you sure you want to reject the join request of ${userName}?`;
+            document.querySelector('#reject-confirmation-modal .modal-body').innerText = modalBodyText;
+        })
+    });
+
+    // Attach event listener to all accept buttons
+    document.querySelectorAll('[id^="accept-request-submit-"]').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const profileId = this.getAttribute('data-profile-id');
+            const card = this.closest('.card');
+            const userName = card.querySelector('p.fw-bold').textContent.trim();
+
+            const form = document.getElementById('accept-join-request-form');
+            form.querySelector('input[name="profile_id"]').value = profileId;
+
+            const modalBodyText = `Are you sure you want to accept ${userName}'s join request?`;
+            document.querySelector('#accept-confirmation-modal .modal-body').innerText = modalBodyText;
+        });
+    });
 });
 
 function confirmRoleChange(button) {

@@ -155,7 +155,9 @@ class ClubService
             'intersectionArray' => $intersectionArray,
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
             'isCommitteeMember' => $this->checkCommitteeMember($clubId, profile()->profile_id),
-            'joinRequest' => $this->checkForJoinRequest($clubId, profile()->profile_id)
+            'joinRequest' => $this->checkForJoinRequest($clubId, profile()->profile_id),
+            'allJoinRequests' => $this->getJoinRequests($clubId),
+            'joinRequestsCount' => $this->getJoinRequestsCount($clubId)
         ];
     }
 
@@ -175,6 +177,21 @@ class ClubService
     public function getClubMembersCount($clubId) {
         return ClubMembership::where('club_id', $clubId)
             ->whereIn('membership_type', [1, 2])
+            ->count();
+    }
+
+    // Get the join requests for the club
+    public function getJoinRequests($clubId) {
+        return ClubMembership::where('club_id', $clubId)
+            ->where('membership_type', 0)
+            ->with(['profile.account'])
+            ->paginate(8);
+    }
+
+    // Get the count of join requests of the specific club
+    public function getJoinRequestsCount($clubId) {
+        return ClubMembership::where('club_id', $clubId)
+            ->where('membership_type', 0)
             ->count();
     }
 

@@ -32,6 +32,7 @@ class ClubMembershipController extends Controller
         return view('clubs-finder.committee-manage.edit.members-access', [
             'club' => $data['club'],
             'clubMembers' => $data['clubMembers'],
+            'joinRequests' => $data['joinRequests'],
             'isCommitteeMember' => $data['isCommitteeMember'],
         ]);
     }
@@ -51,6 +52,20 @@ class ClubMembershipController extends Controller
         return $status
             ? redirect()->route('clubs-finder.fetch-club-details', ['club_id' => $clubId])->with('requested', 'Your request to join the club has been sent. The club will review your request soon.')
             : back()->withErrors(['error' => 'Failed to create join club request. Please try again.']);
+    }
+
+    public function acceptJoinRequest(Request $request) {
+        $profileId = $request->profile_id;
+        $clubId = $request->club_id;
+
+        dd("PROCESS ACCEPT");
+    }
+
+    public function rejectJoinRequest(Request $request) {
+        $profileId = $request->profile_id;
+        $clubId = $request->club_id;
+
+        dd("PROCESS REJECT");
     }
 
     // Possible drop scheduled
@@ -115,7 +130,16 @@ class ClubMembershipController extends Controller
         return [
             'club' => $this->clubService->getClubDetails($clubId),
             'clubMembers' => $this->clubService->getClubMembers($clubId),
+            'joinRequests' => $this->clubService->getJoinRequests($clubId),
             'searchViewPreference' => getUserSearchViewPreference(profile()->profile_id),
+            'isCommitteeMember' => $this->clubService->checkCommitteeMember($clubId, profile()->profile_id)
+        ];
+    }
+
+    private function prepareJoinRequestsData($clubId) {
+        return [
+            'club' => $this->clubService->getClubDetails($clubId),
+            'joinRequests' => $this->clubService->getJoinRequests($clubId),
             'isCommitteeMember' => $this->clubService->checkCommitteeMember($clubId, profile()->profile_id)
         ];
     }

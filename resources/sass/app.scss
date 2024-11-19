@@ -388,6 +388,12 @@ html {
     .w-sm-100 {
         width: 100% !important;
     }
+    .w-sm-80 {
+        width: 80% !important;
+    }
+    .w-sm-60 {
+        width: 60% !important;
+    }
 
     .about-body tr td {
         font-size: 0.85em;
@@ -428,6 +434,9 @@ html {
 @media (max-width: 576px) {
     .w-xs-80 {
         width: 80% !important;
+    }
+    .w-xs-60 {
+        width: 60% !important;
     }
 
     .form-container {

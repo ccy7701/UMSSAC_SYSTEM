@@ -78,6 +78,12 @@ Route::middleware(['auth', RoleAccessMiddleware::class.':1,2'])->group(function 
 
         Route::post('/committee-manage/full-details/manage/edit-members-access/action', [ClubMembershipController::class, 'updateClubMemberAccess'])->name('committee-manage.edit-member-access.action');
 
+        // CURRENT ROUTE OF FOCUS
+        Route::post('/committee-manage/full-details/manage/join-requests/accept', [ClubMembershipController::class, 'acceptJoinRequest'])->name('committee-manage.join-requests.accept');
+
+        // CURRENT ROUTE OF FOCUS
+        Route::post('/committee-manage/full-details/manage/join-request/reject', [ClubMembershipController::class, 'rejectJoinRequest'])->name('committee-manage.join-requests.reject');
+
         Route::get('/events-finder/full-details/manage', [EventController::class, 'fetchEventManagePage'])->name('events-finder.manage-details');
 
         Route::get('/events-finder/full-details/manage/edit-images', [EventController::class, 'showEventImagesEdit'])->name('event-manage.edit-images');
