@@ -1,6 +1,8 @@
 $btn-primary-bg: #1064D6;
 $text-primary: #1064D6;
+$text-secondary: #6C757D;
 $text-muted: #777777;
+$text-danger: #DC3545;
 $bg-muted: #777777;
 $bg-lightgray: #EAF2FD;
 
@@ -91,6 +93,37 @@ html {
     transition: background-color 0.1s ease;
     &:hover {
         background-color: #E0E0E0;
+    }
+}
+
+.nav-item.disabled {
+    &:hover {
+        background-color: #FFFFFF;
+    }
+}
+
+#notifications-list {
+    .btn-delete-notification {
+        font-size: 1.00em;
+        line-height: 1;
+
+        .delete-icon {
+            color: $text-secondary;
+            transition: color 0.2s ease;
+
+            &:hover {
+                cursor: pointer;
+                color: $text-danger;
+            }
+        }
+    }
+
+    .notification {
+        cursor: pointer;
+    }
+
+    .notification-read {
+        background-color: #F6F6F6;
     }
 }
 
@@ -194,13 +227,20 @@ html {
 
 #user-profile,
 #user-profile-topnav {
-    transition: transform 0.2s ease, border 0.2s ease;
+    transition: border 0.2s ease;
     border: 2px solid #AAAAAA;
 }
 
 #user-profile-topnav:hover {
-    transform: scale(1.05);
     border: 2px solid $btn-primary-bg;
+}
+
+#notification-indicator {
+    width: 12px;
+    height: 12px;
+    bottom: 0;
+    right: 0;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
 .user-profile-memcard,

@@ -7,17 +7,37 @@
             </a>
         </div>
         <div class="col-6 text-end">
-            <a href="{{ route('my-profile') }}" style="text-decoration: none; outline: none;">
+
+            <!-- Profile picture icon button for notifications trigger -->
+            <button class="btn p-0 position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-notifications-bar" aria-controls="offcanvas-notifications-bar" style="text-decoration: none; outline: none; border: none;">
                 <img id="user-profile-topnav" src="{{ profile()->profile_picture }}" alt="User profile" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
-            </a>
+                <!-- Notification Indicator -->
+                <span id="notification-indicator" class="position-absolute bg-primary rounded-circle d-none"></span>
+            </button>
             <span class="px-2"></span>
+
+            <!-- Sandwich icon button for navigation trigger -->
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar" aria-controls="offcanvas-navbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
         </div>
     </div>
 </nav>
-<!-- Offcanvas Navbar -->
+<!-- Offcanvas Navbar for Notifications -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-notifications-bar" aria-labelledby="offcanvas-notifications-bar-label">
+    <div class="rsans offcanvas-header pb-0">
+        <h5 class="offcanvas-title" id="offcanvas-notifications-bar-label">Notifications (WIP)</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <hr class="divider-gray-300 py-0 mt-3 mb-0">
+    <div class="rsans offcanvas-body p-0 m-0">
+        <ul id="notifications-list" class="navbar-nav flex-grow-1">
+            <!-- LOOPING COMPONENT FOR NOTIFICATIONS GOES HERE -->
+        </ul>
+    </div>
+</div>
+<!-- Offcanvas Navbar for Navigation -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-navbar" aria-labelledby="offcanvas-navbar-label">
     <div class="rsans offcanvas-header pb-0">
         <h5 class="offcanvas-title" id="offcanvas-navbar-label">Menu</h5>

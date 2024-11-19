@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\PasswordResetController;
-use App\Http\Controllers\EventController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserPreferenceController;
+use App\Http\Controllers\Auth\PasswordResetController;
 
 // Routes accessible by all levels of authenticated user
 Route::middleware('auth')->group(function () {
@@ -50,4 +51,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/update-search-view-preference', [UserPreferenceController::class, 'updateItemViewPreference']);
 
     Route::post('/logout', [AccountController::class, 'logout'])->name('account.logout');
+
+    /*
+    * TOPNAV NOTIFICATION RELATED ROUTES
+    */
+    Route::get('/notifications/fetch-all', [NotificationController::class, 'fetchAllNotifications'])->name('notifications.fetch-all');
+
+    Route::post('/notifications/mark-as-read', [NotificationController::class, 'markNotificationAsRead'])->name('notifications.mark-as-read');
+
+    Route::delete('/notifications/delete', [NotificationController::class, 'deleteNotification'])->name('notifications.delete');
 });

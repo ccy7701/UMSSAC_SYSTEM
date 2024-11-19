@@ -1,6 +1,7 @@
 import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
 import './flashModal';
+import './notificationOperations';
 
 // Filters checkbox click effect
 document.addEventListener('DOMContentLoaded', () => {
