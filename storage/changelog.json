@@ -1,5 +1,12 @@
 [
     {
+        "version": "0.9.1-alpha",
+        "changes": [
+            "Updated the club joining function. Users who want to join a club will now need to first send a request which will be approved or rejected by a committee member or admin.",
+            "The notifications tab was updated to show club join request status."
+        ]
+    },
+    {
         "version": "0.9-alpha",
         "changes": [
             "Added functionality to view notifications. Integration with other modules coming soon."
@@ -40,20 +47,6 @@
         "version": "0.7.1.2-alpha",
         "changes": [
             "Minor UI improvements and fixes across multiple pages (Arigatou, Danny)."
-        ]
-    },
-    {
-        "version": "0.7.1.1-alpha",
-        "changes": [
-            "Redesigned the display of the suggested study partners page for smaller screens.",
-            "Updated the website welcome page."
-        ]
-    },
-    {
-        "version": "0.7.1-alpha",
-        "changes": [
-            "Users can now view the profiles of other users, including clubs they've joined.",
-            "Added a page that shows the clubs joined by the user."
         ]
     }
 ]
