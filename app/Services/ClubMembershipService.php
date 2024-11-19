@@ -67,10 +67,19 @@ class ClubMembershipService
         $profileId = $request->profile_id;
         $clubId = $request->club_id;
 
-        $status = DB::table('club_membership')
+        // Fetch the ClubMembership object to prepare the Notification
+        $clubMembership = ClubMembership::where('profile_id', $profileId)
+            ->where('club_id', $clubId)
+            ->first();
+
+        // Update the membership_type to member (1)
+        DB::table('club_membership')
             ->where('profile_id', $profileId)
             ->where('club_id', $clubId)
             ->update(['membership_type' => 1]);
+
+        // Then, create a Notification to send to the requesting user
+        $status = $this->notificationService->prepareJoinAcceptanceNotification($clubMembership);
 
         $route = '';
         if (currentAccount()->account_role != 3) {
@@ -80,8 +89,7 @@ class ClubMembershipService
         }
 
         return $status
-            ? redirect($route)
-                ->with('accepted', 'User join request accepted.')
+            ? redirect($route)->with('accepted', 'User join request accepted.')
             : back()->withErrors(['error' => 'Failed to accept user join request. Please try again.']);
     }
 
@@ -90,9 +98,19 @@ class ClubMembershipService
         $profileId = $request->profile_id;
         $clubId = $request->club_id;
 
-        $status = ClubMembership::where('profile_id', $profileId)
+        // Fetch the ClubMembership object to prepare the Notification
+        $clubMembership = ClubMembership::where('profile_id', $profileId)
+            ->where('club_id', $clubId)
+            ->first();
+
+        // Delete the ClubMembership record
+        DB::table('club_membership')
+            ->where('profile_id', $profileId)
             ->where('club_id', $clubId)
             ->delete();
+
+        // Then, create a Notification to send to the requesting user
+        $status = $this->notificationService->prepareJoinRejectionNotification($clubMembership);
 
         $route = '';
         if (currentAccount()->account_role != 3) {
@@ -102,8 +120,7 @@ class ClubMembershipService
         }
 
         return $status
-            ? redirect($route)
-                ->with('rejected', 'User join request rejected.')
+            ? redirect($route)->with('rejected', 'User join request rejected.')
             : back()->withErrors(['error' => 'Failed to reject user join request. Please try again.']);
     }
 

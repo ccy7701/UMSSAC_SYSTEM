@@ -114,7 +114,7 @@ function createNotificationItem(notification) {
                     </div>
                 </div>
                 <div class="col-1 d-flex justify-content-center align-items-start">
-                    <form id="delete-form-${notification.notification_id}" method="POST" action="notifications/delete">
+                    <form id="delete-form-${notification.notification_id}" method="POST" action="/notifications/delete">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="${document.querySelector('meta[name="csrf-token"]').getAttribute('content')}">
                         <input type="hidden" name="notification_id" value="${notification.notification_id}">
@@ -152,7 +152,7 @@ function markNotificationAsRead(notificationId) {
     formData.append('notification_id', notificationId);
 
     // Use fetch API to send the update request
-    fetch('notifications/mark-as-read', {
+    fetch('/notifications/mark-as-read', {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
@@ -170,11 +170,11 @@ function markNotificationAsRead(notificationId) {
             // Notification fetched successfully. Regenerate the notifications list
             fetchNotifications();
         } else {
-            console.error('Failed to delete the notification:', data.error);
+            console.error('Failed to mark the notification as read:', data.error);
         }
     })
     .catch(error => {
-        console.error('Error deleting notification:', error);
+        console.error('Error marking notification as read:', error);
     });
 }
 
