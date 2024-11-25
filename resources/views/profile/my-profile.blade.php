@@ -23,6 +23,10 @@
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"
         title="Success!"/>
+    <x-response-popup
+        messageType="email_verified"
+        iconClass="text-success fa-regular fa-envelope"
+        title="Email verified"/>
     <main class="flex-grow-1 d-flex justify-content-center mt-xl-5 mt-lg-5">
         <div id="main-card" class="card">
             <!-- PROFILE PICTURE -->
@@ -134,24 +138,48 @@
 
                     <div class="form-group mb-3">
                         <label for="email-address" class="rsans fw-bold form-label">
-                            E-mail address 
-                            <span class="text-success fw-normal">
-                                <i class="fas fa-check-circle ms-1"></i> Verified
-                            </span>
+                            E-mail address
+                            @if (!is_null(currentAccount()->email_verified_at))
+                                <span class="text-success fw-normal">
+                                    <i class="fas fa-check-circle ms-1"></i> Verified
+                                </span>
+                            @else
+                                <span class="text-secondary fw-normal">
+                                    <i class="fas fa-times-circle ms-1"></i> Not verified
+                                </span>
+                            @endif
                         </label>
                         <div class="input-group">
                             <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ currentAccount()->email }}" disabled readonly>
-                            <a href="#" class="rsans btn btn-primary fw-bold w-20 w-sm-30">
-                                Change
-                            </a>
+
+
+
+                            {{-- @if (!is_null(currentAccount()->email_verified_at))
+                                <a href="#" class="rsans btn btn-primary fw-semibold w-20 w-sm-30">
+                                    Change
+                                </a>
+                            @else
+                                <a href="#" class="rsans btn btn-primary fw-semibold w-20 w-sm-30">
+                                    Verify
+                                </a>
+                            @endif --}}
+
+                            @if (is_null(currentAccount()->email_verified_at))
+                                <a href="#" class="rsans btn btn-primary fw-semibold w-20 w-sm-30">
+                                    Verify
+                                </a>
+                            @endif
+
+
+
                         </div>
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="password" class="rsans fw-bold form-label">Password</label>
                         <div class="input-group">
-                            <input type="password" id="password" name="account_password" class="rsans form-control" value="xxxxxxxxxx" readonly>
-                            <a href="{{ route('change-password') }}" class="rsans btn btn-primary fw-bold w-20 w-sm-30">
+                            <input type="password" id="password" name="account_password" class="rsans form-control" value="xxxxxxxxxx" disabled readonly>
+                            <a href="{{ route('change-password') }}" class="rsans btn btn-primary fw-semibold w-20 w-sm-30">
                                 Change
                             </a>
                         </div>
