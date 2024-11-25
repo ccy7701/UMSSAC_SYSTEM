@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Carbon\Carbon;
+use App\Models\Account;
 use App\Models\Profile;
 use App\Models\Notification;
 use Illuminate\Http\Request;
@@ -74,9 +75,23 @@ class NotificationService
      *
      * @param \App\Models\ClubCreationRequest $clubCreationRequest
      */
-    public function prepareClubCreationRequestEmail($clubCreationRequest) {
+    public function prepareClubCreationRequestNotifications($clubCreationRequest) {
         $requester = $this->getRequester($clubCreationRequest->requester_profile_id);
 
+        // Get the admin account
+        $account = Account::where('account_email_address', 'umssacs@gmail.com')->first();
+
+        // Prepare the in-system notification for the admin
+        $notificationData = [
+            'profile_id' => $account->profile->profile_id,
+            'notification_type' => 'club_creation_request',
+            'notification_title' => 'Club Creation Request',
+            'notification_message' => 'A request has been made by ' . $requester->account->account_full_name . ' to create a new club: ' . $clubCreationRequest->club_name . '.',
+            'is_read' => 0,
+        ];
+        Notification::create($notificationData);
+
+        // Then, send the notification email to the admin
         Mail::to('umssacs@gmail.com')->send(new ClubCreationRequestNotification($clubCreationRequest, $requester));
 
         return 'Club creation request notification sent successfully';
@@ -88,10 +103,20 @@ class NotificationService
      * @param \App\Models\ClubCreationRequest $clubCreationRequest
      * @param \App\Models\Club $club
      */
-    public function prepareClubCreationAcceptEmail($clubCreationRequest, $club) {
+    public function prepareClubCreationAcceptNotifications($clubCreationRequest, $club) {
         $requester = $this->getRequester($clubCreationRequest->requester_profile_id);
         $targetEmail = $requester->account->account_email_address;
 
+        $notificationData = [
+            'profile_id' => $requester->profile_id,
+            'notification_type' => 'club_creation_accept',
+            'notification_title' => 'Club Creation Request Accepted',
+            'notification_message' => 'Your request to create the club: ' . $clubCreationRequest->club_name . ' has been accepted.',
+            'is_read' => 0,
+        ];
+        Notification::create($notificationData);
+
+        // Then, send the notification email to the requester
         Mail::to($targetEmail)->send(new ClubCreationAcceptanceNotification($requester, $club));
 
         return 'Club creation acceptance notification sent successfully';
@@ -102,10 +127,21 @@ class NotificationService
      *
      * @param \App\Models\ClubCreationRequest $clubCreationRequest
      */
-    public function prepareClubCreationRejectEmail($clubCreationRequest) {
+    public function prepareClubCreationRejectNotifications($clubCreationRequest) {
         $requester = $this->getRequester($clubCreationRequest->requester_profile_id);
         $targetEmail = $requester->account->account_email_address;
 
+        // Prepare the in-system notification for the requester
+        $notificationData = [
+            'profile_id' => $requester->profile_id,
+            'notification_type' => 'club_creation_reject',
+            'notification_title' => 'Club Creation Request Rejected',
+            'notification_message' => 'Your request to create the club: ' . $clubCreationRequest->club_name . ' has been rejected.',
+            'is_read' => 0,
+        ];
+        Notification::create($notificationData);
+
+        // Then, send the notification email to the requester
         Mail::to($targetEmail)->send(new ClubCreationRejectionNotification($clubCreationRequest, $requester));
 
         return 'Club creation rejection notification sent successfully';
