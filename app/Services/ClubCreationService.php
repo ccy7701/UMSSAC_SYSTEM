@@ -65,8 +65,8 @@ class ClubCreationService
             'request_remarks' => '',
         ]);
 
-        // Send email after creation
-        $status = $this->notificationService->prepareClubCreationRequestEmail($clubCreationRequest);
+        // Prepare the notifications to send to the admin
+        $status = $this->notificationService->prepareClubCreationRequestNotifications($clubCreationRequest);
 
         return $status
             ? redirect()->route('club-creation.requests.view')
@@ -75,7 +75,7 @@ class ClubCreationService
     }
 
     // Prepare all the data to be sent to the club creation requests view
-    public function prepareAndRenderRequestsView() {
+    public function prepareAndRenderRequestsView(Request $request) {
         $viewName = null;
         if (currentAccount()->account_role == 3) {
             $viewName = 'clubs-finder.admin-manage.view-club-creation-requests';
@@ -104,12 +104,22 @@ class ClubCreationService
      * 0 - pending, 1 - accepted, 2 - accepted with amendment, 3 = rejected
      */
     private function getClubCreationRequestsByStatus($requestStatus, $includeAmended = null) {
+        // Start the query with the required relationships
         $query = ClubCreationRequest::with(['profile.account'])->where('request_status', $requestStatus);
-    
+        
+        // If the requestStatus is 1 and we need to include amended statuses, adjust the query
         if ($requestStatus == 1 && $includeAmended) {
             $query = ClubCreationRequest::with(['profile.account'])->whereIn('request_status', [1, 2]);
         }
     
+        // If the account's role is not 3, restrict the query to match the current profile's profile_id
+        if (currentAccount()->account_role !== 3) {
+            $query = $query->whereHas('profile', function($query) {
+                $query->where('profile_id', currentAccount()->profile->profile_id);
+            });
+        }
+    
+        // Return the results ordered by updated_at
         return $query->orderBy('updated_at', 'desc')->get();
     }
 
@@ -151,7 +161,7 @@ class ClubCreationService
         ]);
 
         // Then send email after update
-        $status = $this->notificationService->prepareClubCreationAcceptEmail($target, $club);
+        $status = $this->notificationService->prepareClubCreationAcceptNotifications($target, $club);
 
         return $status
             ? redirect(route('club-creation.requests.manage'))->with('accepted', 'Club creation request for ' . $target->club_name . ' marked as accepted.')
@@ -171,7 +181,7 @@ class ClubCreationService
         $target->save();
 
         // Send email after update
-        $status = $this->notificationService->prepareClubCreationRejectEmail($target);
+        $status = $this->notificationService->prepareClubCreationRejectNotifications($target);
 
         return $status
             ? redirect(route('club-creation.requests.manage'))->with('rejected', 'Club creation request for ' . $target->club_name . ' marked as rejected.')

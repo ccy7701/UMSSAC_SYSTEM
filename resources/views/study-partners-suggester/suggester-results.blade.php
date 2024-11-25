@@ -34,7 +34,7 @@
                     <div id="results-text" class="col-12 text-center">
                         <h3 class="rserif fw-bold py-2 mb-0">Suggested for you</h3>
                         <p id="header-subtitle" class="rserif fs-4 w-100 mt-0">
-                            Here are ten potential study partners most similar to your characteristics
+                            Here are some potential study partners most similar to your characteristics
                         </p>
                     </div>
                 </div>

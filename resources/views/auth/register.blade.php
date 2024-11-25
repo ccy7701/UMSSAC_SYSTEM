@@ -90,7 +90,7 @@
                                             <option selected disabled value="">Choose...</option>
                                             <option value="1">Student</option>
                                             <option value="2">Faculty member</option>
-                                            <option value="3">Admin</option>
+                                            {{-- <option value="3">Admin</option> --}}
                                         </select>
                                         <div class="invalid-feedback">
                                             Please select a user role.

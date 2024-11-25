@@ -51,16 +51,21 @@ def recommend_partners():
     knn.fit(student_features_np)
     distances, indices = knn.kneighbors(own_features_np)
 
-    # Convert cosine distances to similarities
+    # Convert cosine distances to similarities (1 - distance)
+    similarities = 1 - distances[0]
+
+    # Apply the threshold to filter recommendations
+    threshold = 0.0  # Recommended threshold for meaningful similarity
     recommendations = [
         {
             'profile_id': student_ids[idx],
-            'similarity': 1 - dist  # Convert distance to similarity
+            'similarity': similarity
         }
-        for dist, idx in zip(distances[0], indices[0])
+        for similarity, idx in zip(similarities, indices[0])
+        if similarity >= threshold
     ]
 
-    # Return the top 10 recommendations
+    # Return the recommendations
     print(f"({datetime.now().strftime('%Y-%m-%d %H:%M:%S')}) Returning recommendations...")
     return jsonify(recommendations[:10])
 
