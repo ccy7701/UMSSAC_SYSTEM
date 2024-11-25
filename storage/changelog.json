@@ -1,5 +1,11 @@
 [
     {
+        "version": "0.9.3-alpha",
+        "changes": [
+            "Extended notifications tab functionality to show club creation request status."
+        ]
+    },
+    {
         "version": "0.9.2-alpha",
         "changes": [
             "Email verification functionality has been implemented. New users now have to verify their email upon registration. Existing users have to ensure their email is verified by going to their Profile page.",
