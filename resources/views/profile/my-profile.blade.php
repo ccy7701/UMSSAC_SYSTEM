@@ -23,6 +23,14 @@
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"
         title="Success!"/>
+    <x-response-popup
+        messageType="email_sent"
+        iconClass="text-secondary fa-regular fa-envelope"
+        title="Email verification request sent"/>
+    <x-response-popup
+        messageType="email_verified"
+        iconClass="text-success fa-regular fa-envelope"
+        title="Email verified"/>
     <main class="flex-grow-1 d-flex justify-content-center mt-xl-5 mt-lg-5">
         <div id="main-card" class="card">
             <!-- PROFILE PICTURE -->
@@ -122,20 +130,46 @@
             <div class="row-container">
                 <div class="align-items-center px-3">
                     <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
-                        <div class="col-6 text-start mt-2">
+                        <div class="col-12 text-start mt-2">
                             <h3 class="rserif fw-bold w-100">Account</h3>
-                        </div>
-                        <div class="col-6 text-end align-self-center">
-                            <a href="{{ route('change-password') }}" class="rsans btn btn-primary fw-semibold px-3">Change password</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row-container d-flex justify-content-center align-items-center py-3">
                 <form class="form-standard px-3">
+
+
                     <div class="form-group mb-3">
-                        <label for="email-address" class="rsans fw-bold form-label">E-mail address</label>
-                        <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ currentAccount()->email }}" disabled readonly>
+                        <label for="email-address" class="rsans fw-bold form-label">
+                            E-mail address
+                            @if (!is_null(currentAccount()->email_verified_at))
+                                <span class="text-success fw-normal">
+                                    <i class="fas fa-check-circle ms-1"></i> Verified
+                                </span>
+                            @else
+                                <span class="text-secondary fw-normal">
+                                    <i class="fas fa-times-circle ms-1"></i> Not verified
+                                </span>
+                            @endif
+                        </label>
+                        <div class="input-group">
+                            <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ currentAccount()->email }}" disabled readonly>
+                            @if (is_null(currentAccount()->email_verified_at))
+                                <a href="{{ route('verification.resend') }}" class="rsans btn btn-primary fw-semibold w-20 w-sm-30">
+                                    Verify
+                                </a>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="password" class="rsans fw-bold form-label">Password</label>
+                        <div class="input-group">
+                            <input type="password" id="password" name="account_password" class="rsans form-control" value="xxxxxxxxxx" disabled readonly>
+                            <a href="{{ route('change-password') }}" class="rsans btn btn-primary fw-semibold w-20 w-sm-30">
+                                Change
+                            </a>
+                        </div>
                     </div>
                     <div class="form-group mb-3">
                         <label for="contact-number" class="rsans fw-bold form-label">Contact number</label>
@@ -143,10 +177,6 @@
                             $contactNumber = currentAccount()->contact_number ?? 'Not filled yet'
                         @endphp
                         <input type="text" id="contact-number" name="account_contact_number" class="rsans form-control" value="{{ $contactNumber }}" disabled readonly>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="password" class="rsans fw-bold form-label">Password</label>
-                        <input type="password" id="password" name="account_password" class="rsans form-control" value="xxxxxxxxxx" readonly>
                     </div>
                 </form>
             </div>

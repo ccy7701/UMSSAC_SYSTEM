@@ -17,6 +17,10 @@
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"
         title="Password reset successful"/>
+    <x-response-popup
+        messageType="email_sent"
+        iconClass="text-secondary fa-regular fa-envelope"
+        title="Email verification request sent"/>
     <main>
         <div class="container-fluid vh-100">
             <div class="row h-100">
