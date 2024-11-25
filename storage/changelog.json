@@ -1,5 +1,12 @@
 [
     {
+        "version": "0.9.2-alpha",
+        "changes": [
+            "Email verification functionality has been implemented. New users now have to verify their email upon registration. Existing users have to ensure their email is verified by going to their Profile page.",
+            "Updated the recommender engine."
+        ]
+    },
+    {
         "version": "0.9.1-alpha",
         "changes": [
             "Updated the club joining function. Users who want to join a club will now need to first send a request which will be approved or rejected by a committee member or admin.",
@@ -35,18 +42,6 @@
         "changes": [
             "The faculty member role now has the ability to request for club creation.",
             "Extended mailing functionality to provide notifications on club creation."
-        ]
-    },
-    {
-        "version": "0.7.1.3-alpha",
-        "changes": [
-            "Fixed pagination issues across multiple pages."
-        ]
-    },
-    {
-        "version": "0.7.1.2-alpha",
-        "changes": [
-            "Minor UI improvements and fixes across multiple pages (Arigatou, Danny)."
         ]
     }
 ]

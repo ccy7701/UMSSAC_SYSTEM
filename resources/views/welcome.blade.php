@@ -11,7 +11,6 @@
 </head>
 
 <body class="welcome-body">
-    @vite('resources/js/app.js')
     <main>
         <div class="container p-3 mb-xl-3 mb-lg-3 mb-md-4 mb-sm-5">
             <div class="row align-items-center">
