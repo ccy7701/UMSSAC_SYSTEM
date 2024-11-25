@@ -28,7 +28,7 @@ Route::middleware([PreventAuthenticatedAccess::class])->group(function () {
 
     Route::post('/register', [AccountController::class, 'register'])->name('account.register');
 
-    Route::get('email/verify', [EmailVerificationController::class, 'verify'])->name('verification.verify');
+    Route::get('/email/verify', [EmailVerificationController::class, 'verify'])->name('verification.verify');
 
     Route::get('/login', function () {
         return view('auth.login');

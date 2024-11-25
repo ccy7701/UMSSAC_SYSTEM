@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserPreferenceController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\EmailVerificationController;
 
 // Routes accessible by all levels of authenticated user
 Route::middleware('auth')->group(function () {
@@ -28,6 +29,10 @@ Route::middleware('auth')->group(function () {
     })->name('profile.edit.general-info');
 
     Route::post('/my-profile/edit-general-info/action', [ProfileController::class, 'updateGeneralInfo'])->name('profile.edit.general-info.action');
+
+    Route::get('/email/resend-verification', [EmailVerificationController::class, 'resendVerification'])->name('verification.resend');
+
+    Route::get('/email/auth/verify', [EmailVerificationController::class, 'verify'])->name('verification.auth.verify');
 
     Route::get('/change-password', function () {
         return view('auth.passwords.change-password');

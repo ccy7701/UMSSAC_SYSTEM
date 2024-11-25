@@ -24,6 +24,10 @@
         iconClass="text-success fa-regular fa-circle-check"
         title="Success!"/>
     <x-response-popup
+        messageType="email_sent"
+        iconClass="text-secondary fa-regular fa-envelope"
+        title="Email verification request sent"/>
+    <x-response-popup
         messageType="email_verified"
         iconClass="text-success fa-regular fa-envelope"
         title="Email verified"/>
@@ -151,30 +155,13 @@
                         </label>
                         <div class="input-group">
                             <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ currentAccount()->email }}" disabled readonly>
-
-
-
-                            {{-- @if (!is_null(currentAccount()->email_verified_at))
-                                <a href="#" class="rsans btn btn-primary fw-semibold w-20 w-sm-30">
-                                    Change
-                                </a>
-                            @else
-                                <a href="#" class="rsans btn btn-primary fw-semibold w-20 w-sm-30">
-                                    Verify
-                                </a>
-                            @endif --}}
-
                             @if (is_null(currentAccount()->email_verified_at))
-                                <a href="#" class="rsans btn btn-primary fw-semibold w-20 w-sm-30">
+                                <a href="{{ route('verification.resend') }}" class="rsans btn btn-primary fw-semibold w-20 w-sm-30">
                                     Verify
                                 </a>
                             @endif
-
-
-
                         </div>
                     </div>
-
                     <div class="form-group mb-3">
                         <label for="password" class="rsans fw-bold form-label">Password</label>
                         <div class="input-group">
@@ -184,8 +171,6 @@
                             </a>
                         </div>
                     </div>
-
-
                     <div class="form-group mb-3">
                         <label for="contact-number" class="rsans fw-bold form-label">Contact number</label>
                         @php
@@ -193,8 +178,6 @@
                         @endphp
                         <input type="text" id="contact-number" name="account_contact_number" class="rsans form-control" value="{{ $contactNumber }}" disabled readonly>
                     </div>
-
-
                 </form>
             </div>
         </div>

@@ -25,7 +25,7 @@
 
         <p>
             Dear {{ $account->account_full_name }},<br>
-            Thank you for registering an account. Please click the button below to verify your email address.
+            Please click the button below to verify your email address.
         </p>
         
         <br>
@@ -37,7 +37,7 @@
         <br>
 
         <p>
-            If you did not create an account, no further action is required.
+            If you did not initiate this request, no further action is required.
         </p>
 
         <div class="footer" style="text-align: center; margin-top: 40px;">
