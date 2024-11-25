@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use Illuminate\Http\Request;
+use App\Mail\VerificationEmail;
 use App\Services\AccountService;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AccountController extends Controller
 {
@@ -43,9 +46,13 @@ class AccountController extends Controller
         $profile = $this->accountService->createProfile($request, $account);
         $this->accountService->createUserPreference($profile);
         
-        Auth::login($account);
+        // Send a verification email to the user
+        $verificationUrl = URL::signedRoute('verification.verify', ['account_id' => $account->account_id]);
 
-        return redirect()->route('my-profile');
+        // Send the verification email (You can customize the mail as needed)
+        Mail::to($account->account_email_address)->send(new VerificationEmail($account, $verificationUrl));
+
+        return redirect()->route('login')->with('email_sent', 'Please check your inbox for the verification email. Follow the instructions in the email to verify your account and continue.');
     }
 
     public function login(Request $request) {

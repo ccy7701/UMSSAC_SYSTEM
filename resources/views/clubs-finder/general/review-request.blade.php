@@ -29,7 +29,7 @@
                             <h3 id="header-title" class="rserif fw-bold w-100 mb-1">Review club creation request</h3>
                             <p id="header-subtitle" class="rserif w-100 mt-0">Please review all details before proceeding</p>
                         @elseif (currentAccount()->account_role == 2)
-                            <h3 class="rserif fw-bold w-100 mb-1">Review club creation request</h3>
+                            <h3 class="rserif fw-bold w-100 mb-3">Review club creation request</h3>
                         @endif
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                     <x-reject-request/>
                 </div>
             @elseif (currentAccount()->account_role == 2)
-                <div id="col-action-buttons" class="row w-100 mx-0 mt-3 justify-content-center">
+                <div class="row w-100 mx-0 mt-3 mb-5 justify-content-center">
                     <div id="col-action-buttons-row" class="col-12 d-flex justify-content-center align-items-center">
                         <a href="{{ route('club-creation.requests.view') }}" class="w-30 rsans btn btn-secondary fw-semibold px-3">Go back</a>
                     </div>

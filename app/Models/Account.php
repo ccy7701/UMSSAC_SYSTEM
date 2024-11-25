@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class Account extends Authenticatable
+class Account extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
@@ -45,6 +46,11 @@ class Account extends Authenticatable
 
     // Override method to get email address for password reset
     public function getEmailForPasswordReset() {
+        return $this->getEmailAttribute();
+    }
+
+    // Override method to get email address for email verification
+    public function getEmailForVerification() {
         return $this->getEmailAttribute();
     }
 
