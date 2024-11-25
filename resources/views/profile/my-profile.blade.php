@@ -122,21 +122,42 @@
             <div class="row-container">
                 <div class="align-items-center px-3">
                     <div class="section-header row w-100 m-0 py-2 d-flex align-items-center">
-                        <div class="col-6 text-start mt-2">
+                        <div class="col-12 text-start mt-2">
                             <h3 class="rserif fw-bold w-100">Account</h3>
-                        </div>
-                        <div class="col-6 text-end align-self-center">
-                            <a href="{{ route('change-password') }}" class="rsans btn btn-primary fw-semibold px-3">Change password</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row-container d-flex justify-content-center align-items-center py-3">
                 <form class="form-standard px-3">
+
+
                     <div class="form-group mb-3">
-                        <label for="email-address" class="rsans fw-bold form-label">E-mail address</label>
-                        <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ currentAccount()->email }}" disabled readonly>
+                        <label for="email-address" class="rsans fw-bold form-label">
+                            E-mail address 
+                            <span class="text-success fw-normal">
+                                <i class="fas fa-check-circle ms-1"></i> Verified
+                            </span>
+                        </label>
+                        <div class="input-group">
+                            <input type="email" id="email-address" name="account_email_address" class="rsans form-control" value="{{ currentAccount()->email }}" disabled readonly>
+                            <a href="#" class="rsans btn btn-primary fw-bold w-20 w-sm-30">
+                                Change
+                            </a>
+                        </div>
                     </div>
+
+                    <div class="form-group mb-3">
+                        <label for="password" class="rsans fw-bold form-label">Password</label>
+                        <div class="input-group">
+                            <input type="password" id="password" name="account_password" class="rsans form-control" value="xxxxxxxxxx" readonly>
+                            <a href="{{ route('change-password') }}" class="rsans btn btn-primary fw-bold w-20 w-sm-30">
+                                Change
+                            </a>
+                        </div>
+                    </div>
+
+
                     <div class="form-group mb-3">
                         <label for="contact-number" class="rsans fw-bold form-label">Contact number</label>
                         @php
@@ -144,10 +165,8 @@
                         @endphp
                         <input type="text" id="contact-number" name="account_contact_number" class="rsans form-control" value="{{ $contactNumber }}" disabled readonly>
                     </div>
-                    <div class="form-group mb-3">
-                        <label for="password" class="rsans fw-bold form-label">Password</label>
-                        <input type="password" id="password" name="account_password" class="rsans form-control" value="xxxxxxxxxx" readonly>
-                    </div>
+
+
                 </form>
             </div>
         </div>
