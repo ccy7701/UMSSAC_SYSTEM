@@ -104,19 +104,19 @@ class ClubCreationService
      * 0 - pending, 1 - accepted, 2 - accepted with amendment, 3 = rejected
      */
     private function getClubCreationRequestsByStatus($requestStatus, $includeAmended = null) {
-        // Start the query with the required relationships
-        $query = ClubCreationRequest::with(['profile.account'])->where('request_status', $requestStatus);
-        
-        // If the requestStatus is 1 and we need to include amended statuses, adjust the query
+        $query = null;
+
+        // If the requestStatus is 1 and we need to include amended statuses, fetch both accepted and amended entries
         if ($requestStatus == 1 && $includeAmended) {
-            $query = ClubCreationRequest::with(['profile.account'])->whereIn('request_status', [1, 2]);
+            $query = ClubCreationRequest::with(['profile.account'])->where('request_status', [1, 2]);
+        } else {
+            // Otherwise, fetch as normal
+            $query = ClubCreationRequest::with(['profile.account'])->where('request_status', $requestStatus);
         }
-    
-        // If the account's role is not 3, restrict the query to match the current profile's profile_id
+
+        // If the account is not admin, restrict the query to match the current profile's profile_id
         if (currentAccount()->account_role !== 3) {
-            $query = $query->whereHas('profile', function($query) {
-                $query->where('profile_id', currentAccount()->profile->profile_id);
-            });
+            $query = $query->where('requester_profile_id', profile()->profile_id);
         }
     
         // Return the results ordered by updated_at
