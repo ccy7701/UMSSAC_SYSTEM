@@ -202,14 +202,13 @@ class NotificationService
      * @param array $newMembershipData
      */
     public function prepareMemberAccessUpdateNotification($newMembershipData) {
-        // dd($updateData);
         $notificationMessage = null;
 
         $club = Club::where('club_id', $newMembershipData['club_id'])->first();
 
         // Prepare the notification title and message based on the new membership type
         if ($newMembershipData['new_membership_type'] == 1) {
-            $notificationMessage = "You are no longer a committee member of the club: " . $club->club_name . "."; 
+            $notificationMessage = "You are no longer a committee member of the club: " . $club->club_name . ".";
         } elseif ($newMembershipData['new_membership_type'] == 2) {
             $notificationMessage = "Congratulations! You are now a committee member of the club: " . $club->club_name . ".";
         }

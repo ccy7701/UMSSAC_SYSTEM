@@ -1,5 +1,12 @@
 [
     {
+        "version": "0.9.4-alpha",
+        "changes": [
+            "Fixed an issue where the admin was not able to view all club creation requests in the overview page.",
+            "Extended notifications tab functionality to show club membership updates."
+        ]
+    },
+    {
         "version": "0.9.3-alpha",
         "changes": [
             "Extended notifications tab functionality to show club creation request status."
