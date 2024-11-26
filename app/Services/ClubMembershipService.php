@@ -147,7 +147,8 @@ class ClubMembershipService
             'new_membership_type' => 'required|integer',
         ]);
 
-        $status = DB::table('club_membership')
+        // Update the membership_type
+        DB::table('club_membership')
             ->where('profile_id', $validatedData['profile_id'])
             ->where('club_id', $validatedData['club_id'])
             ->update([
@@ -160,6 +161,9 @@ class ClubMembershipService
         } else {
             $route = route('admin-manage.edit-member-access', ['club_id' => $validatedData['club_id']]);
         }
+
+        // Then, create a Notification to send to the club member
+        $status = $this->notificationService->prepareMemberAccessUpdateNotification($validatedData);
 
         return $status
             ? redirect($route)->with('success', 'Member access level updated successfully.')

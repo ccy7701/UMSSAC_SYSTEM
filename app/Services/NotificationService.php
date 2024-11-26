@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Account;
 use App\Models\Profile;
 use App\Models\Notification;
+use App\Models\Club;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ClubCreationRequestNotification;
@@ -172,7 +173,7 @@ class NotificationService
     }
 
     /**
-     * Hande sending a join club acceptance notification (Notification::class)
+     * Handle sending a join club acceptance notification (Notification::class)
      * to the user who made the request.
      *
      * @param \App\Models\ClubMembership $clubMembership
@@ -193,6 +194,38 @@ class NotificationService
         Notification::create($notificationData);
 
         return 'Join acceptance notification created successfully';
+    }
+
+    /**
+     * Handle sending a club member access update notification to the user.
+     *
+     * @param array $newMembershipData
+     */
+    public function prepareMemberAccessUpdateNotification($newMembershipData) {
+        $notificationMessage = null;
+
+        $club = Club::where('club_id', $newMembershipData['club_id'])->first();
+
+        // Prepare the notification title and message based on the new membership type
+        if ($newMembershipData['new_membership_type'] == 1) {
+            $notificationMessage = "You are no longer a committee member of the club: " . $club->club_name . ".";
+        } elseif ($newMembershipData['new_membership_type'] == 2) {
+            $notificationMessage = "Congratulations! You are now a committee member of the club: " . $club->club_name . ".";
+        }
+
+        // Create the notification content
+        $notificationData = [
+            'profile_id' => $newMembershipData['profile_id'],
+            'notification_type' => 'club_membership_update',
+            'notification_title' => 'Club Membership Update',
+            'notification_message' => $notificationMessage,
+            'is_read' => 0,
+        ];
+
+        // Create the Notification object
+        Notification::create($notificationData);
+
+        return 'Club membership update notification created successfully';
     }
 
     /**

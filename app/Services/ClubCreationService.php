@@ -114,8 +114,8 @@ class ClubCreationService
             $query = ClubCreationRequest::with(['profile.account'])->where('request_status', $requestStatus);
         }
 
-        // If the account is not admin, restrict the query to match the current profile's profile_id
-        if (currentAccount()->account_role !== 3) {
+        // If the account is FacultyMember, add to the query to match the current profile's profile ID
+        if (currentAccount()->account_role == 2) {
             $query = $query->where('requester_profile_id', profile()->profile_id);
         }
     
