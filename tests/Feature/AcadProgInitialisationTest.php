@@ -29,18 +29,32 @@ class AcadProgInitialisationTest extends TestCase
 
         // Simulate a POST request to initialise the form
         $response = $this->post(route('progress-tracker.initialise', ['profile_id' => $profile->profile_id]), [
-            'profile_enrolment_session' => '2023/2024',
-            'course_duration' => '8',
+            'profile_enrolment_session' => '2022/2023',
+            'course_duration' => '10',
         ]);
 
         // Assert that the account-profile relationship is working as expected
         $this->assertEquals($profile->account_id, $account->account_id);
 
-        // Assert that the SemesterProgressLogs have the correct academic sessions
-        $this->assertEquals(2, SemesterProgressLog::where('academic_session', '2023/2024')->count());
-        $this->assertEquals(2, SemesterProgressLog::where('academic_session', '2024/2025')->count());
-        $this->assertEquals(2, SemesterProgressLog::where('academic_session', '2025/2026')->count());
-        $this->assertEquals(2, SemesterProgressLog::where('academic_session', '2026/2027')->count());
+        // Assert that there are unique entries with the correct academic sessions and semesters
+        for ($i = 1; $i <= 6; $i++) {
+            $academicSession = match ($i) {
+                1, 2 => '2022/2023',
+                3, 4 => '2023/2024',
+                5, 6 => '2024/2025',
+                7, 8 => '2025/2026',
+                8, 9 => '2026/2027',
+            };
+            $semester = ($i % 2 === 0) ? 2 : 1;
+
+            $this->assertDatabaseHas('semester_progress_log', [
+                'academic_session' => $academicSession,
+                'semester' => $semester,
+            ]);
+        }
+
+        // Assert that there are exactly N desired unique entries in total
+        $this->assertEquals(10, SemesterProgressLog::count());
 
         // Assert that the response is a redirect
         $response->assertStatus(302);
