@@ -14,7 +14,7 @@
                 <div class="modal-body px-5">
                     <div class="form-group mb-3">
                         <label for="class-subject-code" class="fw-bold form-label">Code</label>
-                        <input type="text" class="form-control" id="class-subject-code" name="class_subject_code" required>
+                        <input type="text" class="form-control" id="class-subject-code" name="class_subject_code" oninput="this.value = this.value.toUpperCase()" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="class-name" class="fw-bold form-label">Subject name</label>

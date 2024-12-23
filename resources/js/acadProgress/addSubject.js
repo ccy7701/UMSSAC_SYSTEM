@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         invalidSubjectCodeModalElement.addEventListener('hidden.bs.modal', function () {
                             addModal.show();
                         }, { once: true });
+
+                        return;
                     }
                     if (checkForDuplicate(subjectCode, subjects)) {
                         // If a duplicate is detected, show the error modal

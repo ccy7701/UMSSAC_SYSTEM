@@ -96,7 +96,7 @@
                                     <option value="NR" {{ $club->club_category == 'NR' ? 'selected' : '' }}>NR</option>
                                 </optgroup>
                                 <optgroup label="Others">
-                                    <option value="GENERAL" {{ $club->category == 'GENERAL' ? 'selected' : '' }}>General</option>
+                                    <option value="GENERAL" {{ $club->club_category == 'GENERAL' ? 'selected' : '' }}>GENERAL</option>
                                 </optgroup>
                             </select>
                         </div>

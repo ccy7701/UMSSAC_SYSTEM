@@ -1,5 +1,11 @@
 import html2pdf from 'html2pdf.js';
 
+// Helper function to check if inputted subject code fits requirement
+export function isValidSubjectCode(subjectCode) {
+    const regex = /^[A-Za-z]{2}\d{5}$/;
+    return regex.test(subjectCode);
+}
+
 // Helper function to convert day int to string
 export function dayToString(day) {
     const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -168,10 +174,7 @@ export function generateTimetable(timetableSlots) {
 
     // Initialise all Bootstrap popovers, after the DOM elements have been created
     const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-    popoverTriggerList.forEach(function (popoverTriggerEl) {
-        let popover = new bootstrap.Popover(popoverTriggerEl);
-        console.log("Popover:", popover);
-    });
+    popoverTriggerList.forEach(el => new bootstrap.Popover(el));
 }
 
 // Helper function to update the subject list dynamically

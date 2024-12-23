@@ -46,14 +46,18 @@
                         </div>
                     </div>
                 </div>
-                @if($errors->any())
-                    <br><br><br>
-                    <div class="rsans alert alert-danger">
-                        @foreach ($errors->all() as $error)
-                            <i class="fa fa-circle-exclamation px-2"></i>
-                            {{ $error }}
+                @if ($errors->any())
+                    <div class="d-flex justify-content-center">
+                        <div class="col-12 w-xxl-80 w-sm-100 px-3 align-items-center">
                             <br>
-                        @endforeach
+                            <div class="rsans alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <i class="fa fa-circle-exclamation px-2"></i>
+                                    {{ $error }}
+                                    <br>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
                 @endif
                 <div class="d-flex justify-content-center align-items-center align-self-center py-3 w-100">
@@ -92,7 +96,7 @@
                                     <option value="NR" {{ $club->club_category == 'NR' ? 'selected' : '' }}>NR</option>
                                 </optgroup>
                                 <optgroup label="Others">
-                                    <option value="GENERAL" {{ $club->category == 'GENERAL' ? 'selected' : '' }}>General</option>
+                                    <option value="GENERAL" {{ $club->club_category == 'GENERAL' ? 'selected' : '' }}>GENERAL</option>
                                 </optgroup>
                             </select>
                         </div>

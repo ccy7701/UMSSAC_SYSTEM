@@ -1,5 +1,11 @@
 [
     {
+        "version": "0.9.5-alpha",
+        "changes": [
+            "Fixed minor display and data handling issues across several modules."
+        ]
+    },
+    {
         "version": "0.9.4-alpha",
         "changes": [
             "Fixed an issue where the admin was not able to view all club creation requests in the overview page.",
