@@ -95,6 +95,25 @@
                         <!-- Time error modal (for when end time earlier than start time) -->
                         <x-time-error-modal modalId="time-error-modal-add"/>
                         <x-time-error-modal modalId="time-error-modal-edit"/>
+                        <!-- Incorrect input detected modal -->
+                        <div class="rsans modal fade" id="invalid-subject-code-modal" tabindex="-1" aria-labelledby="invalidSubjectCodeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header py-2 d-flex align-items-center justify-content-center">
+                                        <p class="fw-semibold fs-5 mb-0">
+                                            Invalid Subject Code Detected
+                                        </p>
+                                        <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        The subject code must be in the correct format (e.g. AB12345). Please check your input again.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary fw-semibold" data-bs-dismiss="modal">Go back</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- SUBJECTS ADDED TABLE -->
                     <div class="table-responsive mt-3">

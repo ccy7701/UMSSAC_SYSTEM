@@ -1,4 +1,4 @@
-import {dayToString, dayToInt, timeToAMPM, timeTo24Hour, checkForClash, generateTimetable, updateSubjectList} from './helperFunctions.js';
+import {isValidSubjectCode, dayToString, dayToInt, timeToAMPM, timeTo24Hour, checkForClash, generateTimetable, updateSubjectList} from './helperFunctions.js';
 
 // ADD TIMETABLE SLOT MODAL AND FORM OPERATIONS
 
@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const timetableClashModalAdd = new bootstrap.Modal(document.getElementById('timetable-clash-modal-add'));
     const timeErrorModalAdd = new bootstrap.Modal(document.getElementById('time-error-modal-add'));
+
+    const invalidSubjectCodeModal = new bootstrap.Modal(document.getElementById('invalid-subject-code-modal'));
 
     // Initialise the all subjects list
     let subjects = [];
@@ -249,6 +251,7 @@ document.addEventListener('DOMContentLoaded', function () {
         addTimetableSlotManualForm.addEventListener('submit', function (event) {
             event.preventDefault();
             const formData = new FormData(addTimetableSlotManualForm);
+            const classSubjectCode = formData.get('class_subject_code');
             const profileId = formData.get('profile_id');
             const classDay = formData.get('class_day');
             const classStartTime = formData.get('class_start_time');
@@ -259,7 +262,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 .replace(':class_day', classDay)
                 .replace(':profile_id', profileId);
 
-            // First check if the end time is earlier than the start time
+            // First check if the subject code fits requirement
+            if (!isValidSubjectCode(classSubjectCode)) {
+                addTimetableSlotManual.hide();
+                invalidSubjectCodeModal.show();
+
+                const invalidSubjectCodeModalElement = document.getElementById('invalid-subject-code-modal');
+                invalidSubjectCodeModalElement.addEventListener('hidden.bs.modal', function() {
+                    addTimetableSlotManual.show();
+                }, { once: true });
+
+                return;
+            }
+            // Then check if the end time is earlier than the start time
             if (classEndTime <= classStartTime) {
                 addTimetableSlotManual.hide();
                 timeErrorModalAdd.show();
