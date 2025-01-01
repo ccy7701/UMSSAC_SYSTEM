@@ -16,6 +16,7 @@
     @vite('resources/js/suggester/suggesterFormOperations.js')
     <x-topnav/>
     <x-about/>
+    <x-feedback/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->

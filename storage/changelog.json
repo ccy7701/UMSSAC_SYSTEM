@@ -1,5 +1,11 @@
 [
     {
+        "version": "0.9.6-alpha",
+        "changes": [
+            "Added a simple popup that leads the user to a feedback form."
+        ]
+    },
+    {
         "version": "0.9.5-alpha",
         "changes": [
             "Fixed minor display and data handling issues across several modules."
@@ -54,13 +60,6 @@
         "version": "0.8-alpha",
         "changes": [
             "Refreshed the website UI in most pages."
-        ]
-    },
-    {
-        "version": "0.7.2-alpha",
-        "changes": [
-            "The faculty member role now has the ability to request for club creation.",
-            "Extended mailing functionality to provide notifications on club creation."
         ]
     }
 ]

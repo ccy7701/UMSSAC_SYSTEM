@@ -14,6 +14,7 @@
     @vite('resources/js/app.js')
     <x-topnav/>
     <x-about/>
+    <x-feedback/>
     <!-- BREADCRUMB NAV -->
     <div id="event-breadcrumb" class="row w-80 justify-content-start mx-auto py-4">
         <div id="event-breadcrumb" class="col-auto align-items-center">

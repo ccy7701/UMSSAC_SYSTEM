@@ -22,6 +22,7 @@
         <x-admin-topnav/>
     @endif
     <x-about/>
+    <x-feedback/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->

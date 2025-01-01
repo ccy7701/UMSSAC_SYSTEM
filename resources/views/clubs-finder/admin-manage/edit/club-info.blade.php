@@ -14,6 +14,7 @@
     @vite('resources/js/app.js')
     <x-admin-topnav/>
     <x-about/>
+    <x-feedback/>
     <x-response-popup
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"

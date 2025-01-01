@@ -15,6 +15,7 @@
     @vite('resources/js/clubRequests.js')
     <x-topnav/>
     <x-about/>
+    <x-feedback/>
     <x-response-popup
         messageType="sent"
         iconClass="text-success fa-regular fa-circle-check"

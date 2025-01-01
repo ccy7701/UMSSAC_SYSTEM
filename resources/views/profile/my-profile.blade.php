@@ -19,6 +19,7 @@
         <x-admin-topnav/>
     @endif
     <x-about/>
+    <x-feedback/>
     <x-response-popup
         messageType="success"
         iconClass="text-success fa-regular fa-circle-check"

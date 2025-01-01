@@ -14,6 +14,7 @@
     @vite('resources/js/app.js')
     <x-topnav/>
     <x-about/>
+    <x-feedback/>
     <x-response-popup
         messageType="bookmark-create"
         iconClass="text-primary fa-solid fa-bookmark"

@@ -15,6 +15,7 @@
     @vite('resources/js/clubRequests.js')
     <x-admin-topnav/>
     <x-about/>
+    <x-feedback/>
     <x-response-popup
         messageType="rejected"
         iconClass="text-secondary fa-solid fa-circle-xmark"

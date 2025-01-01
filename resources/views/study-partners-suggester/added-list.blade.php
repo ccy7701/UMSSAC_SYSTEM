@@ -16,6 +16,7 @@
     @vite('resources/js/searchInputToggle.js')
     <x-topnav/>
     <x-about/>
+    <x-feedback/>
     <x-response-popup
         messageType="added-to-list"
         iconClass="text-primary fa fa-user-plus"
