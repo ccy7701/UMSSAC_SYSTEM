@@ -21,6 +21,7 @@
         <x-admin-topnav/>
     @endif
     <x-about/>
+    <x-feedback/>
     <x-response-popup
         messageType="requested"
         iconClass="text-primary fa-solid fa-right-to-bracket"

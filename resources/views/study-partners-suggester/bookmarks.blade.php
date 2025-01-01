@@ -15,6 +15,7 @@
     @vite('resources/js/searchInputToggle.js')
     <x-topnav/>
     <x-about/>
+    <x-feedback/>
     <x-response-popup
         messageType="bookmark-delete"
         iconClass="text-primary fa-regular fa-bookmark"

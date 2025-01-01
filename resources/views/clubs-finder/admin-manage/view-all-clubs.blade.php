@@ -17,6 +17,7 @@
     @vite('resources/js/clubsFinderSort.js')
     <x-admin-topnav/>
     <x-about/>
+    <x-feedback/>
     <br>
     <main class="flex-grow-1">
         <!-- PAGE HEADER -->

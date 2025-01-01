@@ -21,6 +21,7 @@
         <x-admin-topnav/>
     @endif
     <x-about/>
+    <x-feedback/>
     <main class="flex-grow-1 d-flex justify-content-center mt-xl-5 mt-lg-5">
         <div id="main-card" class="card">
             <form action="{{ route('profile.edit.general-info.action') }}" method="POST">

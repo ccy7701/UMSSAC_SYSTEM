@@ -15,6 +15,7 @@
     @vite('resources/js/imageViewer.js')
     <x-topnav/>
     <x-about/>
+    <x-feedback/>
     <!-- BREADCRUMB NAV -->
     <div id="event-breadcrumb" class="row w-80 justify-content-start mx-auto py-4">
         <nav aria-label="breadcrumb">

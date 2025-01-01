@@ -15,6 +15,7 @@
     @vite('resources/js/imageViewer.js')
     <x-admin-topnav/>
     <x-about/>
+    <x-feedback/>
     <main class="flex-grow-1 d-flex justify-content-center mt-xl-5 mt-lg-5">
         <div id="main-card" class="card">
             <form action="{{ route('manage-clubs.add-new-club.action') }}" method="POST" enctype="multipart/form-data">
