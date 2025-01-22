@@ -36,7 +36,7 @@
                     <div class="col-1 text-center">
                         <i class="fa fa-university"></i>
                     </div>
-                    <div class="col-10">
+                    <div class="col-10 text-truncate">
                         @if ($user->profile_faculty == '')
                             Unspecified
                         @else
@@ -50,7 +50,7 @@
                         <div class="col-1 text-center">
                             <i class="fa fa-id-badge"></i>
                         </div>
-                        <div class="col-10">
+                        <div class="col-10 text-truncate">
                             {{ $user->account_matric_number }}
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                     <div class="col-1 text-center">
                         <i class="fa fa-envelope"></i>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-10 text-truncate">
                         {{ $user->account_email_address }}
                     </div>
                 </div>

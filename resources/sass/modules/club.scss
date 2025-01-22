@@ -360,13 +360,17 @@ $btn-primary-bg: #1064D6;
             font-size: 0.80em;
         }
     }
-    #club-card-manage .card-body h5 {
-        font-size: 1.10em;
+    #club-card-manage,
+    #club-card-standard {
+        .card-body h5 {
+            font-size: 0.90em;
+        }
+        .card-text {
+            font-size: 0.90em;
+        }
     }
-    #club-card-standard .card-body h5 {
-        font-size: 1.10em;
-    }
-    #club-list-item-manage {
+    #club-list-item-manage,
+    #club-list-item-standard {
         .card-body {
             h5.card-title {
                 span {
@@ -403,5 +407,11 @@ $btn-primary-bg: #1064D6;
         select {
             font-size: 0.80em;
         }
+    }
+}
+
+@media (max-width: 400px) {
+    #club-view-toggle {
+        padding-left: 0;
     }
 }

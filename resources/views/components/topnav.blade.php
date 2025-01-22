@@ -59,13 +59,15 @@
             <hr class="divider-gray-300 py-0 mt-3 mb-0">
 
             <div class="px-0">
-                <li class="nav-item"><a class="nav-link px-3" href="{{ route('my-profile') }}">Profile</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="{{ route('my-profile') }}"><i class="fas fa-user pe-2 w-10"></i> Profile</a></li>
                 <hr class="divider-gray-300 py-0 my-0">
 
                 @if (currentAccount()->account_role == 1)
                     <li class="nav-item">
                         <a class="nav-link d-flex justify-content-between align-items-center px-3" href="#" id="study-partners-toggle">
-                            Study Partners
+                            <span class="d-flex align-items-center w-50">
+                                <i class="fas fa-user-friends pe-2 w-20"></i>&nbsp;Study Partners
+                            </span>
                             <i class="fa fa-chevron-down chevron-icon" id="study-partners-chevron"></i>
                         </a>
                         <ul class="nav flex-column collapse" id="study-partners-submenu">
@@ -75,15 +77,18 @@
                         </ul>
                     </li>
                     <hr class="divider-gray-300 py-0 my-0">
-                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('timetable-builder') }}">Timetable Builder</a></li>
+
+                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('timetable-builder') }}"><i class="fas fa-calendar-alt pe-2 w-10"></i> Timetable Builder</a></li>
                     <hr class="divider-gray-300 py-0 my-0">
-                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('progress-tracker') }}">Academic Progress Tracker</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="{{ route('progress-tracker') }}"><i class="fas fa-chart-line pe-2 w-10"></i> Academic Progress Tracker</a></li>
                     <hr class="divider-gray-300 py-0 my-0">
                 @endif
 
                 <li class="nav-item">
                     <a class="nav-link d-flex justify-content-between align-items-center px-3" href="#" id="clubs-toggle">
-                        Clubs
+                        <span class="d-flex align-items-center w-50">
+                            <i class="fas fa-users pe-2 w-20"></i>&nbsp;Clubs
+                        </span>
                         <i class="fa fa-chevron-down chevron-icon" id="clubs-chevron"></i>
                     </a>
                     <ul class="nav flex-column collapse" id="clubs-submenu">
@@ -107,7 +112,9 @@
 
                 <li class="nav-item">
                     <a class="nav-link d-flex justify-content-between align-items-center px-3" href="#" id="events-toggle">
-                        Events
+                        <span class="d-flex align-items-center w-50">
+                            <i class="fa fa-calendar pe-2 w-20"></i>&nbsp;Events
+                        </span>
                         <i class="fa fa-chevron-down chevron-icon" id="events-chevron"></i>
                     </a>
                     <ul class="nav flex-column collapse" id="events-submenu">
@@ -118,19 +125,19 @@
                 <hr class="divider-gray-300 py-0 my-0">
 
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="#" data-bs-toggle="modal" data-bs-target="#about-modal">About UMSSACS</a>
+                    <a class="nav-link px-3" href="#" data-bs-toggle="modal" data-bs-target="#about-modal"><i class="fas fa-info-circle pe-2 w-10"></i> About UMSSACS</a>
                 </li>
                 <hr class="divider-gray-300 py-0 my-0">
 
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="#" data-bs-toggle="modal" data-bs-target="#feedback-modal">Leave Feedback Here!</a>
+                    <a class="nav-link px-3" href="#" data-bs-toggle="modal" data-bs-target="#feedback-modal"><i class="fas fa-comment-dots pe-2 w-10"></i> Leave Feedback Here!</a>
                 </li>
                 <hr class="divider-gray-300 py-0 my-0">
 
                 <li class="nav-item">
                     <form method="POST" action="{{ route('account.logout') }}">
                         @csrf
-                        <button type="submit" class="nav-link px-3 text-danger">
+                        <button type="submit" class="nav-link px-3 text-danger fw-bold">
                             Log Out
                         </button>
                     </form>
