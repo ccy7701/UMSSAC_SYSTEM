@@ -16,8 +16,8 @@
                 </span>
             </div>
         @endif
-        <div class="rsans card-body p-3">
-            <h5 class="card-title fw-bold">
+        <div class="rsans card-body px-3 px-xl-3 px-lg-3 px-sm-3 px-xs-2 py-3">
+            <h5 class="card-title fw-bold mb-xs-0">
                 <span class="d-inline-block text-truncate" style="width: 100%;">
                     {{ $event->event_name }}
                 </span>

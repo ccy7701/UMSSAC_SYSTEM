@@ -1,5 +1,11 @@
 [
     {
+        "version": "0.9.7-alpha",
+        "changes": [
+            "Made minor fixes and additions to frontend elements on smaller displays."
+        ]
+    },
+    {
         "version": "0.9.6-alpha",
         "changes": [
             "Added a simple popup that leads the user to a feedback form."

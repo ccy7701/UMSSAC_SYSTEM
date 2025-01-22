@@ -14,8 +14,8 @@
         @else
             <img src="{{ Storage::url($clubImagePaths[0]) }}" class="card-img-top border-bottom" alt="Club card illustration" style="aspect-ratio: 4/4;">
         @endif
-        <div class="rsans card-body p-3">
-            <h5 class="card-title fw-bold">
+        <div class="rsans card-body px-3 px-xl-3 px-lg-3 px-sm-3 px-xs-2 py-3">
+            <h5 class="card-title fw-bold mb-xs-0">
                 <span class="d-inline-block text-truncate" style="width: 100%">
                     {{ $club->club_name }}
                 </span>

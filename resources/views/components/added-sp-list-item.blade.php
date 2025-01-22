@@ -54,7 +54,7 @@
                     <div class="row">
                         <div class="added-sps-actions-row d-flex justify-content-center col-12 mb-3 px-0">
                             <a href="{{ route('view-user-profile', ['profile_id' => $record->study_partner_profile_id]) }}" class="section-button-short rsans btn btn-secondary fw-semibold px-3 me-2">View profile</a>
-                            <button type="button" class="section-button-short rsans btn btn-danger fw-semibold px-2"
+                            <button type="button" class="section-button-short rsans btn btn-danger fw-semibold px-1"
                                 data-bs-toggle="modal"
                                 data-bs-target="#delete-sp-confirmation-modal"
                                 data-study-partner-name="{{ $profile->account->account_full_name }}"

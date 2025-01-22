@@ -16,8 +16,14 @@ html {
     font-size: 16px;
 }
 
+.w-10 {
+    width: 10%;
+}
 .w-20 {
     width: 20%;
+}
+.w-25 {
+    width: 25%;
 }
 .w-30 {
     width: 30%;
@@ -440,6 +446,15 @@ html {
         width: 60% !important;
     }
 
+    .px-xs-2 {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    .mb-xs-0 {
+        margin-bottom: 0rem !important;
+    }
+
     .form-container {
         width: 90.00%;
     }
@@ -461,6 +476,9 @@ html {
     #footer-right {
         font-size: 0.55em;
     }
+    .section-button-extrashort {
+        font-size: 0.75em;
+    } 
     #topnav-logo {
         width: 65.00% !important;
     }

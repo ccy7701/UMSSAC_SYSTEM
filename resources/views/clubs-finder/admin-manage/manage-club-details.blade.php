@@ -152,7 +152,7 @@
                         <div class="col-lg-6 col-8 text-start mt-2">
                             <h3 class="rserif fw-bold w-100">Events</h3>
                         </div>
-                        <div class="col-lg-6 col-4 text-end align-self-center">
+                        <div class="col-lg-6 col-4 text-end align-self-center ps-0">
                             <div class="input-group justify-content-end me-2">
                                 <!-- Grid view toggle button -->
                                 <button id="toggle-grid-view" class="btn d-flex justify-content-center align-items-center border toggle-view-btn {{ $searchViewPreference == 1 ? 'active' : '' }}">
