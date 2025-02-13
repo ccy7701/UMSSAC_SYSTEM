@@ -1,9 +1,9 @@
 <p align="center"><a href="#" target="_blank"><img src="https://github.com/ccy7701/UMSSAC_SYSTEM/blob/main/public/images/UMSSACS_LOGO_FINAL.png" width="300" alt="UMSSACS Logo"></a></p>
 
-## Current Status ![Version](https://img.shields.io/badge/version-0.9.7--alpha-blue) ![Development Status](https://img.shields.io/badge/status-active_development-orange) ![Hits](https://hits.sh/github.com/ccy7701/UMSSAC_SYSTEM.svg)
+## Current Status ![Version](https://img.shields.io/badge/version-1.0.0-blue) ![Development Status](https://img.shields.io/badge/status-stable-green) ![Hits](https://hits.sh/github.com/ccy7701/UMSSAC_SYSTEM.svg)
 
 
-A preview of the system has been deployed. It is now live and accessible at [this link](https://umssacs.my).
+The system has been deployed. It is now live and accessible at [this link](https://umssacs.my).
 
 <br>
 
