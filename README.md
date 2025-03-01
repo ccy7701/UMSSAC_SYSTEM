@@ -1,17 +1,18 @@
-<p align="center"><a href="#" target="_blank"><img src="https://github.com/ccy7701/UMSSAC_SYSTEM/blob/main/public/images/UMSSACS_LOGO_FINAL.png" width="300" alt="UMSSACS Logo"></a></p>
+<p align="center">
+  <a href="#" target="_blank">
+    <img src="https://github.com/ccy7701/UMSSAC_SYSTEM/blob/main/public/images/UMSSACS_LOGO_FINAL.png" width="300" alt="UMSSACS Logo">
+  </a>
+</p>
 
-## Current Status ![Version](https://img.shields.io/badge/version-0.9.7--alpha-blue) ![Development Status](https://img.shields.io/badge/status-active_development-orange) ![Hits](https://hits.sh/github.com/ccy7701/UMSSAC_SYSTEM.svg)
-
-
-A preview of the system has been deployed. It is now live and accessible at [this link](https://umssacs.my).
-
-<br>
+<p align="center">
+  <img src="https://img.shields.io/badge/version-0.9.7--alpha-blue">
+  <img src="https://img.shields.io/badge/status-completed-green">
+  <img src="https://hits.sh/github.com/ccy7701/UMSSAC_SYSTEM.svg">
+</p>
 
 ## About UMSSACS
 
 UMSSACS is a web-based system designed to help students keep track of university life at UMS. From managing academic activities to uncovering events, UMSSACS helps you to stay organised and engaged. This system is a final year project.
-
-<br>
 
 ## Benefits Overview: Why use UMSSACS?
 
@@ -38,8 +39,6 @@ Find and join clubs that match your passions. Whether you're into sports, arts, 
 ### Administrative tools
 
 Efficiently manage clubs, events, memberships, and handle administrative duties with tools for committee members and administrators.
-
-<br>
 
 ## System Tech Stack
 
@@ -77,8 +76,6 @@ Efficiently manage clubs, events, memberships, and handle administrative duties 
         </td>
     </tr>
 </table>
-
-<br>
 
 ## Laravel Framework and License
 
